@@ -66,14 +66,14 @@ angular.module('myApp.services', ['ngCookies']).
                     theScope.$broadcast('asyncVisitsResult', data);                    
                   }).
             error(function(data, status, headers, config) {
-                    theScope.$broadcast('asyncVisitResult', null); 
+                    theScope.$broadcast('asyncVisitsResult', null); 
                   });
         }
     };
     return service;        
 }
 ]).
-factory('localize', ['$http', '$rootScope', '$window', '$filter', function ($http, $rootScope, $window, $filter) {
+factory('localize', ['$http', '$rootScope', '$window', '$filter', '$location', function ($http, $rootScope, $window, $filter, $location) {
     var localize = {
         language: $window.navigator.userLanguage || $window.navigator.language,//"ru-RU",
         dictionary:[],
@@ -86,11 +86,12 @@ factory('localize', ['$http', '$rootScope', '$window', '$filter', function ($htt
         },
 
         initLocalizedResources:function () {
-            var url = '/app/i18n/resources-locale_' + localize.language + '.js';
+            $location.path();
+            var url = 'i18n/resources-locale_' + localize.language + '.js';
             // request the resource file
             $http({ method:"GET", url:url, cache:false }).success(localize.successCallback).error(function () {
                 // the request failed set the url to the default resource file
-                var url = '/app/i18n/resources-locale_default.js';http://codingsmackdown.tv/?p=104&preview=true
+                var url = 'i18n/resources-locale_default.js';http://codingsmackdown.tv/?p=104&preview=true
                 // request the default resource file
                 $http({ method:"GET", url:url, cache:false }).success(localize.successCallback);
             });

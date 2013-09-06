@@ -9,17 +9,23 @@ angular.module('myApp.controllers', ['ngCookies']).
 
   	$scope.$on('asyncLoginResult', function (event, data) {
         $scope.session = data;
-        $cookies.uid = data.SessionId;
+        if(data){
+        	$cookies.uid = data.SessionId;
+    	}
         checkForMessages.makeAsyncCall($scope);
         checkForVisits.makeAsyncCall($scope);
     });
 
     $scope.$on('asyncMessagesResult', function (event, data) {
-    	$scope.messages = data.UnreadCount;
+    	if(data){
+    		$scope.messages = data.UnreadCount;
+    	}
     });
 
     $scope.$on('asyncVisitsResult', function (event, data) {
-    	$scope.visits = data;
+    	if(data){
+    		$scope.visits = data;
+    	}
     });
 
   	logInUser.makeAsyncCall($scope);
@@ -36,4 +42,8 @@ angular.module('myApp.controllers', ['ngCookies']).
   
   .controller('VisitsCtrl', ['$scope', '$routeParams',function($scope, $routeParams) {
   	$scope.visit = $routeParams.VisitId;
+  }])
+
+  .controller('AnotherCtrl', [function() {
+
   }]);
