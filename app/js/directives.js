@@ -29,6 +29,17 @@ angular.module('myApp.directives', [])
   		}
   	};
   }).
+  directive('fastButton', function($location){
+    return function(scope, elem, attr) {
+        new FastButton(elem[0], function() {
+          $location.path(attrs.link);
+        });
+
+        
+            //scope.$apply(attr.fastClick);
+        
+    };
+  }).
   directive('appVersion', ['version', function(version) {
     return function(scope, elm, attrs) {
       elm.text(version);
