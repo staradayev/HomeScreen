@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['ngCookies']).
-  controller('HomeScreenCtrl', ['$scope', '$cookies', 'logInUser', 'checkForMessages', 'checkForVisits', function($scope, $cookies, logInUser, checkForMessages, checkForVisits) {
+  controller('HomeScreenCtrl', ['$scope', '$cookies', '$location', 'logInUser', 'checkForMessages', 'checkForVisits', function($scope, $cookies, $location, logInUser, checkForMessages, checkForVisits) {
 
 	$scope.messages = null;
 
@@ -32,8 +32,7 @@ angular.module('myApp.controllers', ['ngCookies']).
 
   	$scope.checkForMessages = function() {
   		return $scope.messages;
-  	}  	
-  	
+  	}  	  	
   }])
   
   .controller('MessagesCtrl', [function() {
@@ -44,6 +43,24 @@ angular.module('myApp.controllers', ['ngCookies']).
   	$scope.visit = $routeParams.VisitId;
   }])
 
+  .controller('ScheduleCtrl', [function() {
+
+  }])
+
+  .controller('ScheduleAvailableCtrl', [function() {
+
+  }])
+
+  .controller('UserCtrl', [function() {
+
+  }])
+
+  .controller('PayrollCtrl', [function() {
+
+  }])
+
   .controller('AnotherCtrl', [function() {
 
   }]);
+
+  

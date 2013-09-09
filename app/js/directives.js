@@ -3,7 +3,7 @@
 /* Directives */
 
 
-angular.module('myApp.directives', [])
+angular.module('myApp.directives', ['myApp.controllers'])
   .directive('customButton', function(){
   	return {
   		restrict: 'E',
@@ -14,8 +14,7 @@ angular.module('myApp.directives', [])
   		},
   		templateUrl: 'templates/customButtonTemplate.html',
   		link:function(scope, element, attrs) {
-  			element.addClass(attrs.type);
-  			element.attr("href", attrs.link);			
+  			element.addClass(attrs.type);	
   		}
   	};
   })
@@ -32,12 +31,10 @@ angular.module('myApp.directives', [])
   directive('fastButton', function($location){
     return function(scope, elem, attr) {
         new FastButton(elem[0], function() {
-          $location.path(attrs.link);
-        });
-
-        
-            //scope.$apply(attr.fastClick);
-        
+          scope.$apply(function () {
+            $location.path(attr.link);
+          });
+        });        
     };
   }).
   directive('appVersion', ['version', function(version) {
