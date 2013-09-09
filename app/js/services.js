@@ -5,7 +5,7 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('myApp.services', ['ngCookies']).
+angular.module('myApp.services', ['ngCookies', 'angular-cache']).
   value('version', '0.1')
   .factory('logInUser', ['$http', '$cookies', '$rootScope', function($http, $cookies, $rootScope) {
 
@@ -44,6 +44,47 @@ angular.module('myApp.services', ['ngCookies']).
             error(function(data, status, headers, config) {
                     theScope.$broadcast('asyncMessagesResult', null); 
                   });
+        }
+    };
+    return service;        
+}
+])
+  .factory('getMessagesList', ['$http', '$rootScope', '$cookies', '$angularCacheFactory', '$q', function($http, $rootScope, $cookies, $angularCacheFactory, $q) {
+
+        var service = {
+        makeAsyncCall: function (theScope) {
+
+            var deferred = $q.defer();
+
+            if(!$angularCacheFactory.get('defaultCache')){
+                $angularCacheFactory('defaultCache', {
+                    maxAge: 90000, // Items added to this cache expire after 15 minutes.
+                    cacheFlushInterval: 600000, // This cache will clear itself every hour.
+                    aggressiveDelete: true, // Items will be deleted from this cache right when they expire.
+                    storageMode: 'localStorage' // This cache will sync itself with localStorage.
+
+                });
+            }
+
+            var messagesCache = $angularCacheFactory.get('defaultCache');
+
+            if (messagesCache.get("messages")) {
+                deferred.resolve(messagesCache.get("messages"));
+            } else {
+                $http.defaults.useXDomain = true;
+                delete $http.defaults.headers.common['X-Requested-With'];
+                $http.defaults.withCredentials = true;
+                
+                $http({method: 'GET', url: 'http://192.168.144.178:8085/development/api/messages/list', headers: {'X-Addus-Uuid': $cookies.uid}, cache: true})
+                .success(function(data, status, headers, config) {
+                        messagesCache.put("messages", data);
+                        deferred.resolve(data);                                          
+                      }).
+                error(function(data, status, headers, config) {
+                        deferred.resolve(null);  
+                      });
+            }
+            return deferred.promise;
         }
     };
     return service;        

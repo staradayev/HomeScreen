@@ -1,6 +1,14 @@
-<br />
-<br />
-<br />
-<br />
-<br />
-This is message view!
+<header class="">
+            <a class="button ico back" id="top-button" link="/view1" fast-button><span></span>Home</a>
+            <span class="logo"></span>
+        </header>
+        <div id="main"><div class="messages">
+            <div class="title">
+                <h1>Messages</h1>
+                <a href="#messages/new" class="button ico compose"><span></span>New</a>
+            </div>
+            <div class="border"></div>
+            <div class="content hidden" style="display: block;">                
+                <message ng-repeat="mes in messages"></message>
+            </div>
+        </div></div>

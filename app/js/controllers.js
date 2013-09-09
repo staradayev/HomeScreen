@@ -11,7 +11,7 @@ angular.module('myApp.controllers', ['ngCookies']).
         $scope.session = data;
         if(data){
         	$cookies.uid = data.SessionId;
-    	}
+    	   }
         checkForMessages.makeAsyncCall($scope);
         checkForVisits.makeAsyncCall($scope);
     });
@@ -35,7 +35,55 @@ angular.module('myApp.controllers', ['ngCookies']).
   	}  	  	
   }])
   
-  .controller('MessagesCtrl', [function() {
+  .controller('MessagesCtrl', ['$scope', 'getMessagesList', function($scope, getMessagesList) {
+      $scope.messages = [];
+
+      getMessagesList.makeAsyncCall($scope).then(function(data) {
+      if(data){
+          $scope.unsortedMessages = data;
+          $scope.sortMessages($scope.unsortedMessages);
+        }
+      });
+
+      $scope.sortMessages = function(messagesUnSorted)
+      {
+        if(!messagesUnSorted || messagesUnSorted.length < 1)
+        {
+          return;
+        }else{
+          messagesUnSorted.reverse();
+          var days = ['Saturday', 'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
+          angular.forEach(messagesUnSorted, function(mes) {
+            //If first iteration of foreach
+            if($scope.messages.length < 1){             
+              var dateParts = mes.DateSentText.split("/");
+              var date = new Date();date.setMonth(dateParts[0]); 
+              date.setDate(dateParts[1] - 1);date.setFullYear(dateParts[2]);              
+              $scope.messages.push({"dateSortable":mes.DateSentSortable, 
+                                    "date":mes.DateSentText,
+                                    "day":days[date.getDay()],
+                                    "items":[]});
+              $scope.messages[0].items.push(mes);
+            }else{
+              //if current message has similar date publication as previous message
+              if($scope.messages[$scope.messages.length-1].dateSortable == mes.DateSentSortable)
+              {
+                $scope.messages[$scope.messages.length-1].items.push(mes);
+              }else{
+                 var dateParts = mes.DateSentText.split("/");
+                 var date = new Date();date.setMonth(dateParts[0]); 
+                 date.setDate(dateParts[1] - 1);date.setFullYear(dateParts[2]);   
+                $scope.messages.push({"dateSortable":mes.DateSentSortable, 
+                                    "date":mes.DateSentText,
+                                    "day":days[date.getDay()],
+                                    "items":[]});
+                $scope.messages[$scope.messages.length-1].items.push(mes);
+              }
+            }
+          });
+        }
+
+      }
 
   }])
   

@@ -27,6 +27,16 @@ angular.module('myApp.directives', ['myApp.controllers'])
 			
   		}
   	};
+  })
+  .directive('message', function(){
+    return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: 'templates/messageListTemplate.html',
+      link: function(scope, element, attrs){
+      
+      }
+    };
   }).
   directive('fastButton', function($location){
     return function(scope, elem, attr) {
