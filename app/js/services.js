@@ -53,7 +53,7 @@ angular.module('myApp.services', ['ngCookies', 'angular-cache']).
 
         var service = {
         makeAsyncCall: function (theScope) {
-
+            debugger;
             var deferred = $q.defer();
 
             if(!$angularCacheFactory.get('defaultCache')){
@@ -67,9 +67,10 @@ angular.module('myApp.services', ['ngCookies', 'angular-cache']).
             }
 
             var messagesCache = $angularCacheFactory.get('defaultCache');
+            var data = messagesCache.get("messages");
 
-            if (messagesCache.get("messages")) {
-                deferred.resolve(messagesCache.get("messages"));
+            if (data) {
+                deferred.resolve(data);                                
             } else {
                 $http.defaults.useXDomain = true;
                 delete $http.defaults.headers.common['X-Requested-With'];

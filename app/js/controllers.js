@@ -39,10 +39,13 @@ angular.module('myApp.controllers', ['ngCookies']).
       $scope.messages = [];
 
       getMessagesList.makeAsyncCall($scope).then(function(data) {
-      if(data){
-          $scope.unsortedMessages = data;
-          $scope.sortMessages($scope.unsortedMessages);
-        }
+        if(data){
+                $scope.unsortedMessages = data;
+                $scope.sortMessages($scope.unsortedMessages);
+              }else if($scope.cachedData){
+                $scope.unsortedMessages = $scope.cachedData;
+                $scope.sortMessages($scope.unsortedMessages);
+              }
       });
 
       $scope.sortMessages = function(messagesUnSorted)
