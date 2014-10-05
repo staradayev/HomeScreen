@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'atosite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'atobase',
+        'NAME': 'atodb',
         'USER': 'atouser',
         'PASSWORD': 'care2014',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on

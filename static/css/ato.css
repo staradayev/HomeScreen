@@ -1,0 +1,17 @@
+.ato-approved .fa-check{
+	position:relative;
+    top:-57px;
+    right:5px;
+    text-align:right;
+    display:block;
+    color: green;
+}
+
+.ato-approved .fa-close{
+	position:relative;
+    top:-57px;
+    right:5px;
+    text-align:right;
+    display:block;
+    color: red;
+}

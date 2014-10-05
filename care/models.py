@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Tag(models.Model):
 	tag_name = models.CharField('#tagname', max_length=50)
@@ -22,5 +23,9 @@ class Picture(models.Model):
 	image_origin = models.ImageField()
 	category = models.ManyToManyField(Category)
 	tag = models.ManyToManyField(Tag)
+	author = models.ForeignKey(User)
+
+class UserProfile(models.Model):
+     user = models.ForeignKey(User, unique=True)
 	
 		
