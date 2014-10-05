@@ -1,0 +1,6 @@
+<h1>Registration at the system</h1>
+<p>For activating your account, just click on link bellow:</p>
+
+{{ site }}/accounts/activate/{{ activation_key }}/
+
+<p>Thank you!</p>

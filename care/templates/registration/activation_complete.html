@@ -1,0 +1,14 @@
+{% extends "care/base.html"  %}
+
+{% block content %}
+<form class="form-signin text-center" method="post">
+{% csrf_token %}
+
+	<h1 class="form-signin-heading">Activation</h1>
+	<h2>Hello {{ account }}!</h2>
+	<h4 class="form-signin-heading">Your account is successful activated! <a href="/care/login">Log in</a> now!</h4>
+
+	
+</form>
+
+{% endblock %}
