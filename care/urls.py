@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^detail/', views.DetailView, name='detail'),
     url(r'^loggedout/', views.loggedout, name='loggedout'),
     url(r'^myinfo/', views.InfoView, name='myinfo'),
+    url(r'^upload/', views.UploadView, name='upload'),
 )

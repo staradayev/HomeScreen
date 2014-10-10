@@ -9,7 +9,7 @@
     <!-- Bootstrap -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/signin.css" rel="stylesheet">
-     <link href="{{STATIC_URL}}font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/ato.css" rel="stylesheet">
     
 
@@ -26,6 +26,13 @@
 <div class="container">
     {% block content %}{% endblock %}
 </div>
+<div class="footer">
+    <div class="container">
+        <div class="text-center">
+          <p class="text-muted">InelliGT 2014 &copy;</p>
+        </div>
+    </div>    
+</div>
 
     
 
@@ -33,5 +40,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.file-input.js"></script>
+    <script type="text/javascript">
+        $('input[type=file]').bootstrapFileInput();
+        $('.file-inputs').bootstrapFileInput();
+    </script>
+    <script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
   </body>
 </html>

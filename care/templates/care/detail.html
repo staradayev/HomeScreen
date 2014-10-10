@@ -20,6 +20,9 @@
 	        <ul class="nav navbar-nav">
 	        	<li  class="active"><a href="/care/detail"><i class="fa fa-image fa-lg"></i> My pictures</a></li>
 	        	<li><a href="/care/myinfo"><i class="fa fa-user fa-lg"></i> My info</a></li>
+	        	<li>
+	        		<a href="/care/upload"><i class="fa fa-upload fa-lg"></i> Upload</a>
+	        	</li>
 	        </ul>
 	      
 	        <ul class="nav navbar-nav navbar-right">
@@ -36,7 +39,8 @@
 {% endblock %}
 
 {% block content %}
- 
+
+{% if picture_list and all_count > allowed_count %}
 <div class="row">
     <div class="col-md-12 text-center">
     	<ul class="pager">
@@ -55,6 +59,7 @@
 		</ul>
     </div>
 </div>
+{% endif %}
 
 {% if not picture_list %}
 <div class="row">
@@ -88,19 +93,19 @@
 			<div class="form-group">
 			    <label for="uploadLabel" class="col-md-4 control-label">Uploaded to server:</label>
 			    <div class="col-md-8">
-			        <label class="form-control" id="uploadLabel"><i class="fa fa-upload "></i>&nbsp; {{img.date_pub}}</label>
+			        <p class="form-control-static"><i class="fa fa-upload "></i>&nbsp; {{img.date_pub}}</p>			        
 			    </div>
 			</div>
 			<div class="form-group">
 			    <label for="approvedLabel" class="col-md-4 control-label">Approved:</label>
 			    <div class="col-md-8">
-			      	<label class="form-control" id="approvedLabel"><i class="fa fa-clock-o "></i>&nbsp; {{img.date_approve}}</label>
+			      	<p class="form-control-static"><i class="fa fa-clock-o "></i>&nbsp; {{img.date_approve}}</p>
 			    </div>
 			</div>
 			<div class="form-group">
 			    <label for="approvedLabel" class="col-md-4 control-label">Author:</label>
 			    <div class="col-md-8">
-			      	<label class="form-control" id="approvedLabel"><i class="fa fa-user "></i>&nbsp; {{img.author.first_name}} {{img.author.last_name}}</label>
+			      	<p class="form-control-static"><i class="fa fa-user "></i>&nbsp; {{img.author.first_name}} {{img.author.last_name}}</p>
 			    </div>
 			</div>
 			<div class="form-group">
@@ -129,7 +134,7 @@
 <hr />
 {% endfor %}
 
-{% if picture_list %}
+{% if picture_list and all_count > allowed_count %}
 
 <div class="row">
     <div class="col-md-12 text-center">

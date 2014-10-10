@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'care',
     'registration',
+    'autocomplete_light',
 )
 
 MIDDLEWARE_CLASSES = (
