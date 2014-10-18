@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^upload/', views.UploadView, name='upload'),
     url(r'^addcategory/', views.AddCategoryView, name='addcat'),
     url(r'^addtag/', views.AddTagView, name='addtag'),
+    url(r'^edit/(?P<picture_id>\d+)/$', views.EditView, name='edit'),
 )

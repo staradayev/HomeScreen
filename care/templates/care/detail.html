@@ -87,6 +87,11 @@
       			<i class="fa fa-close fa-4x"></i>
       		{% endif %}
     	</div>
+    	{% if img.approve_status = False %}
+      		<a href="/care/edit/{{img.id}}">
+      			<input type="button" class="btn btn-info pull-right" value="Edit"/>
+      		</a>
+      	{% endif %}
     </div>
     <div class="col-md-6">
     	<form class="form-horizontal" role="form">
@@ -96,18 +101,21 @@
 			        <p class="form-control-static"><i class="fa fa-upload "></i>&nbsp; {{img.date_pub}}</p>			        
 			    </div>
 			</div>
+			{% if img.date_approve %}
 			<div class="form-group">
 			    <label for="approvedLabel" class="col-md-4 control-label">Approved:</label>
 			    <div class="col-md-8">
 			      	<p class="form-control-static"><i class="fa fa-clock-o "></i>&nbsp; {{img.date_approve}}</p>
 			    </div>
 			</div>
+			{% endif %}
 			<div class="form-group">
 			    <label for="approvedLabel" class="col-md-4 control-label">Author:</label>
 			    <div class="col-md-8">
 			      	<p class="form-control-static"><i class="fa fa-user "></i>&nbsp; {{img.author.first_name}} {{img.author.last_name}}</p>
 			    </div>
 			</div>
+			{% if img.category.all %}
 			<div class="form-group">
 			    <label for="CategoryLabel" class="col-md-4 control-label">Categories:</label>
 			    <div class="col-md-8">
@@ -118,6 +126,8 @@
 					</ul>
 			    </div>
 			</div>
+			{% endif %}
+			{% if img.tag.all %}
 			<div class="form-group">
 			    <label for="TagLabel" class="col-md-4 control-label">Tags:</label>
 			    <div class="col-md-8">
@@ -128,6 +138,7 @@
 					</ul>
 			    </div>
 			</div>
+			{% endif %}
 		</form>
     </div>
 </div>

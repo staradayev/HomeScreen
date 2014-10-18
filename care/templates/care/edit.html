@@ -18,13 +18,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
-	        	<li>
+	        	<li  class="active">
 	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> My pictures</a>
 	        	</li>
 	        	<li>
 	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> My info</a>
 	        	</li>
-	        	<li  class="active">
+	        	<li>
 	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> Upload</a>
 	        	</li>
 	        </ul>
@@ -48,7 +48,7 @@
 {% if limit_detected %}
 <div class="row">
 	<div class="col-md-12">
-    	<h2><i class="fa fa-info-circle fa-1x"></i>&nbsp;The daily limit of possible uploads exceeded!&nbsp;<small>&nbsp;Try add another picture tomorrow...</small></h2>
+    	<h2><i class="fa fa-info-circle fa-1x"></i>&nbsp;This image is non-editable or not exist...</small></h2>
     </div>
 </div>
 {% else %}
@@ -103,14 +103,20 @@
     </div>
   </div>
 </div>
+
+<form action="/care/edit/{{img.id}}/" method="post" role="form" enctype="multipart/form-data">
+<div class="row">
+	<div class="col-md-12">
+		<h2>Edit image:</h2>
+    	<br />
+    </div>
+</div>
 <div class="row">
     <div class="col-md-6">
     	<div class="row">
     		<div class="col-md-12">
-    			<h2>Upload a new image:</h2>
-    			<br />
-    			<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
-				<form action="{% url 'care:upload' %}" method="post" role="form" enctype="multipart/form-data">
+    			
+				
 				    {% csrf_token %}
 				    {% if form.errors %}			
 	                <div class="alert alert-danger">
@@ -120,15 +126,7 @@
 				    <div class="form-group">
                     	<label for="id_picture_name">Picture name:</label>
                     	<div class="input-group">
-	                        <input type="text" class="form-control" name="picture_name" id="id_picture_name" placeholder="Picture name" required maxlength="100" >
-	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-	                    </div>
-	                </div>	
-
-	                <div class="form-group">
-                    	<label for="id_image">Image:</label>
-                    	<div class="input-group">
-	                        <input type="file" class="form-control" name="image" id="id_image" placeholder="Image" title="Select the file here" required data-filename-placement="inside">
+	                        <input type="text" class="form-control" name="picture_name" id="id_picture_name" placeholder="Picture name" required maxlength="100" value="{{form.picture_name.value}}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>	
@@ -138,7 +136,11 @@
                     	<div class="input-group" style="width: 100%">
 	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
 	                        	{% for category in form.categories.value %}
-	                        		<option value="{{category.id}}">{{category.category_name}}</option>
+	                        		{% if category in img.category.all %}
+	                        			<option value="{{category.id}}" selected="selected">{{category.category_name}}</option>
+	                        		{% else %}
+	                        			<option value="{{category.id}}">{{category.category_name}}</option>
+	                        		{% endif %}
 	                        	{% endfor %}
 							</select>
 							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus fa-lg text-success"></span></span>
@@ -150,16 +152,20 @@
                     	<div class="input-group"  style="width: 100%">
 	                        <select multiple class="form-control" id="id_tags" name="tags"  size="6">
 	                        	{% for tag in form.tags.value %}
-	                        		<option value="{{tag.id}}">{{tag.tag_name}}</option>
+	                        		{% if tag in img.tag.all %}
+	                        			<option value="{{tag.id}}" selected="selected">{{tag.tag_name}}</option>
+	                        		{% else %}
+	                        			<option value="{{tag.id}}">{{tag.tag_name}}</option>
+	                        		{% endif %}
 	                        	{% endfor %}
 							</select>
 							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal2"><span class="fa fa-plus fa-lg text-success"></span></span>
 	                    </div>
 	                </div>				    
 
-
-				    <input type="submit" value="Submit" class="btn btn-info pull-right" />
-				</form>
+	                <button type="button" class="btn btn-default" onclick="go_to_url('/care/detail');">Cancel</button>
+				    <input type="submit" value="Save changes" class="btn btn-info pull-right" />
+				
 				<br />
 				<br />
 				<br />
@@ -171,22 +177,20 @@
     		<div class="col-md-1">
     		</div>
     		<div class="col-md-11">
-    			<h3>Please take your attention to:</h3>
-    			<ul>
-    				<li>The image must be minimum in Full HD definition (1920x1800px)</li>
-    				<li>The image maximum image definition is (7680x4320px)</li>
-    				<li>The image need to be saved in JPEG or PNG format</li>
-    				<li>The image can't be biggest than 8Mb</li>
-    				<li>The image can't contain pornography, pedophilia and other bad content</li>
-    				<li>The image can't breach copyright</li>
-    			</ul>
-    			<!-- Button trigger modal -->
-				
+    			<div class="ato-approved">
+			    	<img src="{{ MEDIA_URL }}{{img.photo_medium}}" alt="{{img.picture_name}}" class="img-thumbnail">
+			    	{% if img.approve_status = True %}
+		      			<i class="fa fa-check fa-4x"></i>
+		      		{% else %}
+		      			<i class="fa fa-close fa-4x"></i>
+		      		{% endif %}
+		    	</div>	
     		</div>
     	</div>
     	
 	</div>
 </div>
+</form>
 <script>
     function go_to_url(url) {
         window.location = url;
