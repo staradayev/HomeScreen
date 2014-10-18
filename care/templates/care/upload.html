@@ -19,21 +19,21 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
 	        	<li>
-	        		<a href="/care/detail"><i class="fa fa-image fa-lg"></i> My pictures</a>
+	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> My pictures</a>
 	        	</li>
 	        	<li>
-	        		<a href="/care/myinfo"><i class="fa fa-user fa-lg"></i> My info</a>
+	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> My info</a>
 	        	</li>
 	        	<li  class="active">
-	        		<a href="/care/upload"><i class="fa fa-upload fa-lg"></i> Upload</a>
+	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> Upload</a>
 	        	</li>
 	        </ul>
 	      
 	        <ul class="nav navbar-nav navbar-right">
 	        		
-	          	<li><a href="/care/myinfo">{{ user.get_username }}</a></li>
+	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="/care/logout" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -43,6 +43,59 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add new category</h4>
+      </div>
+      <div class="modal-body">
+      	<p style="display:none;" class="text-warning fa fa-warning fa-lg" id="cat_warning"></p>
+        <div class="form-group">
+        	<label for="id_cat_name">New category name:</label>
+        	<div class="input-group">
+                <input type="text" class="form-control" name="cat_name" id="id_cat_name" placeholder="Category name" required maxlength="75" >
+                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+            </div>
+        </div>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="BtnSendCategory">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add new tag</h4>
+      </div>
+      <div class="modal-body">
+      	<p style="display:none;" class="text-warning fa fa-warning fa-lg"  id="tag_warning"></p>
+        <div class="form-group">
+        	<label for="id_cat_name">New tag name:</label>
+        	<div class="input-group">
+                <input type="text" class="form-control" name="tag_name" id="id_tag_name" placeholder="Tag name" required maxlength="75" >
+                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+            </div>
+        </div>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="BtnSendTag">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <br>
 <div class="row">
     <div class="col-md-6">
@@ -50,11 +103,14 @@
     		<div class="col-md-12">
     			<h2>Upload a new image:</h2>
     			<br />
-				<form action="/care/upload/" method="post" role="form" enctype="multipart/form-data">
+    			<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+				<form action="{% url 'care:upload' %}" method="post" role="form" enctype="multipart/form-data">
 				    {% csrf_token %}
-				    {% if form.errors %}
-					<p>{{form.errors}}</p>
-					{% endif %}
+				    {% if form.errors %}			
+	                <div class="alert alert-danger">
+	                    <span class="glyphicon glyphicon-remove"></span><strong> Error! {{form.errors}}</strong>
+	                </div>
+	                {% endif %}
 				    <div class="form-group">
                     	<label for="id_picture_name">Picture name:</label>
                     	<div class="input-group">
@@ -79,6 +135,7 @@
 	                        		<option value="{{category.id}}">{{category.category_name}}</option>
 	                        	{% endfor %}
 							</select>
+							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus fa-lg text-success"></span></span>
 	                    </div>
 	                </div>
 
@@ -90,10 +147,11 @@
 	                        		<option value="{{tag.id}}">{{tag.tag_name}}</option>
 	                        	{% endfor %}
 							</select>
+							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal2"><span class="fa fa-plus fa-lg text-success"></span></span>
 	                    </div>
 	                </div>				    
 
-				    <!--{{ form }}-->
+
 				    <input type="submit" value="Submit" class="btn btn-info pull-right" />
 				</form>
 				<br />
@@ -109,12 +167,15 @@
     		<div class="col-md-11">
     			<h3>Please take your attention to:</h3>
     			<ul>
-    				<li>The image must be minimum in HD definition (1280x760px)</li>
+    				<li>The image must be minimum in Full HD definition (1920x1800px)</li>
+    				<li>The image maximum image definition is (7680x4320px)</li>
+    				<li>The image need to be saved in JPEG or PNG format</li>
+    				<li>The image can't be biggest than 8Mb</li>
     				<li>The image can't contain pornography, pedophilia and other bad content</li>
     				<li>The image can't breach copyright</li>
-    				<li>...</li>
     			</ul>
-    			
+    			<!-- Button trigger modal -->
+				
     		</div>
     	</div>
     	
@@ -125,5 +186,56 @@
     function go_to_url(url) {
         window.location = url;
     }
+
+    $(document).on('click','#BtnSendCategory',function(e){
+    	var cName = $("#id_cat_name").val()
+		  	$.ajax({
+		    	url : "/care/addcategory/",
+		    	type : "POST",
+		    	data : JSON.stringify({"category_name" : cName}),
+		    	contentType: 'application/json; charset=utf-8',
+		    	success : function(results){
+		      		if (results.success == "true") {
+		      			$('#id_categories')
+					         .append($("<option></option>")
+					         .attr("value",results.val)
+					         .text(results.name));
+		      			$('#cat_warning').text('');
+		      			$('#cat_warning').hide();
+		      			$('#myModal').modal('hide')
+		        	//handle DOM insertion and other stuff
+		      		} else {
+		      			$('#cat_warning').show();
+		      			$('#cat_warning').text(results.message);
+		      		}
+	    		}
+	  		});
+	});
+
+	$(document).on('click','#BtnSendTag',function(e){
+    	var tName = $("#id_tag_name").val()
+		  	$.ajax({
+		    	url : "/care/addtag/",
+		    	type : "POST",
+		    	data : JSON.stringify({"tag_name" : tName}),
+		    	contentType: 'application/json; charset=utf-8',
+		    	success : function(results){
+		      		if (results.success == "true") {
+		      			$('#id_tags')
+					         .append($("<option></option>")
+					         .attr("value",results.val)
+					         .text(results.name));
+		      			$('#tag_warning').text('');
+		      			$('#tag_warning').hide();
+		      			$('#myModal2').modal('hide')
+		        	//handle DOM insertion and other stuff
+		      		} else {
+		      			$('#tag_warning').show();
+		      			$('#tag_warning').text(results.message);
+		      		}
+	    		}
+	  		});
+	});
+
 </script>
 {% endblock %}

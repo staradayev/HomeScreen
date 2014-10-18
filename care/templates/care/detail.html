@@ -18,18 +18,18 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
-	        	<li  class="active"><a href="/care/detail"><i class="fa fa-image fa-lg"></i> My pictures</a></li>
-	        	<li><a href="/care/myinfo"><i class="fa fa-user fa-lg"></i> My info</a></li>
+	        	<li  class="active"><a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> My pictures</a></li>
+	        	<li><a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> My info</a></li>
 	        	<li>
-	        		<a href="/care/upload"><i class="fa fa-upload fa-lg"></i> Upload</a>
+	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> Upload</a>
 	        	</li>
 	        </ul>
 	      
 	        <ul class="nav navbar-nav navbar-right">
 	        		
-	          	<li><a href="/care/myinfo">{{ user.get_username }}</a></li>
+	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="/care/logout" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -65,7 +65,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
     	<h2>There are no uploaded pictures!</h2> 
-    	<h4>Please upload more pictures <a href="">here</a>!</h4>
+    	<h4>Please upload more pictures <a href="{% url 'care:upload' %}">here</a>!</h4>
     </div>
 </div>
 {% endif %}
@@ -80,7 +80,7 @@
 <div class="row">
     <div class="col-md-6">
     	<div class="ato-approved">
-	    	<img src="{{img.image_origin.url}}" alt="{{img.picture_name}}" class="img-thumbnail">
+	    	<img src="{{ MEDIA_URL }}{{img.photo_medium}}" alt="{{img.picture_name}}" class="img-thumbnail">
 	    	{% if img.approve_status = True %}
       			<i class="fa fa-check fa-4x"></i>
       		{% else %}

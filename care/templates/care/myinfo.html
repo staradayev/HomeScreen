@@ -19,21 +19,21 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
 	        	<li>
-	        		<a href="/care/detail"><i class="fa fa-image fa-lg"></i> My pictures</a>
+	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> My pictures</a>
 	        	</li>
 	        	<li  class="active">
-	        		<a href="/care/myinfo"><i class="fa fa-user fa-lg"></i> My info</a>
+	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> My info</a>
 	        	</li>
 	        	<li>
-	        		<a href="/care/upload"><i class="fa fa-upload fa-lg"></i> Upload</a>
+	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> Upload</a>
 	        	</li>
 	        </ul>
 	      
 	        <ul class="nav navbar-nav navbar-right">
 	        		
-	          	<li><a href="/care/myinfo">{{ user.get_username }}</a></li>
+	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="/care/logout" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -48,17 +48,27 @@
     <div class="col-md-6">
     	<div class="row">
     		<div class="col-md-12">
-    			<h2>User information:</h2>
+    			<h2>User information: </h2>
+    			<h3>{% if name_empty %}
+    				<i class="fa fa-info-circle fa-1x"></i>&nbsp;Fill your name, to continue...
+    				{% endif %} </h3>
     			<br />
-				<form action="/care/myinfo/" method="post" role="form">
+				<form action="{% url 'care:myinfo' %}" method="post" role="form">
 				    {% csrf_token %}
-				    <div class="form-group">
+				    {% if form.errors %}			
+	                <div class="alert alert-danger">
+	                    <span class="glyphicon glyphicon-remove"></span><strong> Error! {{form.errors}}</strong>
+	                </div>
+	                {% endif %}
+
+	                <div class="form-group">
                     	<label for="id_email">Email:</label>
                     	<div class="input-group">
 	                        <input type="email" class="form-control" name="email" id="id_email" placeholder="e-mail" required maxlength="30" value="{{form.email.value}}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>
+
 	                <div class="form-group">
 	                    <label for="id_first_name">First name:</label>
 	                    <div class="input-group">
@@ -66,13 +76,18 @@
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>
+
+
 	                <div class="form-group">
 	                    <label for="id_last_name">Last name:</label>
-	                    <div class="input-group">
+	                    <div class="input-group ">
 	                        <input type="text" class="form-control" name="last_name" id="id_last_name" placeholder="Last name" required maxlength="30"  value="{{form.last_name.value }}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>
+
+
+
 
 				    <!--{{ form }}-->
 				    <input type="submit" value="Submit" class="btn btn-info pull-right" />
@@ -88,6 +103,20 @@
 <script>
     function go_to_url(url) {
         window.location = url;
+    }
+    function make_editable (id) {
+    	if($("#"+id).prop('disabled'))
+    	{
+    		$("#"+id).prop('disabled', false);
+    		$("#"+id+"_make").children().removeClass('fa-pencil');
+    		$("#"+id+"_make").children().addClass('fa-times-circle');
+    	}else{
+    		$("#"+id).prop('disabled', true);
+    		$("#"+id).val($("#"+id+"_hidden").val());
+    		$("#"+id+"_make").children().removeClass('fa-times-circle');
+    		$("#"+id+"_make").children().addClass('fa-pencil');
+    	}
+    	
     }
 </script>
 {% endblock %}

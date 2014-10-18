@@ -4,12 +4,12 @@ from django.contrib import admin
 from care.models import Tag, Category, Picture
 
 class TagAdmin(admin.ModelAdmin):
-	list_display = ('tag_name', 'approve_status')
+	list_display = ('tag_name', 'date_pub', 'approve_status')
 
 admin.site.register(Tag, TagAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
-	list_display = ('category_name', 'approve_status')
+	list_display = ('category_name', 'date_pub', 'approve_status')
 
 admin.site.register(Category, CategoryAdmin)
 

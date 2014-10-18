@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'atosite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'atodb',
+        'NAME': 'atobase',
         'USER': 'atouser',
         'PASSWORD': 'care2014',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
@@ -75,6 +75,8 @@ LOGIN_URL = '/care/login'
 
 #Template dirs
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+STATIC_ROOT = '/Users/staradayev/Documents/Projects/django-learn/atosite/static_root/'
 
 #static dirs
 STATICFILES_DIRS = (

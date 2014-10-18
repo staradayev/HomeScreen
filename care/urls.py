@@ -12,4 +12,6 @@ urlpatterns = patterns('',
     url(r'^loggedout/', views.loggedout, name='loggedout'),
     url(r'^myinfo/', views.InfoView, name='myinfo'),
     url(r'^upload/', views.UploadView, name='upload'),
+    url(r'^addcategory/', views.AddCategoryView, name='addcat'),
+    url(r'^addtag/', views.AddTagView, name='addtag'),
 )

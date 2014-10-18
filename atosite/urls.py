@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'atosite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^care/', include('care.urls')),
+    url(r'^care/', include('care.urls', namespace="care")),
     url(r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('registration.backends.default.urls')),
 	(r'^accounts/', include('django.contrib.auth.urls')),

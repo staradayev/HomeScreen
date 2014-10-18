@@ -12,6 +12,8 @@
     <link href="{{STATIC_URL}}font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/ato.css" rel="stylesheet">
     
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,8 +38,7 @@
 
     
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.file-input.js"></script>
@@ -46,5 +47,6 @@
         $('.file-inputs').bootstrapFileInput();
     </script>
     <script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
+    {% include 'autocomplete_light/static.html' %}
   </body>
 </html>
