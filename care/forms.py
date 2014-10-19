@@ -33,6 +33,7 @@ class UserInfoForm(forms.Form):
 		elif len(lname) > 100:
 			raise forms.ValidationError('Email too long ( maximum 100 symbols )')
 		return value
+
 	email = forms.EmailField(validators=[clean_mail])
 	first_name = forms.CharField(max_length=30, validators=[clean_first])
 	last_name = forms.CharField(max_length=30, validators=[clean_last])

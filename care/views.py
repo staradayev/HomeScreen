@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views import generic
 from care import models
-from care.models import Picture, Category, Tag
+from care.models import Picture, Category, Tag, LinkType, Link, UserProfile
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
@@ -89,8 +89,20 @@ def InfoView(request):
 			'last_name': user.last_name,
 			'email' : user.email,
 			})
+		link_types = LinkType.objects.all()
 
-	return render(request, 'care/myinfo.html', {'form': form, 'name_empty': name_empty,})
+		user_p = None
+		try:
+			user_p = UserProfile.objects.get(user=user)
+		except Exception, e:
+			up = UserProfile.create(user)
+			up.user = user
+			up.save()
+			user_p = UserProfile.objects.get(user=user)
+		finally:
+			user_links = user_p.links			
+
+	return render(request, 'care/myinfo.html', {'form': form, 'name_empty': name_empty,'link_types':link_types, 'user_links': user_links,})
 
 @login_required()
 def UploadView(request):
@@ -259,6 +271,46 @@ def AddTagView(request):
 		return HttpResponse(simplejson.dumps({'success':"False", 'message':'There is an error! Please contact us, if you know why?'}), content_type="application/json")
 
 
+@login_required
+def AddLinkView(request):
+	data = simplejson.loads(request.body)
+
+	if data is not None:
+		link_type = data["link_type"]
+		link_url = data["link_url"]
+		links = UserProfile.objects.filter(user=request.user)
+		if links.count() > 9:
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':'You have maximum limit of links (10 links for user)'}), content_type="application/json")	
+		elif not link_type:
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Choose link type, please!'}), content_type="application/json")	
+		elif not link_url:
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':'There are no url name presented!'}), content_type="application/json")	
+		elif len(link_url) < 12:
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Url too short!'}), content_type="application/json")	
+		elif len(link_url) > 199:
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Url too long!'}), content_type="application/json")	
+		else:
+			try:
+
+				l_type = LinkType.objects.get(id=link_type)
+				lnk = Link.create(l_type)
+				lnk.link_url = link_url
+				lnk.save()
+				up = UserProfile.objects.get(user=request.user)
+				up.links.add(lnk)
+				response_data = {}
+				response_data['success'] = 'true'
+				response_data['type'] = LinkType.objects.get(id=l_type.id).type_tag
+				response_data['val'] = lnk.link_url
+			
+				#, "data" : dataReturn
+				return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
+			except:
+				return HttpResponse(simplejson.dumps({'success':"False", 'message':'Some error happen!'}), content_type="application/json")	
+			
+	else:
+		#, "message" : "Invalid data received by server"
+		return HttpResponse(simplejson.dumps({'success':"False", 'message':'There is an error! Please contact us, if you know why?'}), content_type="application/json")
 
 
 

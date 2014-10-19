@@ -104,11 +104,15 @@
   </div>
 </div>
 <div class="row">
+	<div class="col-md-12">
+    	<h2>Upload a new image:</h2>
+    	<br />
+    </div>
+</div>
+<div class="row">
     <div class="col-md-6">
     	<div class="row">
     		<div class="col-md-12">
-    			<h2>Upload a new image:</h2>
-    			<br />
     			<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
 				<form action="{% url 'care:upload' %}" method="post" role="form" enctype="multipart/form-data">
 				    {% csrf_token %}
@@ -136,7 +140,7 @@
 	                <div class="form-group">
                     	<label for="id_categories">Categories:</label>
                     	<div class="input-group" style="width: 100%">
-	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
+	                        <select id="select_category" multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
 	                        	{% for category in form.categories.value %}
 	                        		<option value="{{category.id}}">{{category.category_name}}</option>
 	                        	{% endfor %}
@@ -188,6 +192,7 @@
 	</div>
 </div>
 <script>
+
     function go_to_url(url) {
         window.location = url;
     }

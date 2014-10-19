@@ -118,18 +118,33 @@ class Picture(models.Model):
 
 			super(Picture, self).save()
 
-class Link(models.Model):
-	link_name = models.CharField('Link name', max_length=25)
-	link_url = models.URLField(max_length=200)
+class LinkType(models.Model):
+	type_tag = models.CharField('Link name', max_length=25)
 	date_pub = models.DateTimeField(auto_now_add=True)
 
+class Link(models.Model):
+	link_type = models.ForeignKey(LinkType)
+	link_url = models.URLField(max_length=200)
+	date_pub = models.DateTimeField(auto_now_add=True)
+	@classmethod
+	def create(cls, l_type):
+		up = cls(link_type=l_type)
+		# do something with the book
+		return up
+
 class UserProfile(models.Model):
+
+	@classmethod
+	def create(cls, user):
+		up = cls(user=user)
+		# do something with the book
+		return up
 	user = models.ForeignKey(User, unique=True)
 	links = models.ManyToManyField(Link, blank=True)
 
 class Organization(models.Model):
 	org_name = models.CharField('Organization name', max_length=25)
-	org_url = models.URLField(max_length=200)
+	org_additional = models.CharField("Organization additiolal", max_length=200)
 	org_description = models.CharField('Description', max_length=4000)
 	date_pub = models.DateTimeField(auto_now_add=True)
 	links = models.ManyToManyField(Link, blank=True)
@@ -141,6 +156,12 @@ class Uploads(models.Model):
 	organization = models.ForeignKey(Organization, unique=True)
 	donator = models.CharField('Donator uiid', max_length=50)
 	t_uuid = models.CharField('Transaction uiid', max_length=400)
+
+class Like(models.Model):
+	picture = models.ForeignKey(Picture, unique=True)
+	user = models.CharField('user uiid', max_length=50)
+	date_pub = models.DateTimeField(auto_now_add=True)
+		
 
 
 

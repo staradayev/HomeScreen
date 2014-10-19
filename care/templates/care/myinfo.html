@@ -43,16 +43,57 @@
 {% endblock %}
 
 {% block content %}
+<!-- Modal -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add new link</h4>
+      </div>
+      <div class="modal-body">
+      	<p style="display:none;" class="text-warning fa fa-warning fa-lg" id="cat_warning"></p>
+        <div class="form-group">
+            <label for="id_link_type">Choose link type:</label>
+            <div class="form-group">
+                <div class="input-group "  required>
+                	<select class="selectpicker" data-size="auto" id="id_link_type" name="link_type">
+                		{% for link_type in link_types %}
+                			<option value="{{ link_type.id }}" class="fa fa-{{ link_type.type_tag }}"><p>&nbsp;{{ link_type.type_tag }}</p></option>
+                		{% endfor %}
+					</select>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+        	</div>	
+        	<label for="id_link_url">Link URL:</label>
+        	<div class="input-group">
+                <input type="text" class="form-control" name="link_url" id="id_link_url" placeholder="url" required maxlength="75" >
+                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="BtnSendLink">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <br>
+<div class="row">
+	<div class="col-md-12">
+		<h2>User information: </h2>
+			<h3 class="text-warning">{% if name_empty %}
+				<i class="fa fa-info-circle fa-1x"></i>&nbsp;Fill your name, to continue...
+				{% endif %} </h3>
+			<br />
+	</div>
+</div>
 <div class="row">
     <div class="col-md-6">
     	<div class="row">
     		<div class="col-md-12">
-    			<h2>User information: </h2>
-    			<h3 class="text-warning">{% if name_empty %}
-    				<i class="fa fa-info-circle fa-1x"></i>&nbsp;Fill your name, to continue...
-    				{% endif %} </h3>
-    			<br />
+    			
 				<form action="{% url 'care:myinfo' %}" method="post" role="form">
 				    {% csrf_token %}
 				    {% if form.errors %}			
@@ -86,37 +127,65 @@
 	                    </div>
 	                </div>
 
-
-
-
+	                <div class="form-group">
+	                    <label for="id_last_name">Links:</label>
+	                    <ul class="list-group" id="id_link_list">
+			      		{% for link in user_links.all %}
+					    	<li class="list-group-item"><i class="fa fa-{{link.link_type.type_tag}} "></i>&nbsp; {{link.link_url}}</li>
+					    {% endfor %}
+						</ul>
+						 
+	                </div>
 				    <!--{{ form }}-->
 				    <input type="submit" value="Submit" class="btn btn-info pull-right" />
 				</form>
+				<button data-toggle="modal" data-target="#myModal3" class="btn btn-link"> <i class="fa fa-plus"></i>&nbsp;Add new</button>
 			</div>
 		</div>
     </div>
-    <div class="col-md-6">
-    	
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-4">
+
+    	<img src="{{STATIC_URL}}img/kolobok.png" alt="ATO.care" class="img-responsive img-rounded">
 	</div>
+	<div class="col-md-1">
+    </div>
 </div>
+<br />
+<br />
 
 <script>
+	
     function go_to_url(url) {
         window.location = url;
     }
-    function make_editable (id) {
-    	if($("#"+id).prop('disabled'))
-    	{
-    		$("#"+id).prop('disabled', false);
-    		$("#"+id+"_make").children().removeClass('fa-pencil');
-    		$("#"+id+"_make").children().addClass('fa-times-circle');
-    	}else{
-    		$("#"+id).prop('disabled', true);
-    		$("#"+id).val($("#"+id+"_hidden").val());
-    		$("#"+id+"_make").children().removeClass('fa-times-circle');
-    		$("#"+id+"_make").children().addClass('fa-pencil');
-    	}
-    	
-    }
+
+    $(document).on('click','#BtnSendLink',function(e){
+    	var l_url = $("#id_link_url").val()
+    	var l_type = $("#id_link_type").val()
+		  	$.ajax({
+		    	url : "/care/addlink/",
+		    	type : "POST",
+		    	data : JSON.stringify({"link_url" : l_url, "link_type": l_type,}),
+		    	contentType: 'application/json; charset=utf-8',
+		    	success : function(results){
+		      		if (results.success == "true") {
+		      			var insertion = "<li class='list-group-item'>" +
+										"<i class='fa fa-" + results.type + 
+										"'></i> &nbsp; " +
+										results.val + "</li>";
+		      			$('#id_link_list').append(insertion);
+		      			$('#cat_warning').text('');
+		      			$('#cat_warning').hide();
+		      			$('#myModal3').modal('hide')
+		        	//handle DOM insertion and other stuff
+		      		} else {
+		      			$('#cat_warning').show();
+		      			$('#cat_warning').text(results.message);
+		      		}
+	    		}
+	  		});
+	});
 </script>
 {% endblock %}
