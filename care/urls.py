@@ -11,6 +11,9 @@ urlpatterns = patterns('',
     url(r'^detail/', views.DetailView, name='detail'),
     url(r'^loggedout/', views.loggedout, name='loggedout'),
     url(r'^myinfo/', views.InfoView, name='myinfo'),
+    #Temp for debug
+    url(r'^addupload/(?P<picture_id>\d+)/$', views.AddUploadView, name='addupload'),
+    #end Temp for debug
     url(r'^upload/', views.UploadView, name='upload'),
     url(r'^addcategory/', views.AddCategoryView, name='addcat'),
     url(r'^addtag/', views.AddTagView, name='addtag'),

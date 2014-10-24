@@ -21,6 +21,8 @@ class Tag(models.Model):
 		return tag_obj
 
 class Category(models.Model):
+	def download_count(self):
+		return self.download_set.filter().count()
 	category_name = models.CharField('Category name', max_length=75)
 	date_pub = models.DateTimeField(auto_now_add=True)
 	approve_status = models.BooleanField(default=False)
@@ -32,6 +34,7 @@ class Category(models.Model):
 		cat_obj = cls(category_name=name, author=author)
 		# do something with the picture
 		return cat_obj
+
 		
 
 class Picture(models.Model):
@@ -64,6 +67,9 @@ class Picture(models.Model):
 	category = models.ManyToManyField(Category, blank=True)
 	tag = models.ManyToManyField(Tag, blank=True)
 	author = models.ForeignKey(User)
+
+	def download_count(self):
+		return self.download_set.filter().count()
 	
 	def __str__(self):
 		return self.picture_name
@@ -149,11 +155,18 @@ class Organization(models.Model):
 	date_pub = models.DateTimeField(auto_now_add=True)
 	links = models.ManyToManyField(Link, blank=True)
 
-class Uploads(models.Model):
+class Download(models.Model):
+	@classmethod
+	def create(cls, amount, picture, organization, donator, t_uuid):
+		up = cls(amount=amount, picture=picture, organization=organization, donator=donator, t_uuid=t_uuid)
+		# do something with the book
+		return up
+
 	date_pub = models.DateTimeField(auto_now_add=True)
 	amount = models.FloatField()
-	picture = models.ForeignKey(Picture, unique=True)
-	organization = models.ForeignKey(Organization, unique=True)
+	picture = models.ForeignKey(Picture)
+	category = models.ManyToManyField(Category, blank=True)
+	organization = models.ForeignKey(Organization)
 	donator = models.CharField('Donator uiid', max_length=50)
 	t_uuid = models.CharField('Transaction uiid', max_length=400)
 

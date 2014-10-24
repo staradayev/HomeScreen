@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'care',
     'registration',
     'autocomplete_light',
-    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,24 +76,16 @@ LOGIN_URL = '/care/login'
 #Template dirs
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
-STATIC_ROOT = '/Users/staradayev/Documents/Projects/django-learn/atosite/static_root/'
+STATIC_ROOT = '/home/projects/atosite/static/'
 
 #static dirs
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = '/Users/staradayev/Documents/Projects/django-learn/atosite/media/'
+MEDIA_ROOT = '/home/projects/atosite/media/'
 
 MEDIA_URL = '/media/'
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -123,7 +114,7 @@ ACCOUNT_ACTIVATION_DAYS = 2 # days count while activation active
 # for send activation
 AUTH_USER_EMAIL_UNIQUE = True
 EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_PORT = 25
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False

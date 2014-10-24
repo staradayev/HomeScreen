@@ -10,8 +10,8 @@ class UserInfoForm(forms.Form):
 		fname = value
 		if not fname:
 			raise forms.ValidationError("There are no first name presented!")
-		elif len(fname) < 5:
-			raise forms.ValidationError('First name too short ( minimum 5 symbols )')
+		elif len(fname) < 4:
+			raise forms.ValidationError('First name too short ( minimum 4 symbols )')
 		elif len(fname) > 20:
 			raise forms.ValidationError('First name too long ( maximum 20 symbols )')
 		return value
@@ -19,8 +19,8 @@ class UserInfoForm(forms.Form):
 		lname = value
 		if not lname:
 			raise forms.ValidationError("There are no last name presented!")
-		elif len(lname) < 5:
-			raise forms.ValidationError('Last name too short ( minimum 5 symbols )')
+		elif len(lname) < 4:
+			raise forms.ValidationError('Last name too short ( minimum 4 symbols )')
 		elif len(lname) > 20:
 			raise forms.ValidationError('Last name too long ( maximum 20 symbols )')
 		return value
@@ -56,12 +56,12 @@ class UploadPictureForm(forms.Form):
 			#validate dimensions
 			mwidth = 1920 
 			mheight = 1080
-			if w > mwidth or h > mheight:
-				raise forms.ValidationError(('Please use an image that is smaller or equal to '
-					  '%s x %s pixels.' % (mwidth*4, mheight*4)))
 			if w < mwidth or h < mheight:
-				raise forms.ValidationError(('Please use an image that is biigger or equal to '
+				raise forms.ValidationError(('Please use an image that is smaller or equal to '
 					  '%s x %s pixels.' % (mwidth, mheight)))
+			if w > mwidth*4 or h > mheight*4:
+				raise forms.ValidationError(('Please use an image that is biigger or equal to '
+					  '%s x %s pixels.' % (mwidth*4, mheight*4)))
 
 			#validate content type
 			main, sub = image.content_type.split('/')

@@ -92,6 +92,9 @@
       			<input type="button" class="btn btn-info pull-right" value="Edit"/>
       		</a>
       	{% endif %}
+      	<a href="/care/addupload/{{img.id}}">
+      		<input type="button" class="btn btn-info pull-left" value="Add upload"/>
+      	</a>
     </div>
     <div class="col-md-6">
     	<form class="form-horizontal" role="form">
@@ -121,12 +124,30 @@
 			    <div class="col-md-8">
 			      	<ul class="list-group">
 			      		{% for cat in img.category.all %}
-					    	<li class="list-group-item"><i class="fa fa-list-alt "></i>&nbsp; {{cat.category_name}}</li>
+					    	<li class="list-group-item"><i class="fa fa-list-alt "></i>&nbsp; {{cat.category_name}} <small>({{ cat.download_count }})</small></li>
 					    {% endfor %}
 					</ul>
 			    </div>
 			</div>
 			{% endif %}
+			<!--
+			DEVELOPMENT
+			-->
+			{% if img.cat_list.all %}
+			<div class="form-group">
+			    <label for="CategoryLabel" class="col-md-4 control-label">Categories:</label>
+			    <div class="col-md-8">
+			      	<ul class="list-group">
+			      		{% for cat in img.cat_list.all %}
+					    	<li class="list-group-item"><i class="fa fa-list-alt "></i>&nbsp; {{cat.category_name}} <small>{{ cat.download_count }}</small></li>
+					    {% endfor %}
+					</ul>
+			    </div>
+			</div>
+			{% endif %}
+			<!--
+			END OF DEVELOPMENT
+			-->
 			{% if img.tag.all %}
 			<div class="form-group">
 			    <label for="TagLabel" class="col-md-4 control-label">Tags:</label>
@@ -136,6 +157,16 @@
 					    	<li class="list-group-item"><i class="fa fa-tags "></i>&nbsp; {{tag.tag_name}}</li>
 					    {% endfor %}
 					</ul>
+			    </div>
+			</div>
+			{% endif %}
+			{% if img.download_count %}
+			<div class="form-group">
+			    <label for="CategoryLabel" class="col-md-4 control-label">Downloads:</label>
+			    <div class="col-md-8">
+			      	<p class="form-control-static">			      		
+					    <i class="fa fa-download "></i>&nbsp; {{img.download_count}}	    
+					</p>
 			    </div>
 			</div>
 			{% endif %}

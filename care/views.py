@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views import generic
 from care import models
-from care.models import Picture, Category, Tag, LinkType, Link, UserProfile
+from care.models import Picture, Category, Tag, LinkType, Link, UserProfile, Download, Organization
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
@@ -51,7 +51,11 @@ def DetailView(request):
 	except EmptyPage:
 		# If page is out of range (e.g. 9999), deliver last page of results.
 		pictures = paginator.page(paginator.num_pages)
-
+	#Development
+	cat_list = []
+	for pic in pictures:
+		cat_list.append(Category.objects.get(pk=pic.id))
+	#End development
 	template = loader.get_template('care/detail.html')
 	context = RequestContext(request, {
 		'picture_list': pictures,
@@ -63,6 +67,8 @@ def DetailView(request):
 @login_required
 def InfoView(request):
 	name_empty = False
+	link_types = None
+	user_links = None
 	# if this is a POST request we need to process the form data
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
@@ -80,7 +86,6 @@ def InfoView(request):
 
 	# if a GET (or any other method) we'll create a blank form
 	else:
-		name_empty = False
 		if hasattr(request.user, 'first_name') and not request.user.last_name or not request.user.first_name:
 			name_empty = True
 		user = User.objects.get(username = request.user.username)
@@ -92,6 +97,7 @@ def InfoView(request):
 		link_types = LinkType.objects.all()
 
 		user_p = None
+
 		try:
 			user_p = UserProfile.objects.get(user=user)
 		except Exception, e:
@@ -311,6 +317,24 @@ def AddLinkView(request):
 	else:
 		#, "message" : "Invalid data received by server"
 		return HttpResponse(simplejson.dumps({'success':"False", 'message':'There is an error! Please contact us, if you know why?'}), content_type="application/json")
+
+
+
+###Development section
+@login_required()
+def AddUploadView(request, picture_id):
+	picture = Picture.objects.get(pk=picture_id)
+	organization = Organization.objects.get(pk=1)
+	up = Download.create("0.99", picture, organization, "admin", "");
+	up.save()
+	for cat in picture.category.all():
+		up.category.add(Category.objects.get(pk=int(cat.id)))
+	up.save()
+
+	return HttpResponse("Thank you, upload tracked!")
+
+###End of developing section
+
 
 
 

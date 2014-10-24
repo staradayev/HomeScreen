@@ -17,4 +17,5 @@ urlpatterns = patterns('',
 	(r'^accounts/', include('django.contrib.auth.urls')),
 	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 	url(r'^autocomplete/', include('autocomplete_light.urls')),
+	url(r'^api/', include('rest_framework.urls', namespace='rest_framework'))
 )

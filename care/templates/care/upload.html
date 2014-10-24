@@ -140,7 +140,7 @@
 	                <div class="form-group">
                     	<label for="id_categories">Categories:</label>
                     	<div class="input-group" style="width: 100%">
-	                        <select id="select_category" multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
+	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
 	                        	{% for category in form.categories.value %}
 	                        		<option value="{{category.id}}">{{category.category_name}}</option>
 	                        	{% endfor %}
