@@ -6,9 +6,10 @@ import hashlib
 from uuid import uuid4
 import os
 from django import forms
+from django.utils.translation import ugettext as _
 
 class Tag(models.Model):
-	tag_name = models.CharField('#tagname', max_length=50)
+	tag_name = models.CharField(verbose_name=_(u"#tagname"), max_length=50)
 	date_pub = models.DateTimeField(auto_now_add=True)
 	approve_status = models.BooleanField(default=False)
 	author = models.ForeignKey(User)
@@ -23,7 +24,7 @@ class Tag(models.Model):
 class Category(models.Model):
 	def download_count(self):
 		return self.download_set.filter().count()
-	category_name = models.CharField('Category name', max_length=75)
+	category_name = models.CharField(verbose_name=_(u"Category name"), max_length=75)
 	date_pub = models.DateTimeField(auto_now_add=True)
 	approve_status = models.BooleanField(default=False)
 	author = models.ForeignKey(User)
@@ -57,11 +58,11 @@ class Picture(models.Model):
 	now = str(int(time.time()))
 	filepath = 'gallery/'+hashlib.md5(now).hexdigest()+'/'
 
-	picture_name = models.CharField('Name', max_length=100)
+	picture_name = models.CharField(verbose_name=_(u"Picture name"), max_length=100)
 	date_pub = models.DateTimeField(auto_now_add=True, auto_now=True)
 	approve_status = models.BooleanField(default=False)
 	date_approve = models.DateTimeField(null=True)
-	photo_origin = models.ImageField('original file upload', upload_to=path_and_rename(filepath))
+	photo_origin = models.ImageField(verbose_name=_(u"original file upload"), upload_to=path_and_rename(filepath))
 	photo_medium = models.CharField(max_length=255, blank=True)
 	photo_thumb = models.CharField(max_length=255, blank=True)
 	category = models.ManyToManyField(Category, blank=True)
@@ -125,12 +126,12 @@ class Picture(models.Model):
 			super(Picture, self).save()
 
 class LinkType(models.Model):
-	type_tag = models.CharField('Link name', max_length=25)
+	type_tag = models.CharField(verbose_name=_(u"Link name"), max_length=25)
 	date_pub = models.DateTimeField(auto_now_add=True)
 
 class Link(models.Model):
 	link_type = models.ForeignKey(LinkType)
-	link_url = models.URLField(max_length=200)
+	link_url = models.URLField(verbose_name=_(u"Link URL"), max_length=200)
 	date_pub = models.DateTimeField(auto_now_add=True)
 	@classmethod
 	def create(cls, l_type):
@@ -149,9 +150,9 @@ class UserProfile(models.Model):
 	links = models.ManyToManyField(Link, blank=True)
 
 class Organization(models.Model):
-	org_name = models.CharField('Organization name', max_length=25)
-	org_additional = models.CharField("Organization additiolal", max_length=200)
-	org_description = models.CharField('Description', max_length=4000)
+	org_name = models.CharField(verbose_name=_(u"Organization name"), max_length=25)
+	org_additional = models.CharField(verbose_name=_(u"Organization additiolal"), max_length=200)
+	org_description = models.CharField(verbose_name=_(u"Organization description"), max_length=4000)
 	date_pub = models.DateTimeField(auto_now_add=True)
 	links = models.ManyToManyField(Link, blank=True)
 
@@ -167,8 +168,8 @@ class Download(models.Model):
 	picture = models.ForeignKey(Picture)
 	category = models.ManyToManyField(Category, blank=True)
 	organization = models.ForeignKey(Organization)
-	donator = models.CharField('Donator uiid', max_length=50)
-	t_uuid = models.CharField('Transaction uiid', max_length=400)
+	donator = models.CharField(verbose_name=_(u"Donator uiid"), max_length=50)
+	t_uuid = models.CharField(verbose_name=_(u"Transaction uiid"), max_length=400)
 
 class Like(models.Model):
 	picture = models.ForeignKey(Picture, unique=True)

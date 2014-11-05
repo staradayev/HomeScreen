@@ -1,5 +1,5 @@
 {% extends 'care/base.html' %}
-
+{% load i18n %}
 {% block content %}
 <br>
 <div class="row">
@@ -14,10 +14,10 @@
 		{% csrf_token %}
 
 			{% if form.errors %}
-			<p>Your username and password didn't match. Please try again.</p>
+			<p><i class="fa fa-info-circle fa-1x"></i>&nbsp;{% trans "Your username and password didn't match. Please try again." %}</p>
 			{% endif %}
 
-			<h2 class="form-signin-heading">Please sign in</h2>
+			<h2 class="form-signin-heading">{% trans "Please sign in" %}</h2>
 				
 
 			<input type="text" class="form-control" placeholder="Username" required="" autofocus="" maxlength="254" name="username">
@@ -26,17 +26,17 @@
 			  <input type="checkbox" value="remember-me"> Remember me
 			</label>-->
 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Sign in" %}</button>
 			<input type="hidden" name="next" value="{{ next }}" />
 			<div class="text-center">
-				<h4>or</h4>
+				<h4>{% trans "or" %}</h4>
 			</div>
 			<button type="button" class="btn btn-default btn-lg btn-block"
-			onclick="go_to_url('/accounts/register/');">Register</button>
+			onclick="go_to_url('/accounts/register/');">{% trans "Register" %}</button>
 			
 
 			<br>
-			<a href="/accounts/password/reset/">Forgot you password?</a>
+			<a href="/accounts/password/reset/">{% trans "Forgot you password?" %}</a>
 		</form>
 		
 

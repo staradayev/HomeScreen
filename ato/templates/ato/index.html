@@ -1,0 +1,132 @@
+{% extends 'ato/base.html' %}
+{% load i18n %}
+{% block header %}
+
+<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ATO.Care</a>
+        </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li  class="active"><a href="{% url 'ato:index' %}">{% trans "Home" %}</a></li>
+            </ul>
+          
+            <ul class="nav navbar-nav navbar-right">
+                    
+                <li><a href="/care/login">{% trans "Login" %}</a></li>
+                    
+                <li><a href="/accounts/register" class="navbar-link">{% trans "Register" %}</a></li>
+                
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+{% endblock %}
+
+{% block content %}
+<img src="{{STATIC_URL}}img/big_logo.jpg" alt="ATO.care" class="img-responsive">
+
+<div class="container ato" style="">
+
+
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-7">
+            <h1 class="">ATO.Care <small>&nbsp;{% trans "HD Wallpapers" %}</small></h1>
+        </div>
+        <div class="col-md-3">
+           
+        </div>
+        <div class="col-md-2 text-right">
+            <br />
+           <img src="{{STATIC_URL}}img/GooglePlayBadge.png" alt="ATO.care" class="img-responsive">
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+
+    <div class="row">
+        <div class="col-md-5">
+            <img src="{{STATIC_URL}}img/intro_1.jpg" alt="ATO.care" class="img-responsive img-thumbnail">
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-6">
+            
+            <h3 class="text-center text-uppercase" style="font-family:Helvetica">{% trans "Promo title 1" %}</h3>
+            <br />
+            <p  class="text-justify lead">{% trans "Promo text 1" %}</p>
+
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            
+            <h3  class="text-center text-uppercase">{% trans "Promo title 2" %}</h3>
+            <br />
+           <p class="text-justify lead">{% trans "Promo text 2" %}</p>
+           <ul class="lead">
+                <li>Organization name</li>
+                <li>Organization name</li>
+                <li>Organization name</li>
+                <li>Organization name</li>
+                <li>Organization name</li>
+           </ul>
+           <p class="text-justify lead">{% trans "Promo text 2.1" %}</p>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-5">
+            <img src="{{STATIC_URL}}img/intro_2.jpg" alt="ATO.care" class="img-responsive img-thumbnail">
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-5">
+            <img src="{{STATIC_URL}}img/intro_3.jpg" alt="ATO.care" class="img-responsive img-thumbnail">
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-6">
+            <br />
+            <br />
+            <h3  class="text-center text-uppercase">{% trans "Promo title 3" %}</h3>
+           <br />
+           <p  class="text-justify lead">{% trans "Promo text 3" %}<a href="/care/login">{% trans "here" %}</a>{% trans "Promo text 3.1" %}</p>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+</div>
+
+{% endblock %}

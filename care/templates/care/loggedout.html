@@ -1,14 +1,14 @@
 {% extends 'care/base.html' %}
-
+{% load i18n %}
 {% block content %}
 
 <form class="form-signin text-center" method="post">
 {% csrf_token %}
 
-	<h2 class="form-signin-heading">Logged out</h2>
-	<h4 class="form-signin-heading">Thanks for spending some quality time with the ATO.care today.</h4>
+	<h2 class="form-signin-heading">{% trans "Logged out" %}</h2>
+	<h4 class="form-signin-heading">{% trans "Thanks for spending some quality time with the ATO.care today." %}</h4>
 
-	<a href="/care/login">Log in again</a>
+	<a href="/care/login">{% trans "Log in again" %}</a>
 </form>
 
 {% endblock %}

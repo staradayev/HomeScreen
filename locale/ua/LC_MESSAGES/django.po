@@ -1,0 +1,631 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-31 20:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ato/templates/ato/index.html:21 care/templates/admin/base.html:50
+msgid "Home"
+msgstr "Додому"
+
+#: ato/templates/ato/index.html:26
+msgid "Login"
+msgstr "Увiйти"
+
+#: ato/templates/ato/index.html:28 care/templates/care/login.html:35
+#: care/templates/registration/login.html:35
+msgid "Register"
+msgstr "Регiстрацiя"
+
+#: ato/templates/ato/index.html:49
+msgid "HD Wallpapers"
+msgstr "Патрiотичнi HD-фони"
+
+#: ato/templates/ato/index.html:72
+msgid "Promo title 1"
+msgstr "Завантажуй HD-фони - пiдтрмай Украiну!"
+
+#: ato/templates/ato/index.html:74
+msgid "Promo text 1"
+msgstr ""
+"ATO.Care - проект поддержки Украины вследствие военной агресси на востоке "
+"страны в ходе анти-террорестической операции (АТО). Загружайте "
+"патриотические HD-обои на свой мобильный, выбирайте благотворительную "
+"организацию и по желанию жертвуйте помощь Украине в борьбе с про-российской "
+"агрссией."
+
+#: ato/templates/ato/index.html:87
+msgid "Promo title 2"
+msgstr "ATO.Care - Ваш шанс помочь стране!"
+
+#: ato/templates/ato/index.html:89
+msgid "Promo text 2"
+msgstr ""
+"Собранные в ходе благотворительной акции средства будут передаваться "
+"благотворительным организациям согласно Вашему выбору. Мы сотрудничаем со "
+"следующими организациями и волонтерами:"
+
+#: ato/templates/ato/index.html:97
+msgid "Promo text 2.1"
+msgstr ""
+"Отчеты о передаче средств Вы можжете увидеть на официальных страницах "
+"сообществ в Facebook"
+
+#: ato/templates/ato/index.html:120
+msgid "Promo title 3"
+msgstr "Поможем Украине вместе!"
+
+#: ato/templates/ato/index.html:122
+msgid "Promo text 3"
+msgstr ""
+"Фоны ATO.Care включают в себя прекрасные снимки от ведущих фотографов-"
+"профессионалов и люителей! Вы так же можете стать участником "
+"благотворительно акции присоеденившись к проекту - регистрируйтесь как "
+"фотограф "
+
+#: ato/templates/ato/index.html:122 care/templates/care/detail.html:68
+msgid "here"
+msgstr "тут"
+
+#: ato/templates/ato/index.html:122
+msgid "Promo text 3.1"
+msgstr ", добавляйте свои снимки в проект и пускай Ваш талант поможет Украине!"
+
+#: care/forms.py:13
+msgid "There are no first name presented!"
+msgstr ""
+
+#: care/forms.py:15
+msgid "First name too short ( minimum 4 symbols )"
+msgstr ""
+
+#: care/forms.py:17
+msgid "First name too long ( maximum 20 symbols )"
+msgstr ""
+
+#: care/forms.py:22
+msgid "There are no last name presented!"
+msgstr ""
+
+#: care/forms.py:24
+msgid "Last name too short ( minimum 4 symbols )"
+msgstr "Фамiлiя замала!"
+
+#: care/forms.py:26
+msgid "Last name too long ( maximum 20 symbols )"
+msgstr ""
+
+#: care/forms.py:31
+msgid "There are no email presented!"
+msgstr ""
+
+#: care/forms.py:33
+msgid "mail name too short ( minimum 9 symbols )"
+msgstr ""
+
+#: care/forms.py:35
+msgid "Email too long ( maximum 100 symbols )"
+msgstr ""
+
+#: care/forms.py:52
+#, fuzzy
+#| msgid "Edit image:"
+msgid "No image!"
+msgstr "Редагувати зображення"
+
+#: care/forms.py:61 care/forms.py:64
+msgid ""
+"Please use an image that is smaller or equal to %(width) x %(height) pixels.."
+msgstr ""
+
+#: care/forms.py:70
+msgid "Please use a JPEG or PNG image."
+msgstr ""
+
+#: care/forms.py:74
+msgid "Image file too large ( maximum 8mb )"
+msgstr ""
+
+#: care/forms.py:106 care/views.py:227
+msgid "There are no category name presented!"
+msgstr ""
+
+#: care/forms.py:108 care/views.py:229
+msgid "Category name too short ( minimum 3 symbols )"
+msgstr "Фамiлiя замала!"
+
+#: care/forms.py:110 care/views.py:231
+msgid "Category name too long ( maximum 75 symbols )"
+msgstr "Фамiлiя замала!"
+
+#: care/models.py:12
+msgid "#tagname"
+msgstr ""
+
+#: care/models.py:27 care/templates/care/edit.html:68
+#: care/templates/care/upload.html:68
+msgid "Category name"
+msgstr ""
+
+#: care/models.py:61 care/templates/care/edit.html:129
+#: care/templates/care/upload.html:127
+msgid "Picture name"
+msgstr "Назва зображення"
+
+#: care/models.py:65
+msgid "original file upload"
+msgstr ""
+
+#: care/models.py:129
+#, fuzzy
+#| msgid "Login"
+msgid "Link name"
+msgstr "Увiйти"
+
+#: care/models.py:134
+msgid "Link URL"
+msgstr ""
+
+#: care/models.py:153
+msgid "Organization name"
+msgstr ""
+
+#: care/models.py:154
+msgid "Organization additiolal"
+msgstr ""
+
+#: care/models.py:155
+msgid "Organization description"
+msgstr ""
+
+#: care/models.py:171
+msgid "Donator uiid"
+msgstr ""
+
+#: care/models.py:172
+msgid "Transaction uiid"
+msgstr ""
+
+#: care/templates/admin/base.html:30
+msgid "Welcome,"
+msgstr ""
+
+#: care/templates/admin/base.html:36
+msgid "Documentation"
+msgstr ""
+
+#: care/templates/admin/base.html:39
+msgid "Change password"
+msgstr ""
+
+#: care/templates/admin/base.html:41
+msgid "Log out"
+msgstr ""
+
+#: care/templates/admin/base_site.html:3
+msgid "Django templates!!!"
+msgstr ""
+
+#: care/templates/care/detail.html:21 care/templates/care/edit.html:22
+#: care/templates/care/myinfo.html:22 care/templates/care/upload.html:22
+msgid "My pictures"
+msgstr ""
+
+#: care/templates/care/detail.html:22 care/templates/care/edit.html:25
+#: care/templates/care/myinfo.html:25 care/templates/care/upload.html:25
+msgid "My info"
+msgstr ""
+
+#: care/templates/care/detail.html:24 care/templates/care/edit.html:28
+#: care/templates/care/myinfo.html:28 care/templates/care/upload.html:28
+msgid "Upload"
+msgstr "Завантажити"
+
+#: care/templates/care/detail.html:32 care/templates/care/edit.html:36
+#: care/templates/care/myinfo.html:36 care/templates/care/upload.html:36
+msgid "Logout"
+msgstr ""
+
+#: care/templates/care/detail.html:49 care/templates/care/detail.html.py:51
+msgid "Older"
+msgstr "Старiшi"
+
+#: care/templates/care/detail.html:55 care/templates/care/detail.html.py:57
+msgid "Newer"
+msgstr "Новiшi"
+
+#: care/templates/care/detail.html:67
+msgid "There are no uploaded pictures!"
+msgstr ""
+
+#: care/templates/care/detail.html:68
+msgid "Please upload more pictures"
+msgstr ""
+
+#: care/templates/care/detail.html:92
+msgid "Edit"
+msgstr "Редагувати"
+
+#: care/templates/care/detail.html:96
+msgid "Add upload"
+msgstr ""
+
+#: care/templates/care/detail.html:102
+msgid "Uploaded to server:"
+msgstr "Завантажено:"
+
+#: care/templates/care/detail.html:109
+msgid "Approved:"
+msgstr ""
+
+#: care/templates/care/detail.html:116
+msgid "Author:"
+msgstr "Автор"
+
+#: care/templates/care/detail.html:123 care/templates/care/detail.html:138
+#: care/templates/care/edit.html:135 care/templates/care/upload.html:141
+msgid "Categories:"
+msgstr ""
+
+#: care/templates/care/detail.html:153 care/templates/care/edit.html:151
+#: care/templates/care/upload.html:153
+msgid "Tags:"
+msgstr ""
+
+#: care/templates/care/detail.html:165
+msgid "Downloads:"
+msgstr "Завантаження"
+
+#: care/templates/care/edit.html:51
+msgid "This image is non-editable or not exist..."
+msgstr ""
+
+#: care/templates/care/edit.html:60 care/templates/care/edit.html.py:74
+#: care/templates/care/edit.html:86 care/templates/care/edit.html.py:100
+#: care/templates/care/myinfo.html:51 care/templates/care/myinfo.html.py:76
+#: care/templates/care/upload.html:60 care/templates/care/upload.html.py:74
+#: care/templates/care/upload.html:86 care/templates/care/upload.html:100
+msgid "Close"
+msgstr ""
+
+#: care/templates/care/edit.html:61 care/templates/care/upload.html:61
+msgid "Add new category"
+msgstr ""
+
+#: care/templates/care/edit.html:66 care/templates/care/upload.html:66
+msgid "New category name:"
+msgstr ""
+
+#: care/templates/care/edit.html:75 care/templates/care/edit.html.py:101
+#: care/templates/care/myinfo.html:77 care/templates/care/myinfo.html:140
+#: care/templates/care/upload.html:75 care/templates/care/upload.html:101
+#: care/templates/care/upload.html:165
+#: care/templates/registration/registration_form.html:50
+msgid "Save changes"
+msgstr ""
+
+#: care/templates/care/edit.html:87 care/templates/care/upload.html:87
+msgid "Add new tag"
+msgstr ""
+
+#: care/templates/care/edit.html:92 care/templates/care/upload.html:92
+msgid "New tag name:"
+msgstr ""
+
+#: care/templates/care/edit.html:94 care/templates/care/upload.html:94
+msgid "Tag name"
+msgstr ""
+
+#: care/templates/care/edit.html:110
+msgid "Edit image:"
+msgstr "Редагувати зображення"
+
+#: care/templates/care/edit.html:123 care/templates/care/myinfo.html:101
+#: care/templates/care/upload.html:121
+#: care/templates/registration/registration_form.html:57
+msgid "Error!"
+msgstr ""
+
+#: care/templates/care/edit.html:127 care/templates/care/upload.html:125
+msgid "Picture name:"
+msgstr ""
+
+#: care/templates/care/edit.html:166
+msgid "Cancel"
+msgstr ""
+
+#: care/templates/care/loggedout.html:8
+msgid "Logged out"
+msgstr "Ви вийшли з профiлю"
+
+#: care/templates/care/loggedout.html:9
+msgid "Thanks for spending some quality time with the ATO.care today."
+msgstr ""
+
+#: care/templates/care/loggedout.html:11
+msgid "Log in again"
+msgstr "Знову увiйти"
+
+#: care/templates/care/login.html:17 care/templates/registration/login.html:17
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: care/templates/care/login.html:20 care/templates/registration/login.html:20
+msgid "Please sign in"
+msgstr ""
+
+#: care/templates/care/login.html:29 care/templates/registration/login.html:29
+msgid "Sign in"
+msgstr "Увiйти"
+
+#: care/templates/care/login.html:32 care/templates/registration/login.html:32
+msgid "or"
+msgstr ""
+
+#: care/templates/care/login.html:39 care/templates/registration/login.html:39
+msgid "Forgot you password?"
+msgstr "Забув пароль?"
+
+#: care/templates/care/myinfo.html:52
+msgid "Add new link"
+msgstr "Додати лiнк"
+
+#: care/templates/care/myinfo.html:57
+msgid "Choose link type:"
+msgstr ""
+
+#: care/templates/care/myinfo.html:69
+msgid "Link URL:"
+msgstr ""
+
+#: care/templates/care/myinfo.html:71
+msgid "Link url"
+msgstr ""
+
+#: care/templates/care/myinfo.html:85
+msgid "User information:"
+msgstr "Даннi користувача:"
+
+#: care/templates/care/myinfo.html:87
+msgid "Fill your name, to continue..."
+msgstr ""
+
+#: care/templates/care/myinfo.html:106
+msgid "Email:"
+msgstr ""
+
+#: care/templates/care/myinfo.html:108
+#: care/templates/registration/registration_form.html:32
+msgid "Email"
+msgstr ""
+
+#: care/templates/care/myinfo.html:114
+msgid "First name:"
+msgstr "Им'я"
+
+#: care/templates/care/myinfo.html:116
+msgid "First name"
+msgstr ""
+
+#: care/templates/care/myinfo.html:123
+msgid "Last name:"
+msgstr "Фамилiя"
+
+#: care/templates/care/myinfo.html:125
+msgid "Last name"
+msgstr ""
+
+#: care/templates/care/myinfo.html:131
+msgid "Links:"
+msgstr ""
+
+#: care/templates/care/myinfo.html:142
+msgid "Add new"
+msgstr ""
+
+#: care/templates/care/upload.html:51
+msgid "The daily limit of possible uploads exceeded!"
+msgstr ""
+
+#: care/templates/care/upload.html:51
+msgid "Try add another picture tomorrow..."
+msgstr ""
+
+#: care/templates/care/upload.html:108
+msgid "Upload a new image:"
+msgstr "Завантажити нове зображення:"
+
+#: care/templates/care/upload.html:116
+#: care/templates/registration/registration_form.html:21
+msgid "Required Field"
+msgstr ""
+
+#: care/templates/care/upload.html:133
+msgid "Image:"
+msgstr "Зображення"
+
+#: care/templates/care/upload.html:135
+msgid "Select the file here"
+msgstr ""
+
+#: care/templates/care/upload.html:178
+msgid "Please take your attention to:"
+msgstr "Будь ласка звернiть Вашу увагу на наступне:"
+
+#: care/templates/care/upload.html:180
+msgid "attention1"
+msgstr ""
+
+#: care/templates/care/upload.html:181
+msgid "attention2"
+msgstr ""
+
+#: care/templates/care/upload.html:182
+msgid "attention3"
+msgstr ""
+
+#: care/templates/care/upload.html:183
+msgid "attention4"
+msgstr ""
+
+#: care/templates/care/upload.html:184
+msgid "attention5"
+msgstr ""
+
+#: care/templates/care/upload.html:185
+msgid "attention6"
+msgstr ""
+
+#: care/templates/registration/activation_complete.html:7
+msgid "Activation"
+msgstr "Активацiя"
+
+#: care/templates/registration/activation_complete.html:8
+msgid "Hello"
+msgstr ""
+
+#: care/templates/registration/activation_complete.html:9
+msgid "Your account is successful activated!"
+msgstr "Вы активували Ваш аккаунт!"
+
+#: care/templates/registration/activation_complete.html:9
+#, fuzzy
+#| msgid "Log in again"
+msgid "Log in"
+msgstr "Знову увiйти"
+
+#: care/templates/registration/activation_complete.html:9
+msgid "now!"
+msgstr ""
+
+#: care/templates/registration/activation_email.txt:2
+#, fuzzy
+#| msgid "Activation"
+msgid "Activate account at"
+msgstr "Активацiя аккаунта на "
+
+#: care/templates/registration/activation_email.txt:6
+#, python-format
+msgid "Link is valid for %(expiration_days)s days."
+msgstr "Посилання валiдне %(expiration_days)s днi."
+
+#: care/templates/registration/activation_email.txt:9
+msgid "Thank you!"
+msgstr "Дякуемо!"
+
+#: care/templates/registration/activation_email_subject.txt:2
+#, fuzzy
+#| msgid "Activation"
+msgid "account activation!"
+msgstr "Активацiя"
+
+#: care/templates/registration/registration_complete.html:7
+msgid "Registration completed!"
+msgstr "Реестрацiя завершена!"
+
+#: care/templates/registration/registration_complete.html:8
+msgid ""
+"Thank you for you registration. You also need to activate you account to can "
+"be able login to ATO.care. Please foolow the instructions in the e-mail "
+"which was sent to you mail-box.Upload"
+msgstr ""
+
+#: care/templates/registration/registration_complete.html:12
+msgid "Back to the site"
+msgstr "Назад до сайту"
+
+#: care/templates/registration/registration_form.html:7
+msgid "Registration form"
+msgstr "Форма реестрацii"
+
+#: care/templates/registration/registration_form.html:9
+msgid "just few simple steps to help people..."
+msgstr "декiлька крокiв до сбереження життя..."
+
+#: care/templates/registration/registration_form.html:23
+msgid "Enter login name"
+msgstr ""
+
+#: care/templates/registration/registration_form.html:25
+#, fuzzy
+#| msgid "Login"
+msgid "Login name"
+msgstr "Увiйти"
+
+#: care/templates/registration/registration_form.html:30
+msgid "Enter Email"
+msgstr ""
+
+#: care/templates/registration/registration_form.html:37
+msgid "Enter Password"
+msgstr "Введiть пароль"
+
+#: care/templates/registration/registration_form.html:39
+msgid "Password"
+msgstr "Пароль"
+
+#: care/templates/registration/registration_form.html:44
+#: care/templates/registration/registration_form.html:46
+msgid "Confirm Password"
+msgstr ""
+
+#: care/views.py:225
+msgid "You were added maximum count of categories per today. Try tomorrow!"
+msgstr ""
+
+#: care/views.py:244 care/views.py:277 care/views.py:315 care/views.py:319
+msgid "There is an error! Please contact us, if you know why?"
+msgstr ""
+
+#: care/views.py:258
+msgid "You were added maximum count of tags per today. Try tomorrow!"
+msgstr ""
+
+#: care/views.py:260
+msgid "There are no tag name presented!"
+msgstr ""
+
+#: care/views.py:262
+#, fuzzy
+#| msgid "Category name too short ( minimum 3 symbols )"
+msgid "Tag name too short ( minimum 3 symbols )"
+msgstr "Фамiлiя замала!"
+
+#: care/views.py:264
+#, fuzzy
+#| msgid "Category name too long ( maximum 75 symbols )"
+msgid "Tag name too long ( maximum 75 symbols )"
+msgstr "Фамiлiя замала!"
+
+#: care/views.py:289
+msgid "You have maximum limit of links (10 links for user)"
+msgstr ""
+
+#: care/views.py:291
+msgid "Choose link type, please!"
+msgstr ""
+
+#: care/views.py:293
+msgid "There are no url name presented!"
+msgstr ""
+
+#: care/views.py:295
+msgid "Url too short!"
+msgstr ""
+
+#: care/views.py:297
+msgid "Url too long!"
+msgstr ""

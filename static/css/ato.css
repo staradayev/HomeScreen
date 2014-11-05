@@ -56,7 +56,43 @@ body {
   padding-left: 15px;
 }
 
+.container .text-left.t {
+  text-align: left;
+  float: left;
+  padding-top: 2%;
+  padding-right: 1%;
+}
+
+.container .text-center.t {
+  width: 85%;
+}
+
+
+
 code {
   font-size: 80%;
+}
+
+.vcenter {
+    display: table-cell;
+    table-layout: fixed;
+}
+
+.vcenter .cont{
+    display: inline-block;
+    vertical-align:middle;
+    text-align:center;
+}
+
+.ato h1{
+   font-family: Helvetica;
+}
+
+.ato h2{
+   font-family: Helvetica;
+}
+
+.ato h3{
+   font-family: Helvetica;
 }
 

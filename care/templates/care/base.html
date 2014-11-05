@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ATO.care</title>
 
     <!-- Bootstrap -->
@@ -31,7 +32,18 @@
 </div>
 <div class="footer">
     <div class="container">
-        <div class="text-center">
+        {% for lang in LANGUAGES %}
+            <div class="text-left t">
+              <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="/care/detail">
+                <input type="hidden" name="language" value="{{ lang.0 }}">
+                <a href="#" onclick="document.setLang{{ lang.1 }}.submit();
+                    return false;">{{ lang.1 }}</a>
+              </form>
+            </div>
+          {% endfor %} 
+        <div class="text-center t">
           <p class="text-muted">InelliGT 2014 &copy;</p>
         </div>
     </div>    

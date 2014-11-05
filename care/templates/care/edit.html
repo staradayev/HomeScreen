@@ -1,5 +1,5 @@
 {% extends 'care/base.html' %}
-
+{% load i18n %}
 {% block header %}
 
 <nav class="navbar navbar-default" role="navigation">
@@ -12,20 +12,20 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="#">ATO.care</a>
+      		<a class="navbar-brand" href="/">ATO.Care</a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
 	        	<li  class="active">
-	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> My pictures</a>
+	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> {% trans "My pictures" %}</a>
 	        	</li>
 	        	<li>
-	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> My info</a>
+	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> {% trans "My info" %}</a>
 	        	</li>
 	        	<li>
-	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> Upload</a>
+	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> {% trans "Upload" %}</a>
 	        	</li>
 	        </ul>
 	      
@@ -33,7 +33,7 @@
 	        		
 	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">{% trans "Logout" %} <i class="fa fa-sign-out fa-lg"></i> </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -48,7 +48,7 @@
 {% if limit_detected %}
 <div class="row">
 	<div class="col-md-12">
-    	<h2><i class="fa fa-info-circle fa-1x"></i>&nbsp;This image is non-editable or not exist...</small></h2>
+    	<h2><i class="fa fa-info-circle fa-1x"></i>&nbsp;{% trans "This image is non-editable or not exist..." %}</small></h2>
     </div>
 </div>
 {% else %}
@@ -57,22 +57,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add new category</h4>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
+        <h4 class="modal-title" id="myModalLabel">{% trans "Add new category" %}</h4>
       </div>
       <div class="modal-body">
       	<p style="display:none;" class="text-warning fa fa-warning fa-lg" id="cat_warning"></p>
         <div class="form-group">
-        	<label for="id_cat_name">New category name:</label>
+        	<label for="id_cat_name">{% trans "New category name:" %}</label>
         	<div class="input-group">
-                <input type="text" class="form-control" name="cat_name" id="id_cat_name" placeholder="Category name" required maxlength="75" >
+                <input type="text" class="form-control" name="cat_name" id="id_cat_name" placeholder="{% blocktrans %}Category name{% endblocktrans %}" required maxlength="75" >
                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
             </div>
         </div>	
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="BtnSendCategory">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        <button type="button" class="btn btn-primary" id="BtnSendCategory">{% trans "Save changes" %}</button>
       </div>
     </div>
   </div>
@@ -83,22 +83,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add new tag</h4>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
+        <h4 class="modal-title" id="myModalLabel">{% trans "Add new tag" %}</h4>
       </div>
       <div class="modal-body">
       	<p style="display:none;" class="text-warning fa fa-warning fa-lg"  id="tag_warning"></p>
         <div class="form-group">
-        	<label for="id_cat_name">New tag name:</label>
+        	<label for="id_cat_name">{% trans "New tag name:" %}</label>
         	<div class="input-group">
-                <input type="text" class="form-control" name="tag_name" id="id_tag_name" placeholder="Tag name" required maxlength="75" >
+                <input type="text" class="form-control" name="tag_name" id="id_tag_name" placeholder="{% blocktrans %}Tag name{% endblocktrans %}" required maxlength="75" >
                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
             </div>
         </div>	
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="BtnSendTag">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        <button type="button" class="btn btn-primary" id="BtnSendTag">{% trans "Save changes" %}</button>
       </div>
     </div>
   </div>
@@ -107,7 +107,7 @@
 <form action="/care/edit/{{img.id}}/" method="post" role="form" enctype="multipart/form-data">
 <div class="row">
 	<div class="col-md-12">
-		<h2>Edit image:</h2>
+		<h2>{% trans "Edit image:" %}</h2>
     	<br />
     </div>
 </div>
@@ -120,19 +120,19 @@
 				    {% csrf_token %}
 				    {% if form.errors %}			
 	                <div class="alert alert-danger">
-	                    <span class="glyphicon glyphicon-remove"></span><strong> Error! {{form.errors}}</strong>
+	                    <span class="glyphicon glyphicon-remove"></span><strong> {% trans "Error!" %} {{form.errors}}</strong>
 	                </div>
 	                {% endif %}
 				    <div class="form-group">
-                    	<label for="id_picture_name">Picture name:</label>
+                    	<label for="id_picture_name">{% trans "Picture name:" %}</label>
                     	<div class="input-group">
-	                        <input type="text" class="form-control" name="picture_name" id="id_picture_name" placeholder="Picture name" required maxlength="100" value="{{form.picture_name.value}}">
+	                        <input type="text" class="form-control" name="picture_name" id="id_picture_name" placeholder="{% blocktrans %}Picture name{% endblocktrans %}" required maxlength="100" value="{{form.picture_name.value}}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>	
 
 	                <div class="form-group">
-                    	<label for="id_categories">Categories:</label>
+                    	<label for="id_categories">{% trans "Categories:" %}</label>
                     	<div class="input-group" style="width: 100%">
 	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
 	                        	{% for category in form.categories.value %}
@@ -148,7 +148,7 @@
 	                </div>
 
 	                <div class="form-group">
-                    	<label for="id_tags">Tags:</label>
+                    	<label for="id_tags">{% trans "Tags:" %}</label>
                     	<div class="input-group"  style="width: 100%">
 	                        <select multiple class="form-control" id="id_tags" name="tags"  size="6">
 	                        	{% for tag in form.tags.value %}
@@ -163,7 +163,7 @@
 	                    </div>
 	                </div>				    
 
-	                <button type="button" class="btn btn-default" onclick="go_to_url('/care/detail');">Cancel</button>
+	                <button type="button" class="btn btn-default" onclick="go_to_url('/care/detail');">{% trans "Cancel" %}</button>
 				    <input type="submit" value="Save changes" class="btn btn-info pull-right" />
 				
 				<br />

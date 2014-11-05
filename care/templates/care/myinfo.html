@@ -1,5 +1,5 @@
 {% extends 'care/base.html' %}
-
+{% load i18n %}
 {% block header %}
 
 <nav class="navbar navbar-default" role="navigation">
@@ -12,20 +12,20 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="#">ATO.care</a>
+      		<a class="navbar-brand" href="/">ATO.Care</a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
 	        	<li>
-	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> My pictures</a>
+	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> {% trans "My pictures" %}</a>
 	        	</li>
 	        	<li  class="active">
-	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> My info</a>
+	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> {% trans "My info" %}</a>
 	        	</li>
 	        	<li>
-	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> Upload</a>
+	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> {% trans "Upload" %}</a>
 	        	</li>
 	        </ul>
 	      
@@ -33,7 +33,7 @@
 	        		
 	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">{% trans "Logout" %} <i class="fa fa-sign-out fa-lg"></i> </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -48,13 +48,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add new link</h4>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
+        <h4 class="modal-title" id="myModalLabel">{% trans "Add new link" %}</h4>
       </div>
       <div class="modal-body">
       	<p style="display:none;" class="text-warning fa fa-warning fa-lg" id="cat_warning"></p>
         <div class="form-group">
-            <label for="id_link_type">Choose link type:</label>
+            <label for="id_link_type">{% trans "Choose link type:" %}</label>
             <div class="form-group">
                 <div class="input-group "  required>
                 	<select class="selectpicker" data-size="auto" id="id_link_type" name="link_type">
@@ -66,15 +66,15 @@
                     </div>
                 </div>
         	</div>	
-        	<label for="id_link_url">Link URL:</label>
+        	<label for="id_link_url">{% trans "Link URL:" %}</label>
         	<div class="input-group">
-                <input type="text" class="form-control" name="link_url" id="id_link_url" placeholder="url" required maxlength="75" >
+                <input type="text" class="form-control" name="link_url" id="id_link_url" placeholder="{% blocktrans %}Link url{% endblocktrans %}" required maxlength="75" >
                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
             </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="BtnSendLink">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        <button type="button" class="btn btn-primary" id="BtnSendLink">{% trans "Save changes" %}</button>
       </div>
     </div>
   </div>
@@ -82,9 +82,9 @@
 <br>
 <div class="row">
 	<div class="col-md-12">
-		<h2>User information: </h2>
+		<h2>{% trans "User information:" %} </h2>
 			<h3 class="text-warning">{% if name_empty %}
-				<i class="fa fa-info-circle fa-1x"></i>&nbsp;Fill your name, to continue...
+				<i class="fa fa-info-circle fa-1x"></i>&nbsp;{% trans "Fill your name, to continue..." %}
 				{% endif %} </h3>
 			<br />
 	</div>
@@ -98,37 +98,37 @@
 				    {% csrf_token %}
 				    {% if form.errors %}			
 	                <div class="alert alert-danger">
-	                    <span class="glyphicon glyphicon-remove"></span><strong> Error! {{form.errors}}</strong>
+	                    <span class="glyphicon glyphicon-remove"></span><strong> {% trans "Error!" %} {{form.errors}}</strong>
 	                </div>
 	                {% endif %}
 
 	                <div class="form-group">
-                    	<label for="id_email">Email:</label>
+                    	<label for="id_email">{% trans "Email:" %}</label>
                     	<div class="input-group">
-	                        <input type="email" class="form-control" name="email" id="id_email" placeholder="e-mail" required maxlength="30" value="{{form.email.value}}">
+	                        <input type="email" class="form-control" name="email" id="id_email" placeholder="{% blocktrans %}Email{% endblocktrans %}" required maxlength="30" value="{{form.email.value}}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>
 
 	                <div class="form-group">
-	                    <label for="id_first_name">First name:</label>
+	                    <label for="id_first_name">{% trans "First name:" %}</label>
 	                    <div class="input-group">
-	                        <input type="text" class="form-control" name="first_name" id="id_first_name" placeholder="First name" required maxlength="30"  value="{{form.first_name.value}}">
+	                        <input type="text" class="form-control" name="first_name" id="id_first_name" placeholder="{% blocktrans %}First name{% endblocktrans %}" required maxlength="30"  value="{{form.first_name.value}}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>
 
 
 	                <div class="form-group">
-	                    <label for="id_last_name">Last name:</label>
+	                    <label for="id_last_name">{% trans "Last name:" %}</label>
 	                    <div class="input-group ">
-	                        <input type="text" class="form-control" name="last_name" id="id_last_name" placeholder="Last name" required maxlength="30"  value="{{form.last_name.value }}">
+	                        <input type="text" class="form-control" name="last_name" id="id_last_name" placeholder="{% blocktrans %}Last name{% endblocktrans %}" required maxlength="30"  value="{{form.last_name.value }}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>
 
 	                <div class="form-group">
-	                    <label for="id_last_name">Links:</label>
+	                    <label for="id_last_name">{% trans "Links:" %}</label>
 	                    <ul class="list-group" id="id_link_list">
 			      		{% for link in user_links.all %}
 					    	<li class="list-group-item"><i class="fa fa-{{link.link_type.type_tag}} "></i>&nbsp; {{link.link_url}}</li>
@@ -137,9 +137,9 @@
 						 
 	                </div>
 				    <!--{{ form }}-->
-				    <input type="submit" value="Submit" class="btn btn-info pull-right" />
+				    <input type="submit" value="{% blocktrans %}Save changes{% endblocktrans %}" class="btn btn-info pull-right" />
 				</form>
-				<button data-toggle="modal" data-target="#myModal3" class="btn btn-link"> <i class="fa fa-plus"></i>&nbsp;Add new</button>
+				<button data-toggle="modal" data-target="#myModal3" class="btn btn-link"> <i class="fa fa-plus"></i>&nbsp;{% trans "Add new" %}</button>
 			</div>
 		</div>
     </div>

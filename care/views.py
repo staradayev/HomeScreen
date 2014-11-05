@@ -15,7 +15,7 @@ import autocomplete_light
 from django.forms.formsets import formset_factory
 import json as simplejson
 from django.db.models import Q
-
+from django.utils.translation import ugettext as _
 from care.forms import UserInfoForm, UploadPictureForm, CategoryForm, EditPictureForm
 
 def logout(request, redirect_url=None):
@@ -222,13 +222,13 @@ def AddCategoryView(request):
 		today_max = datetime.datetime.combine(date.today(), datetime.time.max)
 		categories = Category.objects.filter(author=p_author, date_pub__range=(today_min, today_max))
 		if categories.count() > 14:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'You were added maximum count of categories per today. Try tomorrow!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"You were added maximum count of categories per today. Try tomorrow!")}), content_type="application/json")	
 		elif not category_send:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'There are no category name presented!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There are no category name presented!")}), content_type="application/json")	
 		elif len(category_send) < 3:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Category name too short ( minimum 3 symbols )'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Category name too short ( minimum 3 symbols )")}), content_type="application/json")	
 		elif len(category_send) > 75:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Category name too long ( maximum 75 symbols )'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Category name too long ( maximum 75 symbols )")}), content_type="application/json")	
 		else:
 			cat = Category.create(category_send, p_author)
 			cat.save()
@@ -241,7 +241,7 @@ def AddCategoryView(request):
 			return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
 	else:
 		#, "message" : "Invalid data received by server"
-		return HttpResponse(simplejson.dumps({'success':"False", 'message':'There is an error! Please contact us, if you know why?'}), content_type="application/json")
+		return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
 
 @login_required
 def AddTagView(request):
@@ -255,13 +255,13 @@ def AddTagView(request):
 		today_max = datetime.datetime.combine(date.today(), datetime.time.max)
 		tags = Tag.objects.filter(author=p_author, date_pub__range=(today_min, today_max))
 		if tags.count() > 14:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'You were added maximum count of tags per today. Try tomorrow!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"You were added maximum count of tags per today. Try tomorrow!")}), content_type="application/json")	
 		elif  not tag_send:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'There are no tag name presented!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There are no tag name presented!")}), content_type="application/json")	
 		elif len(tag_send) < 3:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Tag name too short ( minimum 3 symbols )'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Tag name too short ( minimum 3 symbols )")}), content_type="application/json")	
 		elif len(tag_send) > 75:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Tag name too long ( maximum 75 symbols )'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Tag name too long ( maximum 75 symbols )")}), content_type="application/json")	
 		else:
 			tag = Tag.create(tag_send, p_author)
 			tag.save()
@@ -274,7 +274,7 @@ def AddTagView(request):
 			return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
 	else:
 		#, "message" : "Invalid data received by server"
-		return HttpResponse(simplejson.dumps({'success':"False", 'message':'There is an error! Please contact us, if you know why?'}), content_type="application/json")
+		return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
 
 
 @login_required
@@ -286,15 +286,15 @@ def AddLinkView(request):
 		link_url = data["link_url"]
 		links = UserProfile.objects.filter(user=request.user)
 		if links.count() > 9:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'You have maximum limit of links (10 links for user)'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"You have maximum limit of links (10 links for user)")}), content_type="application/json")	
 		elif not link_type:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Choose link type, please!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Choose link type, please!")}), content_type="application/json")	
 		elif not link_url:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'There are no url name presented!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There are no url name presented!")}), content_type="application/json")	
 		elif len(link_url) < 12:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Url too short!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Url too short!")}), content_type="application/json")	
 		elif len(link_url) > 199:
-			return HttpResponse(simplejson.dumps({'success':"False", 'message':'Url too long!'}), content_type="application/json")	
+			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Url too long!")}), content_type="application/json")	
 		else:
 			try:
 
@@ -312,11 +312,11 @@ def AddLinkView(request):
 				#, "data" : dataReturn
 				return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
 			except:
-				return HttpResponse(simplejson.dumps({'success':"False", 'message':'Some error happen!'}), content_type="application/json")	
+				return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")	
 			
 	else:
 		#, "message" : "Invalid data received by server"
-		return HttpResponse(simplejson.dumps({'success':"False", 'message':'There is an error! Please contact us, if you know why?'}), content_type="application/json")
+		return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
 
 
 

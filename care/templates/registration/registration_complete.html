@@ -1,15 +1,15 @@
 {% extends "care/base.html"  %}
-
+{% load i18n %}
 {% block content %}
 <form class="form-signin text-center" method="post">
 {% csrf_token %}
 
-	<h1 class="form-signin-heading">Registration completed!</h1>
-	<h4 class="form-signin-heading">
-		Thank you for you registration. You also need to activate you account to can be able login to ATO.care. Please foolow the instructions in the e-mail which was sent to you mail-box.
+	<h1 class="form-signin-heading">{% trans "Registration completed!" %}</h1>
+	<h4 class="form-signin-heading">{% trans "Thank you for you registration. You also need to activate you account to can be able login to ATO.care. Please foolow the instructions in the e-mail which was sent to you mail-box.Upload" %}
+		
 	</h4>
 	<br>
-	<a href="/care">Back to the site</a>
+	<a href="/care">{% trans "Back to the site" %}</a>
 
 	
 </form>

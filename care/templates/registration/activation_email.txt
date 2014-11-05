@@ -1,6 +1,9 @@
-<h1>Registration at the system</h1>
-<p>For activating your account, just click on link bellow:</p>
+{% load i18n %}
+{% trans "Activate account at" %} {{ site.name }}:
 
 {{ site }}/accounts/activate/{{ activation_key }}/
 
-<p>Thank you!</p>
+{% blocktrans %}Link is valid for {{ expiration_days }} days.{% endblocktrans %}
+
+
+{% blocktrans %}Thank you!{% endblocktrans %}

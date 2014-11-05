@@ -1,1 +1,2 @@
-{{ site }} - account activation!
+{% load i18n %}
+{{ site }} - {% trans "account activation!" %}

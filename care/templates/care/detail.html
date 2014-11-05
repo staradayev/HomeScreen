@@ -1,5 +1,5 @@
 {% extends 'care/base.html' %}
-
+{% load i18n %}
 {% block header %}
 
 <nav class="navbar navbar-default" role="navigation">
@@ -12,16 +12,16 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="#">ATO.care</a>
+      		<a class="navbar-brand" href="/">ATO.Care</a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
-	        	<li  class="active"><a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> My pictures</a></li>
-	        	<li><a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> My info</a></li>
+	        	<li  class="active"><a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> {% trans "My pictures" %}</a></li>
+	        	<li><a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> {% trans "My info" %}</a></li>
 	        	<li>
-	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> Upload</a>
+	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> {% trans "Upload" %}</a>
 	        	</li>
 	        </ul>
 	      
@@ -29,7 +29,7 @@
 	        		
 	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">Logout <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">{% trans "Logout" %} <i class="fa fa-sign-out fa-lg"></i> </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -46,15 +46,15 @@
     	<ul class="pager">
     		
     		{% if picture_list.has_previous %}
-    			<li class="previous"><a href="?page={{ picture_list.previous_page_number }}">&larr; Older</a></li>
+    			<li class="previous"><a href="?page={{ picture_list.previous_page_number }}">&larr; {% trans "Older" %}</a></li>
 		    {% else %}
-		    	<li class="previous disabled"><a href="#">&larr; Older</a></li>
+		    	<li class="previous disabled"><a href="#">&larr; {% trans "Older" %}</a></li>
 		    {% endif %}
 
 		    {% if picture_list.has_next %}
-		    	<li class="next"><a href="?page={{ picture_list.next_page_number }}">Newer &rarr;</a></li>
+		    	<li class="next"><a href="?page={{ picture_list.next_page_number }}">{% trans "Newer" %} &rarr;</a></li>
 		    {% else %}
-		    	<li class="next disabled"><a href="#">Newer &rarr;</a></li>
+		    	<li class="next disabled"><a href="#">{% trans "Newer" %} &rarr;</a></li>
 		    {% endif %}
 		</ul>
     </div>
@@ -64,8 +64,8 @@
 {% if not picture_list %}
 <div class="row">
     <div class="col-md-12 text-center">
-    	<h2>There are no uploaded pictures!</h2> 
-    	<h4>Please upload more pictures <a href="{% url 'care:upload' %}">here</a>!</h4>
+    	<h2>{% trans "There are no uploaded pictures!" %}</h2> 
+    	<h4>{% trans "Please upload more pictures" %} <a href="{% url 'care:upload' %}">{% trans "here" %}</a>!</h4>
     </div>
 </div>
 {% endif %}
@@ -89,38 +89,38 @@
     	</div>
     	{% if img.approve_status = False %}
       		<a href="/care/edit/{{img.id}}">
-      			<input type="button" class="btn btn-info pull-right" value="Edit"/>
+      			<input type="button" class="btn btn-info pull-right" value="{% blocktrans %}Edit{% endblocktrans %}"/>
       		</a>
       	{% endif %}
       	<a href="/care/addupload/{{img.id}}">
-      		<input type="button" class="btn btn-info pull-left" value="Add upload"/>
+      		<input type="button" class="btn btn-info pull-left" value="{% blocktrans %}Add upload{% endblocktrans %}"/>
       	</a>
     </div>
     <div class="col-md-6">
     	<form class="form-horizontal" role="form">
 			<div class="form-group">
-			    <label for="uploadLabel" class="col-md-4 control-label">Uploaded to server:</label>
+			    <label for="uploadLabel" class="col-md-4 control-label">{% trans "Uploaded to server:" %}</label>
 			    <div class="col-md-8">
 			        <p class="form-control-static"><i class="fa fa-upload "></i>&nbsp; {{img.date_pub}}</p>			        
 			    </div>
 			</div>
 			{% if img.date_approve %}
 			<div class="form-group">
-			    <label for="approvedLabel" class="col-md-4 control-label">Approved:</label>
+			    <label for="approvedLabel" class="col-md-4 control-label">{% trans "Approved:" %}</label>
 			    <div class="col-md-8">
 			      	<p class="form-control-static"><i class="fa fa-clock-o "></i>&nbsp; {{img.date_approve}}</p>
 			    </div>
 			</div>
 			{% endif %}
 			<div class="form-group">
-			    <label for="approvedLabel" class="col-md-4 control-label">Author:</label>
+			    <label for="approvedLabel" class="col-md-4 control-label">{% trans "Author:" %}</label>
 			    <div class="col-md-8">
 			      	<p class="form-control-static"><i class="fa fa-user "></i>&nbsp; {{img.author.first_name}} {{img.author.last_name}}</p>
 			    </div>
 			</div>
 			{% if img.category.all %}
 			<div class="form-group">
-			    <label for="CategoryLabel" class="col-md-4 control-label">Categories:</label>
+			    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Categories:" %}</label>
 			    <div class="col-md-8">
 			      	<ul class="list-group">
 			      		{% for cat in img.category.all %}
@@ -135,7 +135,7 @@
 			-->
 			{% if img.cat_list.all %}
 			<div class="form-group">
-			    <label for="CategoryLabel" class="col-md-4 control-label">Categories:</label>
+			    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Categories:" %}</label>
 			    <div class="col-md-8">
 			      	<ul class="list-group">
 			      		{% for cat in img.cat_list.all %}
@@ -150,7 +150,7 @@
 			-->
 			{% if img.tag.all %}
 			<div class="form-group">
-			    <label for="TagLabel" class="col-md-4 control-label">Tags:</label>
+			    <label for="TagLabel" class="col-md-4 control-label">{% trans "Tags:" %}</label>
 			    <div class="col-md-8">
 			      	<ul class="list-group">
 			      		{% for tag in img.tag.all %}
@@ -162,7 +162,7 @@
 			{% endif %}
 			{% if img.download_count %}
 			<div class="form-group">
-			    <label for="CategoryLabel" class="col-md-4 control-label">Downloads:</label>
+			    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Downloads:" %}</label>
 			    <div class="col-md-8">
 			      	<p class="form-control-static">			      		
 					    <i class="fa fa-download "></i>&nbsp; {{img.download_count}}	    
