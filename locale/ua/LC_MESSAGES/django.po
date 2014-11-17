@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-17 22:35+0000\n"
+"POT-Creation-Date: 2014-11-17 23:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgstr "Про нас"
 
 #: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:221
 msgid "Install"
-msgstr "Встановити"
+msgstr "Додати"
 
 #: ato/templates/ato/index.html:44
 msgid "Help"
@@ -85,7 +85,7 @@ msgstr "Фотографiв"
 
 #: ato/templates/ato/index.html:107
 msgid "About title 1"
-msgstr "Завантажуй HD-фони - пiдтрмай Украiну!"
+msgstr "Поможем украине вместе"
 
 #: ato/templates/ato/index.html:113
 msgid "About title 2"
