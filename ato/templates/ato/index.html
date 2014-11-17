@@ -1,132 +1,315 @@
 {% extends 'ato/base.html' %}
 {% load i18n %}
 {% block header %}
-
-<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">ATO.Care</a>
-        </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li  class="active"><a href="{% url 'ato:index' %}">{% trans "Home" %}</a></li>
-            </ul>
+<header class="masthead">
+    <div class="container">
+    <div class="row head-row">
+      <div class="col-md-6">
+        <h1><a href="#" class="logo" title="Bootstrap Template">{% trans "ATO.Care" %}</a>
+          <p class="lead">{% trans "Help Ukraine" %}</p></h1>
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2">
+        <br>
+        <div class="pull-right">    
           
-            <ul class="nav navbar-nav navbar-right">
-                    
-                <li><a href="/care/login">{% trans "Login" %}</a></li>
-                    
-                <li><a href="/accounts/register" class="navbar-link">{% trans "Register" %}</a></li>
-                
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <a href="#section2" class="btn btn-download" >{% trans "About" %}</a>
+
+        <a href="#section4" class="btn btn-download" >{% trans "Install" %}</a>
+      </div>
+    </div>
+    </div>
+</header>
+<div class="navbar navbar-custom navbar-inverse navbar-static-top" id="nav" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav nav-justified">
+
+          <li>&nbsp;&nbsp;</li>
+          <li class="active"><a href="#section1"><strong>{% trans "ATO.Care" %}</strong></a></li>
+          <li><a href="#section2">{% trans "About" %}</a></li>
+          <li><a href="#section3">{% trans "Help" %}</a></li>
+          
+          <li><a href="#section4">{% trans "Download" %}</a></li>
+          <li><a href="#section5">{% trans "Join" %}</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">LN<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container -->
+</div>
 
 {% endblock %}
 
 {% block content %}
-<img src="{{STATIC_URL}}img/big_logo.jpg" alt="ATO.care" class="img-responsive">
-
-<div class="container ato" style="">
-
-
-    <br />
-    <br />
-    <br />
-
-    <div class="row">
-        <div class="col-md-7">
-            <h1 class="">ATO.Care <small>&nbsp;{% trans "HD Wallpapers" %}</small></h1>
-        </div>
-        <div class="col-md-3">
-           
-        </div>
-        <div class="col-md-2 text-right">
-            <br />
-           <img src="{{STATIC_URL}}img/GooglePlayBadge.png" alt="ATO.care" class="img-responsive">
-        </div>
+<!--<img src="{{STATIC_URL}}img/big_logo.jpg" alt="ATO.care" class="img-responsive">-->
+<div class="divider" id="section1"></div>
+<div class="container" id="section1">
+  <div class="col-sm-10 col-sm-offset-1">
+    <div class="page-header text-center">
+      <h1>{% trans "Care title 1" %}</h1>
     </div>
 
-    <br />
-    <br />
+    <p class="text-center">
+      {% trans "Care text 1" %}
+    </p>
 
-
-    <div class="row">
-        <div class="col-md-5">
-            <img src="{{STATIC_URL}}img/intro_1.jpg" alt="ATO.care" class="img-responsive img-thumbnail">
-        </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-6">
-            
-            <h3 class="text-center text-uppercase" style="font-family:Helvetica">{% trans "Promo title 1" %}</h3>
-            <br />
-            <p  class="text-justify lead">{% trans "Promo text 1" %}</p>
-
-        </div>
-    </div>
-
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <div class="row">
-        <div class="col-md-6">
-            
-            <h3  class="text-center text-uppercase">{% trans "Promo title 2" %}</h3>
-            <br />
-           <p class="text-justify lead">{% trans "Promo text 2" %}</p>
-           <ul class="lead">
-                <li>Organization name</li>
-                <li>Organization name</li>
-                <li>Organization name</li>
-                <li>Organization name</li>
-                <li>Organization name</li>
-           </ul>
-           <p class="text-justify lead">{% trans "Promo text 2.1" %}</p>
-        </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-5">
-            <img src="{{STATIC_URL}}img/intro_2.jpg" alt="ATO.care" class="img-responsive img-thumbnail">
-        </div>
-    </div>
-
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <div class="row">
-        <div class="col-md-5">
-            <img src="{{STATIC_URL}}img/intro_3.jpg" alt="ATO.care" class="img-responsive img-thumbnail">
-        </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-6">
-            <br />
-            <br />
-            <h3  class="text-center text-uppercase">{% trans "Promo title 3" %}</h3>
-           <br />
-           <p  class="text-justify lead">{% trans "Promo text 3" %}<a href="/care/login">{% trans "here" %}</a>{% trans "Promo text 3.1" %}</p>
-        </div>
-    </div>
-
-    <br />
-    <br />
-    <br />
-
+    <p class="text-center">
+      {% trans "Care text 2" %}
+      </p>
+  </div>
 </div>
+    
+<div class="divider"></div>
+
+<section class="bg-1 sectionheader" id="section2">
+    <div class="container heads">
+    <div class="col-md-12 counter" >
+        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
+                      <h1 class="count">7489</h1>
+                      <h6>{% trans "Total Downloads" %}</h6>
+                    </div>
+        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
+                      <h1 class="count">3571$</h1>
+                      <h6>{% trans "Total rized" %}</h6>
+                    </div>
+        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
+                      <h1 class="count">837</h1>
+                      <h6>{% trans "Pictires in app" %}</h6>
+                    </div>
+        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
+                      <h1 class="count">33</h1>
+                      <h6>{% trans "Photographers" %}</h6>
+                    </div>
+    </div>
+   </div>
+  <div class="col-sm-6 col-sm-offset-3 text-center"><h2 style="padding:20px;background-color:rgba(5,5,5,.8)">{% trans "About title 1" %}</h2></div>
+</section>
+  
+   
+<div class="container" id="section2">
+    <div class="col-sm-8 col-sm-offset-2 text-center">
+      <h1>{% trans "About title 2" %}</h1>
+      <hr>
+      <p class="text-center">
+      {% trans "About text 1" %}
+      </p>
+      <div class="accordion"> <!-- Start Accordion -->
+          <div class="panel-group" id="accordion">  <!-- Accordion panel-group-->
+
+            <div class="panel wow fadeInDown"> <!-- Advantage 1 -->
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#about1" class="collapsed">
+                    <h4>Красный крест</h4>
+                  </a>
+                </div>
+              </div>
+              <div id="about1" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda.
+                </div>
+              </div>
+            </div> <!-- End Advantage 1 -->
+
+            <div class="panel wow fadeInDown"> <!-- Advantage 2 -->
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#about2" class="collapsed">
+                    <h4>Крылья феникса</h4>
+                  </a>
+                </div>
+              </div>
+              <div id="about2" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven t heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div> <!-- End Advantage 2 -->
+
+            <div class="panel wow fadeInDown"> <!-- Advantage 3 -->
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#about3" class="collapsed">
+                    <h4>48-я аэромобильная тригада</h4>
+                  </a>
+                </div>
+              </div>
+              <div id="about3" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                  Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                </div>
+              </div>
+            </div> <!-- End Advantage 3 -->
+
+            <div class="panel wow fadeInDown"> <!-- Advantage 4 -->
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#about4" class="collapsed">
+                    <h4>Благотворительный фонд Украины</h4>
+                  </a>
+                </div>
+              </div>
+              <div id="about4" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                  Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                </div>
+              </div>
+            </div> <!-- End Advantage 4 -->
+
+            <div class="panel wow fadeInDown"> <!-- Advantage 5 -->
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#about5" class="collapsed">
+                    <h4>Батальон "Азов"</h4>
+                  </a>
+                </div>
+              </div>
+              <div id="about5" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                  Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                </div>
+              </div>
+            </div> <!-- End Advantage 5 -->
+
+          </div> <!-- End Accordion panel-group-->
+        </div>
+
+    <p class="text-center">{% trans "About text 2" %}</p>
+    </div><!--/col-->
+</div><!--/container-->
+
+
+<div class="divider"></div>
+
+<section class="bg-2" id="section3">
+  <div class="col-sm-6 col-sm-offset-3 text-center"><h2 style="padding:20px;background-color:rgba(5,5,5,.8)">{% trans "Help title 1" %}</h2></div>
+</section>
+
+<div class="continer bg-4" id="section3">
+    <div class="row">
+       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      
+        <div class="panel panel-default">
+          <div><img src="{{STATIC_URL}}img/600x250.1.jpg" class="img-responsive"></div>
+          <div class="panel-body text-center">
+            <p class="lead">{% trans "Help card header 1" %}</p>
+            <p>{% trans "Help card content 1" %}</p>
+            
+            <p>
+              <a href="#section4" class="btn btn-default">{% trans "Install" %}</a>
+            </p>
+          </div>
+        </div><!--/panel-->
+      </div><!--/col-->
+      
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      
+        <div class="panel panel-default">
+          <div class="panel-thumbnail"><img src="{{STATIC_URL}}img/600x250.2.jpg" class="img-responsive"></div>
+          <div class="panel-body  text-center">
+            <p class="lead">{% trans "Help card header 2" %}</p>
+            <p >{% trans "Help card content 2" %}</p>
+            
+            <p>
+              <a href="#section5" class="btn btn-default">{% trans "Sign in" %}</a>
+            </p>
+          </div>
+        </div><!--/panel--> 
+      </div><!--/col-->
+      
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      
+        <div class="panel panel-default">
+          <div class="panel-thumbnail"><img src="{{STATIC_URL}}img/600x250.3.jpg" class="img-responsive"></div>
+          <div class="panel-body  text-center">
+            <p class="lead">{% trans "Help card header 3" %}</p>
+            <p>{% trans "Help card content 3" %}</p>
+            
+            <p>
+              <img src="https://lh4.googleusercontent.com/-eSs1F2O7N1A/AAAAAAAAAAI/AAAAAAAAAAA/caHwQFv2RqI/s28-c-k-no/photo.jpg" width="28px" height="28px">
+              <img src="https://lh4.googleusercontent.com/-9Yw2jNffJlE/AAAAAAAAAAI/AAAAAAAAAAA/u3WcFXvK-g8/s28-c-k-no/photo.jpg" width="28px" height="28px">
+              <img src="https://lh4.googleusercontent.com/-9Yw2jNffJlE/AAAAAAAAAAI/AAAAAAAAAAA/u3WcFXvK-g8/s28-c-k-no/photo.jpg" width="28px" height="28px">
+              <img src="https://lh5.googleusercontent.com/-AQznZjgfM3E/AAAAAAAAAAI/AAAAAAAAABA/WEPOnkQS_20/s28-c-k-no/photo.jpg" width="28px" height="28px">
+            </p>
+          </div>
+        </div><!--/panel--> 
+
+      </div><!--/col--> 
+    </div><!--/row-->
+    <hr>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <h1 class="text-center">{% trans "Help title 2" %}</h1>
+            <hr>
+            <p class="text-center">
+              {% trans "Help text 1" %}
+            </p>
+          </div>
+    </div>
+</div><!--/container-->
+
+<div class="divider"></div>
+
+<section class="bg-5" id="section4">
+  <div class="col-sm-6 col-sm-offset-3 text-center"><h2 style="padding:20px;background-color:rgba(5,5,5,.8)">
+    {% trans "Download header 1" %}</h2></div>
+  
+</section>
+
+
+<div class="container download">
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 wow fadeInDown">
+        <h2>{% trans "Download header 2" %} <span class="highlight">{% trans "ATO.Care" %}</span></h2>
+        <p>{% trans "Download text 1" %} 
+                        </p>
+        <p>{% trans "Download text 2" %}
+                        </p>
+        <div class="space"></div>
+
+        <a href="#" class="btn btn-download" ><i class="fa fa-apple fa-2x"></i>Apple Store</a>
+
+        <a href="#" class="btn btn-download" ><i class="fa fa-android fa-2x"></i>Play Store</a>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <img src="{{STATIC_URL}}img/05_device.png" class="img-responsive phone-front fadeIn" alt="img"> <!-- Your mobile device image here -->
+        <img src="{{STATIC_URL}}img/06_device.png" class="img-responsive phone-back fadeIn" alt="img"> <!-- Your mobile device image here -->
+    </div>
+  </div>
+</div>
+
+<section class="bg-3 section-small" id="section5">
+  
+   <div class="container come">
+    <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 text-center">
+        <h1>{% trans "WE'RE COMING SOON" %}</h1>
+        <a href="/accounts/register" class="btn btn-download" >{% trans "Sign up" %}</a>
+
+        <a href="/care/login" class="btn btn-download" >{% trans "Sign in" %}</a>
+    </div>
+   </div>
+</section>
 
 {% endblock %}

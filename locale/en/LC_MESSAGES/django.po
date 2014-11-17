@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-31 20:02+0000\n"
+"POT-Creation-Date: 2014-11-17 22:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,29 +17,45 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ato/templates/ato/index.html:21 care/templates/admin/base.html:50
-msgid "Home"
-msgstr "Home"
+#: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
+#: ato/templates/ato/index.html:285
+msgid "ATO.Care"
+msgstr ""
 
-#: ato/templates/ato/index.html:26
-msgid "Login"
-msgstr "Login"
+#: ato/templates/ato/index.html:9
+msgid "Help Ukraine"
+msgstr ""
 
-#: ato/templates/ato/index.html:28 care/templates/care/login.html:35
-#: care/templates/registration/login.html:35
-msgid "Register"
-msgstr "Register"
+#: ato/templates/ato/index.html:22 ato/templates/ato/index.html.py:43
+msgid "About"
+msgstr ""
 
-#: ato/templates/ato/index.html:49
-msgid "HD Wallpapers"
-msgstr "Patriotic HD-backgrounds"
+#: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:221
+msgid "Install"
+msgstr ""
 
-#: ato/templates/ato/index.html:72
-msgid "Promo title 1"
+#: ato/templates/ato/index.html:44
+msgid "Help"
+msgstr ""
+
+#: ato/templates/ato/index.html:46
+msgid "Download"
+msgstr ""
+
+#: ato/templates/ato/index.html:47
+msgid "Join"
+msgstr ""
+
+#: ato/templates/ato/index.html:71
+#, fuzzy
+#| msgid "Promo title 1"
+msgid "Care title 1"
 msgstr "Download HD-wallpapers and help Ukraine"
 
-#: ato/templates/ato/index.html:74
-msgid "Promo text 1"
+#: ato/templates/ato/index.html:75
+#, fuzzy
+#| msgid "Promo text 1"
+msgid "Care text 1"
 msgstr ""
 "ATO.Care - project support Ukraine as a result of military aggression in the "
 "east Countries in the anti-terroresticheskoy operation (ATO). Load HD-"
@@ -47,42 +63,150 @@ msgstr ""
 "optionally donate to help Ukraine in the fight against the pro-Russian "
 "agrssiey."
 
-#: ato/templates/ato/index.html:87
-msgid "Promo title 2"
-msgstr "ATO.Care - your chance to help Ukraine!"
-
-#: ato/templates/ato/index.html:89
-msgid "Promo text 2"
+#: ato/templates/ato/index.html:79
+#, fuzzy
+#| msgid "Promo text 2"
+msgid "Care text 2"
 msgstr ""
 "The collected during the charity event proceeds will be transferredcharities "
 "according to your choice. We cooperate withthe following organizations and "
 "volunteers:"
 
-#: ato/templates/ato/index.html:97
-msgid "Promo text 2.1"
+#: ato/templates/ato/index.html:91
+msgid "Total Downloads"
 msgstr ""
-"Reports on the transfer of funds, you can see on the official "
-"pagesCommunities in Facebook"
 
-#: ato/templates/ato/index.html:120
-msgid "Promo title 3"
-msgstr "Help Ukraine together"
-
-#: ato/templates/ato/index.html:122
-msgid "Promo text 3"
+#: ato/templates/ato/index.html:95
+msgid "Total rized"
 msgstr ""
-"Backgrounds ATO.Care include beautiful images from leading professional "
-"photographers and lyuiteley! You can also become a party to the charity "
-"action are attached to the project - is recorded as photographer"
 
-#: ato/templates/ato/index.html:122 care/templates/care/detail.html:68
-msgid "here"
-msgstr "here"
-
-#: ato/templates/ato/index.html:122
-msgid "Promo text 3.1"
+#: ato/templates/ato/index.html:99
+msgid "Pictires in app"
 msgstr ""
-", add your pictures to the project and let your talent will help Ukraine!"
+
+#: ato/templates/ato/index.html:103
+msgid "Photographers"
+msgstr ""
+
+#: ato/templates/ato/index.html:107
+#, fuzzy
+#| msgid "Promo title 1"
+msgid "About title 1"
+msgstr "Download HD-wallpapers and help Ukraine"
+
+#: ato/templates/ato/index.html:113
+#, fuzzy
+#| msgid "Promo title 2"
+msgid "About title 2"
+msgstr "ATO.Care - your chance to help Ukraine!"
+
+#: ato/templates/ato/index.html:116
+#, fuzzy
+#| msgid "Promo text 1"
+msgid "About text 1"
+msgstr ""
+"ATO.Care - project support Ukraine as a result of military aggression in the "
+"east Countries in the anti-terroresticheskoy operation (ATO). Load HD-"
+"patriotic wallpaper on your mobile, choose the charity Organization and "
+"optionally donate to help Ukraine in the fight against the pro-Russian "
+"agrssiey."
+
+#: ato/templates/ato/index.html:199
+#, fuzzy
+#| msgid "Promo text 2"
+msgid "About text 2"
+msgstr ""
+"The collected during the charity event proceeds will be transferredcharities "
+"according to your choice. We cooperate withthe following organizations and "
+"volunteers:"
+
+#: ato/templates/ato/index.html:207
+#, fuzzy
+#| msgid "Promo title 1"
+msgid "Help title 1"
+msgstr "Download HD-wallpapers and help Ukraine"
+
+#: ato/templates/ato/index.html:217
+msgid "Help card header 1"
+msgstr ""
+
+#: ato/templates/ato/index.html:218
+msgid "Help card content 1"
+msgstr ""
+
+#: ato/templates/ato/index.html:232
+msgid "Help card header 2"
+msgstr ""
+
+#: ato/templates/ato/index.html:233
+msgid "Help card content 2"
+msgstr ""
+
+#: ato/templates/ato/index.html:236 ato/templates/ato/index.html.py:310
+#: care/templates/care/login.html:29 care/templates/registration/login.html:29
+msgid "Sign in"
+msgstr ""
+
+#: ato/templates/ato/index.html:247
+msgid "Help card header 3"
+msgstr ""
+
+#: ato/templates/ato/index.html:248
+msgid "Help card content 3"
+msgstr ""
+
+#: ato/templates/ato/index.html:264
+#, fuzzy
+#| msgid "Promo title 2"
+msgid "Help title 2"
+msgstr "ATO.Care - your chance to help Ukraine!"
+
+#: ato/templates/ato/index.html:267
+#, fuzzy
+#| msgid "Promo text 1"
+msgid "Help text 1"
+msgstr ""
+"ATO.Care - project support Ukraine as a result of military aggression in the "
+"east Countries in the anti-terroresticheskoy operation (ATO). Load HD-"
+"patriotic wallpaper on your mobile, choose the charity Organization and "
+"optionally donate to help Ukraine in the fight against the pro-Russian "
+"agrssiey."
+
+#: ato/templates/ato/index.html:277
+msgid "Download header 1"
+msgstr ""
+
+#: ato/templates/ato/index.html:285
+msgid "Download header 2"
+msgstr ""
+
+#: ato/templates/ato/index.html:286
+#, fuzzy
+#| msgid "Promo text 1"
+msgid "Download text 1"
+msgstr ""
+"ATO.Care - project support Ukraine as a result of military aggression in the "
+"east Countries in the anti-terroresticheskoy operation (ATO). Load HD-"
+"patriotic wallpaper on your mobile, choose the charity Organization and "
+"optionally donate to help Ukraine in the fight against the pro-Russian "
+"agrssiey."
+
+#: ato/templates/ato/index.html:288
+#, fuzzy
+#| msgid "Promo text 2"
+msgid "Download text 2"
+msgstr ""
+"The collected during the charity event proceeds will be transferredcharities "
+"according to your choice. We cooperate withthe following organizations and "
+"volunteers:"
+
+#: ato/templates/ato/index.html:307
+msgid "WE'RE COMING SOON"
+msgstr ""
+
+#: ato/templates/ato/index.html:308
+msgid "Sign up"
+msgstr ""
 
 #: care/forms.py:13
 msgid "There are no first name presented!"
@@ -213,6 +337,10 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+#: care/templates/admin/base.html:50
+msgid "Home"
+msgstr "Home"
+
 #: care/templates/admin/base_site.html:3
 msgid "Django templates!!!"
 msgstr ""
@@ -252,6 +380,10 @@ msgstr ""
 #: care/templates/care/detail.html:68
 msgid "Please upload more pictures"
 msgstr ""
+
+#: care/templates/care/detail.html:68
+msgid "here"
+msgstr "here"
 
 #: care/templates/care/detail.html:92
 msgid "Edit"
@@ -365,13 +497,13 @@ msgstr ""
 msgid "Please sign in"
 msgstr ""
 
-#: care/templates/care/login.html:29 care/templates/registration/login.html:29
-msgid "Sign in"
-msgstr ""
-
 #: care/templates/care/login.html:32 care/templates/registration/login.html:32
 msgid "or"
 msgstr ""
+
+#: care/templates/care/login.html:35 care/templates/registration/login.html:35
+msgid "Register"
+msgstr "Register"
 
 #: care/templates/care/login.html:39 care/templates/registration/login.html:39
 msgid "Forgot you password?"
@@ -617,3 +749,27 @@ msgstr ""
 #: care/views.py:297
 msgid "Url too long!"
 msgstr ""
+
+#~ msgid "Login"
+#~ msgstr "Login"
+
+#~ msgid "HD Wallpapers"
+#~ msgstr "Patriotic HD-backgrounds"
+
+#~ msgid "Promo text 2.1"
+#~ msgstr ""
+#~ "Reports on the transfer of funds, you can see on the official "
+#~ "pagesCommunities in Facebook"
+
+#~ msgid "Promo title 3"
+#~ msgstr "Help Ukraine together"
+
+#~ msgid "Promo text 3"
+#~ msgstr ""
+#~ "Backgrounds ATO.Care include beautiful images from leading professional "
+#~ "photographers and lyuiteley! You can also become a party to the charity "
+#~ "action are attached to the project - is recorded as photographer"
+
+#~ msgid "Promo text 3.1"
+#~ msgstr ""
+#~ ", add your pictures to the project and let your talent will help Ukraine!"

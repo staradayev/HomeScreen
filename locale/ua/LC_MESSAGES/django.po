@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-31 20:02+0000\n"
+"POT-Creation-Date: 2014-11-17 22:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,29 +17,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ato/templates/ato/index.html:21 care/templates/admin/base.html:50
-msgid "Home"
-msgstr "Додому"
+#: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
+#: ato/templates/ato/index.html:285
+msgid "ATO.Care"
+msgstr "ATO.Care"
 
-#: ato/templates/ato/index.html:26
-msgid "Login"
-msgstr "Увiйти"
+#: ato/templates/ato/index.html:9
+msgid "Help Ukraine"
+msgstr "Допоможи Украiнi"
 
-#: ato/templates/ato/index.html:28 care/templates/care/login.html:35
-#: care/templates/registration/login.html:35
-msgid "Register"
-msgstr "Регiстрацiя"
+#: ato/templates/ato/index.html:22 ato/templates/ato/index.html.py:43
+msgid "About"
+msgstr "Про нас"
 
-#: ato/templates/ato/index.html:49
-msgid "HD Wallpapers"
-msgstr "Патрiотичнi HD-фони"
+#: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:221
+msgid "Install"
+msgstr "Встановити"
 
-#: ato/templates/ato/index.html:72
-msgid "Promo title 1"
+#: ato/templates/ato/index.html:44
+msgid "Help"
+msgstr "Допомога"
+
+#: ato/templates/ato/index.html:46
+msgid "Download"
+msgstr "Завантаження"
+
+#: ato/templates/ato/index.html:47
+msgid "Join"
+msgstr "Приеднатися"
+
+#: ato/templates/ato/index.html:71
+msgid "Care title 1"
 msgstr "Завантажуй HD-фони - пiдтрмай Украiну!"
 
-#: ato/templates/ato/index.html:74
-msgid "Promo text 1"
+#: ato/templates/ato/index.html:75
+msgid "Care text 1"
 msgstr ""
 "ATO.Care - проект поддержки Украины вследствие военной агресси на востоке "
 "страны в ходе анти-террорестической операции (АТО). Загружайте "
@@ -47,42 +59,130 @@ msgstr ""
 "организацию и по желанию жертвуйте помощь Украине в борьбе с про-российской "
 "агрссией."
 
-#: ato/templates/ato/index.html:87
-msgid "Promo title 2"
-msgstr "ATO.Care - Ваш шанс помочь стране!"
-
-#: ato/templates/ato/index.html:89
-msgid "Promo text 2"
-msgstr ""
-"Собранные в ходе благотворительной акции средства будут передаваться "
-"благотворительным организациям согласно Вашему выбору. Мы сотрудничаем со "
-"следующими организациями и волонтерами:"
-
-#: ato/templates/ato/index.html:97
-msgid "Promo text 2.1"
-msgstr ""
-"Отчеты о передаче средств Вы можжете увидеть на официальных страницах "
-"сообществ в Facebook"
-
-#: ato/templates/ato/index.html:120
-msgid "Promo title 3"
-msgstr "Поможем Украине вместе!"
-
-#: ato/templates/ato/index.html:122
-msgid "Promo text 3"
+#: ato/templates/ato/index.html:79
+msgid "Care text 2"
 msgstr ""
 "Фоны ATO.Care включают в себя прекрасные снимки от ведущих фотографов-"
 "профессионалов и люителей! Вы так же можете стать участником "
 "благотворительно акции присоеденившись к проекту - регистрируйтесь как "
 "фотограф "
 
-#: ato/templates/ato/index.html:122 care/templates/care/detail.html:68
-msgid "here"
-msgstr "тут"
+#: ato/templates/ato/index.html:91
+msgid "Total Downloads"
+msgstr "Завантаження"
 
-#: ato/templates/ato/index.html:122
-msgid "Promo text 3.1"
-msgstr ", добавляйте свои снимки в проект и пускай Ваш талант поможет Украине!"
+#: ato/templates/ato/index.html:95
+msgid "Total rized"
+msgstr "Всьго зiбрано"
+
+#: ato/templates/ato/index.html:99
+msgid "Pictires in app"
+msgstr "Фотографiй"
+
+#: ato/templates/ato/index.html:103
+msgid "Photographers"
+msgstr "Фотографiв"
+
+#: ato/templates/ato/index.html:107
+msgid "About title 1"
+msgstr "Завантажуй HD-фони - пiдтрмай Украiну!"
+
+#: ato/templates/ato/index.html:113
+msgid "About title 2"
+msgstr "ATO.Care - Ваш шанс помочь стране!"
+
+#: ato/templates/ato/index.html:116
+msgid "About text 1"
+msgstr ""
+"About text 1Собранные в ходе благотворительной акции средства будут "
+"передаваться благотворительным организациям согласно Вашему выбору. Мы "
+"сотрудничаем со следующими организациями и волонтерами:"
+
+#: ato/templates/ato/index.html:199
+msgid "About text 2"
+msgstr ""
+"Отчеты о передаче средств Вы можжете увидеть на официальных страницах "
+"сообществ в Facebook"
+
+#: ato/templates/ato/index.html:207
+msgid "Help title 1"
+msgstr "Як допомогти Украiнi?"
+
+#: ato/templates/ato/index.html:217
+msgid "Help card header 1"
+msgstr "Встановити обоi"
+
+#: ato/templates/ato/index.html:218
+msgid "Help card content 1"
+msgstr "Зробивши благодiйний внесок"
+
+#: ato/templates/ato/index.html:232
+msgid "Help card header 2"
+msgstr "Завантажити фотообоi"
+
+#: ato/templates/ato/index.html:233
+msgid "Help card content 2"
+msgstr "Якi допоможуть нашiй краiнi"
+
+#: ato/templates/ato/index.html:236 ato/templates/ato/index.html.py:310
+#: care/templates/care/login.html:29 care/templates/registration/login.html:29
+msgid "Sign in"
+msgstr "Увiйти"
+
+#: ato/templates/ato/index.html:247
+msgid "Help card header 3"
+msgstr "Розповiсти друзям"
+
+#: ato/templates/ato/index.html:248
+msgid "Help card content 3"
+msgstr "Не будьте безпричастними"
+
+#: ato/templates/ato/index.html:264
+msgid "Help title 2"
+msgstr "Ваша помощь нужна стране!"
+
+#: ato/templates/ato/index.html:267
+msgid "Help text 1"
+msgstr ""
+"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
+"praesentium voluptatum deleniti atque corrupti quos dolores et quas "
+"molestias excepturi sint occaecati cupiditate non provident, similique sunt "
+"in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
+"fuga. Et harum quidem rerum facilis est et expedita distinctio."
+
+#: ato/templates/ato/index.html:277
+msgid "Download header 1"
+msgstr "ATO.Care - ми вже допомагаемо!"
+
+#: ato/templates/ato/index.html:285
+msgid "Download header 2"
+msgstr "Завантажуй"
+
+#: ato/templates/ato/index.html:286
+msgid "Download text 1"
+msgstr ""
+"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
+"praesentium voluptatum deleniti atque corrupti quos dolores et quas "
+"molestias excepturi sint occaecati cupiditate non provident, similique sunt "
+"in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
+"fuga. Et harum quidem rerum facilis est et expedita distinctio."
+
+#: ato/templates/ato/index.html:288
+msgid "Download text 2"
+msgstr ""
+"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
+"praesentium voluptatum deleniti atque corrupti quos dolores et quas "
+"molestias excepturi sint occaecati cupiditate non provident, similique sunt "
+"in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
+"fuga. Et harum quidem rerum facilis est et expedita distinctio."
+
+#: ato/templates/ato/index.html:307
+msgid "WE'RE COMING SOON"
+msgstr ""
+
+#: ato/templates/ato/index.html:308
+msgid "Sign up"
+msgstr "Реестрацiя"
 
 #: care/forms.py:13
 msgid "There are no first name presented!"
@@ -215,6 +315,10 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+#: care/templates/admin/base.html:50
+msgid "Home"
+msgstr "Додому"
+
 #: care/templates/admin/base_site.html:3
 msgid "Django templates!!!"
 msgstr ""
@@ -254,6 +358,10 @@ msgstr ""
 #: care/templates/care/detail.html:68
 msgid "Please upload more pictures"
 msgstr ""
+
+#: care/templates/care/detail.html:68
+msgid "here"
+msgstr "тут"
 
 #: care/templates/care/detail.html:92
 msgid "Edit"
@@ -367,13 +475,13 @@ msgstr ""
 msgid "Please sign in"
 msgstr ""
 
-#: care/templates/care/login.html:29 care/templates/registration/login.html:29
-msgid "Sign in"
-msgstr "Увiйти"
-
 #: care/templates/care/login.html:32 care/templates/registration/login.html:32
 msgid "or"
 msgstr ""
+
+#: care/templates/care/login.html:35 care/templates/registration/login.html:35
+msgid "Register"
+msgstr "Регiстрацiя"
 
 #: care/templates/care/login.html:39 care/templates/registration/login.html:39
 msgid "Forgot you password?"
@@ -629,3 +737,12 @@ msgstr ""
 #: care/views.py:297
 msgid "Url too long!"
 msgstr ""
+
+#~ msgid "Login"
+#~ msgstr "Увiйти"
+
+#~ msgid "HD Wallpapers"
+#~ msgstr "Патрiотичнi HD-фони"
+
+#~ msgid "Promo title 3"
+#~ msgstr "Поможем Украине вместе!"

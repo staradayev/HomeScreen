@@ -10,7 +10,8 @@
     <!-- Bootstrap -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{STATIC_URL}}font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}css/ato.css" rel="stylesheet">
+    
+    <link href="{{STATIC_URL}}css/ato-styles.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/bootstrap-select.min.css" rel="stylesheet">
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -24,15 +25,23 @@
     <![endif]-->
   </head>
   <body>
+    <!-- Wrap all page content here -->
+<div id="wrap">
 {% block header %}{% endblock %}
 
 {% block content %}{% endblock %}
-
-<div class="footer">
+    </div>
+<div class="footer" id="footer">
     <div class="container">
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 text-center">
+          <h1>ATO.Care</h1>
 
+          <div class="row pad">
+          <div class="col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+          </div>
           {% for lang in LANGUAGES %}
-            <div class="text-left t">
+            <div class="col-sm-2 col-md-2 col-lg-2">
               <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
                 {% csrf_token %}
                 <input name="next" type="hidden" value="/">
@@ -41,7 +50,27 @@
                     return false;">{{ lang.1 }}</a>
               </form>
             </div>
-          {% endfor %}   
+          {% endfor %}
+          <div class="col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+          </div>
+          </div>
+
+          <div class="social-icons"> <!-- Start social media -->
+             <ul class="space text-center">
+                  <li><a href="#"><i class="fa fa-behance fa-2x"></i></a></li> <!-- Change # with your Behance Account -->
+                  <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
+                  <li><a href="#"><i class="fa fa-dribbble fa-2x"></i></a></li> <!-- Change # with your Dribbble Account -->
+                  <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
+                  <li><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->
+                  <li><a href="#"><i class="fa fa-flickr fa-2x"></i></a></li><!-- Change # with your Flickr Account -->
+                  <li><a href="#"><i class="fa fa-pinterest-square fa-2x"></i></a></li><!-- Change # with your Pinterest Account -->
+             </ul> <!-- End social media -->
+          </div>
+        </div>
+
+      </div>
+
+           
         
         <div class="text-center t">
           <p class="text-muted">InelliGT 2014 &copy;</p>
@@ -51,9 +80,11 @@
 
     
 
-    
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}js/ato-scripts.js"></script>
+    
     <script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
   </body>
 </html>
