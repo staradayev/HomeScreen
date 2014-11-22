@@ -6,39 +6,66 @@ import hashlib
 from uuid import uuid4
 import os
 from django import forms
+from multilingual_model.models import MultilingualModel, MultilingualTranslation
+from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
 
-class Tag(models.Model):
-	tag_name = models.CharField(verbose_name=_(u"#tagname"), max_length=50)
+
+class Tag(MultilingualModel):
+	#tag_name = models.CharField(verbose_name=_(u"#tagname"), max_length=50)
 	date_pub = models.DateTimeField(auto_now_add=True)
 	approve_status = models.BooleanField(default=False)
 	author = models.ForeignKey(User)
-	def __str__(self):              # __unicode__ on Python 2
-		return self.tag_name
+	def __str__(self):              
+		try: 
+			return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
+		except TagTranslation.DoesNotExist:
+			return _(u'Unnamed')
 	@classmethod
-	def create(cls, name, author):
-		tag_obj = cls(tag_name=name, author=author)
+	def create(cls, author):
+		tag_obj = cls(author=author)
 		# do something with the picture
 		return tag_obj
 
-class Category(models.Model):
+
+class TagTranslation(MultilingualTranslation):
+	class Meta:
+		unique_together = ('parent', 'language_code')
+
+	parent = models.ForeignKey(Tag, related_name='translations')
+	name = models.CharField(verbose_name=_(u"#tagname"), max_length=75)
+
+
+class Category(MultilingualModel):
 	def download_count(self):
 		return self.download_set.filter().count()
-	category_name = models.CharField(verbose_name=_(u"Category name"), max_length=75)
+
 	date_pub = models.DateTimeField(auto_now_add=True)
 	approve_status = models.BooleanField(default=False)
 	author = models.ForeignKey(User)
-	def __str__(self):              # __unicode__ on Python 2
-		return self.category_name
+	
+	def __str__(self):              
+		try: 
+			return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
+		except CategoryTranslation.DoesNotExist:
+			return _(u'Unnamed')
 	@classmethod
-	def create(cls, name, author):
-		cat_obj = cls(category_name=name, author=author)
+	def create(cls, author):
+		cat_obj = cls(author=author)
 		# do something with the picture
 		return cat_obj
 
+
+class CategoryTranslation(MultilingualTranslation):
+	class Meta:
+		unique_together = ('parent', 'language_code')
+
+	parent = models.ForeignKey(Category, related_name='translations')
+	name = models.CharField(verbose_name=_(u"Category name"), max_length=75)
+
 		
 
-class Picture(models.Model):
+class Picture(MultilingualModel):
 
 	"""
 	three size sets:
@@ -58,7 +85,7 @@ class Picture(models.Model):
 	now = str(int(time.time()))
 	filepath = 'gallery/'+hashlib.md5(now).hexdigest()+'/'
 
-	picture_name = models.CharField(verbose_name=_(u"Picture name"), max_length=100)
+	#picture_name = models.CharField(verbose_name=_(u"Picture name"), max_length=100)
 	date_pub = models.DateTimeField(auto_now_add=True, auto_now=True)
 	approve_status = models.BooleanField(default=False)
 	date_approve = models.DateTimeField(null=True)
@@ -72,8 +99,11 @@ class Picture(models.Model):
 	def download_count(self):
 		return self.download_set.filter().count()
 	
-	def __str__(self):
-		return self.picture_name
+	def __str__(self):              
+		try: 
+			return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
+		except PictureTranslation.DoesNotExist:
+			return _(u'Unnamed')
 
 	def get_thumb(self):
 		return "/site_media/%s" % self.photo_thumb
@@ -88,8 +118,8 @@ class Picture(models.Model):
 		return self
 
 	@classmethod
-	def create(cls, name, picture, user_added):
-		image_obj = cls(picture_name=name, photo_origin=picture, author=user_added)
+	def create(cls, picture, user_added):
+		image_obj = cls(photo_origin=picture, author=user_added)
 		# do something with the picture
 		return image_obj
 
@@ -125,6 +155,13 @@ class Picture(models.Model):
 
 			super(Picture, self).save()
 
+class PictureTranslation(MultilingualTranslation):
+	class Meta:
+		unique_together = ('parent', 'language_code')
+
+	parent = models.ForeignKey(Picture, related_name='translations')
+	name = models.CharField(verbose_name=_(u"Picture name"), max_length=100)
+
 class LinkType(models.Model):
 	type_tag = models.CharField(verbose_name=_(u"Link name"), max_length=25)
 	date_pub = models.DateTimeField(auto_now_add=True)
@@ -149,12 +186,24 @@ class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)
 	links = models.ManyToManyField(Link, blank=True)
 
-class Organization(models.Model):
-	org_name = models.CharField(verbose_name=_(u"Organization name"), max_length=25)
-	org_additional = models.CharField(verbose_name=_(u"Organization additiolal"), max_length=200)
-	org_description = models.CharField(verbose_name=_(u"Organization description"), max_length=4000)
+class Organization(MultilingualModel):
 	date_pub = models.DateTimeField(auto_now_add=True)
 	links = models.ManyToManyField(Link, blank=True)
+	def __str__(self):              
+		try: 
+			return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
+		except OrganizationTranslation.DoesNotExist:
+			return _(u'Unnamed')
+
+class OrganizationTranslation(MultilingualTranslation):
+	class Meta:
+		unique_together = ('parent', 'language_code')
+
+	parent = models.ForeignKey(Organization, related_name='translations')
+	name = models.CharField(verbose_name=_(u"Organization name"), max_length=100)
+	author = models.CharField(verbose_name=_(u"Organization author"), max_length=50)
+	description = models.CharField(verbose_name=_(u"Organization description"), max_length=4000)
+	additional = models.CharField(verbose_name=_(u"Organization additiolal"), max_length=200)
 
 class Download(models.Model):
 	@classmethod

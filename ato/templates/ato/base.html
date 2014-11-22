@@ -38,20 +38,20 @@
           <h1>ATO.Care</h1>
 
           <div class="row pad">
-          <div class="col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+          <div class="col-sm-4 col-sm-offset-1 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">
           </div>
           {% for lang in LANGUAGES %}
-            <div class="col-sm-2 col-md-2 col-lg-2">
+            <div class="col-sm-1 col-md-1 col-lg-1">
               <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
                 {% csrf_token %}
                 <input name="next" type="hidden" value="/">
                 <input type="hidden" name="language" value="{{ lang.0 }}">
-                <a href="#" onclick="document.setLang{{ lang.1 }}.submit();
-                    return false;">{{ lang.1 }}</a>
+                <a href="#" class="{{ lang.1 }}" onclick="document.setLang{{ lang.1 }}.submit();
+                    return false;"></a>
               </form>
             </div>
           {% endfor %}
-          <div class="col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+          <div class="col-sm-4 col-sm-offset-1 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">
           </div>
           </div>
 

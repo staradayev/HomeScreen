@@ -266,12 +266,11 @@ section {
 }
 
 .counter{
-  background-color: rgba(5,5,5,.8);
   padding-bottom: 15px;
 }
 
 .counter .backshadow{
-
+background-color: rgba(5,5,5,.8);
   
 }
 
@@ -384,3 +383,33 @@ margin-top: 30px;
   margin-top: 40px;
 padding-bottom: 200px;
 }
+
+.English {
+  background-image: url('/static/img/flag_united_states.jpg');
+background-size: contain;
+background-repeat: no-repeat;
+height: 20px;
+display: block;
+background-position-x: center;
+background-position-y: center;
+margin: 5px;
+}
+
+.Ukrainian {
+  background-image: url('/static/img/flag_ukraine.gif');
+background-size: contain;
+background-repeat: no-repeat;
+height: 20px;
+display: block;
+background-position-x: center;
+background-position-y: center;
+margin: 5px;
+}
+
+.mid{
+  margin: 0;
+padding: 0;
+vertical-align: middle;
+}
+
+

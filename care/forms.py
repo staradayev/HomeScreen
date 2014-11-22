@@ -74,10 +74,10 @@ class UploadPictureForm(forms.Form):
 				raise forms.ValidationError((_(u'Image file too large ( maximum 8mb )')))
 		return self	
 
-	CATEGORY_CHOICES = [[x.id, x.category_name] for x in Category.objects.filter(approve_status=True)]
-	TAG_CHOICES = [[x.id, x.tag_name] for x in Tag.objects.filter(approve_status=True)]
+	CATEGORY_CHOICES = [[x.id, x.name] for x in Category.objects.filter(approve_status=True)]
+	TAG_CHOICES = [[x.id, x.name] for x in Tag.objects.filter(approve_status=True)]
 	#TEST_CHOICES.insert(0, ['', "Empty"])
-	picture_name = forms.CharField(max_length=100)
+	name = forms.CharField(max_length=100)
 	image = forms.ImageField(validators=[clean_picture])
 	categories = forms.MultipleChoiceField(required=False, choices=CATEGORY_CHOICES)
 	tags = forms.MultipleChoiceField(required=False, choices=TAG_CHOICES)
@@ -90,10 +90,10 @@ class EditPictureForm(forms.Form):
 		self.fields["categories"] = forms.MultipleChoiceField(choices=cat_choices, required=False)
 		self.fields["tags"] = forms.MultipleChoiceField(choices=tag_choices, required=False)
 
-	CATEGORY_CHOICES = [[x.id, x.category_name] for x in Category.objects.filter(approve_status=True)]
-	TAG_CHOICES = [[x.id, x.tag_name] for x in Tag.objects.filter(approve_status=True)]
+	CATEGORY_CHOICES = [[x.id, x.name] for x in Category.objects.filter(approve_status=True)]
+	TAG_CHOICES = [[x.id, x.name] for x in Tag.objects.filter(approve_status=True)]
 	#TEST_CHOICES.insert(0, ['', "Empty"])
-	picture_name = forms.CharField(max_length=100)
+	name = forms.CharField(max_length=100)
 	categories = forms.MultipleChoiceField(required=False, choices=CATEGORY_CHOICES)
 	tags = forms.MultipleChoiceField(required=False, choices=TAG_CHOICES)
 	class Meta: 

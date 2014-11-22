@@ -110,6 +110,8 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
+MULTILINGUAL_FAIL_SILENTLY = True
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

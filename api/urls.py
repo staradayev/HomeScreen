@@ -7,4 +7,6 @@ urlpatterns = patterns('',
 	url(r'^popular/$', views.popular_list),
 	url(r'^catpictures/$', views.picture_by_cat_list),
 	url(r'^picture/$', views.picture),
+	url(r'^organizations/$', views.organizations),
+	url(r'^search/$', views.search),
 )

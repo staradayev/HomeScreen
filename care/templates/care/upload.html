@@ -122,9 +122,9 @@
 	                </div>
 	                {% endif %}
 				    <div class="form-group">
-                    	<label for="id_picture_name">{% trans "Picture name:" %}</label>
+                    	<label for="id_name">{% trans "Picture name:" %}</label>
                     	<div class="input-group">
-	                        <input type="text" class="form-control" name="picture_name" id="id_picture_name" placeholder="{% blocktrans %}Picture name{% endblocktrans %}" required maxlength="100" >
+	                        <input type="text" class="form-control" name="name" id="id_name" placeholder="{% blocktrans %}Picture name{% endblocktrans %}" required maxlength="100" >
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>	
@@ -142,7 +142,7 @@
                     	<div class="input-group" style="width: 100%">
 	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
 	                        	{% for category in form.categories.value %}
-	                        		<option value="{{category.id}}">{{category.category_name}}</option>
+	                        		<option value="{{category.id}}">{{category.name}}</option>
 	                        	{% endfor %}
 							</select>
 							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus fa-lg text-success"></span></span>
@@ -154,7 +154,7 @@
                     	<div class="input-group"  style="width: 100%">
 	                        <select multiple class="form-control" id="id_tags" name="tags"  size="6">
 	                        	{% for tag in form.tags.value %}
-	                        		<option value="{{tag.id}}">{{tag.tag_name}}</option>
+	                        		<option value="{{tag.id}}">{{tag.name}}</option>
 	                        	{% endfor %}
 							</select>
 							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal2"><span class="fa fa-plus fa-lg text-success"></span></span>
@@ -202,7 +202,7 @@
 		  	$.ajax({
 		    	url : "/care/addcategory/",
 		    	type : "POST",
-		    	data : JSON.stringify({"category_name" : cName}),
+		    	data : JSON.stringify({"category_name" : encodeURIComponent(cName)}),
 		    	contentType: 'application/json; charset=utf-8',
 		    	success : function(results){
 		      		if (results.success == "true") {
@@ -228,7 +228,7 @@
 		  	$.ajax({
 		    	url : "/care/addtag/",
 		    	type : "POST",
-		    	data : JSON.stringify({"tag_name" : tName}),
+		    	data : JSON.stringify({"tag_name" : encodeURIComponent(tName)}),
 		    	contentType: 'application/json; charset=utf-8',
 		    	success : function(results){
 		      		if (results.success == "true") {

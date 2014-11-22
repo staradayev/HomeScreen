@@ -45,7 +45,22 @@
           
           <li><a href="#section4">{% trans "Download" %}</a></li>
           <li><a href="#section5">{% trans "Join" %}</a></li>
-          <li class="dropdown">
+          <li class="mid">
+            <div class="row">
+            {% for lang in LANGUAGES %}
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <form name="setLang{{ lang.1}}head" action="/i18n/setlang/" method="POST">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="/">
+                <input type="hidden" name="language" value="{{ lang.0 }}">
+                <a href="#" class="{{ lang.1 }}" onclick="document.setLang{{ lang.1 }}head.submit();
+                    return false;"></a>
+              </form>
+            </div>
+          {% endfor %}
+          </div>
+          </li>
+          <!--<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">LN<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#">Action</a></li>
@@ -54,7 +69,7 @@
               <li><a href="#">Separated link</a></li>
               <li><a href="#">One more separated link</a></li>
             </ul>
-          </li>
+          </li>-->
         </ul>
       </div><!--/.nav-collapse -->
     </div><!--/.container -->
@@ -87,19 +102,19 @@
     <div class="container heads">
     <div class="col-md-12 counter backshadow" >
         <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count">7489</h1>
+                      <h1 class="count">{{ downloads }}</h1>
                       <h6>{% trans "Total Downloads" %}</h6>
                     </div>
         <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count">3571$</h1>
+                      <h1 class="count">{{ donated }}$</h1>
                       <h6>{% trans "Total rized" %}</h6>
                     </div>
         <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count">837</h1>
+                      <h1 class="count">{{ pictures }}</h1>
                       <h6>{% trans "Pictires in app" %}</h6>
                     </div>
         <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count">33</h1>
+                      <h1 class="count">{{ photographers }}</h1>
                       <h6>{% trans "Photographers" %}</h6>
                     </div>
     </div>
@@ -117,82 +132,25 @@
       </p>
       <div class="accordion"> <!-- Start Accordion -->
           <div class="panel-group" id="accordion">  <!-- Accordion panel-group-->
-
+            
+            {% for org in organizations %}
             <div class="panel wow fadeInDown"> <!-- Advantage 1 -->
               <div class="panel-heading">
                 <div class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#about1" class="collapsed">
-                    <h4>Красный крест</h4>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#about{{forloop.counter}}" class="collapsed">
+                    <h4>{{ org.name }}</h4>
                   </a>
                 </div>
               </div>
-              <div id="about1" class="panel-collapse collapse" style="height: 0px;">
+              <div id="about{{forloop.counter}}" class="panel-collapse collapse" style="height: 0px;">
                 <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda.
+                  {{ org.description }}
                 </div>
               </div>
             </div> <!-- End Advantage 1 -->
+            {% endfor %}
 
-            <div class="panel wow fadeInDown"> <!-- Advantage 2 -->
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#about2" class="collapsed">
-                    <h4>Крылья феникса</h4>
-                  </a>
-                </div>
-              </div>
-              <div id="about2" class="panel-collapse collapse" style="height: 0px;">
-                <div class="panel-body">
-                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven t heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div> <!-- End Advantage 2 -->
-
-            <div class="panel wow fadeInDown"> <!-- Advantage 3 -->
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#about3" class="collapsed">
-                    <h4>48-я аэромобильная тригада</h4>
-                  </a>
-                </div>
-              </div>
-              <div id="about3" class="panel-collapse collapse" style="height: 0px;">
-                <div class="panel-body">
-                  Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                </div>
-              </div>
-            </div> <!-- End Advantage 3 -->
-
-            <div class="panel wow fadeInDown"> <!-- Advantage 4 -->
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#about4" class="collapsed">
-                    <h4>Благотворительный фонд Украины</h4>
-                  </a>
-                </div>
-              </div>
-              <div id="about4" class="panel-collapse collapse" style="height: 0px;">
-                <div class="panel-body">
-                  Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                </div>
-              </div>
-            </div> <!-- End Advantage 4 -->
-
-            <div class="panel wow fadeInDown"> <!-- Advantage 5 -->
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#about5" class="collapsed">
-                    <h4>Батальон "Азов"</h4>
-                  </a>
-                </div>
-              </div>
-              <div id="about5" class="panel-collapse collapse" style="height: 0px;">
-                <div class="panel-body">
-                  Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                </div>
-              </div>
-            </div> <!-- End Advantage 5 -->
-
+            
           </div> <!-- End Accordion panel-group-->
         </div>
 

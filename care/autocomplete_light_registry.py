@@ -3,7 +3,7 @@ import autocomplete_light
 from models import Category
 
 class CategoryAutocomplete(autocomplete_light.AutocompleteModelBase):
-	search_fields = ['^category_name']
+	search_fields = ['^id']
 	autocomplete_js_attributes={'placeholder': 'Type category here...',}
 	model = Category
 

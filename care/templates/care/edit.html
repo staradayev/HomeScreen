@@ -124,9 +124,9 @@
 	                </div>
 	                {% endif %}
 				    <div class="form-group">
-                    	<label for="id_picture_name">{% trans "Picture name:" %}</label>
+                    	<label for="id_name">{% trans "Picture name:" %}</label>
                     	<div class="input-group">
-	                        <input type="text" class="form-control" name="picture_name" id="id_picture_name" placeholder="{% blocktrans %}Picture name{% endblocktrans %}" required maxlength="100" value="{{form.picture_name.value}}">
+	                        <input type="text" class="form-control" name="name" id="id_name" placeholder="{% blocktrans %}Picture name{% endblocktrans %}" required maxlength="100" value="{{form.name.value}}">
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>	
@@ -137,9 +137,9 @@
 	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
 	                        	{% for category in form.categories.value %}
 	                        		{% if category in img.category.all %}
-	                        			<option value="{{category.id}}" selected="selected">{{category.category_name}}</option>
+	                        			<option value="{{category.id}}" selected="selected">{{category.name}}</option>
 	                        		{% else %}
-	                        			<option value="{{category.id}}">{{category.category_name}}</option>
+	                        			<option value="{{category.id}}">{{category.name}}</option>
 	                        		{% endif %}
 	                        	{% endfor %}
 							</select>
@@ -153,9 +153,9 @@
 	                        <select multiple class="form-control" id="id_tags" name="tags"  size="6">
 	                        	{% for tag in form.tags.value %}
 	                        		{% if tag in img.tag.all %}
-	                        			<option value="{{tag.id}}" selected="selected">{{tag.tag_name}}</option>
+	                        			<option value="{{tag.id}}" selected="selected">{{tag.name}}</option>
 	                        		{% else %}
-	                        			<option value="{{tag.id}}">{{tag.tag_name}}</option>
+	                        			<option value="{{tag.id}}">{{tag.name}}</option>
 	                        		{% endif %}
 	                        	{% endfor %}
 							</select>
@@ -179,7 +179,7 @@
     		<div class="col-md-11">
     			<br />
     			<div class="ato-approved">
-			    	<img src="{{ MEDIA_URL }}{{img.photo_medium}}" alt="{{img.picture_name}}" class="img-thumbnail">
+			    	<img src="{{ MEDIA_URL }}{{img.photo_medium}}" alt="{{img.name}}" class="img-thumbnail">
 			    	{% if img.approve_status = True %}
 		      			<i class="fa fa-check fa-4x"></i>
 		      		{% else %}
@@ -202,7 +202,7 @@
 		  	$.ajax({
 		    	url : "/care/addcategory/",
 		    	type : "POST",
-		    	data : JSON.stringify({"category_name" : cName}),
+		    	data : JSON.stringify({"category_name" : encodeURIComponent(cName)}),
 		    	contentType: 'application/json; charset=utf-8',
 		    	success : function(results){
 		      		if (results.success == "true") {
@@ -228,7 +228,7 @@
 		  	$.ajax({
 		    	url : "/care/addtag/",
 		    	type : "POST",
-		    	data : JSON.stringify({"tag_name" : tName}),
+		    	data : JSON.stringify({"tag_name" : encodeURIComponent(tName)}),
 		    	contentType: 'application/json; charset=utf-8',
 		    	success : function(results){
 		      		if (results.success == "true") {

@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views import generic
 from care import models
-from care.models import Picture, Category, Tag, LinkType, Link, UserProfile, Download, Organization
+from care.models import Picture, PictureTranslation, Category, CategoryTranslation, Tag, TagTranslation, LinkType, Link, UserProfile, Download, Organization
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
@@ -10,13 +10,15 @@ from django.contrib.auth.models import User
 from django import forms
 from django.shortcuts import render
 import datetime
-from django.utils import timezone
+from django.utils import timezone, translation
 import autocomplete_light
 from django.forms.formsets import formset_factory
 import json as simplejson
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 from care.forms import UserInfoForm, UploadPictureForm, CategoryForm, EditPictureForm
+import urllib
+from unidecode import unidecode
 
 def logout(request, redirect_url=None):
 	auth.logout(request)
@@ -128,17 +130,23 @@ def UploadView(request):
 	# if this is a POST request we need to process the form data
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
-		CATEGORY_CHOICES = [[x.id, x.category_name] for x in Category.objects.filter()]
-		TAG_CHOICES = [[x.id, x.tag_name] for x in Tag.objects.filter()]
+		CATEGORY_CHOICES = [[x.id, x.name] for x in Category.objects.filter()]
+		TAG_CHOICES = [[x.id, x.name] for x in Tag.objects.filter()]
 		form = UploadPictureForm(CATEGORY_CHOICES, TAG_CHOICES, request.POST, request.FILES)
 		# check whether it's valid:
 		if form.is_valid():
 			# process the data in form.cleaned_data as required
-			p_name = form.cleaned_data['picture_name']
+			p_name = form.cleaned_data['name']
 			image = request.FILES['image']
 			
-			pic = Picture.create(p_name, image, p_author)
+			pic = Picture.create(image, p_author)
 			pic.save()
+
+			pic_trans = PictureTranslation(language_code=translation.get_language())
+			pic_trans.name = p_name
+			pic_trans.parent = pic
+			pic_trans.save()
+
 			for cat in form.cleaned_data['categories']:
 				pic.category.add(Category.objects.get(pk=int(cat)))
 			for t in form.cleaned_data['tags']:
@@ -152,8 +160,8 @@ def UploadView(request):
 	else:
 		categories = Category.objects.filter(Q(approve_status=True) | Q(author=p_author))
 		tags = Tag.objects.filter(Q(approve_status=True) | Q(author=p_author))
-		CATEGORY_CHOICES = [[x.id, x.category_name] for x in categories]
-		TAG_CHOICES = [[x.id, x.tag_name] for x in tags]
+		CATEGORY_CHOICES = [[x.id, x.name] for x in categories]
+		TAG_CHOICES = [[x.id, x.name] for x in tags]
 		form = UploadPictureForm(CATEGORY_CHOICES, TAG_CHOICES, initial={
 			'categories': categories,
 			'tags' : tags,})
@@ -178,14 +186,17 @@ def EditView(request, picture_id):
 		# if this is a POST request we need to process the form data
 		if request.method == 'POST':
 			# create a form instance and populate it with data from the request:
-			CATEGORY_CHOICES = [[x.id, x.category_name] for x in Category.objects.filter()]
-			TAG_CHOICES = [[x.id, x.tag_name] for x in Tag.objects.filter()]
+			CATEGORY_CHOICES = [[x.id, x.name] for x in Category.objects.filter()]
+			TAG_CHOICES = [[x.id, x.name] for x in Tag.objects.filter()]
 			form = EditPictureForm(CATEGORY_CHOICES, TAG_CHOICES, request.POST, request.FILES)
 			# check whether it's valid:
 			if form.is_valid():
 				# process the data in form.cleaned_data as required
-				selected_image.picture_name = form.cleaned_data['picture_name']
 				selected_image.save()
+				image_trans = PictureTranslation.objects.get(pk=selected_image.id)
+				image_trans.name = form.cleaned_data['name']
+				image_trans.save()
+
 				for cat in form.cleaned_data['categories']:
 					selected_image.category.add(Category.objects.get(pk=int(cat)))
 				for t in form.cleaned_data['tags']:
@@ -199,12 +210,12 @@ def EditView(request, picture_id):
 		else:
 			categories = Category.objects.filter(Q(approve_status=True) | Q(author=p_author))
 			tags = Tag.objects.filter(Q(approve_status=True) | Q(author=p_author))
-			CATEGORY_CHOICES = [[x.id, x.category_name] for x in categories]
-			TAG_CHOICES = [[x.id, x.tag_name] for x in tags]
+			CATEGORY_CHOICES = [[x.id, x.name] for x in categories]
+			TAG_CHOICES = [[x.id, x.name] for x in tags]
 			form = EditPictureForm(CATEGORY_CHOICES, TAG_CHOICES, initial={
 				'categories': categories,
 				'tags' : tags,
-				'picture_name': selected_image.picture_name,})
+				'name': selected_image.name,})
 		
 
 	return render(request, 'care/edit.html', {'form': form, 'limit_detected': limit_detected, 'img':selected_image,})
@@ -215,7 +226,8 @@ def AddCategoryView(request):
 	data = simplejson.loads(request.body)
 
 	if data is not None:
-		category_send = data["category_name"]
+		category_send = urllib.url2pathname(unidecode(data["category_name"]))
+		print category_send
 		p_author = User.objects.get(username = request.user.username)
 		date = datetime.date
 		today_min = datetime.datetime.combine(date.today(), datetime.time.min)
@@ -230,11 +242,15 @@ def AddCategoryView(request):
 		elif len(category_send) > 75:
 			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Category name too long ( maximum 75 symbols )")}), content_type="application/json")	
 		else:
-			cat = Category.create(category_send, p_author)
+			cat = Category.create(p_author)
 			cat.save()
+			category_trans = CategoryTranslation(language_code=translation.get_language())
+			category_trans.name = category_send.decode('utf-8')
+			category_trans.parent = cat
+			category_trans.save()
 			response_data = {}
 			response_data['success'] = 'true'
-			response_data['name'] = cat.category_name
+			response_data['name'] = cat.name
 			response_data['val'] = cat.id
 		
 			#, "data" : dataReturn
@@ -248,7 +264,8 @@ def AddTagView(request):
 	data = simplejson.loads(request.body)
 
 	if data is not None:
-		tag_send = data["tag_name"]
+		tag_send = urllib.url2pathname(unidecode(data["tag_name"]))
+		print tag_send
 		p_author = User.objects.get(username = request.user.username)
 		date = datetime.date
 		today_min = datetime.datetime.combine(date.today(), datetime.time.min)
@@ -263,11 +280,15 @@ def AddTagView(request):
 		elif len(tag_send) > 75:
 			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Tag name too long ( maximum 75 symbols )")}), content_type="application/json")	
 		else:
-			tag = Tag.create(tag_send, p_author)
+			tag = Tag.create(p_author)
 			tag.save()
+			tag_trans = TagTranslation(language_code=translation.get_language())
+			tag_trans.name = tag_send.decode('utf-8')
+			tag_trans.parent = tag
+			tag_trans.save()
 			response_data = {}
 			response_data['success'] = 'true'
-			response_data['name'] = tag.tag_name
+			response_data['name'] = tag.name
 			response_data['val'] = tag.id
 		
 			#, "data" : dataReturn
@@ -291,7 +312,7 @@ def AddLinkView(request):
 			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Choose link type, please!")}), content_type="application/json")	
 		elif not link_url:
 			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There are no url name presented!")}), content_type="application/json")	
-		elif len(link_url) < 12:
+		elif len(link_url) < 5:
 			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Url too short!")}), content_type="application/json")	
 		elif len(link_url) > 199:
 			return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"Url too long!")}), content_type="application/json")	
