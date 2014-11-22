@@ -19,11 +19,11 @@ msgstr ""
 
 #: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
 #: ato/templates/ato/index.html:285
-msgid "ATO.Care"
+msgid "ATO.care"
 msgstr ""
 
 #: ato/templates/ato/index.html:9
-msgid "Help Ukraine"
+msgid "Help Ukraine!"
 msgstr ""
 
 #: ato/templates/ato/index.html:22 ato/templates/ato/index.html.py:43
@@ -31,26 +31,26 @@ msgid "About"
 msgstr ""
 
 #: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:221
-msgid "Install"
-msgstr ""
-
-#: ato/templates/ato/index.html:44
-msgid "Help"
-msgstr ""
-
-#: ato/templates/ato/index.html:46
 msgid "Download"
 msgstr ""
 
+#: ato/templates/ato/index.html:44
+msgid "About"
+msgstr ""
+
+#: ato/templates/ato/index.html:46
+msgid "Mobile App"
+msgstr ""
+
 #: ato/templates/ato/index.html:47
-msgid "Join"
+msgid "Join Us!"
 msgstr ""
 
 #: ato/templates/ato/index.html:71
 #, fuzzy
 #| msgid "Promo title 1"
 msgid "Care title 1"
-msgstr "Download HD-wallpapers and help Ukraine"
+msgstr "Download HD-wallpapers and help Ukraine!"
 
 #: ato/templates/ato/index.html:75
 #, fuzzy
