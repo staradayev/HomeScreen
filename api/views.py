@@ -6,6 +6,7 @@ from django.utils import translation
 from itertools import chain, groupby
 from django.db.models import Count, Max, Sum
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.templatetags.static import static
 
 def category_list(request):
 	if request.method == 'GET':
@@ -307,3 +308,53 @@ def search(request):
 	response["Access-Control-Max-Age"] = "1000"  
 	response["Access-Control-Allow-Headers"] = "*"
 	return response
+
+def download(request):
+	if request.method == 'GET':
+		response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
+		if not request.GET.get('ln'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
+
+		translation.activate(request.GET.get('ln'))
+
+		if not request.GET.get('id'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
+		
+		if not request.GET.get('org_id'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide organization id'}), content_type="application/json")
+
+		if not request.GET.get('amount'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide amount'}), content_type="application/json")
+		
+		if not request.GET.get('user_id'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide user id'}), content_type="application/json")
+
+		#try:	
+		pic_id = int(request.GET.get('id'))
+		try:
+			pic = Picture.objects.filter(approve_status=True).get(pk=pic_id)
+		except:
+			response = HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
+		finally:
+			try:
+				org = Organization.objects.get(pk=request.GET.get('org_id'))
+				up = Download.create(request.GET.get('amount'), pic, org, request.GET.get('user_id'), "api-development");
+				up.save()
+				for cat in pic.category.all():
+					up.category.add(Category.objects.get(pk=int(cat.id)))
+				up.save()
+				response = HttpResponse(open(pic.photo_origin.path, "rb").read(), content_type="image/jpg")
+			except:
+				response = HttpResponse(json.dumps({'success':"false", 'message':"Wrong organization in request..."}), content_type="application/json")
+				
+		#except:
+			#response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
+	else:
+		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
+	
+	response["Access-Control-Allow-Origin"] = "*"  
+	response["Access-Control-Allow-Methods"] = "POST, GET"  
+	response["Access-Control-Max-Age"] = "1000"  
+	response["Access-Control-Allow-Headers"] = "*"
+	return response
+

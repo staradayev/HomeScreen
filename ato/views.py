@@ -8,7 +8,11 @@ def IndexView(request):
 	downloads = Download.objects.all().count()
 	photographers = UserProfile.objects.all().count()
 	pictures = Picture.objects.filter(approve_status=True).count()
-	donated = Download.objects.aggregate(Sum('amount'))
+	amount = Download.objects.aggregate(Sum('amount'))
+	if amount['amount__sum']:
+		donated = amount['amount__sum']
+	else:
+		donated = 0
 	organizations = []
 
 	orgs = Organization.objects.all()
@@ -23,7 +27,7 @@ def IndexView(request):
 		'downloads': downloads,
 		'photographers': photographers,
 		'pictures': pictures,
-		'donated': donated['amount__sum'],
+		'donated': donated,
 		'organizations': organizations,
 	})
 	return HttpResponse(template.render(context))

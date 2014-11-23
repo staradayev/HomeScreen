@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import sys, time
 import hashlib
 from uuid import uuid4
@@ -9,6 +9,7 @@ from django import forms
 from multilingual_model.models import MultilingualModel, MultilingualTranslation
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 
 class Tag(MultilingualModel):
@@ -129,6 +130,7 @@ class Picture(MultilingualModel):
 		super(Picture, self).save()
 		if not self.photo_medium:
 			photopath = str(self.photo_origin.path)  # this returns the full system path to the original file
+			print photopath
 			im = Image.open(photopath)  # open the image using PIL
 			
 		# pull a few variables out of that full path
@@ -144,6 +146,7 @@ class Picture(MultilingualModel):
 			#medname = filename + "_" + str(sizes['medium']['width']) + "x" + str(sizes['medium']['height']) + ".jpg"
 			medname = uuid4().hex + ".jpg"
 			im.save(fullpath + '/' + medname)
+			
 			self.photo_medium = self.filepath + medname
 
 			# create thumbnail
@@ -151,9 +154,36 @@ class Picture(MultilingualModel):
 			#thumbname = filename + "_" + str(sizes['thumbnail']['width']) + "x" + str(sizes['thumbnail']['height']) + ".jpg"
 			thumbname = uuid4().hex + ".jpg"
 			im.save(fullpath + '/' + thumbname)
+			#add_watermark(fullpath + '/' + thumbname, "ATO.care", fullpath + '/' + thumbname)
 			self.photo_thumb = self.filepath + thumbname
 
 			super(Picture, self).save()
+			add_watermark(fullpath + '/' + medname, "ATO.care", fullpath + '/' + medname)
+			add_watermark(fullpath + '/' + thumbname, "ATO.care", fullpath + '/' + thumbname)
+
+FONT = 'ARIAL.TTF'
+
+def add_watermark(in_file, text, out_file='watermark.jpg', angle=23, opacity=0.25):
+	print in_file
+	img = Image.open(in_file).convert('RGB')
+	watermark = Image.new('RGBA', img.size, (0,0,0,0))
+	size = 2
+	print settings.STATIC_ROOT + "css/" + FONT
+	n_font = ImageFont.truetype(settings.STATIC_ROOT + "css/" + FONT, size)
+	n_width, n_height = n_font.getsize(text)
+	while n_width+n_height < watermark.size[0]:
+		size += 2
+		n_font = ImageFont.truetype(settings.STATIC_ROOT + "css/" + FONT, size)
+		n_width, n_height = n_font.getsize(text)
+	draw = ImageDraw.Draw(watermark, 'RGBA')
+	draw.text(((watermark.size[0] - n_width) / 2,
+			  (watermark.size[1] - n_height) / 2),
+			  text, font=n_font)
+	watermark = watermark.rotate(angle,Image.BICUBIC)
+	alpha = watermark.split()[3]
+	alpha = ImageEnhance.Brightness(alpha).enhance(opacity)
+	watermark.putalpha(alpha)
+	Image.composite(watermark, img, watermark).save(out_file, 'JPEG')
 
 class PictureTranslation(MultilingualTranslation):
 	class Meta:

@@ -54,9 +54,7 @@ def DetailView(request):
 		# If page is out of range (e.g. 9999), deliver last page of results.
 		pictures = paginator.page(paginator.num_pages)
 	#Development
-	cat_list = []
-	for pic in pictures:
-		cat_list.append(Category.objects.get(pk=pic.id))
+	
 	#End development
 	template = loader.get_template('care/detail.html')
 	context = RequestContext(request, {
@@ -346,7 +344,7 @@ def AddLinkView(request):
 def AddUploadView(request, picture_id):
 	picture = Picture.objects.get(pk=picture_id)
 	organization = Organization.objects.get(pk=1)
-	up = Download.create("0.99", picture, organization, "admin", "");
+	up = Download.create("0.99", picture, organization, "admin", "care-development");
 	up.save()
 	for cat in picture.category.all():
 		up.category.add(Category.objects.get(pk=int(cat.id)))

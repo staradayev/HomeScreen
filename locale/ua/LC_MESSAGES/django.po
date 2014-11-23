@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-17 23:27+0000\n"
+"POT-Creation-Date: 2014-11-22 17:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
-#: ato/templates/ato/index.html:285
+#: ato/templates/ato/index.html:243
 msgid "ATO.Care"
 msgstr "ATO.care"
 
@@ -30,7 +30,7 @@ msgstr "Допоможи Українi!"
 msgid "About"
 msgstr "Проект"
 
-#: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:221
+#: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:179
 msgid "Install"
 msgstr "Додати"
 
@@ -46,19 +46,19 @@ msgstr "Завантажити"
 msgid "Join"
 msgstr "Приєднатися"
 
-#: ato/templates/ato/index.html:71
+#: ato/templates/ato/index.html:86
 msgid "Care title 1"
 msgstr "Завантажуй HD-фони - пiдтримай Україну!"
 
-#: ato/templates/ato/index.html:75
+#: ato/templates/ato/index.html:90
 msgid "Care text 1"
 msgstr ""
 "ATO.Care - це проект підтримки України внаслідок військової агресії на сході "
-"країни в ході анти-терористичної операції (АТО). Завантажуйте "
-"патріотичні HD-фони на свій мобільний, обирайте благодійну організацію "
-"і за бажанням жертвуйте на допомогу Україні у боротьбі з про-російською агресією. "
+"країни в ході анти-терористичної операції (АТО). Завантажуйте патріотичні HD-"
+"фони на свій мобільний, обирайте благодійну організацію і за бажанням "
+"жертвуйте на допомогу Україні у боротьбі з про-російською агресією. "
 
-#: ato/templates/ato/index.html:79
+#: ato/templates/ato/index.html:94
 msgid "Care text 2"
 msgstr ""
 "Фони ATO.care включають в себе прекрасні якісні знімки від провідних "
@@ -66,82 +66,81 @@ msgstr ""
 "бблагодійної акції, приєднавшись до проекту - реєструйтесь як фотограф тут, "
 "додавайте свої знімки в проект і нехай ваш талант допоможе Україні! "
 
-#: ato/templates/ato/index.html:91
+#: ato/templates/ato/index.html:106
 msgid "Total Downloads"
 msgstr "Завантаженнь"
 
-#: ato/templates/ato/index.html:95
+#: ato/templates/ato/index.html:110
 msgid "Total rized"
 msgstr "Грошей зiбрано"
 
-#: ato/templates/ato/index.html:99
+#: ato/templates/ato/index.html:114
 msgid "Pictires in app"
 msgstr "Патрiотичних фотографiй"
 
-#: ato/templates/ato/index.html:103
+#: ato/templates/ato/index.html:118
 msgid "Photographers"
 msgstr "Фотографiв"
 
-#: ato/templates/ato/index.html:107
+#: ato/templates/ato/index.html:122
 msgid "About title 1"
-msgstr " "
+msgstr "ATO.care"
 
-#: ato/templates/ato/index.html:113
+#: ato/templates/ato/index.html:128
 msgid "About title 2"
 msgstr "ATO.care - прекрасний шанс допомогти країні в нелегкій боротьбі!"
 
-#: ato/templates/ato/index.html:116
+#: ato/templates/ato/index.html:131
 msgid "About text 1"
-msgstr "Допоможемо України разом!"
+msgstr ""
+"Допоможемо України разом!Зібрані в ході благодійної акції кошти будуть "
+"передаватися благодійним організаціям згідно з вашим вибором. Ми "
+"співпрацюємо з наступними організаціями та волонтерами:"
 
-"Зібрані в ході благодійної акції кошти будуть передаватися "
-"благодійним організаціям згідно з вашим вибором. Ми співпрацюємо "
-"з наступними організаціями та волонтерами:"
-
-#: ato/templates/ato/index.html:199
+#: ato/templates/ato/index.html:157
 msgid "About text 2"
 msgstr ""
-"Звіти про передачу коштів ви зможете побачити на офіційних сторінках "
-" спільнот в Facebook."
+"Звіти про передачу коштів ви зможете побачити на офіційних сторінках  "
+"спільнот в Facebook."
 
-#: ato/templates/ato/index.html:207
+#: ato/templates/ato/index.html:165
 msgid "Help title 1"
 msgstr "Як допомогти Українi?"
 
-#: ato/templates/ato/index.html:217
+#: ato/templates/ato/index.html:175
 msgid "Help card header 1"
 msgstr "Встановлюй фони на свiй мобiльний"
 
-#: ato/templates/ato/index.html:218
+#: ato/templates/ato/index.html:176
 msgid "Help card content 1"
 msgstr "Та зроби благодiйний внесок"
 
-#: ato/templates/ato/index.html:232
+#: ato/templates/ato/index.html:190
 msgid "Help card header 2"
 msgstr "Любиш фотографувати? Тобi сюди!"
 
-#: ato/templates/ato/index.html:233
+#: ato/templates/ato/index.html:191
 msgid "Help card content 2"
 msgstr "Твiй талант допоможе Українi"
 
-#: ato/templates/ato/index.html:236 ato/templates/ato/index.html.py:310
+#: ato/templates/ato/index.html:194 ato/templates/ato/index.html.py:268
 #: care/templates/care/login.html:29 care/templates/registration/login.html:29
 msgid "Sign in"
 msgstr "Увiйти"
 
-#: ato/templates/ato/index.html:247
+#: ato/templates/ato/index.html:205
 msgid "Help card header 3"
 msgstr "Розповiсти друзям"
 
-#: ato/templates/ato/index.html:248
+#: ato/templates/ato/index.html:206
 msgid "Help card content 3"
 msgstr "Не будьте баудужими"
 
-#: ato/templates/ato/index.html:264
+#: ato/templates/ato/index.html:222
 msgid "Help title 2"
 msgstr "Твоя пiдтримка зараз важлива як нiколи!"
 
-#: ato/templates/ato/index.html:267
+#: ato/templates/ato/index.html:225
 msgid "Help text 1"
 msgstr ""
 "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
@@ -150,15 +149,15 @@ msgstr ""
 "in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
 "fuga. Et harum quidem rerum facilis est et expedita distinctio."
 
-#: ato/templates/ato/index.html:277
+#: ato/templates/ato/index.html:235
 msgid "Download header 1"
 msgstr "ATO.Care - ми вже допомагаємо!"
 
-#: ato/templates/ato/index.html:285
+#: ato/templates/ato/index.html:243
 msgid "Download header 2"
 msgstr "Завантажуй"
 
-#: ato/templates/ato/index.html:286
+#: ato/templates/ato/index.html:244
 msgid "Download text 1"
 msgstr ""
 "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
@@ -167,7 +166,7 @@ msgstr ""
 "in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
 "fuga. Et harum quidem rerum facilis est et expedita distinctio."
 
-#: ato/templates/ato/index.html:288
+#: ato/templates/ato/index.html:246
 msgid "Download text 2"
 msgstr ""
 "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
@@ -176,11 +175,11 @@ msgstr ""
 "in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
 "fuga. Et harum quidem rerum facilis est et expedita distinctio."
 
-#: ato/templates/ato/index.html:307
+#: ato/templates/ato/index.html:265
 msgid "WE'RE COMING SOON"
 msgstr ""
 
-#: ato/templates/ato/index.html:308
+#: ato/templates/ato/index.html:266
 msgid "Sign up"
 msgstr "Реєстрацiя"
 
@@ -239,63 +238,74 @@ msgstr ""
 msgid "Image file too large ( maximum 8mb )"
 msgstr ""
 
-#: care/forms.py:106 care/views.py:227
+#: care/forms.py:106 care/views.py:239
 msgid "There are no category name presented!"
 msgstr ""
 
-#: care/forms.py:108 care/views.py:229
+#: care/forms.py:108 care/views.py:241
 msgid "Category name too short ( minimum 3 symbols )"
 msgstr "Фамiлiя замала!"
 
-#: care/forms.py:110 care/views.py:231
+#: care/forms.py:110 care/views.py:243
 msgid "Category name too long ( maximum 75 symbols )"
 msgstr "Фамiлiя замала!"
 
-#: care/models.py:12
+#: care/models.py:21 care/models.py:23 care/models.py:49 care/models.py:51
+#: care/models.py:104 care/models.py:106 care/models.py:194 care/models.py:196
+#, fuzzy
+#| msgid "Login"
+msgid "Unnamed"
+msgstr "Увiйти"
+
+#: care/models.py:36
 msgid "#tagname"
 msgstr ""
 
-#: care/models.py:27 care/templates/care/edit.html:68
+#: care/models.py:64 care/templates/care/edit.html:68
 #: care/templates/care/upload.html:68
 msgid "Category name"
 msgstr ""
 
-#: care/models.py:61 care/templates/care/edit.html:129
+#: care/models.py:92
+msgid "original file upload"
+msgstr ""
+
+#: care/models.py:163 care/templates/care/edit.html:129
 #: care/templates/care/upload.html:127
 msgid "Picture name"
 msgstr "Назва зображення"
 
-#: care/models.py:65
-msgid "original file upload"
-msgstr ""
-
-#: care/models.py:129
+#: care/models.py:166
 #, fuzzy
 #| msgid "Login"
 msgid "Link name"
 msgstr "Увiйти"
 
-#: care/models.py:134
+#: care/models.py:171
 msgid "Link URL"
 msgstr ""
 
-#: care/models.py:153
+#: care/models.py:203
 msgid "Organization name"
 msgstr ""
 
-#: care/models.py:154
-msgid "Organization additiolal"
+#: care/models.py:204
+msgid "Organization author"
 msgstr ""
 
-#: care/models.py:155
+#: care/models.py:205
 msgid "Organization description"
 msgstr ""
 
-#: care/models.py:171
+#: care/models.py:206
+msgid "Organization additiolal"
+msgstr ""
+
+#: care/models.py:220
 msgid "Donator uiid"
 msgstr ""
 
-#: care/models.py:172
+#: care/models.py:221
 msgid "Transaction uiid"
 msgstr ""
 
@@ -690,51 +700,51 @@ msgstr "Пароль"
 msgid "Confirm Password"
 msgstr ""
 
-#: care/views.py:225
+#: care/views.py:237
 msgid "You were added maximum count of categories per today. Try tomorrow!"
 msgstr ""
 
-#: care/views.py:244 care/views.py:277 care/views.py:315 care/views.py:319
+#: care/views.py:260 care/views.py:298 care/views.py:336 care/views.py:340
 msgid "There is an error! Please contact us, if you know why?"
 msgstr ""
 
-#: care/views.py:258
+#: care/views.py:275
 msgid "You were added maximum count of tags per today. Try tomorrow!"
 msgstr ""
 
-#: care/views.py:260
+#: care/views.py:277
 msgid "There are no tag name presented!"
 msgstr ""
 
-#: care/views.py:262
+#: care/views.py:279
 #, fuzzy
 #| msgid "Category name too short ( minimum 3 symbols )"
 msgid "Tag name too short ( minimum 3 symbols )"
 msgstr "Фамiлiя замала!"
 
-#: care/views.py:264
+#: care/views.py:281
 #, fuzzy
 #| msgid "Category name too long ( maximum 75 symbols )"
 msgid "Tag name too long ( maximum 75 symbols )"
 msgstr "Фамiлiя замала!"
 
-#: care/views.py:289
+#: care/views.py:310
 msgid "You have maximum limit of links (10 links for user)"
 msgstr ""
 
-#: care/views.py:291
+#: care/views.py:312
 msgid "Choose link type, please!"
 msgstr ""
 
-#: care/views.py:293
+#: care/views.py:314
 msgid "There are no url name presented!"
 msgstr ""
 
-#: care/views.py:295
+#: care/views.py:316
 msgid "Url too short!"
 msgstr ""
 
-#: care/views.py:297
+#: care/views.py:318
 msgid "Url too long!"
 msgstr ""
 

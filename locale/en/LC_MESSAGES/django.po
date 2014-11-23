@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-17 22:14+0000\n"
+"POT-Creation-Date: 2014-11-22 17:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,41 +18,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
-#: ato/templates/ato/index.html:285
-msgid "ATO.care"
+#: ato/templates/ato/index.html:243
+msgid "ATO.Care"
 msgstr ""
 
 #: ato/templates/ato/index.html:9
-msgid "Help Ukraine!"
+msgid "Help Ukraine"
 msgstr ""
 
 #: ato/templates/ato/index.html:22 ato/templates/ato/index.html.py:43
 msgid "About"
 msgstr ""
 
-#: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:221
-msgid "Download"
+#: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:179
+msgid "Install"
 msgstr ""
 
 #: ato/templates/ato/index.html:44
-msgid "About"
+msgid "Help"
 msgstr ""
 
 #: ato/templates/ato/index.html:46
-msgid "Mobile App"
+msgid "Download"
 msgstr ""
 
 #: ato/templates/ato/index.html:47
-msgid "Join Us!"
+msgid "Join"
 msgstr ""
 
-#: ato/templates/ato/index.html:71
+#: ato/templates/ato/index.html:86
 #, fuzzy
 #| msgid "Promo title 1"
 msgid "Care title 1"
 msgstr "Download HD-wallpapers and help Ukraine!"
 
-#: ato/templates/ato/index.html:75
+#: ato/templates/ato/index.html:90
 #, fuzzy
 #| msgid "Promo text 1"
 msgid "Care text 1"
@@ -63,7 +63,7 @@ msgstr ""
 "optionally donate to help Ukraine in the fight against the pro-Russian "
 "agrssiey."
 
-#: ato/templates/ato/index.html:79
+#: ato/templates/ato/index.html:94
 #, fuzzy
 #| msgid "Promo text 2"
 msgid "Care text 2"
@@ -72,35 +72,35 @@ msgstr ""
 "according to your choice. We cooperate withthe following organizations and "
 "volunteers:"
 
-#: ato/templates/ato/index.html:91
+#: ato/templates/ato/index.html:106
 msgid "Total Downloads"
 msgstr ""
 
-#: ato/templates/ato/index.html:95
+#: ato/templates/ato/index.html:110
 msgid "Total rized"
 msgstr ""
 
-#: ato/templates/ato/index.html:99
+#: ato/templates/ato/index.html:114
 msgid "Pictires in app"
 msgstr ""
 
-#: ato/templates/ato/index.html:103
+#: ato/templates/ato/index.html:118
 msgid "Photographers"
 msgstr ""
 
-#: ato/templates/ato/index.html:107
+#: ato/templates/ato/index.html:122
 #, fuzzy
 #| msgid "Promo title 1"
 msgid "About title 1"
 msgstr "Download HD-wallpapers and help Ukraine"
 
-#: ato/templates/ato/index.html:113
+#: ato/templates/ato/index.html:128
 #, fuzzy
 #| msgid "Promo title 2"
 msgid "About title 2"
 msgstr "ATO.Care - your chance to help Ukraine!"
 
-#: ato/templates/ato/index.html:116
+#: ato/templates/ato/index.html:131
 #, fuzzy
 #| msgid "Promo text 1"
 msgid "About text 1"
@@ -111,7 +111,7 @@ msgstr ""
 "optionally donate to help Ukraine in the fight against the pro-Russian "
 "agrssiey."
 
-#: ato/templates/ato/index.html:199
+#: ato/templates/ato/index.html:157
 #, fuzzy
 #| msgid "Promo text 2"
 msgid "About text 2"
@@ -120,48 +120,48 @@ msgstr ""
 "according to your choice. We cooperate withthe following organizations and "
 "volunteers:"
 
-#: ato/templates/ato/index.html:207
+#: ato/templates/ato/index.html:165
 #, fuzzy
 #| msgid "Promo title 1"
 msgid "Help title 1"
 msgstr "Download HD-wallpapers and help Ukraine"
 
-#: ato/templates/ato/index.html:217
+#: ato/templates/ato/index.html:175
 msgid "Help card header 1"
 msgstr ""
 
-#: ato/templates/ato/index.html:218
+#: ato/templates/ato/index.html:176
 msgid "Help card content 1"
 msgstr ""
 
-#: ato/templates/ato/index.html:232
+#: ato/templates/ato/index.html:190
 msgid "Help card header 2"
 msgstr ""
 
-#: ato/templates/ato/index.html:233
+#: ato/templates/ato/index.html:191
 msgid "Help card content 2"
 msgstr ""
 
-#: ato/templates/ato/index.html:236 ato/templates/ato/index.html.py:310
+#: ato/templates/ato/index.html:194 ato/templates/ato/index.html.py:268
 #: care/templates/care/login.html:29 care/templates/registration/login.html:29
 msgid "Sign in"
 msgstr ""
 
-#: ato/templates/ato/index.html:247
+#: ato/templates/ato/index.html:205
 msgid "Help card header 3"
 msgstr ""
 
-#: ato/templates/ato/index.html:248
+#: ato/templates/ato/index.html:206
 msgid "Help card content 3"
 msgstr ""
 
-#: ato/templates/ato/index.html:264
+#: ato/templates/ato/index.html:222
 #, fuzzy
 #| msgid "Promo title 2"
 msgid "Help title 2"
 msgstr "ATO.Care - your chance to help Ukraine!"
 
-#: ato/templates/ato/index.html:267
+#: ato/templates/ato/index.html:225
 #, fuzzy
 #| msgid "Promo text 1"
 msgid "Help text 1"
@@ -172,15 +172,15 @@ msgstr ""
 "optionally donate to help Ukraine in the fight against the pro-Russian "
 "agrssiey."
 
-#: ato/templates/ato/index.html:277
+#: ato/templates/ato/index.html:235
 msgid "Download header 1"
 msgstr ""
 
-#: ato/templates/ato/index.html:285
+#: ato/templates/ato/index.html:243
 msgid "Download header 2"
 msgstr ""
 
-#: ato/templates/ato/index.html:286
+#: ato/templates/ato/index.html:244
 #, fuzzy
 #| msgid "Promo text 1"
 msgid "Download text 1"
@@ -191,7 +191,7 @@ msgstr ""
 "optionally donate to help Ukraine in the fight against the pro-Russian "
 "agrssiey."
 
-#: ato/templates/ato/index.html:288
+#: ato/templates/ato/index.html:246
 #, fuzzy
 #| msgid "Promo text 2"
 msgid "Download text 2"
@@ -200,11 +200,11 @@ msgstr ""
 "according to your choice. We cooperate withthe following organizations and "
 "volunteers:"
 
-#: ato/templates/ato/index.html:307
+#: ato/templates/ato/index.html:265
 msgid "WE'RE COMING SOON"
 msgstr ""
 
-#: ato/templates/ato/index.html:308
+#: ato/templates/ato/index.html:266
 msgid "Sign up"
 msgstr ""
 
@@ -261,63 +261,74 @@ msgstr ""
 msgid "Image file too large ( maximum 8mb )"
 msgstr ""
 
-#: care/forms.py:106 care/views.py:227
+#: care/forms.py:106 care/views.py:239
 msgid "There are no category name presented!"
 msgstr ""
 
-#: care/forms.py:108 care/views.py:229
+#: care/forms.py:108 care/views.py:241
 msgid "Category name too short ( minimum 3 symbols )"
 msgstr ""
 
-#: care/forms.py:110 care/views.py:231
+#: care/forms.py:110 care/views.py:243
 msgid "Category name too long ( maximum 75 symbols )"
 msgstr ""
 
-#: care/models.py:12
+#: care/models.py:21 care/models.py:23 care/models.py:49 care/models.py:51
+#: care/models.py:104 care/models.py:106 care/models.py:194 care/models.py:196
+#, fuzzy
+#| msgid "Login"
+msgid "Unnamed"
+msgstr "Login"
+
+#: care/models.py:36
 msgid "#tagname"
 msgstr ""
 
-#: care/models.py:27 care/templates/care/edit.html:68
+#: care/models.py:64 care/templates/care/edit.html:68
 #: care/templates/care/upload.html:68
 msgid "Category name"
 msgstr ""
 
-#: care/models.py:61 care/templates/care/edit.html:129
+#: care/models.py:92
+msgid "original file upload"
+msgstr ""
+
+#: care/models.py:163 care/templates/care/edit.html:129
 #: care/templates/care/upload.html:127
 msgid "Picture name"
 msgstr ""
 
-#: care/models.py:65
-msgid "original file upload"
-msgstr ""
-
-#: care/models.py:129
+#: care/models.py:166
 #, fuzzy
 #| msgid "Login"
 msgid "Link name"
 msgstr "Login"
 
-#: care/models.py:134
+#: care/models.py:171
 msgid "Link URL"
 msgstr ""
 
-#: care/models.py:153
+#: care/models.py:203
 msgid "Organization name"
 msgstr ""
 
-#: care/models.py:154
-msgid "Organization additiolal"
+#: care/models.py:204
+msgid "Organization author"
 msgstr ""
 
-#: care/models.py:155
+#: care/models.py:205
 msgid "Organization description"
 msgstr ""
 
-#: care/models.py:171
+#: care/models.py:206
+msgid "Organization additiolal"
+msgstr ""
+
+#: care/models.py:220
 msgid "Donator uiid"
 msgstr ""
 
-#: care/models.py:172
+#: care/models.py:221
 msgid "Transaction uiid"
 msgstr ""
 
@@ -706,47 +717,47 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: care/views.py:225
+#: care/views.py:237
 msgid "You were added maximum count of categories per today. Try tomorrow!"
 msgstr ""
 
-#: care/views.py:244 care/views.py:277 care/views.py:315 care/views.py:319
+#: care/views.py:260 care/views.py:298 care/views.py:336 care/views.py:340
 msgid "There is an error! Please contact us, if you know why?"
 msgstr ""
 
-#: care/views.py:258
+#: care/views.py:275
 msgid "You were added maximum count of tags per today. Try tomorrow!"
 msgstr ""
 
-#: care/views.py:260
+#: care/views.py:277
 msgid "There are no tag name presented!"
 msgstr ""
 
-#: care/views.py:262
+#: care/views.py:279
 msgid "Tag name too short ( minimum 3 symbols )"
 msgstr ""
 
-#: care/views.py:264
+#: care/views.py:281
 msgid "Tag name too long ( maximum 75 symbols )"
 msgstr ""
 
-#: care/views.py:289
+#: care/views.py:310
 msgid "You have maximum limit of links (10 links for user)"
 msgstr ""
 
-#: care/views.py:291
+#: care/views.py:312
 msgid "Choose link type, please!"
 msgstr ""
 
-#: care/views.py:293
+#: care/views.py:314
 msgid "There are no url name presented!"
 msgstr ""
 
-#: care/views.py:295
+#: care/views.py:316
 msgid "Url too short!"
 msgstr ""
 
-#: care/views.py:297
+#: care/views.py:318
 msgid "Url too long!"
 msgstr ""
 

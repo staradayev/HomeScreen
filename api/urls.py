@@ -9,4 +9,5 @@ urlpatterns = patterns('',
 	url(r'^picture/$', views.picture),
 	url(r'^organizations/$', views.organizations),
 	url(r'^search/$', views.search),
+	url(r'^download/$', views.download),
 )
