@@ -28,7 +28,7 @@ msgstr "Допоможи Українi!"
 
 #: ato/templates/ato/index.html:22 ato/templates/ato/index.html.py:43
 msgid "About"
-msgstr "Проект"
+msgstr "Проекти"
 
 #: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:179
 msgid "Install"
