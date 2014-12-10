@@ -5,7 +5,7 @@ import autocomplete_light
 
 autocomplete_light.autodiscover()
 
-from care.views import UploadView
+from care.views import UploadPictureView
 
 urlpatterns = patterns('',
     # Examples:

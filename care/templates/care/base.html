@@ -13,9 +13,11 @@
     <link href="{{STATIC_URL}}font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/ato.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/jquery.Jcrop.css" rel="stylesheet">
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,7 +29,7 @@
   <body>
 {% block header %}{% endblock %}
 
-<div class="container">
+<div class="container padme">
     {% block content %}{% endblock %}
 </div>
 <div class="footer">
@@ -48,9 +50,6 @@
         </div>
     </div>    
 </div>
-
-    
-
     
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
@@ -60,7 +59,11 @@
         $('.file-inputs').bootstrapFileInput();
     </script>
     <script src="{{STATIC_URL}}js/bootstrap-select.min.js"></script>
+    <script src="{{STATIC_URL}}js/jquery.color.js"></script>
+    <script src="{{STATIC_URL}}js/jquery.Jcrop.js"></script>
+    <script src="{{STATIC_URL}}js/jquery.cookie.js"></script>
     <script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
-    {% include 'autocomplete_light/static.html' %}
+    <script src="{{STATIC_URL}}js/bootstrap3-typeahead.js"></script> 
+    <script src="{{STATIC_URL}}js/bootstrap-tagsinput.js"></script>
   </body>
 </html>

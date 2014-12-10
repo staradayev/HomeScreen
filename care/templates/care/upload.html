@@ -52,69 +52,91 @@
     </div>
 </div>
 {% else %}
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
-        <h4 class="modal-title" id="myModalLabel">{% trans "Add new category" %}</h4>
-      </div>
-      <div class="modal-body">
-      	<p style="display:none;" class="text-warning fa fa-warning fa-lg" id="cat_warning"></p>
-        <div class="form-group">
-        	<label for="id_cat_name">{% trans "New category name:" %}</label>
-        	<div class="input-group">
-                <input type="text" class="form-control" name="cat_name" id="id_cat_name" placeholder="{% blocktrans %}Category name{% endblocktrans %}" required maxlength="75" >
-                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-            </div>
-        </div>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-        <button type="button" class="btn btn-primary" id="BtnSendCategory">{% trans "Save changes" %}</button>
-      </div>
-    </div>
-  </div>
+
+<div class="row">
+	<div class="col-md-7">
+		<h1>{% trans "Add new image to service:" %}</h1>
+		<p style="display:none;" class="text-danger fa fa-warning fa-lg" id="upload_warning"></p>
+	</div>
+	<div class="col-md-3 col-md-offset-2">
+		<img src="{{STATIC_URL}}/img/download.png" class="img-responsive" style="height: 75px;">
+	</div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
-        <h4 class="modal-title" id="myModalLabel">{% trans "Add new tag" %}</h4>
-      </div>
-      <div class="modal-body">
-      	<p style="display:none;" class="text-warning fa fa-warning fa-lg"  id="tag_warning"></p>
-        <div class="form-group">
-        	<label for="id_cat_name">{% trans "New tag name:" %}</label>
-        	<div class="input-group">
-                <input type="text" class="form-control" name="tag_name" id="id_tag_name" placeholder="{% blocktrans %}Tag name{% endblocktrans %}" required maxlength="75" >
-                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-            </div>
-        </div>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-        <button type="button" class="btn btn-primary" id="BtnSendTag">{% trans "Save changes" %}</button>
-      </div>
+<div class="row" id="UploadStep"> 
+	<div class="col-md-7">
+    	<div class="row">
+    		<div class="col-md-12">
+    			<h3>{% trans "1 Upload a new image:" %}</h3>
+    			<br />
+    			<br />
+    			{% load jfutags %}
+				{% jfu %}
+    		</div>
+    	</div>
     </div>
-  </div>
+    <div class="col-md-5">
+    		
+    		<div class="col-md-11">
+    			<hr>
+    			<h3>{% trans "Please take your attention to:" %}</h3>
+    			<ul>
+    				<li>{% trans "attention1" %}</li>
+    				<li>{% trans "attention2" %}</li>
+    				<li>{% trans "attention3" %}</li>
+    				<li>{% trans "attention4" %}</li>
+    				<li>{% trans "attention5" %}</li>
+    				<li>{% trans "attention6" %}</li>
+    			</ul>
+    			<!-- Button trigger modal -->
+				
+    		</div>
+    	
+    </div>		
 </div>
-<div class="row">
-	<div class="col-md-12">
-    	<h2>{% trans "Upload a new image:" %}</h2>
-    	<br />
+<div class="row" id="ThumbStep" style="display: none"> 
+	<div class="col-md-8">
+    	<div class="row">
+    		<div class="col-md-12">
+    			<h3>{% trans "2 Choose thumbnail:" %}</h3>
+    			<br />
+    			<div id="UploadedImageContainer">
+					<img src=""  class="img-responsive  img-thumbnail" id="UploadedImage">
+					
+				</div>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-12">
+				<br />
+				<button type="button" class="btn btn-primary" id="BtnSendThumb">{% trans "Save changes" %}</button>
+			</div>
+		</div>
     </div>
+    <div class="col-md-4">
+    	<div class="row">
+    		<div class="col-md-11">
+    			<hr>
+    			<h4>{% trans "Thumbnail will looks:" %}</h4>
+    			<div id="preview-pane">
+				    <div class="preview-container">
+				      	<img src="" class="jcrop-preview" alt="Preview" id="ThumbImage" />
+				    </div>
+				 </div>
+    			<!-- Button trigger modal -->
+				
+    		</div>
+    	</div>
+    </div>		
 </div>
-<div class="row">
+<div class="row" id="FillStep" style="display: none">
     <div class="col-md-6">
     	<div class="row">
     		<div class="col-md-12">
-    			<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>{% trans "Required Field" %}</strong></div>
-				<form action="{% url 'care:upload' %}" method="post" role="form" enctype="multipart/form-data">
+    			<h3>{% trans "3 Finish with description:" %}</h3>
+    			<br />
+    			<div class="well well-sm" style="display: none;"><strong><span class="glyphicon glyphicon-asterisk"></span>{% trans "Required Field" %}</strong></div>
+				<form action="" method="post" role="form" enctype="multipart/form-data">
 				    {% csrf_token %}
 				    {% if form.errors %}			
 	                <div class="alert alert-danger">
@@ -129,7 +151,8 @@
 	                    </div>
 	                </div>	
 
-	                <div class="form-group">
+	                <div class="form-group" style=
+	                'display: none;'>
                     	<label for="id_image">{% trans "Image:" %}</label>
                     	<div class="input-group">
 	                        <input type="file" class="form-control" name="image" id="id_image" placeholder="Image" title="{% blocktrans %}Select the file here{% endblocktrans %}" required data-filename-placement="inside">
@@ -137,32 +160,34 @@
 	                    </div>
 	                </div>	
 
-	                <div class="form-group">
-                    	<label for="id_categories">{% trans "Categories:" %}</label>
-                    	<div class="input-group" style="width: 100%">
-	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
-	                        	{% for category in form.categories.value %}
-	                        		<option value="{{category.id}}">{{category.name}}</option>
-	                        	{% endfor %}
-							</select>
-							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus fa-lg text-success"></span></span>
-	                    </div>
-	                </div>
+	                <div class="form-group">  
+				    	<label for="CategoryLabel" class="control-label">{% trans "Categories:" %}</label>
+				    	<div class="input-group">
+		                    <input type="text" autocomplete="off" data-provide="typeahead" class="form-control typeahead" name="cat_name" id="cat_name" placeholder="{% blocktrans %}Type category here{% endblocktrans %}" required maxlength="" >
+		                    <span class="input-group-addon addItem" onclick="AddCategory()"><span class="fa fa-plus text-success " ></span></span>
+		                </div>
+				    	
+				      	<ul class="list-group" id="categories_list">
+				      		
+						 <!-- Categories placed here -->	
+						    
+						</ul>
+					</div>
 
 	                <div class="form-group">
-                    	<label for="id_tags">{% trans "Tags:" %}</label>
-                    	<div class="input-group"  style="width: 100%">
-	                        <select multiple class="form-control" id="id_tags" name="tags"  size="6">
-	                        	{% for tag in form.tags.value %}
-	                        		<option value="{{tag.id}}">{{tag.name}}</option>
-	                        	{% endfor %}
-							</select>
-							<span class="input-group-addon btn btn-default" data-toggle="modal" data-target="#myModal2"><span class="fa fa-plus fa-lg text-success"></span></span>
-	                    </div>
-	                </div>				    
+			        	<label for="id_tags">{% trans "Tags:" %}</label>
+			        	<div class="input-group">
+			                <input type="text" autocomplete="off" data-provide="typeahead" class="form-control typeahead" name="tag_name" id="tag_name" placeholder="{% blocktrans %}Type tag here{% endblocktrans %}" required maxlength="" >
+			                <span class="input-group-addon addItem" onclick="AddTag()"><span class="fa fa-plus text-success " ></span></span>
+			            </div>
+			            <br> 
+			            <div class="input-group" id="tag_group">
+			        		<input type="text" data-role="tagsinput" class="form-control disable" name="tag_names" id="tag_names" readonly>
+			        	</div>
+			        </div>				    
 
 
-				    <input type="submit" value="{% blocktrans %}Save changes{% endblocktrans %}" class="btn btn-info pull-right" />
+				    <input type="button" id="btnFinish" value="{% blocktrans %}Save changes{% endblocktrans %}" class="btn btn-info pull-right" />
 				</form>
 				<br />
 				<br />
@@ -171,34 +196,124 @@
 		</div>
     </div>
     <div class="col-md-6">
+    	
     	<div class="row">
-    		<div class="col-md-1">
-    		</div>
-    		<div class="col-md-11">
-    			<h3>{% trans "Please take your attention to:" %}</h3>
-    			<ul>
-    				<li>{% trans "attention1" %}</li>
-    				<li>{% trans "attention2" %}</li>
-    				<li>{% trans "attention3" %}</li>
-    				<li>{% trans "attention4" %}</li>
-    				<li>{% trans "attention5" %}</li>
-    				<li>{% trans "attention6" %}</li>
-    			</ul>
-    			<!-- Button trigger modal -->
-				
+
+    		<div class="col-md-11 col-md-offset-1">
+    			<hr>
+    			<br />
+    			<img src=""  class="img-responsive  img-thumbnail" id="UploadedImageFull">
+				<br />
     		</div>
     	</div>
     	
 	</div>
 </div>
 <script>
-
+	//////////////
+	///////
+	//////////////
     function go_to_url(url) {
         window.location = url;
     }
 
-    $(document).on('click','#BtnSendCategory',function(e){
-    	var cName = $("#id_cat_name").val()
+
+    //////////////
+	///////
+	//////////////
+	cats = [];
+	proposed_cats = [];
+	tags = [];
+	proposed_tags = [];
+
+    function addToCategories(cat) {
+    	if($.grep(cats, function(e){ return e.id == cat.id; }).length > 0){
+    		return; //already have
+    	}else{
+    		cats.push(cat);
+    		$('#categories_list').append(function() {
+			  return $('<li class="list-group-item" id="' + cat.id + '"><i class="fa fa-list-alt "></i>&nbsp; ' + cat.name + ' <i class="fa fa-ban fa-1.5x pull-right text-danger removeItem" id="' + cat.id + '"></i></li>').click(removeFromCategory);
+			});
+    	}
+    }
+
+    function addToTags(tag) {
+    	if($.grep(tags, function(e){ return e.id == tag.id; }).length > 0){
+    		return; //already have
+    	}else{
+    		$("#tag_group").show()
+    		$('.bootstrap-tagsinput').children('input').hide();
+    		tags.push(tag);
+    		$('#tag_names').tagsinput('add', { id: tag.id, text: tag.name });
+    	}
+    }
+
+    function removeFromCategory(e){
+    	for (var i = 0; i < cats.length; i++) {
+    		if(cats[i].id == event.target.id){
+    			id = event.target.id;
+    			$(this).remove();
+    			cats = $.grep(cats, function(value) {
+				  return value != cats[i];
+				});
+    			return;
+    		}
+    	};
+    }
+
+    function removeFromTags(item){
+    	for (var i = 0; i < tags.length; i++) {
+    		if(tags[i].id == item.id){
+    			tags = $.grep(tags, function(value) {
+				  return value != tags[i];
+				});
+    			return;
+    		}
+    	};
+    }
+
+    function exceptExisting(entity){
+    	for (var i = 0; i < cats.length; i++) {
+    		entity = $.grep(entity, function(value) {
+			  	return value.id != cats[i].id;
+			});
+    	};
+    	proposed_cats = entity;
+    	return entity;
+    }
+
+    function exceptExistingTags(entity){
+    	for (var i = 0; i < tags.length; i++) {
+    		entity = $.grep(entity, function(value) {
+			  	return value.id != tags[i].id;
+			});
+    	};
+    	proposed_tags = entity;
+    	return entity;
+    }
+
+    function AddCategory(){
+    	cat_val = $(".typeahead").val();
+    	if($.grep(cats, function(e){ return e.name.toLowerCase() == cat_val.toLowerCase(); }).length > 0){
+    		//already have
+    		return;
+    	}else{
+    		AddNewCategory(cat_val);
+    	}
+    }
+
+    function AddTag(){
+    	cat_val = $("#tag_name").val();
+    	if($.grep(tags, function(e){ return e.name.toLowerCase() == cat_val.toLowerCase(); }).length > 0){
+    		//already have
+    		return;
+    	}else{
+    		AddNewTag(cat_val);
+    	}
+    }
+
+    function AddNewCategory(name){
+    	var cName = name
 		  	$.ajax({
 		    	url : "/care/addcategory/",
 		    	type : "POST",
@@ -206,48 +321,225 @@
 		    	contentType: 'application/json; charset=utf-8',
 		    	success : function(results){
 		      		if (results.success == "true") {
-		      			$('#id_categories')
-					         .append($("<option></option>")
-					         .attr("value",results.val)
-					         .attr("selected","selected")
-					         .text(results.name));
-		      			$('#cat_warning').text('');
-		      			$('#cat_warning').hide();
-		      			$('#myModal').modal('hide')
+		      			$('#upload_warning').text('');
+		      			$('#upload_warning').hide();
+		      			cat_val = $(".typeahead").val('');
+		      			addToCategories({ id: results.val, name: results.name });
 		        	//handle DOM insertion and other stuff
 		      		} else {
-		      			$('#cat_warning').show();
-		      			$('#cat_warning').text(results.message);
+		      			$('#upload_warning').show();
+		      			$('#upload_warning').text(results.message);
 		      		}
 	    		}
 	  		});
-	});
+    }
 
-	$(document).on('click','#BtnSendTag',function(e){
-    	var tName = $("#id_tag_name").val()
+    function AddNewTag(name){
+    	var cName = name
 		  	$.ajax({
 		    	url : "/care/addtag/",
 		    	type : "POST",
-		    	data : JSON.stringify({"tag_name" : encodeURIComponent(tName)}),
+		    	data : JSON.stringify({"tag_name" : encodeURIComponent(cName)}),
 		    	contentType: 'application/json; charset=utf-8',
 		    	success : function(results){
 		      		if (results.success == "true") {
-		      			$('#id_tags')
-					         .append($("<option></option>")
-					         .attr("value",results.val)
-					         .attr("selected","selected")
-					         .text(results.name));
-		      			$('#tag_warning').text('');
-		      			$('#tag_warning').hide();
-		      			$('#myModal2').modal('hide')
+		      			$('#upload_warning').text('');
+		      			$('#upload_warning').hide();
+		      			cat_val = $("#tag_name").val('');
+		      			addToTags({ id: results.val, name: results.name });
 		        	//handle DOM insertion and other stuff
 		      		} else {
-		      			$('#tag_warning').show();
-		      			$('#tag_warning').text(results.message);
+		      			$('#upload_warning').show();
+		      			$('#upload_warning').text(results.message);
 		      		}
 	    		}
 	  		});
+    }
+
+    $( document ).ready(function() {
+    	$.ajaxSetup({
+            headers: { "X-CSRFToken": $.cookie("csrftoken") }
+        });
+
+	    $("#cat_name").typeahead({
+		    source: function (query, process) {
+		        return $.get('/care/getcategory/', { query: query }, function (data) {
+		            return process(exceptExisting(data.entity));
+		        });
+		    },
+		    updater: function(item) {
+				addToCategories(item);
+
+		        console.log(item);
+		        return '';
+		    }
+		});
+
+		$("#tag_name").typeahead({
+		    source: function (query, process) {
+		        return $.get('/care/gettag/', { query: query }, function (data) {
+		            return process(exceptExistingTags(data.entity));
+		        });
+		    },
+		    updater: function(item) {
+				addToTags(item);
+
+		        console.log(item);
+		        return '';
+		    }
+		});
+
+		$("#tag_names").tagsinput({
+		    itemValue: 'id',
+		    itemText: 'text'
+		});
+
+		$("#tag_names").on('beforeItemRemove', function(event) {
+			removeFromTags(event.item);
+		});
+
+		$("#tag_group").hide();
 	});
+
+
+	//////////////
+	///////
+	//////////////
+	var jcrop_api,
+        boundx,
+        boundy;
+	var leftc, topc, rightc, bottomc, id_p;	
+
+	$preview = $('#preview-pane'),
+    $pcnt = $('#preview-pane .preview-container'),
+    $pimg = $('#preview-pane .preview-container img'),
+
+    xsize = $pcnt.width(),
+    ysize = $pcnt.height();
+
+	function OnImageLoaded(url, id){
+		id_p = id;
+		$('#upload_warning').hide();
+		$('#UploadedImage').attr('src', url);
+		$('#UploadedImageFull').attr('src', url);
+		$('#ThumbImage').attr('src', url);
+        $('#UploadStep').hide(400, function(){
+        	 $('#ThumbStep').show(400, function(){
+        		$('#UploadedImage').Jcrop({
+			        onChange:   showCoords,
+			        onSelect:   showCoords,
+			        aspectRatio: 1 / 1,
+			        minSize: [100, 100]
+			    },function(){
+			    	// Use the API to get the real image size
+				      var bounds = this.getBounds();
+				      boundx = bounds[0];
+				      boundy = bounds[1];
+
+			        jcrop_api = this;
+
+			        jcrop_api.setSelect(getRandom());
+
+			        // Move the preview into the jcrop container for css positioning
+      				$preview.appendTo(jcrop_api.ui.holder);
+			    });
+        	});
+        }); 
+	}
+
+	function getRandom() {
+		var dim = jcrop_api.getBounds();
+		return [
+			Math.round(0.15 * dim[0]),
+			Math.round(0.15 * dim[1]),
+			Math.round(0.5 * dim[0]),
+			Math.round(0.5 * dim[1])
+		];
+	};
+
+	function showCoords(c)
+	{
+		if (parseInt(c.w) > 0)
+	    {
+	      	xs = $('#UploadedImage').width(),
+	        ys = $('#UploadedImage').height();
+
+	        leftc = (c.x/xs);
+	        topc = (c.y/ys);
+	        rightc = (c.x2/xs);
+	        bottomc = (c.y2/ys);
+
+	        //console.log('x1:' + c.x + '; y1:' + c.y + '; x2:' + c.x2 + '; y2:' + c.y2 + '; w:' + c.w + '; h:' + c.h);
+	  		//Prview
+	  		var rx = xsize / c.w;
+	        var ry = ysize / c.h;
+
+	        $pimg.css({
+	          width: Math.round(rx * boundx) + 'px',
+	          height: Math.round(ry * boundy) + 'px',
+	          marginLeft: '-' + Math.round(rx * c.x) + 'px',
+	          marginTop: '-' + Math.round(ry * c.y) + 'px'
+	        });
+	     }
+	};
+
+	$(document).on('click','#BtnSendThumb',function(e){
+	  	$.ajax({
+	    	url : "/care/addthumb/",
+	    	type : "POST",
+	    	data : JSON.stringify({"left" : leftc, "top" : topc, 'right': rightc, 'bottom': bottomc, 'pic_id': id_p}),
+	    	contentType: 'application/json; charset=utf-8',
+	    	success : function(results){
+	      		if (results.success == "true") {
+	      			$('#upload_warning').hide();
+	      			$('#ThumbStep').hide(400, function(){
+	      				$('#FillStep').show(400, function(){});
+	      			});
+	        	//handle DOM insertion and other stuff
+	      		} else {
+	      			$('#upload_warning').show();
+	      			$('#upload_warning').text(results.message);
+	      		}
+    		}
+  		});
+	});
+
+	$(document).on('click','#btnFinish',function(e){
+		catsIds = [];
+		if(cats){
+			for (var i = 0; i < cats.length; i++) {
+				catsIds.push(cats[i].id);
+			};
+		}
+
+		tagsIds = [];
+		if(tags){
+			for (var i = 0; i < tags.length; i++) {
+				tagsIds.push(tags[i].id);
+			};
+		}
+	  	$.ajax({
+	    	url : "/care/adddescription/",
+	    	type : "POST",
+	    	data : JSON.stringify({"pic_name" : encodeURIComponent($('#id_name').val()), 
+	    		"pic_cats" : catsIds, 
+	    		"pic_tags" : tagsIds, 
+	    		'pic_id': id_p}),
+	    	contentType: 'application/json; charset=utf-8',
+	    	success : function(results){
+	      		if (results.success == "true") {
+	      			$('#upload_warning').hide();
+	      			go_to_url('/care/detail');
+	      		} else {
+	      			$('#upload_warning').show();
+	      			$('#upload_warning').text(results.message);
+	      		}
+    		}
+  		});
+	});
+
+	//btnFinish
+
 
 </script>
 {% endif %}

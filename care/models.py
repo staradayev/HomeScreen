@@ -72,10 +72,13 @@ class Picture(MultilingualModel):
 	three size sets:
 		thumbnail (photo_thumb)
 		medium (photo_medium)
-		original (photo_original)
+		original (photo_FULL_HD)
 	"""
 	def path_and_rename(path):
 		def wrapper(instance, filename):
+			now = str(int(time.time()))
+			hashPath = hashlib.md5(now).hexdigest()
+			path = 'gallery/'+hashPath[:2]+'/'+hashPath[2:4]+'/'+hashPath+'/'
 			ext = filename.split('.')[-1]
 			# get filename
 			filename = '{}.{}'.format(uuid4().hex, ext)
@@ -83,14 +86,12 @@ class Picture(MultilingualModel):
 			return os.path.join(path, filename)
 		return wrapper
 
-	now = str(int(time.time()))
-	filepath = 'gallery/'+hashlib.md5(now).hexdigest()+'/'
-
-	#picture_name = models.CharField(verbose_name=_(u"Picture name"), max_length=100)
+	
+	#picture_name = models.CharField(verbose_name=_(u"Picture name"), maxength=100)
 	date_pub = models.DateTimeField(auto_now_add=True, auto_now=True)
 	approve_status = models.BooleanField(default=False)
 	date_approve = models.DateTimeField(null=True)
-	photo_origin = models.ImageField(verbose_name=_(u"original file upload"), upload_to=path_and_rename(filepath))
+	photo_origin = models.ImageField(verbose_name=_(u"original file upload"), upload_to=path_and_rename('gallerydef/'))
 	photo_medium = models.CharField(max_length=255, blank=True)
 	photo_thumb = models.CharField(max_length=255, blank=True)
 	category = models.ManyToManyField(Category, blank=True)
@@ -125,7 +126,7 @@ class Picture(MultilingualModel):
 		return image_obj
 
 	def save(self):
-		sizes = {'thumbnail': {'height': 240, 'width': 320}, 'medium': {'height': 480, 'width': 640},}
+		sizes = {'thumbnail': {'height': 240, 'width': 320}, 'medium': {'height': 480, 'width': 640}, 'fullHD': {'height': 1080, 'width': 1920},}
 
 		super(Picture, self).save()
 		if not self.photo_medium:
@@ -133,33 +134,54 @@ class Picture(MultilingualModel):
 			print photopath
 			im = Image.open(photopath)  # open the image using PIL
 			
-		# pull a few variables out of that full path
+			# pull a few variables out of that full path
 			extension = photopath.rsplit('.', 1)[1]  # the file extension
 			filename = photopath.rsplit('/', 1)[1].rsplit('.', 1)[0]  # the file name only (minus path or extension)
 			fullpath = photopath.rsplit('/', 1)[0]  # the path only (minus the filename.extension)
 
 			# use the file extension to determine if the image is valid before proceeding
-			if extension not in ['jpg', 'jpeg', 'gif', 'png']: sys.exit()
+			if extension not in ['jpg', 'jpeg', 'gif', 'png']: 
+				super(Picture, self).delete()
+				sys.exit()
 
-			# create medium image
-			im.thumbnail((sizes['medium']['width'], sizes['medium']['height']), Image.ANTIALIAS)
+			now = str(int(time.time()))
+			hashPath = hashlib.md5(now).hexdigest()
+			filepath = 'gallery/'+hashPath[:2]+'/'+hashPath[2:4]+'/'+hashPath+'/'
+
+			(width, height) = im.size
+
+			if(width > height):
+				# create fullHD image lands
+				im.thumbnail((sizes['fullHD']['width'], sizes['fullHD']['height']), Image.ANTIALIAS)
+			else:
+				# create fullHD image port
+				im.thumbnail((sizes['fullHD']['height'], sizes['fullHD']['width']), Image.ANTIALIAS)
+			
+			fullHD = filename + ".jpg"
+			im.save(fullpath + '/' + fullHD)
+
+			if(width > height):
+				# create medium image lands
+				im.thumbnail((sizes['medium']['width'], sizes['medium']['height']), Image.ANTIALIAS)
+			else:
+				# create medium image port
+				im.thumbnail((sizes['medium']['height'], sizes['medium']['width']), Image.ANTIALIAS)
 			#medname = filename + "_" + str(sizes['medium']['width']) + "x" + str(sizes['medium']['height']) + ".jpg"
 			medname = uuid4().hex + ".jpg"
 			im.save(fullpath + '/' + medname)
 			
-			self.photo_medium = self.filepath + medname
+			self.photo_medium = filepath + medname
 
-			# create thumbnail
+			# create thumbnail (sqare - no need lands or port)
 			im.thumbnail((sizes['thumbnail']['width'], sizes['thumbnail']['height']), Image.ANTIALIAS)
 			#thumbname = filename + "_" + str(sizes['thumbnail']['width']) + "x" + str(sizes['thumbnail']['height']) + ".jpg"
 			thumbname = uuid4().hex + ".jpg"
 			im.save(fullpath + '/' + thumbname)
 			#add_watermark(fullpath + '/' + thumbname, "ATO.care", fullpath + '/' + thumbname)
-			self.photo_thumb = self.filepath + thumbname
+			self.photo_thumb = filepath + thumbname
 
 			super(Picture, self).save()
 			add_watermark(fullpath + '/' + medname, "ATO.care", fullpath + '/' + medname)
-			add_watermark(fullpath + '/' + thumbname, "ATO.care", fullpath + '/' + thumbname)
 
 FONT = 'ARIAL.TTF'
 
