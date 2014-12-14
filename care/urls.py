@@ -26,4 +26,5 @@ urlpatterns = patterns('',
     url(r'^adddescription/', views.upload_description, name='add_descr'),
     url(r'^getcategory/', views.GetCategoryView, name='get_cat'),
     url(r'^gettag/', views.GetTagView, name='get_tag'),
+    url(r'^getpictures/', views.get_picture_list, name='get_pics'),
 )

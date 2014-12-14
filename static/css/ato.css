@@ -1,20 +1,48 @@
-.ato-approved .fa-check{
-	position:relative;
-    top:-57px;
-    right:5px;
-    text-align:right;
-    display:block;
-    color: green;
+
+
+.ato-status{
+  position: relative;
+  top: -51px;
+  right: 5px;
+  text-align: right;
+  display: block;
+  background-color: rgba(0,0,0,.5);
+  margin-left: 10px;
+  margin-bottom: 2em;
 }
 
-.ato-approved .fa-close{
-	position:relative;
-    top:-57px;
-    right:5px;
-    text-align:right;
-    display:block;
-    color: red;
+.ato-status .fa-check-square-o{
+	  color: rgb(181, 242, 171);
+    font-size: 3.3em;
+    margin-right: 0.1em;
 }
+
+.ato-status .fa-pencil-square-o{
+    color: white;
+    font-size: 3em;
+    cursor: pointer;
+}
+
+.ato-status .fa-arrows-alt{
+    color: white;
+    font-size: 3.3em;
+}
+
+.ato-status .fa-download{
+    text-align: left;
+color: white;
+font-size: 2.6em;
+margin-left: 0.1em;
+margin-right: 0.1em;
+}
+
+.ato-status .fa-question{
+color: #FF8B8B;
+font-size: 3.3em;
+margin-right: 0.3em;
+margin-left: 0.1em;
+}
+
 
 select.multiselect,
 select.multiselect + div.btn-group,
@@ -103,7 +131,7 @@ code {
   position: absolute;
   z-index: 2000;
   top: 10px;
-  right: -280px;
+  right: -300px;
   padding: 6px;
   border: 1px rgba(0,0,0,.4) solid;
   background-color: white;
@@ -126,7 +154,7 @@ code {
   overflow: hidden;
 }
 
-.container.padme{
+.container .padme{
   padding-bottom: 90px;
 }
 
@@ -138,4 +166,193 @@ code {
 .addItem{
   cursor: pointer;
 }
+
+.img-full{
+  min-width: 100%;
+}
+
+.img-pad {
+  padding-bottom: 20% !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Removes the default 20px margin and creates some padding space for the indicators and controls */
+.carousel {
+    margin-bottom: 0;
+  padding: 0 40px 0px 40px;
+}
+
+.carousel-control {
+position: absolute;
+top: 48%;
+left: 15px;
+width: 40px;
+height: 40px;
+margin-top: -20px;
+font-size: 30px;
+font-weight: 100;
+line-height: 30px;
+color: #ffffff;
+text-align: center;
+background: #222222;
+border: 3px solid #ffffff;
+-webkit-border-radius: 23px;
+-moz-border-radius: 23px;
+border-radius: 23px;
+opacity: 0.5;
+filter: alpha(opacity=50);
+}
+
+/* Reposition the controls slightly */
+.carousel-control {
+  left: -12px;
+}
+.carousel-control.right {
+  right: -12px;
+}
+/* Changes the position of the indicators */
+.carousel-indicators {
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+/* Changes the colour of the indicators */
+.carousel-indicators li {
+  background: #c0c0c0;
+}
+.carousel-indicators .active {
+background: #333333;
+}
+
+.thumbnail.caroselPrev {
+  margin-bottom: 0px;
+  padding-bottom: 25%;
+padding-left: 6%;
+padding-top: 6%;
+padding-right: 6%;
+}
+
+.selected_pic {
+  background-color: rgba(0,0,0,.1);
+  border: 1px solid #ccc;
+  border-radius: 1px;
+}
+
+.photo_backgr{
+  background-color: #f2eee3;
+}
+
+.no_under{
+  border-bottom: none !important;
+}
+
+
+.lifted {
+        position: relative;
+/* width: 40%; */
+padding: 1em;
+/* margin: 2em 10px 4em; */
+background: #fff;
+border-radius: 1px;
+-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+-moz-border-radius: 1px;
+ 
+}
+ 
+.lifted:before,
+.lifted:after {
+        content:"";
+        position:absolute;
+        z-index:-2;
+        bottom:15px;
+        left:10px;
+        width:50%;
+        height:20%;
+        max-width:300px;
+    -webkit-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+       -moz-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+            box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+    -webkit-transform:rotate(-3deg);
+       -moz-transform:rotate(-3deg);
+        -ms-transform:rotate(-3deg);
+         -o-transform:rotate(-3deg);
+            transform:rotate(-3deg);
+}
+ 
+.lifted:after {
+    right:10px;
+    left:auto;
+    -webkit-transform:rotate(3deg);
+       -moz-transform:rotate(3deg);
+        -ms-transform:rotate(3deg);
+         -o-transform:rotate(3deg);
+            transform:rotate(3deg);
+}
+
+.bootstrap-select.btn-group {
+    width: 100%;
+}
+
+.curved-hz-1 {
+    position:relative;
+    padding:1em;
+    background:#fff;
+    border-radius: 1px;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+ 
+.curved-hz-1:before,
+.curved-hz-1:after {
+    content:"";
+    position:absolute;
+    z-index:-2;
+}
+ 
+.curved-hz-1:before {
+    top:50%;
+    bottom:0px;
+    left:10px;
+    right:10px;
+    -webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
+       -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
+            box-shadow:0 0 15px rgba(0,0,0,0.6);
+    -moz-border-radius:100px / 10px;
+         border-radius:100px / 10px;
+}      
+
+.form-li{
+  display: block;
+padding: 3px 20px;
+clear: both;
+font-weight: 400;
+line-height: 1.42857143;
+color: #333;
+white-space: nowrap;
+}
+
+
+
 

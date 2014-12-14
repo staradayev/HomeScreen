@@ -12,7 +12,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="/">ATO.Care</a>
+      		<a class="navbar-brand" href="/" style="background-image: url('/static/img/logo.png');background-size: contain;min-width: 123px;"></a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -26,10 +26,28 @@
 	        </ul>
 	      
 	        <ul class="nav navbar-nav navbar-right">
+
+	        	<li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Language <span class="caret"></span></a>
+	                <ul class="dropdown-menu" role="menu">
+	                  {% for lang in LANGUAGES %}
+			            
+			              <form name="setLang{{ lang.1 }}" id="setLang{{ lang.1 }}" action="/i18n/setlang/" method="POST">
+			              	<li>
+			                {% csrf_token %}
+			                <input name="next" type="hidden" value="/care">
+			                <input type="hidden" name="language" value="{{ lang.0 }}">
+			                <a href="" class="{{ lang.1 }} form-li" onclick="document.getElementById('setLang{{ lang.1 }}').submit();return false;">{{ lang.1 }}</a>
+			             	</li>
+			              </form>
+			            
+			          {% endfor %}
+	                </ul>
+	              </li>
 	        		
 	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">{% trans "Logout" %} <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link"><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -40,27 +58,6 @@
 
 {% block content %}
 
-{% if picture_list and all_count > allowed_count %}
-<div class="row">
-    <div class="col-md-12 text-center">
-    	<ul class="pager">
-    		
-    		{% if picture_list.has_previous %}
-    			<li class="previous"><a href="?page={{ picture_list.previous_page_number }}">&larr; {% trans "Older" %}</a></li>
-		    {% else %}
-		    	<li class="previous disabled"><a href="#">&larr; {% trans "Older" %}</a></li>
-		    {% endif %}
-
-		    {% if picture_list.has_next %}
-		    	<li class="next"><a href="?page={{ picture_list.next_page_number }}">{% trans "Newer" %} &rarr;</a></li>
-		    {% else %}
-		    	<li class="next disabled"><a href="#">{% trans "Newer" %} &rarr;</a></li>
-		    {% endif %}
-		</ul>
-    </div>
-</div>
-{% endif %}
-
 {% if not picture_list %}
 <div class="row">
     <div class="col-md-12 text-center">
@@ -70,139 +67,307 @@
 </div>
 {% endif %}
 
-{% for img in picture_list %}
-<div class="row">
-	<div class="col-md-12">
-		<h3>{{img.name}}</h3>
+
+{% if picture_list %}
+<div class="container-fluid" id="carosel_block"  style="display: none;">
+	<div class="row">
+		<div class="col-md-12">
+    	    <div class="well"> 
+                <div id="myCarousel" class="carousel slide">
+                 
+                <!--<ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>-->
+                 
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    
+	                
+                 
+                </div><!--/carousel-inner-->
+                 
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                </div><!--/myCarousel-->
+                 
+            </div><!--/well-->   
+		</div>
 	</div>
 </div>
-<br>
-<div class="row">
-    <div class="col-md-6">
-    	<div class="ato-approved">
-	    	<span>
-	    	<img src="{{ MEDIA_URL }}{{img.photo_medium}}" alt="{{img.name}}" class="img-thumbnail">
-	    	{% if img.approve_status = True %}
-      			<i class="fa fa-check fa-4x"></i>
-      		{% else %}
-      			<i class="fa fa-close fa-4x"></i>
-      		{% endif %}
-      		</span>
-    	</div>
-    	{% if img.approve_status = False %}
-      		<a href="/care/edit/{{img.id}}">
-      			<input type="button" class="btn btn-info pull-right" value="{% blocktrans %}Edit{% endblocktrans %}"/>
-      		</a>
-      	{% endif %}
-      	<a href="/care/addupload/{{img.id}}">
-      		<input type="button" class="btn btn-info pull-left" value="{% blocktrans %}Add upload{% endblocktrans %}"/>
-      	</a>
-    </div>
-    <div class="col-md-6">
-    	<form class="form-horizontal" role="form">
-			<div class="form-group">
-			    <label for="uploadLabel" class="col-md-4 control-label">{% trans "Uploaded to server:" %}</label>
-			    <div class="col-md-8">
-			        <p class="form-control-static"><i class="fa fa-upload "></i>&nbsp; {{img.date_pub}}</p>			        
-			    </div>
-			</div>
-			{% if img.date_approve %}
-			<div class="form-group">
-			    <label for="approvedLabel" class="col-md-4 control-label">{% trans "Approved:" %}</label>
-			    <div class="col-md-8">
-			      	<p class="form-control-static"><i class="fa fa-clock-o "></i>&nbsp; {{img.date_approve}}</p>
-			    </div>
-			</div>
-			{% endif %}
-			<div class="form-group">
-			    <label for="approvedLabel" class="col-md-4 control-label">{% trans "Author:" %}</label>
-			    <div class="col-md-8">
-			      	<p class="form-control-static"><i class="fa fa-user "></i>&nbsp; {{img.author.first_name}} {{img.author.last_name}}</p>
-			    </div>
-			</div>
-			{% if img.category.all %}
-			<div class="form-group">
-			    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Categories:" %}</label>
-			    <div class="col-md-8">
-			      	<ul class="list-group">
-			      		{% for cat in img.category.all %}
-					    	<li class="list-group-item"><i class="fa fa-list-alt "></i>&nbsp; {{cat.name}} <small>({{ cat.download_count }})</small></li>
-					    {% endfor %}
-					</ul>
-			    </div>
-			</div>
-			{% endif %}
-			<!--
-			DEVELOPMENT
-			-->
-			{% if img.cat_list.all %}
-			<div class="form-group">
-			    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Categories:" %}</label>
-			    <div class="col-md-8">
-			      	<ul class="list-group">
-			      		{% for cat in img.cat_list.all %}
-					    	<li class="list-group-item"><i class="fa fa-list-alt "></i>&nbsp; {{cat.name}} <small>{{ cat.download_count }}</small></li>
-					    {% endfor %}
-					</ul>
-			    </div>
-			</div>
-			{% endif %}
-			<!--
-			END OF DEVELOPMENT
-			-->
-			{% if img.tag.all %}
-			<div class="form-group">
-			    <label for="TagLabel" class="col-md-4 control-label">{% trans "Tags:" %}</label>
-			    <div class="col-md-8">
-			      	<ul class="list-group">
-			      		{% for tag in img.tag.all %}
-					    	<li class="list-group-item"><i class="fa fa-tags "></i>&nbsp; {{tag.name}}</li>
-					    {% endfor %}
-					</ul>
-			    </div>
-			</div>
-			{% endif %}
-			{% if img.download_count %}
-			<div class="form-group">
-			    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Downloads:" %}</label>
-			    <div class="col-md-8">
-			      	<p class="form-control-static">			      		
-					    <i class="fa fa-download "></i>&nbsp; {{img.download_count}}	    
-					</p>
-			    </div>
-			</div>
-			{% endif %}
-		</form>
-    </div>
-</div>
-<hr />
-{% endfor %}
 
-{% if picture_list and all_count > allowed_count %}
+<div class="container-fluid" id="picture_content"  style="display: none;">
+	<div class="row">
+		<div class="col-sm-6 col-xs-12">
+    	    <div class="well photo_backgr lifted"> 
+                <div class="ato-approved text-center">
+			    	<span>
+			    	<img src="" alt="" class="img-thumbnail img-full" id="picture_preview">
+			    	
+			    	<span class="ato-status" id="pic_already_approved" style="display: none;">
+			    		<a class="download_image"><i class="fa fa-download fa-4x"></i></a>
+			    		<abbr class="no_under" title="{% blocktrans %}Picture approved{% endblocktrans %}"><i class="fa fa-check-square-o fa-4x"></i></abbr>
+			    	</span>
+			    	<span class="ato-status" id="pic_under_approval" style="display: none;">
+			    		<a class="download_image"><i class="fa fa-download fa-4x"></i></a>
+			    		<a id="edit_image" ><i class="fa fa-pencil-square-o fa-4x"></i></a>
+			    		<abbr class="no_under" title="{% blocktrans %}Under approval{% endblocktrans %}"><i class="fa fa-question fa-4x"></i></abbr>
+			    	</span>
+		      			
 
-<div class="row">
-    <div class="col-md-12 text-center">
-		<ul class="pagination">
-		    {% if picture_list.has_previous %}
-		    <li><a href="?page={{ picture_list.previous_page_number }}">&laquo;</a></li>
-		    {% endif %}
+		      		</span>
+		      		<!--
+		      		
+		      			<input type="button" class="btn btn-info pull-right" value="{% blocktrans %}Edit{% endblocktrans %}"/>
+		      		</a>
+			      	<a href="/care/addupload/{{img.id}}">
+			      		<input type="button" class="btn btn-info pull-left" value="{% blocktrans %}Add upload{% endblocktrans %}"/>
+			      	</a>
+			      -->
+		    	</div>
+            </div><!--/well-->   
+		</div>
+		<div class="col-sm-6 col-xs-12">
+    	    <div class="well photo_backgr curved-hz-1"> 
+                <h3 id="pic_name"></h3>
+                <form class="form-horizontal" role="form">
+					<div class="form-group">
+					    <label for="uploadLabel" class="col-md-4 control-label">{% trans "Uploaded to server:" %}</label>
+					    <div class="col-md-8">
+					        <p class="form-control-static" id="pic_uploaded"><i class="fa fa-upload "></i>&nbsp; </p>			        
+					    </div>
+					</div>
 
-		    {% for linkpage in picture_list.paginator.page_range %}
-		      {% ifequal linkpage picture_list.number %}
-		         <li  class="active"><a  href="?page={{ linkpage }}">{{ linkpage }}</a></li>
-		      {% else %}
-		         <li><a href="?page={{ linkpage }}">{{ linkpage }}</a></li>
-		      {% endifequal %}
-		   {% endfor %}
-		    
-		    {% if picture_list.has_next %}
-		    <li><a href="?page={{ picture_list.next_page_number }}">&raquo;</a></li>
-		    {% endif %}
-		  
-		</ul>
-    </div>
+					
+
+					<div class="form-group">
+					    <label for="approvedLabel" class="col-md-4 control-label">{% trans "Author:" %}</label>
+					    <div class="col-md-8">
+					      	<p class="form-control-static" id="pic_author"><i class="fa fa-user "></i>&nbsp; </p>
+					    </div>
+					</div>
+
+					<div class="form-group" style="display: none;" id="approved_container">
+					    <label for="approvedLabel" class="col-md-4 control-label">{% trans "Approved:" %}</label>
+					    <div class="col-md-8">
+					      	<p class="form-control-static" id="pic_approved"><i class="fa fa-clock-o "></i>&nbsp; </p>
+					    </div>
+					</div>
+
+					
+					<div class="form-group" id="category_container" style="display: none;">
+					    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Categories:" %}</label>
+					    <div class="col-md-8">
+					      	<ul class="list-group" id="pic_category">
+					      		
+							    	
+							    
+							</ul>
+					    </div>
+					</div>
+
+
+					<div class="form-group" id="tag_container" style="display: none;">
+					    <label for="TagLabel" class="col-md-4 control-label">{% trans "Tags:" %}</label>
+					    <div class="col-md-8">
+					      	<div class="bootstrap-tagsinput" id="pic_tags">
+
+					      	</div>
+					    </div>
+					</div>
+
+					<div class="form-group" id="download_container" style="display: none;">
+					    <label for="CategoryLabel" class="col-md-4 control-label">{% trans "Downloads:" %}</label>
+					    <div class="col-md-8">
+					      	<p class="form-control-static" id="pic_download">			      		
+							    	    
+							</p>
+					    </div>
+					</div>
+
+				</form>
+                 
+            </div><!--/well-->   
+		</div>
+	</div>
 </div>
 
+
+<script src="{{STATIC_URL}}js/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var isCaroselInitialized = false;
+	var pages = null;
+	var activePicture = null;
+
+	function GetPicturesForSlide(index){
+    	
+		  	$.ajax({
+		    	url : "/care/getpictures/?page="+index,
+		    	type : "GET",
+		    	contentType: 'application/json; charset=utf-8',
+		    	success : function(results){
+		      		if (results.success == "true") {
+		      			if(!isCaroselInitialized) {
+		      				pages = [];
+		      				pages[index] = results;
+		      				InitCarosel(results);
+		      			}else{
+		      				pages[index] = results;
+		      				AppendToSlide(results);
+		      			}
+		        	//handle DOM insertion and other stuff
+		      		} else {
+		      			alert("?");
+		      		}
+	    		}
+	  		});
+    }
+
+    function OpenPictureInfo(event) {
+    	$('.carousel-inner').find('.selected_pic').removeClass('selected_pic')
+    	if($(event.target).hasClass('thumbnail')){ 
+    		$(event.target).addClass('selected_pic');
+    		ReloadPicture($(event.target).parent().attr('id'));
+    	}else{
+    		$(event.target).parent().addClass('selected_pic');
+    		ReloadPicture($(event.target).parent().parent().attr('id'));
+    	}
+    	
+
+    	return false;
+    }
+
+    function ReloadPicture(picture) {
+    	$('#picture_content').hide(200, function() {
+    		var idx = $('#myCarousel .item.active').index();
+    		for (var z = 0; z < pages[idx+1].entity.length; z++) {
+    			if(pages[idx+1].entity[z].id == picture) {
+    				pic = pages[idx+1].entity[z];
+    				activePicture = pic;
+    				$('#picture_preview').attr('src', pic.preview_url);
+    				$('#picture_preview').attr('alt', pic.name);
+    				//
+    				
+    				$('#pic_uploaded').empty().append('<i class="fa fa-upload "></i>&nbsp; ' + pic.published);
+    				$('#pic_name').empty().append(pic.name);
+    				$('#pic_author').empty().append('<i class="fa fa-user "></i>&nbsp; ' + pic.author);
+    				if(pic.approve){
+    					$('#pic_approved').empty().append('<i class="fa fa-clock-o "></i>&nbsp; ' + pic.approve);
+    					$('#pic_already_approved').show();
+    					$('#pic_under_approval').hide();
+    					$('#approved_container').show();
+    					
+    				}else{
+    					$('#pic_already_approved').hide();
+    					$('#pic_under_approval').show();
+    					$('#approved_container').hide();
+    					$('#pic_approved').empty();
+    				}
+
+    				if(pic.cats){
+    					$('#pic_category').empty();
+    					for (var i = 0; i < pic.cats.length; i++) {
+    						$('#pic_category').append('<li class="list-group-item"><i class="fa fa-list-alt "></i>&nbsp; ' + pic.cats[i].name + '</li>')
+    					};
+    					$('#category_container').show();
+    				}else{
+    					$('#category_container').hide();
+    					$('#pic_category').empty();
+    				}
+
+    				if(pic.tags){
+    					$('#pic_tags').empty();
+						$('#pic_tags').append('<input type="text" placeholder="" style="width: 3em !important; display: none;">');
+    					for (var i = 0; i < pic.tags.length; i++) {
+    						$('#pic_tags').append('<span class="tag label label-info">' + pic.tags[i].name + '</span>')
+    					};
+    					$('#tag_container').show();
+    				}else{
+    					$('#tag_container').hide();
+    					$('#pic_tags').empty();
+    				}
+
+    				if(pic.downloads){
+    					$('#pic_download').empty().append('<i class="fa fa-download "></i>&nbsp; ' + pic.downloads);
+    					$('#download_container').show();
+    				}else{
+    					$('#download_container').hide();
+    					$('#pic_download').empty();
+    				}
+    				
+    			}
+    		};
+
+    		$('#picture_content').show(200);
+    	});
+    }
+
+    GetPicturesForSlide(1);
+
+    function InitCarosel(data) {
+    	var innerStub = '<div class="row"><div class="col-xs-3"><a href="#x" class="thumbnail caroselPrev"><img src="/static/img/loading18.gif" alt="Image" style="max-width:100%;" /></a></div><div class="col-xs-3"><a href="#x" class="thumbnail caroselPrev"><img src="/static/img/loading18.gif" alt="Image" style="max-width:100%;" /></a></div><div class="col-xs-3"><a href="#x" class="thumbnail caroselPrev"><img src="/static/img/loading18.gif" alt="Image" style="max-width:100%;" /></a></div><div class="col-xs-3"><a href="#x" class="thumbnail caroselPrev"><img src="/static/img/loading18.gif" alt="Image" style="max-width:100%;" /></a></div></div>';
+    	for (var i = 1; i <= data.count; i++) {
+    		if(i == 1){
+    			$('.carousel-inner').append('<div class="item active">' + innerStub + '</div>');
+    		}else{
+    			$('.carousel-inner').append('<div class="item">' + innerStub + '</div>');
+    		}
+    	};
+
+    	$('#myCarousel').carousel({
+		    interval: false
+		});
+
+		$('#myCarousel').on('slid.bs.carousel', function (e) {
+			// get index of currently active item
+			var idx = $('#myCarousel .item.active').index();
+			// ajax load from data-url
+		  	//$('.item').html("wait... ");
+		  	GetPicturesForSlide(idx + 1);
+			
+		});
+
+		$('#edit_image').on('click', function (e) {
+			if(activePicture){
+				window.location = '/care/edit/' + activePicture.id;
+			}	
+		});
+
+		$('.download_image').on('click', function (e) {
+			if(activePicture){
+				window.location = '/care/addupload/' + activePicture.id;
+			}	
+		});
+
+    	ReloadPicture(data.entity[0].id);
+
+		isCaroselInitialized = true;
+
+    	AppendToSlide(data, true);
+
+    	$('#carosel_block').show(200, function(){});
+    }
+
+    function AppendToSlide(data, isFistActive){
+    	$('.item.active').empty();
+    	$('.item.active').append('<div class="row"></div>');
+    	for (var i = 0; i < data.entity.length; i++) {
+    		$('.item.active .row').append(function() {
+			  	return $('<div class="col-md-3 col-sm-3 col-xs-3" id="' + data.entity[i].id + '"><a href="#x" class="thumbnail caroselPrev"><img src="' + data.entity[i].thumb_url + '" alt="Image" style="max-width:100%;" /></a></div>').click(OpenPictureInfo);
+			});
+    	};
+
+    	if(isFistActive){
+    		$('.item.active').find('.thumbnail').first().addClass('selected_pic');
+    	}
+    }
+});
+
+</script>
 {% endif %}
 
 {% endblock %}

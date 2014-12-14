@@ -12,28 +12,42 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="/">ATO.Care</a>
+      		<a class="navbar-brand" href="/" style="background-image: url('/static/img/logo.png');background-size: contain;min-width: 123px;"></a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
-	        	<li>
-	        		<a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> {% trans "My pictures" %}</a>
-	        	</li>
-	        	<li>
-	        		<a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> {% trans "My info" %}</a>
-	        	</li>
-	        	<li  class="active">
+	        	<li><a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> {% trans "My pictures" %}</a></li>
+	        	<li><a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> {% trans "My info" %}</a></li>
+	        	<li class="active">
 	        		<a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> {% trans "Upload" %}</a>
 	        	</li>
 	        </ul>
 	      
 	        <ul class="nav navbar-nav navbar-right">
+
+	        	<li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Language <span class="caret"></span></a>
+	                <ul class="dropdown-menu" role="menu">
+	                  {% for lang in LANGUAGES %}
+			            
+			              <form name="setLang{{ lang.1 }}" id="setLang{{ lang.1 }}" action="/i18n/setlang/" method="POST">
+			              	<li>
+			                {% csrf_token %}
+			                <input name="next" type="hidden" value="/care/upload">
+			                <input type="hidden" name="language" value="{{ lang.0 }}">
+			                <a href="" class="{{ lang.1 }} form-li" onclick="document.getElementById('setLang{{ lang.1 }}').submit();return false;">{{ lang.1 }}</a>
+			             	</li>
+			              </form>
+			            
+			          {% endfor %}
+	                </ul>
+	              </li>
 	        		
 	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
 	        		
-	        	<li><a href="{% url 'care:logout' %}" class="navbar-link">{% trans "Logout" %} <i class="fa fa-sign-out fa-lg"></i> </a></li>
+	        	<li><a href="{% url 'care:logout' %}" class="navbar-link"><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
 	      	    
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -43,7 +57,7 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="padme">
 <br>
 {% if limit_detected %}
 <div class="row">
@@ -96,10 +110,11 @@
 </div>
 <div class="row" id="ThumbStep" style="display: none"> 
 	<div class="col-md-8">
+		<h3>{% trans "2 Choose thumbnail:" %}</h3>
+    	<br />
+		<div class="well photo_backgr curved-hz-1"> 
     	<div class="row">
     		<div class="col-md-12">
-    			<h3>{% trans "2 Choose thumbnail:" %}</h3>
-    			<br />
     			<div id="UploadedImageContainer">
 					<img src=""  class="img-responsive  img-thumbnail" id="UploadedImage">
 					
@@ -112,6 +127,7 @@
 				<button type="button" class="btn btn-primary" id="BtnSendThumb">{% trans "Save changes" %}</button>
 			</div>
 		</div>
+	</div>
     </div>
     <div class="col-md-4">
     	<div class="row">
@@ -135,6 +151,12 @@
     		<div class="col-md-12">
     			<h3>{% trans "3 Finish with description:" %}</h3>
     			<br />
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-12">
+    			
+    			<div class="well photo_backgr curved-hz-1"> 
     			<div class="well well-sm" style="display: none;"><strong><span class="glyphicon glyphicon-asterisk"></span>{% trans "Required Field" %}</strong></div>
 				<form action="" method="post" role="form" enctype="multipart/form-data">
 				    {% csrf_token %}
@@ -192,22 +214,29 @@
 				<br />
 				<br />
 				<br />
+				</div>
 			</div>
 		</div>
     </div>
     <div class="col-md-6">
-    	
+    	<div class="row">
+    		<div class="col-md-12">
+    			<h3>&nbsp;</h3>
+    			<br />
+    		</div>
+    	</div>
     	<div class="row">
 
     		<div class="col-md-11 col-md-offset-1">
-    			<hr>
-    			<br />
+    			
+    			 <div class="well photo_backgr lifted img-pad"> 
     			<img src=""  class="img-responsive  img-thumbnail" id="UploadedImageFull">
-				<br />
+			</div>
     		</div>
     	</div>
     	
 	</div>
+</div>
 </div>
 <script>
 	//////////////
@@ -232,7 +261,7 @@
     	}else{
     		cats.push(cat);
     		$('#categories_list').append(function() {
-			  return $('<li class="list-group-item" id="' + cat.id + '"><i class="fa fa-list-alt "></i>&nbsp; ' + cat.name + ' <i class="fa fa-ban fa-1.5x pull-right text-danger removeItem" id="' + cat.id + '"></i></li>').click(removeFromCategory);
+			  return $('<li class="list-group-item" id="' + cat.id + '"><i class="fa fa-list-alt "></i>&nbsp; ' + cat.name + ' <i class="fa fa-minus-square-o fa-1.5x pull-right text-danger removeItem" id="' + cat.id + '"></i></li>').click(removeFromCategory);
 			});
     	}
     }

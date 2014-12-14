@@ -47,6 +47,11 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
+                <div class="checkbox form-group">
+                    <label>
+                      <input type="checkbox" required> {% trans "I have read and agree with" %} <a href="" onclick="Terms();" style="color: #777;">{% trans "Terms and Conditions" %}</a>
+                    </label>
+                  </div>
                 <input type="submit" name="submit" id="submit" value="{% blocktrans %}Save changes{% endblocktrans %}" class="btn btn-info pull-right">
             </div>
         </form>
@@ -60,4 +65,12 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+      function Terms(){
+        var url = '/pp' + '{% trans "en" %}';
+        var win = window.open(url, '_blank');
+        win.focus();
+        
+      }
+    </script>
 {% endblock %}

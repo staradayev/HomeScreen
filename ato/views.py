@@ -29,5 +29,16 @@ def IndexView(request):
 		'pictures': pictures,
 		'donated': donated,
 		'organizations': organizations,
+		'LANG': request.LANGUAGE_CODE,
 	})
+	return HttpResponse(template.render(context))
+
+def PPEView(request):
+	template = loader.get_template('ato/ppEnglish.html')
+	context = RequestContext(request, {'LANG': request.LANGUAGE_CODE})
+	return HttpResponse(template.render(context))
+
+def PPUView(request):
+	template = loader.get_template('ato/ppUkrainian.html')
+	context = RequestContext(request, {'LANG': request.LANGUAGE_CODE})
 	return HttpResponse(template.render(context))

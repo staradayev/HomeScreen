@@ -28,7 +28,7 @@
     <!-- Wrap all page content here -->
 <div id="wrap">
 {% block header %}{% endblock %}
-
+{% load i18n %}
 {% block content %}{% endblock %}
     </div>
 <div class="footer" id="footer">
@@ -73,7 +73,7 @@
            
         
         <div class="text-center t">
-          <p class="text-muted">InelliGT 2014 &copy;</p>
+          <p class="text-muted">InelliGT 2014 &copy; <a href="" onclick="Terms();" style="color: #777;">{% trans "Terms and Conditions" %}</a></p>
         </div>
     </div>    
 </div>
@@ -84,7 +84,14 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
     <script src="{{STATIC_URL}}js/ato-scripts.js"></script>
-    
+    <script type="text/javascript">
+      function Terms(){
+        var url = '/pp' + '{{ LANG  }}';
+        var win = window.open(url, '_blank');
+        win.focus();
+        
+      }
+    </script>
     <script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
   </body>
 </html>

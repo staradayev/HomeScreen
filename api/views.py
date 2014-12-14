@@ -148,7 +148,7 @@ def picture_by_cat_list(request):
 				#picture['name'] = pic.picture_name
 
 				popular.append(picture)
-			cat = Category.objects.get(pk=cat_id).category_name
+			cat = Category.objects.get(pk=cat_id).name
 			json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'page_name':cat, 'entity':popular})
 			response = HttpResponse(json_posts, content_type="application/json")
 		
@@ -173,21 +173,22 @@ def picture(request):
 			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
 		
 		try:	
+
 			pic_id = int(request.GET.get('id'))
 			try:
 				pic = Picture.objects.filter(approve_status=True).get(pk=pic_id)
 			except:
-				response = HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
-			finally:
-				picture = {};
-				picture['id'] = pic.id
-				picture['downloads'] = pic.download_set.filter().count()
-				picture['picture_url'] = pic.photo_medium
-				picture['name'] = pic.picture_name
-				usr = User.objects.get(pk=pic.author.id)
-				picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
-				json_posts = json.dumps({'success':"true", 'message':'', 'entity':picture})
-				response = HttpResponse(json_posts, content_type="application/json")
+				return HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
+			
+			picture = {};
+			picture['id'] = pic.id
+			picture['downloads'] = pic.download_set.filter().count()
+			picture['picture_url'] = pic.photo_medium
+			picture['name'] = pic.name
+			usr = User.objects.get(pk=pic.author.id)
+			picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
+			json_posts = json.dumps({'success':"true", 'message':'', 'entity':picture})
+			response = HttpResponse(json_posts, content_type="application/json")
 		except:
 			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
 	else:

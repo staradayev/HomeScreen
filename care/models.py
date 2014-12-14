@@ -108,13 +108,13 @@ class Picture(MultilingualModel):
 			return _(u'Unnamed')
 
 	def get_thumb(self):
-		return "/site_media/%s" % self.photo_thumb
+		return "/media/%s" % self.photo_thumb
 
 	def get_medium(self):
-		return "/site_media/%s" % self.photo_medium
+		return "/media/%s" % self.photo_medium
 
 	def get_original(self):
-		return "/site_media/%s" % self.photo_origin
+		return "/media/%s" % self.photo_origin
 
 	def __iter__(self):
 		return self

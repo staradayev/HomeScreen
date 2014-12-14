@@ -26,6 +26,7 @@ from django.conf import settings
 from django.core.files.images import get_image_dimensions
 from PIL import Image
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import formats
 
 def logout(request, redirect_url=None):
 	auth.logout(request)
@@ -48,23 +49,11 @@ def DetailView(request):
 	p_author = User.objects.get(username = request.user.username)
 	picture_list = Picture.objects.filter(author=p_author).order_by('-date_pub').all()
 	pictures_all_count = picture_list.count()
-	pictures_on_page = 4
-	paginator = Paginator(picture_list, pictures_on_page)
 
-	page = request.GET.get('page')
-	try:
-		pictures = paginator.page(page)
-	except PageNotAnInteger:
-		# If page is not an integer, deliver first page.
-		pictures = paginator.page(1)
-	except EmptyPage:
-		# If page is out of range (e.g. 9999), deliver last page of results.
-		pictures = paginator.page(paginator.num_pages)
 
 	template = loader.get_template('care/detail.html')
 	context = RequestContext(request, {
-		'picture_list': pictures,
-		'allowed_count': pictures_on_page,
+		'picture_list': picture_list,
 		'all_count': pictures_all_count,
 	})
 	return HttpResponse(template.render(context))
@@ -617,4 +606,85 @@ def GetTagView(request):
 	response["Access-Control-Allow-Headers"] = "*"
 	return response
 
+def get_picture_list(request):
+	if request.method == 'GET':
+
+		pictures = []
+
+		p_author = User.objects.get(username = request.user.username)
+		picture_list = Picture.objects.filter(author=p_author).order_by('-date_pub').all()
+		pictures_all_count = picture_list.count()
+		pictures_on_page = 4
+		paginator = Paginator(picture_list, pictures_on_page)
+
+
+		template = loader.get_template('care/detail.html')
+		context = RequestContext(request, {
+			'picture_list': pictures,
+			'allowed_count': pictures_on_page,
+			'all_count': pictures_all_count,
+		})
+
+		try:
+			page = request.GET.get('page')
+			try:
+				pics = paginator.page(page)
+			except PageNotAnInteger:
+				# If page is not an integer, deliver first page.
+				pics = paginator.page(1)
+				page = 1
+			except EmptyPage:
+				# If page is out of range (e.g. 9999), deliver last page of results.
+				pics = paginator.page(paginator.num_pages)
+				page = paginator.num_pages
+			
+			for pic in pics:
+				picture = {};
+				picture['id'] = pic.id
+				picture['name'] = pic.name
+				picture['downloads'] = pic.download_set.filter().count()
+
+				picture['thumb_url'] = pic.get_thumb()
+				picture['preview_url'] = pic.get_medium()
+				picture['author'] = "%s %s" % (p_author.first_name, p_author.last_name)
+				picture['published'] = formats.date_format(pic.date_pub, "SHORT_DATETIME_FORMAT")
+				if pic.date_approve:
+					picture['approve'] = formats.date_format(pic.date_approve, "SHORT_DATETIME_FORMAT")
+
+
+				if pic.category.all():
+					picture['cats'] = []
+					p_cats = pic.category.all()
+					for cat in p_cats:
+						category = {};
+						category['id'] = cat.id
+						category['name'] = cat.name
+						picture['cats'].append(category)
+
+				if pic.tag.all():
+					picture['tags'] = []
+					p_tags = pic.tag.all()
+					for tag in p_tags:
+						t = {};
+						t['id'] = tag.id
+						t['name'] = tag.name
+						picture['tags'].append(t)
+
+				if pic.download_count():
+					picture['downloads'] = pic.download_count()
+
+				pictures.append(picture)
+
+			json_posts = simplejson.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':pictures})
+			response = HttpResponse(json_posts, content_type="application/json")
+		except:
+			response = HttpResponse(simplejson.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
+	else:
+		response = HttpResponse(simplejson.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
+	
+	response["Access-Control-Allow-Origin"] = "*"  
+	response["Access-Control-Allow-Methods"] = "POST, GET"  
+	response["Access-Control-Max-Age"] = "1000"  
+	response["Access-Control-Allow-Headers"] = "*"
+	return response
 

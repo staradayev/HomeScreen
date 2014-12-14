@@ -1,0 +1,35 @@
+<VirtualHost *:80>
+    ServerAdmin admin@example.com
+    ServerName ato.care
+    WSGIScriptAlias / /home/projects/atosite/atosite/wsgi.py
+    ErrorLog /home/projects/atosite/atosite/error_log
+
+    WSGIDaemonProcess ato.care processes=2 threads=15 display-name=%{GROUP}
+    WSGIProcessGroup ato.care
+
+<Directory "/home/projects/atosite/atosite/">
+    Options -Indexes FollowSymLinks
+    AllowOverride AuthConfig FileInfo
+    Order allow,deny
+    Allow from all
+</Directory>
+
+Alias /static /home/projects/atosite/static/
+
+<Directory /home/projects/atosite/static/>
+    Options -Indexes FollowSymLinks
+    AllowOverride AuthConfig FileInfo
+    Order allow,deny
+    Allow from all
+</Directory>
+
+Alias /media /home/projects/atosite/media/
+
+<Directory /home/projects/atosite/media/>
+    Options -Indexes FollowSymLinks
+    AllowOverride AuthConfig FileInfo
+    Order allow,deny
+    Allow from all
+</Directory>
+
+</VirtualHost>
