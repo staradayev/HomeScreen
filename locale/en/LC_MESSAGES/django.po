@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-22 17:29+0000\n"
+"POT-Creation-Date: 2014-12-14 21:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ato/templates/ato/base.html:76 ato/templates/ato/ppEnglish.html:12
+#: ato/templates/ato/ppUkrainian.html:12
+#: care/templates/registration/registration_form.html:52
+msgid "Terms and Conditions"
+msgstr ""
 
 #: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
 #: ato/templates/ato/index.html:243
@@ -244,7 +250,7 @@ msgstr ""
 msgid "Email too long ( maximum 100 symbols )"
 msgstr ""
 
-#: care/forms.py:52
+#: care/forms.py:52 care/views.py:448
 msgid "No image!"
 msgstr ""
 
@@ -253,7 +259,7 @@ msgid ""
 "Please use an image that is smaller or equal to %(width) x %(height) pixels.."
 msgstr ""
 
-#: care/forms.py:70
+#: care/forms.py:70 care/views.py:489
 msgid "Please use a JPEG or PNG image."
 msgstr ""
 
@@ -261,74 +267,73 @@ msgstr ""
 msgid "Image file too large ( maximum 8mb )"
 msgstr ""
 
-#: care/forms.py:106 care/views.py:239
+#: care/forms.py:106 care/views.py:231
 msgid "There are no category name presented!"
 msgstr ""
 
-#: care/forms.py:108 care/views.py:241
+#: care/forms.py:108 care/views.py:233
 msgid "Category name too short ( minimum 3 symbols )"
 msgstr ""
 
-#: care/forms.py:110 care/views.py:243
+#: care/forms.py:110 care/views.py:235
 msgid "Category name too long ( maximum 75 symbols )"
 msgstr ""
 
-#: care/models.py:21 care/models.py:23 care/models.py:49 care/models.py:51
-#: care/models.py:104 care/models.py:106 care/models.py:194 care/models.py:196
+#: care/models.py:22 care/models.py:24 care/models.py:50 care/models.py:52
+#: care/models.py:106 care/models.py:108 care/models.py:246 care/models.py:248
 #, fuzzy
 #| msgid "Login"
 msgid "Unnamed"
 msgstr "Login"
 
-#: care/models.py:36
+#: care/models.py:37
 msgid "#tagname"
 msgstr ""
 
-#: care/models.py:64 care/templates/care/edit.html:68
-#: care/templates/care/upload.html:68
+#: care/models.py:65 care/templates/care/edit.html:82
 msgid "Category name"
 msgstr ""
 
-#: care/models.py:92
+#: care/models.py:94
 msgid "original file upload"
 msgstr ""
 
-#: care/models.py:163 care/templates/care/edit.html:129
-#: care/templates/care/upload.html:127
+#: care/models.py:215 care/templates/care/edit.html:143
+#: care/templates/care/upload.html:171
 msgid "Picture name"
 msgstr ""
 
-#: care/models.py:166
+#: care/models.py:218
 #, fuzzy
 #| msgid "Login"
 msgid "Link name"
 msgstr "Login"
 
-#: care/models.py:171
+#: care/models.py:223
 msgid "Link URL"
 msgstr ""
 
-#: care/models.py:203
+#: care/models.py:255
 msgid "Organization name"
 msgstr ""
 
-#: care/models.py:204
+#: care/models.py:256
 msgid "Organization author"
 msgstr ""
 
-#: care/models.py:205
+#: care/models.py:257
 msgid "Organization description"
 msgstr ""
 
-#: care/models.py:206
+#: care/models.py:258
 msgid "Organization additiolal"
 msgstr ""
 
-#: care/models.py:220
+#: care/models.py:272
 msgid "Donator uiid"
 msgstr ""
 
-#: care/models.py:221
+#: care/models.py:273
 msgid "Transaction uiid"
 msgstr ""
 
@@ -356,135 +361,132 @@ msgstr "Home"
 msgid "Django templates!!!"
 msgstr ""
 
-#: care/templates/care/detail.html:21 care/templates/care/edit.html:22
-#: care/templates/care/myinfo.html:22 care/templates/care/upload.html:22
+#: care/templates/care/detail.html:21 care/templates/care/edit.html:21
+#: care/templates/care/myinfo.html:21 care/templates/care/upload.html:21
 msgid "My pictures"
 msgstr ""
 
-#: care/templates/care/detail.html:22 care/templates/care/edit.html:25
-#: care/templates/care/myinfo.html:25 care/templates/care/upload.html:25
+#: care/templates/care/detail.html:22 care/templates/care/edit.html:22
+#: care/templates/care/myinfo.html:22 care/templates/care/upload.html:22
 msgid "My info"
 msgstr ""
 
-#: care/templates/care/detail.html:24 care/templates/care/edit.html:28
-#: care/templates/care/myinfo.html:28 care/templates/care/upload.html:28
+#: care/templates/care/detail.html:24 care/templates/care/edit.html:24
+#: care/templates/care/myinfo.html:24 care/templates/care/upload.html:24
 msgid "Upload"
 msgstr ""
 
-#: care/templates/care/detail.html:32 care/templates/care/edit.html:36
-#: care/templates/care/myinfo.html:36 care/templates/care/upload.html:36
+#: care/templates/care/detail.html:50 care/templates/care/edit.html:50
+#: care/templates/care/myinfo.html:50 care/templates/care/upload.html:50
 msgid "Logout"
 msgstr ""
 
-#: care/templates/care/detail.html:49 care/templates/care/detail.html.py:51
-msgid "Older"
-msgstr ""
-
-#: care/templates/care/detail.html:55 care/templates/care/detail.html.py:57
-msgid "Newer"
-msgstr ""
-
-#: care/templates/care/detail.html:67
+#: care/templates/care/detail.html:64
 msgid "There are no uploaded pictures!"
 msgstr ""
 
-#: care/templates/care/detail.html:68
+#: care/templates/care/detail.html:65
 msgid "Please upload more pictures"
 msgstr ""
 
-#: care/templates/care/detail.html:68
+#: care/templates/care/detail.html:65
 msgid "here"
 msgstr "here"
 
-#: care/templates/care/detail.html:92
+#: care/templates/care/detail.html:110
+msgid "Picture approved"
+msgstr ""
+
+#: care/templates/care/detail.html:115
+msgid "Under approval"
+msgstr ""
+
+#: care/templates/care/detail.html:122
 msgid "Edit"
 msgstr ""
 
-#: care/templates/care/detail.html:96
+#: care/templates/care/detail.html:125
 msgid "Add upload"
 msgstr ""
 
-#: care/templates/care/detail.html:102
+#: care/templates/care/detail.html:136
 msgid "Uploaded to server:"
 msgstr ""
 
-#: care/templates/care/detail.html:109
-msgid "Approved:"
-msgstr ""
-
-#: care/templates/care/detail.html:116
+#: care/templates/care/detail.html:145
 msgid "Author:"
 msgstr ""
 
-#: care/templates/care/detail.html:123 care/templates/care/detail.html:138
-#: care/templates/care/edit.html:135 care/templates/care/upload.html:141
+#: care/templates/care/detail.html:152
+msgid "Approved:"
+msgstr ""
+
+#: care/templates/care/detail.html:160 care/templates/care/edit.html:149
+#: care/templates/care/upload.html:186
 msgid "Categories:"
 msgstr ""
 
-#: care/templates/care/detail.html:153 care/templates/care/edit.html:151
-#: care/templates/care/upload.html:153
+#: care/templates/care/detail.html:172 care/templates/care/edit.html:165
+#: care/templates/care/upload.html:200
 msgid "Tags:"
 msgstr ""
 
-#: care/templates/care/detail.html:165
+#: care/templates/care/detail.html:181
 msgid "Downloads:"
 msgstr ""
 
-#: care/templates/care/edit.html:51
+#: care/templates/care/edit.html:65
 msgid "This image is non-editable or not exist..."
 msgstr ""
 
-#: care/templates/care/edit.html:60 care/templates/care/edit.html.py:74
-#: care/templates/care/edit.html:86 care/templates/care/edit.html.py:100
-#: care/templates/care/myinfo.html:51 care/templates/care/myinfo.html.py:76
-#: care/templates/care/upload.html:60 care/templates/care/upload.html.py:74
-#: care/templates/care/upload.html:86 care/templates/care/upload.html:100
+#: care/templates/care/edit.html:74 care/templates/care/edit.html.py:88
+#: care/templates/care/edit.html:100 care/templates/care/edit.html.py:114
+#: care/templates/care/myinfo.html:65 care/templates/care/myinfo.html.py:90
 msgid "Close"
 msgstr ""
 
-#: care/templates/care/edit.html:61 care/templates/care/upload.html:61
+#: care/templates/care/edit.html:75
 msgid "Add new category"
 msgstr ""
 
-#: care/templates/care/edit.html:66 care/templates/care/upload.html:66
+#: care/templates/care/edit.html:80
 msgid "New category name:"
 msgstr ""
 
-#: care/templates/care/edit.html:75 care/templates/care/edit.html.py:101
-#: care/templates/care/myinfo.html:77 care/templates/care/myinfo.html:140
-#: care/templates/care/upload.html:75 care/templates/care/upload.html:101
-#: care/templates/care/upload.html:165
-#: care/templates/registration/registration_form.html:50
+#: care/templates/care/edit.html:89 care/templates/care/edit.html.py:115
+#: care/templates/care/myinfo.html:91 care/templates/care/myinfo.html:154
+#: care/templates/care/upload.html:127 care/templates/care/upload.html:212
+#: care/templates/registration/registration_form.html:55
 msgid "Save changes"
 msgstr ""
 
-#: care/templates/care/edit.html:87 care/templates/care/upload.html:87
+#: care/templates/care/edit.html:101
 msgid "Add new tag"
 msgstr ""
 
-#: care/templates/care/edit.html:92 care/templates/care/upload.html:92
+#: care/templates/care/edit.html:106
 msgid "New tag name:"
 msgstr ""
 
-#: care/templates/care/edit.html:94 care/templates/care/upload.html:94
+#: care/templates/care/edit.html:108
 msgid "Tag name"
 msgstr ""
 
-#: care/templates/care/edit.html:110
+#: care/templates/care/edit.html:124
 msgid "Edit image:"
 msgstr ""
 
-#: care/templates/care/edit.html:123 care/templates/care/myinfo.html:101
-#: care/templates/care/upload.html:121
-#: care/templates/registration/registration_form.html:57
+#: care/templates/care/edit.html:137 care/templates/care/myinfo.html:115
+#: care/templates/care/upload.html:165
+#: care/templates/registration/registration_form.html:62
 msgid "Error!"
 msgstr ""
 
-#: care/templates/care/edit.html:127 care/templates/care/upload.html:125
+#: care/templates/care/edit.html:141 care/templates/care/upload.html:169
 msgid "Picture name:"
 msgstr ""
 
-#: care/templates/care/edit.html:166
+#: care/templates/care/edit.html:180
 msgid "Cancel"
 msgstr ""
 
@@ -520,115 +522,139 @@ msgstr "Register"
 msgid "Forgot you password?"
 msgstr ""
 
-#: care/templates/care/myinfo.html:52
+#: care/templates/care/myinfo.html:66
 msgid "Add new link"
 msgstr ""
 
-#: care/templates/care/myinfo.html:57
+#: care/templates/care/myinfo.html:71
 msgid "Choose link type:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:69
+#: care/templates/care/myinfo.html:83
 msgid "Link URL:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:71
+#: care/templates/care/myinfo.html:85
 msgid "Link url"
 msgstr ""
 
-#: care/templates/care/myinfo.html:85
+#: care/templates/care/myinfo.html:99
 msgid "User information:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:87
+#: care/templates/care/myinfo.html:101
 msgid "Fill your name, to continue..."
 msgstr ""
 
-#: care/templates/care/myinfo.html:106
+#: care/templates/care/myinfo.html:120
 msgid "Email:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:108
+#: care/templates/care/myinfo.html:122
 #: care/templates/registration/registration_form.html:32
 msgid "Email"
 msgstr ""
 
-#: care/templates/care/myinfo.html:114
+#: care/templates/care/myinfo.html:128
 msgid "First name:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:116
+#: care/templates/care/myinfo.html:130
 msgid "First name"
 msgstr ""
 
-#: care/templates/care/myinfo.html:123
+#: care/templates/care/myinfo.html:137
 msgid "Last name:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:125
+#: care/templates/care/myinfo.html:139
 msgid "Last name"
 msgstr ""
 
-#: care/templates/care/myinfo.html:131
+#: care/templates/care/myinfo.html:145
 msgid "Links:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:142
+#: care/templates/care/myinfo.html:156
 msgid "Add new"
 msgstr ""
 
-#: care/templates/care/upload.html:51
+#: care/templates/care/upload.html:65
 msgid "The daily limit of possible uploads exceeded!"
 msgstr ""
 
-#: care/templates/care/upload.html:51
+#: care/templates/care/upload.html:65
 msgid "Try add another picture tomorrow..."
 msgstr ""
 
-#: care/templates/care/upload.html:108
-msgid "Upload a new image:"
+#: care/templates/care/upload.html:72
+msgid "Add new image to service:"
 msgstr ""
 
-#: care/templates/care/upload.html:116
+#: care/templates/care/upload.html:84
+msgid "1 Upload a new image:"
+msgstr ""
+
+#: care/templates/care/upload.html:96
+msgid "Please take your attention to:"
+msgstr ""
+
+#: care/templates/care/upload.html:98
+msgid "attention1"
+msgstr "The image must be minimum in Full HD definition (1920x1800px)"
+
+#: care/templates/care/upload.html:99
+msgid "attention2"
+msgstr "The image maximum image definition is (7680x4320px)"
+
+#: care/templates/care/upload.html:100
+msgid "attention3"
+msgstr "The image need to be saved in JPEG or PNG format"
+
+#: care/templates/care/upload.html:101
+msgid "attention4"
+msgstr "The image can't be biggest than 8Mb"
+
+#: care/templates/care/upload.html:102
+msgid "attention5"
+msgstr "The image can't contain pornography, pedophilia and other bad content"
+
+#: care/templates/care/upload.html:103
+msgid "attention6"
+msgstr "The image can't breach copyright"
+
+#: care/templates/care/upload.html:113
+msgid "2 Choose thumbnail:"
+msgstr ""
+
+#: care/templates/care/upload.html:136
+msgid "Thumbnail will looks:"
+msgstr ""
+
+#: care/templates/care/upload.html:152
+msgid "3 Finish with description:"
+msgstr ""
+
+#: care/templates/care/upload.html:160
 #: care/templates/registration/registration_form.html:21
 msgid "Required Field"
 msgstr ""
 
-#: care/templates/care/upload.html:133
+#: care/templates/care/upload.html:178
 msgid "Image:"
 msgstr ""
 
-#: care/templates/care/upload.html:135
+#: care/templates/care/upload.html:180
 msgid "Select the file here"
 msgstr ""
 
-#: care/templates/care/upload.html:178
-msgid "Please take your attention to:"
+#: care/templates/care/upload.html:188
+msgid "Type category here"
 msgstr ""
 
-#: care/templates/care/upload.html:180
-msgid "attention1"
-msgstr "The image must be minimum in Full HD definition (1920x1800px)"
-
-#: care/templates/care/upload.html:181
-msgid "attention2"
-msgstr "The image maximum image definition is (7680x4320px)"
-
-#: care/templates/care/upload.html:182
-msgid "attention3"
-msgstr "The image need to be saved in JPEG or PNG format"
-
-#: care/templates/care/upload.html:183
-msgid "attention4"
-msgstr "The image can't be biggest than 8Mb"
-
-#: care/templates/care/upload.html:184
-msgid "attention5"
-msgstr "The image can't contain pornography, pedophilia and other bad content"
-
-#: care/templates/care/upload.html:185
-msgid "attention6"
-msgstr "The image can't breach copyright"
+#: care/templates/care/upload.html:202
+msgid "Type tag here"
+msgstr ""
 
 #: care/templates/registration/activation_complete.html:7
 msgid "Activation"
@@ -717,48 +743,89 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: care/views.py:237
+#: care/templates/registration/registration_form.html:52
+msgid "I have read and agree with"
+msgstr ""
+
+#: care/templates/registration/registration_form.html:70
+msgid "en"
+msgstr ""
+
+#: care/views.py:229
 msgid "You were added maximum count of categories per today. Try tomorrow!"
 msgstr ""
 
-#: care/views.py:260 care/views.py:298 care/views.py:336 care/views.py:340
+#: care/views.py:252 care/views.py:290 care/views.py:328 care/views.py:332
+#: care/views.py:377 care/views.py:430
 msgid "There is an error! Please contact us, if you know why?"
 msgstr ""
 
-#: care/views.py:275
+#: care/views.py:267
 msgid "You were added maximum count of tags per today. Try tomorrow!"
 msgstr ""
 
-#: care/views.py:277
+#: care/views.py:269
 msgid "There are no tag name presented!"
 msgstr ""
 
-#: care/views.py:279
+#: care/views.py:271
 msgid "Tag name too short ( minimum 3 symbols )"
 msgstr ""
 
-#: care/views.py:281
+#: care/views.py:273
 msgid "Tag name too long ( maximum 75 symbols )"
 msgstr ""
 
-#: care/views.py:310
+#: care/views.py:302
 msgid "You have maximum limit of links (10 links for user)"
 msgstr ""
 
-#: care/views.py:312
+#: care/views.py:304
 msgid "Choose link type, please!"
 msgstr ""
 
-#: care/views.py:314
+#: care/views.py:306
 msgid "There are no url name presented!"
 msgstr ""
 
-#: care/views.py:316
+#: care/views.py:308
 msgid "Url too short!"
 msgstr ""
 
-#: care/views.py:318
+#: care/views.py:310
 msgid "Url too long!"
+msgstr ""
+
+#: care/views.py:388
+msgid "Provide picture..."
+msgstr ""
+
+#: care/views.py:393
+msgid "Picture is wrong"
+msgstr ""
+
+#: care/views.py:397
+msgid "Picture name is required"
+msgstr ""
+
+#: care/views.py:399
+msgid "Picture name too short!"
+msgstr ""
+
+#: care/views.py:401
+msgid "Picture name too long!"
+msgstr ""
+
+#: care/views.py:465
+msgid "Too low image size, please use bigger!"
+msgstr ""
+
+#: care/views.py:476
+msgid "Too big image size! Please use smaller."
+msgstr ""
+
+#: care/views.py:501
+msgid "Image file too large"
 msgstr ""
 
 #~ msgid "Login"
