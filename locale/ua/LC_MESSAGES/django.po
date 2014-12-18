@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-14 21:01+0000\n"
+"POT-Creation-Date: 2014-12-18 17:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -367,6 +367,7 @@ msgid "Please upload more pictures"
 msgstr ""
 
 #: care/templates/care/detail.html:65
+#: care/templates/registration/activation_email.html:196
 msgid "here"
 msgstr "тут"
 
@@ -650,27 +651,39 @@ msgid "Your account is successful activated!"
 msgstr "Вы активували Ваш аккаунт!"
 
 #: care/templates/registration/activation_complete.html:9
-#, fuzzy
-#| msgid "Log in again"
-msgid "Log in"
-msgstr "Знову увiйти"
+msgid "Continue"
+msgstr "Продовжити"
 
 #: care/templates/registration/activation_complete.html:9
 msgid "now!"
 msgstr ""
 
+#: care/templates/registration/activation_email.html:162
 #: care/templates/registration/activation_email.txt:2
-#, fuzzy
-#| msgid "Activation"
+msgid "Hi Stranger"
+msgstr "Вiтаемо"
+
+#: care/templates/registration/activation_email.html:166
+#: care/templates/registration/activation_email.txt:5
 msgid "Activate account at"
 msgstr "Активацiя аккаунта на "
 
-#: care/templates/registration/activation_email.txt:6
+#: care/templates/registration/activation_email.html:183
+msgid "Activate!"
+msgstr "Активувати!"
+
+#: care/templates/registration/activation_email.html:191
+msgid "Or just click "
+msgstr "Або нажмiть"
+
+#: care/templates/registration/activation_email.html:200
+#: care/templates/registration/activation_email.txt:9
 #, python-format
 msgid "Link is valid for %(expiration_days)s days."
 msgstr "Посилання валiдне %(expiration_days)s днi."
 
-#: care/templates/registration/activation_email.txt:9
+#: care/templates/registration/activation_email.html:204
+#: care/templates/registration/activation_email.txt:12
 msgid "Thank you!"
 msgstr "Дякуемо!"
 
@@ -736,7 +749,7 @@ msgstr ""
 
 #: care/templates/registration/registration_form.html:70
 msgid "en"
-msgstr ""
+msgstr "ua"
 
 #: care/views.py:229
 msgid "You were added maximum count of categories per today. Try tomorrow!"
@@ -826,6 +839,16 @@ msgstr ""
 #: care/views.py:501
 msgid "Image file too large"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Log in again"
+#~ msgid "Log in"
+#~ msgstr "Знову увiйти"
+
+#, fuzzy
+#~| msgid "Thank you!"
+#~ msgid "Thank you! Ato.care "
+#~ msgstr "Дякуемо!"
 
 #~ msgid "Older"
 #~ msgstr "Старiшi"

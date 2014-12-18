@@ -140,7 +140,8 @@ STATIC_URL = '/static/'
 
 #Registration fields
 
-ACCOUNT_ACTIVATION_DAYS = 2 # days count while activation active
+ACCOUNT_ACTIVATION_DAYS = 3 # days count while activation active
+REGISTRATION_AUTO_LOGIN = True
 
 # for send activation
 AUTH_USER_EMAIL_UNIQUE = True

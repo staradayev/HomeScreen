@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-14 21:01+0000\n"
+"POT-Creation-Date: 2014-12-18 17:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,6 +390,7 @@ msgid "Please upload more pictures"
 msgstr ""
 
 #: care/templates/care/detail.html:65
+#: care/templates/registration/activation_email.html:196
 msgid "here"
 msgstr "here"
 
@@ -669,23 +670,39 @@ msgid "Your account is successful activated!"
 msgstr ""
 
 #: care/templates/registration/activation_complete.html:9
-msgid "Log in"
+msgid "Continue"
 msgstr ""
 
 #: care/templates/registration/activation_complete.html:9
 msgid "now!"
 msgstr ""
 
+#: care/templates/registration/activation_email.html:162
 #: care/templates/registration/activation_email.txt:2
+msgid "Hi Stranger"
+msgstr ""
+
+#: care/templates/registration/activation_email.html:166
+#: care/templates/registration/activation_email.txt:5
 msgid "Activate account at"
 msgstr ""
 
-#: care/templates/registration/activation_email.txt:6
+#: care/templates/registration/activation_email.html:183
+msgid "Activate!"
+msgstr ""
+
+#: care/templates/registration/activation_email.html:191
+msgid "Or just click "
+msgstr ""
+
+#: care/templates/registration/activation_email.html:200
+#: care/templates/registration/activation_email.txt:9
 #, python-format
 msgid "Link is valid for %(expiration_days)s days."
 msgstr ""
 
-#: care/templates/registration/activation_email.txt:9
+#: care/templates/registration/activation_email.html:204
+#: care/templates/registration/activation_email.txt:12
 msgid "Thank you!"
 msgstr ""
 
