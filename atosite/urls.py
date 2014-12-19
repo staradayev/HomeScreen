@@ -19,5 +19,6 @@ urlpatterns = patterns('',
 	
 	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 	url(r'^autocomplete/', include('autocomplete_light.urls')),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^reset/', include('password_reset.urls')),
 )

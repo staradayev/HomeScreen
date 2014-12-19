@@ -17,6 +17,9 @@
 	
 		<h4>{% blocktrans %}Please choose your new password.{% endblocktrans %}</h4>
 		<hr>
+		<div class="alert alert-danger text-left">
+	                    <span class="glyphicon glyphicon-remove"></span><strong> {% trans "Error!" %} {{form.errors}}</strong>
+	                </div>
 		<div class="row">
 			<div class="col-md-12">
 

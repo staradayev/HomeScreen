@@ -3,7 +3,7 @@ import datetime
 from django.conf import settings
 from django.contrib.sites.models import RequestSite
 from django.core import signing
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
 from django.http import Http404
@@ -51,7 +51,8 @@ class Recover(SaltMixin, generic.FormView):
     case_sensitive = True
     form_class = PasswordRecoveryForm
     template_name = 'password_reset/recovery_form.html'
-    email_template_name = 'password_reset/recovery_email.html'
+    email_template_name = 'password_reset/recovery_email.txt'
+    email_template_html_name = 'password_reset/recovery_email.html'
     email_subject_template_name = 'password_reset/recovery_email_subject.txt'
     search_fields = ['username', 'email']
 
@@ -82,8 +83,13 @@ class Recover(SaltMixin, generic.FormView):
                                        context).strip()
         subject = loader.render_to_string(self.email_subject_template_name,
                                           context).strip()
-        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL,
+        email_send = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL,
                   [self.user.email])
+        message_html = loader.render_to_string(self.email_template_html_name,
+                                       context).strip()
+        email_send.attach_alternative(message_html, 'text/html')
+        email_send.send()
+
 
     def form_valid(self, form):
         self.user = form.cleaned_data['user']

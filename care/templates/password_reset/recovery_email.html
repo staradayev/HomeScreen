@@ -159,11 +159,11 @@ max-width: 90%;color: white;">ATO.care</h1>
                     <td class="content" style="background: white;
 padding: 30px 35px;">
 
-                        <h2 style="font-size: 28px;">{% blocktrans %}Dear {{ username }},{% endblocktrans %},</h2>
+                        <h2 style="font-size: 28px;">{% blocktrans %}Dear {{ username }},{% endblocktrans %}</h2>
 
                                                 <p style="font-size: 16px;
 font-weight: normal;
-margin-bottom: 20px;">{% trans "Activate account at" %} {{ site.name }}:</p>{% blocktrans with domain=site.domain %}You -- or someone pretending to be you -- has requested a password reset on {{ domain }}.{% endblocktrans %}
+margin-bottom: 20px;">{% blocktrans with domain=site.domain %}You -- or someone pretending to be you -- has requested a password reset on {{ domain }}.{% endblocktrans %}
 </p>
 
                         <p style="font-size: 16px;
@@ -185,7 +185,7 @@ background: #5bc0de;
 border: solid #46b8da;
 border-width: 10px 20px 8px;
 font-weight: bold;
-border-radius: 4px;" href="http://{{ site }}/accounts/activate/{{ activation_key }}/" class="button">{% trans "Recover!" %}</a>
+border-radius: 4px;" href="http{% if secure %}s{% endif %}://{{ site.domain }}{% url 'password_reset_reset' token %}" class="button">{% trans "Recover!" %}</a>
                                     </p>
                                 </td>
                             </tr>

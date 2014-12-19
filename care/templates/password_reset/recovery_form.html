@@ -15,6 +15,11 @@
 	
 		<p>{% trans "Forgotten your password? Enter your e-mail address or username below, and we'll e-mail instructions for setting a new one." %}</p>
 
+		{% if form.errors %}
+			<div class="alert alert-danger  text-left">
+	                    <span class="glyphicon glyphicon-remove"></span><strong> {% trans "Error!" %} {{form.errors}}</strong>
+	                </div>
+			{% endif %}
 
 		<p>
 			<input id="id_username_or_email" name="username_or_email" type="text" class="form-control" placeholder="Username" required="" autofocus=""></p>
