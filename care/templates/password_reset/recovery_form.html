@@ -1,0 +1,23 @@
+{% extends "care/base.html"  %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}{% trans "Password recovery" %}{% endblock %}
+
+{% block pagetitle %}{% trans "Password recovery" %}{% endblock %}
+
+{% block content %}
+
+	
+	<form method="post" action="{{ url }}" class="form-signin text-center" >
+		{% csrf_token %}
+		<h1 class="form-signin-heading">{% trans "Password recovery" %}</h1>
+	
+		<p>{% trans "Forgotten your password? Enter your e-mail address or username below, and we'll e-mail instructions for setting a new one." %}</p>
+
+
+		<p>
+			<input id="id_username_or_email" name="username_or_email" type="text" class="form-control" placeholder="Username" required="" autofocus=""></p>
+		<p><input type="submit" value="{% trans "Recover my password" %}" class="btn btn-info "></p>
+	</form>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-18 17:51+0000\n"
+"POT-Creation-Date: 2014-12-19 11:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,6 +390,7 @@ msgid "Please upload more pictures"
 msgstr ""
 
 #: care/templates/care/detail.html:65
+#: care/templates/password_reset/recovery_email.html:201
 #: care/templates/registration/activation_email.html:196
 msgid "here"
 msgstr "here"
@@ -657,6 +658,129 @@ msgstr ""
 msgid "Type tag here"
 msgstr ""
 
+#: care/templates/password_reset/recovery_done.html:4
+#: care/templates/password_reset/recovery_done.html:6
+msgid "New password set"
+msgstr ""
+
+#: care/templates/password_reset/recovery_done.html:11
+msgid ""
+"Your password has successfully been reset. You can use it right now on the "
+msgstr ""
+
+#: care/templates/password_reset/recovery_done.html:12
+#, fuzzy
+#| msgid "Login"
+msgid "login page"
+msgstr "Login"
+
+#: care/templates/password_reset/recovery_email.html:162
+#: care/templates/password_reset/recovery_email.txt:1
+#, python-format
+msgid "Dear %(username)s,"
+msgstr ""
+
+#: care/templates/password_reset/recovery_email.html:166
+#: care/templates/registration/activation_email.html:166
+#: care/templates/registration/activation_email.txt:5
+msgid "Activate account at"
+msgstr ""
+
+#: care/templates/password_reset/recovery_email.html:166
+#: care/templates/password_reset/recovery_email.txt:3
+#, python-format
+msgid ""
+"You -- or someone pretending to be you -- has requested a password reset on "
+"%(domain)s."
+msgstr ""
+
+#: care/templates/password_reset/recovery_email.html:171
+#: care/templates/password_reset/recovery_email.txt:5
+msgid "You can set your new password by following this link:"
+msgstr ""
+
+#: care/templates/password_reset/recovery_email.html:188
+msgid "Recover!"
+msgstr ""
+
+#: care/templates/password_reset/recovery_email.html:196
+#: care/templates/registration/activation_email.html:191
+msgid "Or just click "
+msgstr ""
+
+#: care/templates/password_reset/recovery_email.html:205
+#: care/templates/password_reset/recovery_email.txt:9
+msgid ""
+"If you don't want to reset your password, simply ignore this email and it "
+"will stay unchanged."
+msgstr ""
+
+#: care/templates/password_reset/recovery_email.html:209
+#: care/templates/registration/activation_email.html:204
+#: care/templates/registration/activation_email.txt:12
+msgid "Thank you!"
+msgstr ""
+
+#: care/templates/password_reset/recovery_email_subject.txt:1
+#, python-format
+msgid "Password recovery on %(domain)s"
+msgstr ""
+
+#: care/templates/password_reset/recovery_form.html:5
+#: care/templates/password_reset/recovery_form.html:7
+#: care/templates/password_reset/recovery_form.html:14
+#: care/templates/password_reset/reset.html:5
+#: care/templates/password_reset/reset.html:7
+msgid "Password recovery"
+msgstr ""
+
+#: care/templates/password_reset/recovery_form.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address or username below, and "
+"we'll e-mail instructions for setting a new one."
+msgstr ""
+
+#: care/templates/password_reset/recovery_form.html:21
+#: care/templates/password_reset/reset.html:40
+msgid "Recover my password"
+msgstr ""
+
+#: care/templates/password_reset/reset.html:12
+#, python-format
+msgid ""
+"Sorry, this password reset link is invalid. You can still <a href="
+"\"%(recovery_url)s\">request a new one</a>."
+msgstr ""
+
+#: care/templates/password_reset/reset.html:16
+#, python-format
+msgid "Hi, <strong>%(username)s</strong>."
+msgstr ""
+
+#: care/templates/password_reset/reset.html:18
+msgid "Please choose your new password."
+msgstr ""
+
+#: care/templates/password_reset/reset.html:24
+msgid "New password:"
+msgstr ""
+
+#: care/templates/password_reset/reset.html:31
+msgid "New password (confirm):"
+msgstr ""
+
+#: care/templates/password_reset/reset_sent.html:4
+#: care/templates/password_reset/reset_sent.html:6
+msgid "Password recovery sent"
+msgstr ""
+
+#: care/templates/password_reset/reset_sent.html:11
+#, python-format
+msgid ""
+"An email was sent to <strong>%(email)s</strong> %(ago)s ago. Use the link in "
+"it to set a new password."
+msgstr ""
+
 #: care/templates/registration/activation_complete.html:7
 msgid "Activation"
 msgstr ""
@@ -682,28 +806,14 @@ msgstr ""
 msgid "Hi Stranger"
 msgstr ""
 
-#: care/templates/registration/activation_email.html:166
-#: care/templates/registration/activation_email.txt:5
-msgid "Activate account at"
-msgstr ""
-
 #: care/templates/registration/activation_email.html:183
 msgid "Activate!"
-msgstr ""
-
-#: care/templates/registration/activation_email.html:191
-msgid "Or just click "
 msgstr ""
 
 #: care/templates/registration/activation_email.html:200
 #: care/templates/registration/activation_email.txt:9
 #, python-format
 msgid "Link is valid for %(expiration_days)s days."
-msgstr ""
-
-#: care/templates/registration/activation_email.html:204
-#: care/templates/registration/activation_email.txt:12
-msgid "Thank you!"
 msgstr ""
 
 #: care/templates/registration/activation_email_subject.txt:2

@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'registration',
     'corsheaders',
     'jfu',
+    'password_reset',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -141,6 +142,7 @@ STATIC_URL = '/static/'
 #Registration fields
 
 ACCOUNT_ACTIVATION_DAYS = 3 # days count while activation active
+REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
 
 # for send activation

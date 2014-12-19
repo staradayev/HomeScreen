@@ -1,0 +1,13 @@
+{% extends "care/base.html"  %}
+{% load i18n %}
+
+{% block title %}{% trans "Password recovery sent" %}{% endblock %}
+
+{% block pagetitle %}{% trans "Password recovery sent" %}{% endblock %}
+
+
+{% block content %}
+<form class="form-signin text-center" >
+	<p>{% blocktrans with ago=timestamp|timesince %}An email was sent to <strong>{{ email }}</strong> {{ ago }} ago. Use the link in it to set a new password.{% endblocktrans %}</p>
+</form>
+{% endblock %}
