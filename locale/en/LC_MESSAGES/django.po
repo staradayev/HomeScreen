@@ -63,11 +63,10 @@ msgstr "Download HD-wallpapers and help Ukraine!"
 #| msgid "Promo text 1"
 msgid "Care text 1"
 msgstr ""
-"ATO.Care - project support Ukraine as a result of military aggression in the "
-"east Countries in the anti-terroresticheskoy operation (ATO). Load HD-"
-"patriotic wallpaper on your mobile, choose the charity Organization and "
-"optionally donate to help Ukraine in the fight against the pro-Russian "
-"agrssiey."
+"ATO.Care is a project to support Ukraine in terms of military aggression in the "
+"east during anti-terrorist operation (ATO). Download patriotic HD wallpapers"
+"on your mobile, choose the charity organization we cooperate with and "
+"volunteerly make a donation to help Ukraine in the fight against the pro-Russian afression."
 
 #: ato/templates/ato/index.html:94
 #, fuzzy
