@@ -26,7 +26,7 @@ msgstr ""
 #: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
 #: ato/templates/ato/index.html:243
 msgid "ATO.Care"
-msgstr "ATO.care"
+msgstr "ATO.Сare"
 
 #: ato/templates/ato/index.html:9
 msgid "Help Ukraine"
@@ -34,7 +34,7 @@ msgstr "Допоможи Українi!"
 
 #: ato/templates/ato/index.html:22 ato/templates/ato/index.html.py:43
 msgid "About"
-msgstr "Проекти"
+msgstr "Проект"
 
 #: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:179
 msgid "Install"
@@ -67,7 +67,7 @@ msgstr ""
 #: ato/templates/ato/index.html:94
 msgid "Care text 2"
 msgstr ""
-"Фони ATO.care включають в себе прекрасні якісні знімки від провідних "
+"Фони ATO.Сare - це прекрасні якісні знімки від провідних "
 "фотографів-професіоналів і аматорів. Ви також можете стати учасником "
 "бблагодійної акції, приєднавшись до проекту - реєструйтесь як фотограф тут, "
 "додавайте свої знімки в проект і нехай ваш талант допоможе Україні! "
@@ -82,7 +82,7 @@ msgstr "Грошей зiбрано"
 
 #: ato/templates/ato/index.html:114
 msgid "Pictires in app"
-msgstr "Патрiотичних фотографiй"
+msgstr "Фотографiй"
 
 #: ato/templates/ato/index.html:118
 msgid "Photographers"
@@ -94,12 +94,12 @@ msgstr "ATO.care"
 
 #: ato/templates/ato/index.html:128
 msgid "About title 2"
-msgstr "ATO.care - прекрасний шанс допомогти країні в нелегкій боротьбі!"
+msgstr "ATO.Сare - прекрасний шанс допомогти країні в нелегкій боротьбі!"
 
 #: ato/templates/ato/index.html:131
 msgid "About text 1"
 msgstr ""
-"Допоможемо України разом!Зібрані в ході благодійної акції кошти будуть "
+"Допоможемо України разом! Зібрані в ході благодійної акції кошти будуть "
 "передаватися благодійним організаціям згідно з вашим вибором. Ми "
 "співпрацюємо з наступними організаціями та волонтерами:"
 
@@ -107,7 +107,7 @@ msgstr ""
 msgid "About text 2"
 msgstr ""
 "Звіти про передачу коштів ви зможете побачити на офіційних сторінках  "
-"спільнот в Facebook."
+"спільнот в Facebook та нашому блозi."
 
 #: ato/templates/ato/index.html:165
 msgid "Help title 1"
@@ -119,7 +119,7 @@ msgstr "Встановлюй фони на свiй мобiльний"
 
 #: ato/templates/ato/index.html:176
 msgid "Help card content 1"
-msgstr "Та зроби благодiйний внесок"
+msgstr "та зроби благодiйний внесок"
 
 #: ato/templates/ato/index.html:190
 msgid "Help card header 2"
@@ -140,7 +140,7 @@ msgstr "Розповiсти друзям"
 
 #: ato/templates/ato/index.html:206
 msgid "Help card content 3"
-msgstr "Не будьте баудужими"
+msgstr "Не будьте байдужими"
 
 #: ato/templates/ato/index.html:222
 msgid "Help title 2"
@@ -183,7 +183,7 @@ msgstr ""
 
 #: ato/templates/ato/index.html:265
 msgid "WE'RE COMING SOON"
-msgstr ""
+msgstr "Слава Українi"
 
 #: ato/templates/ato/index.html:266
 msgid "Sign up"
