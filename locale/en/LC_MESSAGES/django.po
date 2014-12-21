@@ -123,7 +123,7 @@ msgstr " "
 msgid "About text 2"
 msgstr " "
 
-"Reports regarding funds transfers you can find on charity organizations'
+"Reports regarding funds transfers you can find on charity organizations"
 "Facebook communities and our news blog." 
 
 #: ato/templates/ato/index.html:165
