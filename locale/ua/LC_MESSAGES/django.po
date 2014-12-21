@@ -973,7 +973,7 @@ msgstr "Назва зображення дуже довга"
 #: care/views.py:465
 msgid "Too low image size, please use bigger!"
 msgstr ""
-"Розмір файлу зображення занадто малий, " 
+"Розмір файлу зображення занадто малий, "
 "ви впевнені, що це Full HD?"
 
 #: care/views.py:476
