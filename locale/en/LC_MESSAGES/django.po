@@ -259,7 +259,7 @@ msgstr ""
 
 #: care/forms.py:70 care/views.py:489
 msgid "Please use a JPEG or PNG image."
-msgstr "Please use a JPEG or PNG image format"
+msgstr "Please use a JPG, JPEG or PNG image format"
 
 #: care/forms.py:74
 msgid "Image file too large ( maximum 8mb )"
@@ -325,7 +325,7 @@ msgstr "Description"
 
 #: care/models.py:258
 msgid "Organization additiolal"
-msgstr ""
+msgstr "Additional Information"
 
 #: care/models.py:272
 msgid "Donator uiid"
@@ -601,15 +601,15 @@ msgstr "Please pay your attention to following items:"
 
 #: care/templates/care/upload.html:98
 msgid "attention1"
-msgstr "Picture should be in Full HD definition (1920x1800px) or higher"
+msgstr "Picture should be in Full HD resolution (1920x1800px) or higher"
 
 #: care/templates/care/upload.html:99
 msgid "attention2"
-msgstr "Maximum definition is 7680x4320px"
+msgstr "Maximum resolution is 7680x4320px"
 
 #: care/templates/care/upload.html:100
 msgid "attention3"
-msgstr "Picture file format should be JPEG, JPG or PNG"
+msgstr "Picture file format should be JPG, JPEG or PNG"
 
 #: care/templates/care/upload.html:101
 msgid "attention4"
@@ -617,11 +617,16 @@ msgstr "Maximum picture file size cannot be more than 8 MB"
 
 #: care/templates/care/upload.html:102
 msgid "attention5"
-msgstr "Picture should not contain any content that is libellous, defamatory, obscene, pornographic, abusive, offensive, profane, or that infringes any copyright or other right of any person"
+msgstr ""
+"Picture should not contain any content that is libellous,"
+"defamatory, obscene, pornographic, abusive, offensive, profane, or "
+"that infringes any copyright or other right of any person"
 
 #: care/templates/care/upload.html:103
 msgid "attention6"
-msgstr "You are not permitted to upload copyrighted pictures which do not belong to you"
+msgstr ""
+"You are not permitted to upload copyrighted pictures "
+"which do not belong to you"
 
 #: care/templates/care/upload.html:113
 msgid "2 Choose thumbnail:"
@@ -659,12 +664,14 @@ msgstr "Type Tag Name here"
 #: care/templates/password_reset/recovery_done.html:4
 #: care/templates/password_reset/recovery_done.html:6
 msgid "New password set"
-msgstr "New password was setup"
+msgstr "New password was set"
 
 #: care/templates/password_reset/recovery_done.html:11
 msgid ""
 "Your password has successfully been reset. You can use it right now on the "
-msgstr "Your password has been successfully reset! Log in using it right now "
+msgstr ""
+"Your password has been successfully reset!"
+"Log in using it right now! "
 
 #: care/templates/password_reset/recovery_done.html:12
 #, fuzzy
@@ -695,7 +702,7 @@ msgstr ""
 #: care/templates/password_reset/recovery_email.html:171
 #: care/templates/password_reset/recovery_email.txt:5
 msgid "You can set your new password by following this link:"
-msgstr ""
+msgstr "You can set your new password via this link:"
 
 #: care/templates/password_reset/recovery_email.html:188
 msgid "Recover!"
@@ -712,6 +719,8 @@ msgid ""
 "If you don't want to reset your password, simply ignore this email and it "
 "will stay unchanged."
 msgstr ""
+"If you do not want to reset your password just ignore this email, "
+"password will remain unchanged."
 
 #: care/templates/password_reset/recovery_email.html:209
 #: care/templates/registration/activation_email.html:204
@@ -736,7 +745,8 @@ msgstr ""
 msgid ""
 "Forgotten your password? Enter your e-mail address or username below, and "
 "we'll e-mail instructions for setting a new one."
-msgstr "Forgot your password? Enter Email address below and follow"
+msgstr ""
+"Forgot your password? Enter Email address below and follow"
 "the instructions we will send to you for setting a new one."
 
 #: care/templates/password_reset/recovery_form.html:21
@@ -750,6 +760,8 @@ msgid ""
 "Sorry, this password reset link is invalid. You can still <a href="
 "\"%(recovery_url)s\">request a new one</a>."
 msgstr ""
+"Sorry, but this password reset link is invalid. You can still <a href="
+"\"%(recovery_url)s\">request a new one</a>."
 
 #: care/templates/password_reset/reset.html:16
 #, python-format
@@ -758,7 +770,7 @@ msgstr "Hi <strong>%(username)s</strong>,"
 
 #: care/templates/password_reset/reset.html:18
 msgid "Please choose your new password."
-msgstr ""
+msgstr "Please specify your new password"
 
 #: care/templates/password_reset/reset.html:24
 msgid "New password:"
@@ -779,6 +791,8 @@ msgid ""
 "An email was sent to <strong>%(email)s</strong> %(ago)s ago. Use the link in "
 "it to set a new password."
 msgstr ""
+"An email has been successfully sent to <strong>%(email)s</strong> %(ago)s. "
+"Use the link in it to set a new password."
 
 #: care/templates/registration/activation_complete.html:7
 msgid "Activation"
@@ -790,7 +804,7 @@ msgstr ""
 
 #: care/templates/registration/activation_complete.html:9
 msgid "Your account is successful activated!"
-msgstr "Your acoount has been successfully activated!"
+msgstr "Congratulations! Your account has been successfully activated!"
 
 #: care/templates/registration/activation_complete.html:9
 msgid "Continue"
