@@ -111,8 +111,7 @@ msgstr "ATO.Care - your chance to help Ukraine!"
 #, fuzzy
 #| msgid "Promo text 1"
 msgid "About text 1"
-msgstr " "
-
+msgstr ""
 "Let's help together! Funds raised with ATO.Care service will be"
 "transferred to charity organizations we cooperate with"
 "according to your choice. We cooperate with following organizations:"
@@ -121,8 +120,7 @@ msgstr " "
 #, fuzzy
 #| msgid "Promo text 2"
 msgid "About text 2"
-msgstr " "
-
+msgstr ""
 "Reports regarding funds transfers you can find on charity organizations"
 "Facebook communities and our news blog." 
 
