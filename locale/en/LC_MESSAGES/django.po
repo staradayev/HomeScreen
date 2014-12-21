@@ -75,7 +75,7 @@ msgid "Care text 2"
 msgstr ""
 "ATO.Care wallpapers include numerous beatiful pictures from "
 "professional and amateur photographers. You can also be a part our charity project - "
-"register as a photographer, upload pro-Ukrainian pictures to ATO.Care web service.
+"register as a photographer, upload pro-Ukrainian pictures to ATO.Care web service."
 "Let your talent support Ukraine!"
 
 
