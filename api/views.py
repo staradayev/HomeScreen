@@ -18,7 +18,7 @@ def category_list(request):
 		categories = []
 		cat_list = Category.objects.filter(approve_status=True).annotate(count = Count('download')).order_by('-count')
 		
-		cat_on_page = 4
+		cat_on_page = 20
 		paginator = Paginator(cat_list, cat_on_page)
 
 		try:
@@ -42,11 +42,10 @@ def category_list(request):
 				#category['picture_url'] = cat.picture_set.filter(approve_status=True).annotate(count_d = Count('download')).order_by('-count_d')first().photo_thumb
 				#p_cats = cat.picture_set
 				#p_cats = p_cats.aggregate(Max('price'))
-				pics = Picture.objects.filter(category=cat.id).annotate(count = Count('download')).order_by('-count').first().photo_thumb
-
-				category['picture_url'] = pics
-
-				categories.append(category)
+				pics = Picture.objects.filter(category=cat.id).annotate(count = Count('download')).order_by('-count').first()
+				if pics is not None:
+					category['picture_url'] = pics.photo_thumb
+					categories.append(category)
 
 			json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':categories})
 			response = HttpResponse(json_posts, content_type="application/json")
@@ -70,7 +69,7 @@ def popular_list(request):
 		popular = []
 		picture_list = Picture.objects.filter(approve_status=True).annotate(count = Count('download')).order_by('-count')
 		
-		picture_on_page = 4
+		picture_on_page = 20
 		paginator = Paginator(picture_list, picture_on_page)
 
 		try:
@@ -127,7 +126,7 @@ def picture_by_cat_list(request):
 
 			picture_list = Picture.objects.filter(approve_status=True, category=cat_id).annotate(count = Count('download')).order_by('-count')
 
-			picture_on_page = 4
+			picture_on_page = 20
 			paginator = Paginator(picture_list, picture_on_page)
 
 			try:
@@ -274,7 +273,7 @@ def search(request):
 				popular = []
 				page = request.GET.get('page')
 
-				picture_on_page = 4
+				picture_on_page = 20
 				paginator = Paginator(unique_results, picture_on_page)
 
 				try:

@@ -115,7 +115,7 @@ def UploadView(request):
 	today_min = datetime.datetime.combine(date.today(), datetime.time.min)
 	today_max = datetime.datetime.combine(date.today(), datetime.time.max)
 	pics = Picture.objects.filter(author=p_author, date_pub__range=(today_min, today_max))
-	if pics.count() > 9:
+	if pics.count() > 24:
 		limit_detected = True
 
 

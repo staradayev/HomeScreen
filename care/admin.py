@@ -12,7 +12,7 @@ class TagAdmin(admin.ModelAdmin):
 	inlines = [TagTranslationInline]
 
 	def get_name(self, obj):
-		return obj
+		return obj.name
 	get_name.short_description = 'Name'
 	get_name.admin_order_field = 'translations'
 
@@ -26,7 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
 	inlines = [CategoryTranslationInline]
 
 	def get_name(self, obj):
-		return obj
+		return obj.name
 	get_name.short_description = 'Name'
 	get_name.admin_order_field = 'translations'
 
@@ -36,11 +36,11 @@ class PictureTranslationInline(TranslationStackedInline):
    model = PictureTranslation
 
 class PictureAdmin(admin.ModelAdmin):
-	list_display = ('get_name', 'date_pub', 'approve_status')
+	list_display = ('admin_thumbnail', 'get_name', 'approve_status')
 	inlines = [PictureTranslationInline]
 
 	def get_name(self, obj):
-		return obj
+		return obj.name
 	get_name.short_description = 'Name'
 	get_name.admin_order_field = 'translations'
 
@@ -56,7 +56,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 	inlines = [OrganizationTranslationInline]
 
 	def get_name(self, obj):
-		return obj
+		return obj.name
 	get_name.short_description = 'Name'
 	get_name.admin_order_field = 'translations'
 

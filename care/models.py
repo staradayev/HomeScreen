@@ -119,6 +119,11 @@ class Picture(MultilingualModel):
 	def __iter__(self):
 		return self
 
+	def admin_thumbnail(self):
+		return u'<img src="/media/%s" />' % (self.photo_thumb)
+	admin_thumbnail.short_description = 'Thumbnail'
+	admin_thumbnail.allow_tags = True
+
 	@classmethod
 	def create(cls, picture, user_added):
 		image_obj = cls(photo_origin=picture, author=user_added)
