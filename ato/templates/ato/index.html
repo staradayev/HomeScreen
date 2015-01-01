@@ -2,28 +2,91 @@
 {% load i18n %}
 {% block header %}
 <header class="masthead">
-    <div class="container">
-    <div class="row head-row">
-      <div class="col-md-6">
-        <h1><a href="#" class="logo" title="Bootstrap Template">{% trans "ATO.Care" %}</a>
-          <p class="lead">{% trans "Help Ukraine" %}</p></h1>
-      </div>
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-2">
-        <br>
-        <div class="pull-right">    
-          
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-        <a href="#section2" class="btn btn-download" >{% trans "About" %}</a>
+    <div id="carousel-example-generic" class="carousel slide" data-interval="4000" data-ride="carousel">
 
-        <a href="#section4" class="btn btn-download" >{% trans "Install" %}</a>
-      </div>
-    </div>
+        <div class="header-cover">
+            <div class="carousel-caption visible-md visible-lg">
+                
+                    <div class="row head-row">
+                        <div class="col-md-8 text-left">
+                            <h1><a href="#" class="logo" title="Bootstrap Template" style="">{% trans "ATO.Care" %}</a>
+                                <p class="lead">{% trans "Help Ukraine" %}</p></h1>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-2">
+                        <br>
+                        <div class="pull-right">    
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row text-left">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                            <a href="#section2" class="btn btn-download" >{% trans "About" %}</a>
+
+                            <a href="#section4" class="btn btn-download" >{% trans "Install" %}</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="carousel-caption visible-xs">
+                    <a href="#" class="logo logo-small" title="Bootstrap Template">{% trans "ATO.Care" %}</a>
+                </div>
+                <div class="carousel-caption visible-sm">
+                    <div class="row head-row">
+                        <div class="col-md-6 text-left">
+                            <h1><a href="#" class="logo" title="Bootstrap Template">{% trans "ATO.Care" %}</a>
+                                <p class="lead">{% trans "Help Ukraine" %}</p></h1>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-2">
+                        <br>
+                        <div class="pull-right">    
+                          
+                        </div>
+                      </div>
+                    </div>
+                </div>
+        </div>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="/static/img/header-carousel/1.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/2.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/3.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/4.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/5.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/6.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/7.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/8.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/9.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/10.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="/static/img/header-carousel/11.jpg" alt="">
+            </div>
+        </div>
     </div>
 </header>
 <div class="navbar navbar-custom navbar-inverse navbar-static-top" id="nav" role="navigation">
@@ -38,28 +101,13 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav nav-justified">
 
-          <li>&nbsp;&nbsp;</li>
           <li class="active"><a href="#section1"><strong>{% trans "ATO.Care" %}</strong></a></li>
           <li><a href="#section2">{% trans "About" %}</a></li>
           <li><a href="#section3">{% trans "Help" %}</a></li>
           
           <li><a href="#section4">{% trans "Download" %}</a></li>
           <li><a href="#section5">{% trans "Join" %}</a></li>
-          <li class="mid">
-            <div class="row">
-            {% for lang in LANGUAGES %}
-            <div class="col-sm-6 col-md-6 col-lg-6">
-              <form name="setLang{{ lang.1}}head" action="/i18n/setlang/" method="POST">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="/">
-                <input type="hidden" name="language" value="{{ lang.0 }}">
-                <a href="#" class="{{ lang.1 }}" onclick="document.setLang{{ lang.1 }}head.submit();
-                    return false;"></a>
-              </form>
-            </div>
-          {% endfor %}
-          </div>
-          </li>
+          
           <!--<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">LN<b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -79,7 +127,6 @@
 
 {% block content %}
 <!--<img src="{{STATIC_URL}}img/big_logo.jpg" alt="ATO.care" class="img-responsive">-->
-<div class="divider" id="section1"></div>
 <div class="container" id="section1">
   <div class="col-sm-10 col-sm-offset-1">
     <div class="page-header text-center">
@@ -101,19 +148,19 @@
 <section class="bg-1 sectionheader" id="section2">
     <div class="container heads">
     <div class="col-md-12 counter backshadow" >
-        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
                       <h1 class="count">{{ downloads }}</h1>
                       <h6>{% trans "Total Downloads" %}</h6>
                     </div>
-        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count">{{ donated }}$</h1>
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
+                      <h1 class="count">${{ donated|floatformat:2 }}</h1>
                       <h6>{% trans "Total rized" %}</h6>
                     </div>
-        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
                       <h1 class="count">{{ pictures }}</h1>
                       <h6>{% trans "Pictires in app" %}</h6>
                     </div>
-        <div class="col-md-3 col-xs-6 text-center backshadow"> <!-- Start counter 1-->
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
                       <h1 class="count">{{ photographers }}</h1>
                       <h6>{% trans "Photographers" %}</h6>
                     </div>

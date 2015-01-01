@@ -454,34 +454,6 @@ def UploadPictureView( request ):
 			"size": ''
 		})
 	else:
-		from django.core.files.images import get_image_dimensions
-		w, h = get_image_dimensions(image)
-
-		#validate dimensions
-		mwidth = 1920 
-		mheight = 1080
-		if (w > h and (w < mwidth or h < mheight)) or (w < h and (h < mwidth or w < mheight)):
-			return UploadResponseError( request, {
-				"error": (_(u"Too low image size, please use bigger!")),
-				"url": "", 
-				"thumbnail_url": "", 
-				"delete_url": "", 
-				"delete_type": "DELETE", 
-				"name": '', 
-				"size": ''
-			})
-		#portaint or landscape max size check
-		if (w > h and (w > mwidth*5 or h > mheight*5)) or (w < h and (h > mwidth*5 or w > mheight*5)):
-			return UploadResponseError( request, {
-				"error": (_(u"Too big image size! Please use smaller.")),
-				"url": "", 
-				"thumbnail_url": "", 
-				"delete_url": "", 
-				"delete_type": "DELETE", 
-				"name": '', 
-				"size": ''
-			})
-
 		#validate content type
 		main, sub = image.content_type.split('/')
 		if not (main == 'image' and sub.lower() in ['jpeg', 'pjpeg', 'png', 'jpg']):
@@ -506,6 +478,34 @@ def UploadPictureView( request ):
 				"name": '', 
 				"size": ''
 			})
+		from django.core.files.images import get_image_dimensions
+		w, h = get_image_dimensions(image)
+
+		#validate dimensions
+		mwidth = 1920 
+		mheight = 1080
+		if (w > h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
+			return UploadResponseError( request, {
+				"error": (_(u"Too low image size, please use bigger!")),
+				"url": "", 
+				"thumbnail_url": "", 
+				"delete_url": "", 
+				"delete_type": "DELETE", 
+				"name": '', 
+				"size": ''
+			})
+		#portaint or landscape max size check
+		if (w > h and (w > mwidth*8 and h > mheight*8)) or (w < h and (h > mwidth*8 and w > mheight*8)):
+			return UploadResponseError( request, {
+				"error": (_(u"Too big image size! Please use smaller.")),
+				"url": "", 
+				"thumbnail_url": "", 
+				"delete_url": "", 
+				"delete_type": "DELETE", 
+				"name": '', 
+				"size": ''
+			})
+
 				
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 15:39+0000\n"
+"POT-Creation-Date: 2015-01-01 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,40 +23,41 @@ msgstr ""
 msgid "Terms and Conditions"
 msgstr "Умови використання"
 
-#: ato/templates/ato/index.html:8 ato/templates/ato/index.html.py:42
-#: ato/templates/ato/index.html:243
+#: ato/templates/ato/index.html:12 ato/templates/ato/index.html.py:34
+#: ato/templates/ato/index.html:39 ato/templates/ato/index.html.py:104
+#: ato/templates/ato/index.html:290
 msgid "ATO.Care"
 msgstr "ATO.Сare"
 
-#: ato/templates/ato/index.html:9
+#: ato/templates/ato/index.html:13 ato/templates/ato/index.html.py:40
 msgid "Help Ukraine"
 msgstr "Допоможи Українi!"
 
-#: ato/templates/ato/index.html:22 ato/templates/ato/index.html.py:43
+#: ato/templates/ato/index.html:26 ato/templates/ato/index.html.py:105
 msgid "About"
 msgstr "Проект"
 
-#: ato/templates/ato/index.html:24 ato/templates/ato/index.html.py:179
+#: ato/templates/ato/index.html:28 ato/templates/ato/index.html.py:226
 msgid "Install"
 msgstr "Додати"
 
-#: ato/templates/ato/index.html:44
+#: ato/templates/ato/index.html:106
 msgid "Help"
 msgstr "Допомога"
 
-#: ato/templates/ato/index.html:46
+#: ato/templates/ato/index.html:108
 msgid "Download"
 msgstr "Завантажити"
 
-#: ato/templates/ato/index.html:47
+#: ato/templates/ato/index.html:109
 msgid "Join"
 msgstr "Приєднатися"
 
-#: ato/templates/ato/index.html:86
+#: ato/templates/ato/index.html:133
 msgid "Care title 1"
 msgstr "Завантажуй HD-фони - пiдтримай Україну!"
 
-#: ato/templates/ato/index.html:90
+#: ato/templates/ato/index.html:137
 msgid "Care text 1"
 msgstr ""
 "ATO.Care - це проект підтримки України внаслідок військової агресії на сході "
@@ -64,7 +65,7 @@ msgstr ""
 "фони на свій мобільний, обирайте благодійну організацію і за бажанням "
 "жертвуйте на допомогу Україні у боротьбі з про-російською агресією. "
 
-#: ato/templates/ato/index.html:94
+#: ato/templates/ato/index.html:141
 msgid "Care text 2"
 msgstr ""
 "Фони ATO.Сare - це прекрасні якісні знімки від провідних фотографів-"
@@ -72,81 +73,81 @@ msgstr ""
 "акції, приєднавшись до проекту - реєструйтесь як фотограф тут, додавайте "
 "свої знімки в проект. Нехай ваш талант допоможе Україні! "
 
-#: ato/templates/ato/index.html:106
+#: ato/templates/ato/index.html:153
 msgid "Total Downloads"
 msgstr "Завантаженнь"
 
-#: ato/templates/ato/index.html:110
+#: ato/templates/ato/index.html:157
 msgid "Total rized"
 msgstr "Грошей зiбрано"
 
-#: ato/templates/ato/index.html:114
+#: ato/templates/ato/index.html:161
 msgid "Pictires in app"
 msgstr "Фотографiй"
 
-#: ato/templates/ato/index.html:118
+#: ato/templates/ato/index.html:165
 msgid "Photographers"
 msgstr "Фотографiв"
 
-#: ato/templates/ato/index.html:122
+#: ato/templates/ato/index.html:169
 msgid "About title 1"
 msgstr "ATO.Сare"
 
-#: ato/templates/ato/index.html:128
+#: ato/templates/ato/index.html:175
 msgid "About title 2"
 msgstr "ATO.Сare - прекрасний шанс допомогти країні в нелегкій боротьбі!"
 
-#: ato/templates/ato/index.html:131
+#: ato/templates/ato/index.html:178
 msgid "About text 1"
 msgstr ""
 "Допоможемо України разом! Зібрані в ході благодійної акції кошти будуть "
 "передаватися благодійним організаціям згідно з вашим вибором. Ми "
 "співпрацюємо з наступними організаціями та волонтерами:"
 
-#: ato/templates/ato/index.html:157
+#: ato/templates/ato/index.html:204
 msgid "About text 2"
 msgstr ""
 "Звіти про передачу коштів ви зможете побачити на офіційних сторінках  "
 "спільнот в Facebook та нашому блозi."
 
-#: ato/templates/ato/index.html:165
+#: ato/templates/ato/index.html:212
 msgid "Help title 1"
 msgstr "Як допомогти Українi?"
 
-#: ato/templates/ato/index.html:175
+#: ato/templates/ato/index.html:222
 msgid "Help card header 1"
 msgstr "Встановлюй фони на свiй мобiльний"
 
-#: ato/templates/ato/index.html:176
+#: ato/templates/ato/index.html:223
 msgid "Help card content 1"
 msgstr "та зроби благодiйний внесок"
 
-#: ato/templates/ato/index.html:190
+#: ato/templates/ato/index.html:237
 msgid "Help card header 2"
 msgstr "Любиш фотографувати? Тобi сюди!"
 
-#: ato/templates/ato/index.html:191
+#: ato/templates/ato/index.html:238
 msgid "Help card content 2"
 msgstr "Твiй талант допоможе Українi"
 
-#: ato/templates/ato/index.html:194 ato/templates/ato/index.html.py:268
+#: ato/templates/ato/index.html:241 ato/templates/ato/index.html.py:315
 #: care/templates/care/login.html:29 care/templates/registration/login.html:29
 msgid "Sign in"
 msgstr "Увiйти"
 
-#: ato/templates/ato/index.html:205
+#: ato/templates/ato/index.html:252
 msgid "Help card header 3"
 msgstr "Розповiсти друзям"
 
-#: ato/templates/ato/index.html:206
+#: ato/templates/ato/index.html:253
 msgid "Help card content 3"
 msgstr "Не будьте байдужими"
 
-#: ato/templates/ato/index.html:222
+#: ato/templates/ato/index.html:269
 msgid "Help title 2"
 msgstr "Твоя пiдтримка зараз важлива як нiколи!"
 
-#: ato/templates/ato/index.html:225
+#: ato/templates/ato/index.html:272
 msgid "Help text 1"
 msgstr ""
 "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
@@ -155,15 +156,15 @@ msgstr ""
 "in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
 "fuga. Et harum quidem rerum facilis est et expedita distinctio."
 
-#: ato/templates/ato/index.html:235
+#: ato/templates/ato/index.html:282
 msgid "Download header 1"
 msgstr "ATO.Care - ми вже допомагаємо!"
 
-#: ato/templates/ato/index.html:243
+#: ato/templates/ato/index.html:290
 msgid "Download header 2"
 msgstr "Завантажуй"
 
-#: ato/templates/ato/index.html:244
+#: ato/templates/ato/index.html:291
 msgid "Download text 1"
 msgstr ""
 "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
@@ -172,7 +173,7 @@ msgstr ""
 "in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
 "fuga. Et harum quidem rerum facilis est et expedita distinctio."
 
-#: ato/templates/ato/index.html:246
+#: ato/templates/ato/index.html:293
 msgid "Download text 2"
 msgstr ""
 "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
@@ -181,11 +182,16 @@ msgstr ""
 "in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
 "fuga. Et harum quidem rerum facilis est et expedita distinctio."
 
-#: ato/templates/ato/index.html:265
+#: ato/templates/ato/index.html:302 ato/templates/ato/index.html.py:303
+#: care/templates/registration/registration_form.html:75
+msgid "en"
+msgstr "ua"
+
+#: ato/templates/ato/index.html:312
 msgid "WE'RE COMING SOON"
 msgstr "Слава Українi"
 
-#: ato/templates/ato/index.html:266
+#: ato/templates/ato/index.html:313
 msgid "Sign up"
 msgstr "Реєстрацiя"
 
@@ -226,8 +232,6 @@ msgid "Email too long ( maximum 100 symbols )"
 msgstr "Еmail-адреса дуже довга (максiмум 100 символiв)"
 
 #: care/forms.py:52 care/views.py:448
-#, fuzzy
-#| msgid "Edit image:"
 msgid "No image!"
 msgstr "Зображення не вибрано"
 
@@ -238,7 +242,7 @@ msgstr ""
 "Використовуйте, будь ласка, зображення, які менше або дорівнюють %(width) x "
 "%(height) пікселів"
 
-#: care/forms.py:70 care/views.py:489
+#: care/forms.py:70 care/views.py:461
 msgid "Please use a JPEG or PNG image."
 msgstr "Використовуйте, будь ласка, зображення форматiв JPG, JPEG або PNG."
 
@@ -259,17 +263,16 @@ msgid "Category name too long ( maximum 75 symbols )"
 msgstr "Назва категорії дуже довга (максiмум 75 символiв)"
 
 #: care/models.py:22 care/models.py:24 care/models.py:50 care/models.py:52
-#: care/models.py:106 care/models.py:108 care/models.py:246 care/models.py:248
-#, fuzzy
-#| msgid "Login"
+#: care/models.py:106 care/models.py:108 care/models.py:251 care/models.py:253
 msgid "Unnamed"
-msgstr "Увiйти"
+msgstr "Безіменний"
 
 #: care/models.py:37
 msgid "#tagname"
 msgstr "Назва тегу"
 
 #: care/models.py:65 care/templates/care/edit.html:82
+#: care/templates/care/upload.html:84
 msgid "Category name"
 msgstr "Назва категорії"
 
@@ -277,42 +280,40 @@ msgstr "Назва категорії"
 msgid "original file upload"
 msgstr "Завантаження файлу"
 
-#: care/models.py:215 care/templates/care/edit.html:143
-#: care/templates/care/upload.html:171
+#: care/models.py:220 care/templates/care/edit.html:143
+#: care/templates/care/upload.html:202
 msgid "Picture name"
 msgstr "Назва зображення"
 
-#: care/models.py:218
-#, fuzzy
-#| msgid "Login"
-msgid "Link name"
-msgstr "Увiйти"
-
 #: care/models.py:223
+msgid "Link name"
+msgstr "Лiнк"
+
+#: care/models.py:228
 msgid "Link URL"
 msgstr "URL"
 
-#: care/models.py:255
+#: care/models.py:260
 msgid "Organization name"
 msgstr "Назва організації"
 
-#: care/models.py:256
+#: care/models.py:261
 msgid "Organization author"
 msgstr "Відповідальний"
 
-#: care/models.py:257
+#: care/models.py:262
 msgid "Organization description"
 msgstr "Опис діяльності"
 
-#: care/models.py:258
+#: care/models.py:263
 msgid "Organization additiolal"
 msgstr "Додатково"
 
-#: care/models.py:272
+#: care/models.py:277
 msgid "Donator uiid"
 msgstr "UID жертводавця"
 
-#: care/models.py:273
+#: care/models.py:278
 msgid "Transaction uiid"
 msgstr "UID транзакції"
 
@@ -375,8 +376,6 @@ msgid "here"
 msgstr "тут"
 
 #: care/templates/care/detail.html:110
-#, fuzzy
-#| msgid "Picture name"
 msgid "Picture approved"
 msgstr "Зображення затверджено"
 
@@ -384,37 +383,29 @@ msgstr "Зображення затверджено"
 msgid "Under approval"
 msgstr "Зображення на розгляді"
 
-#: care/templates/care/detail.html:122
-msgid "Edit"
-msgstr "Редагувати"
-
-#: care/templates/care/detail.html:125
-msgid "Add upload"
-msgstr "Додати зображення"
-
-#: care/templates/care/detail.html:136
+#: care/templates/care/detail.html:127
 msgid "Uploaded to server:"
 msgstr "Завантажено:"
 
-#: care/templates/care/detail.html:145
+#: care/templates/care/detail.html:136
 msgid "Author:"
 msgstr "Автор: "
 
-#: care/templates/care/detail.html:152
+#: care/templates/care/detail.html:143
 msgid "Approved:"
 msgstr "Затверджено:"
 
-#: care/templates/care/detail.html:160 care/templates/care/edit.html:149
-#: care/templates/care/upload.html:186
+#: care/templates/care/detail.html:151 care/templates/care/edit.html:149
+#: care/templates/care/upload.html:216 care/templates/care/upload.html:227
 msgid "Categories:"
 msgstr "Категорії"
 
-#: care/templates/care/detail.html:172 care/templates/care/edit.html:165
-#: care/templates/care/upload.html:200
+#: care/templates/care/detail.html:163 care/templates/care/edit.html:165
+#: care/templates/care/upload.html:241
 msgid "Tags:"
 msgstr "Тегi"
 
-#: care/templates/care/detail.html:181
+#: care/templates/care/detail.html:172
 msgid "Downloads:"
 msgstr "Завантаженнь"
 
@@ -425,20 +416,22 @@ msgstr "Зображення не може бути змінене або йог
 #: care/templates/care/edit.html:74 care/templates/care/edit.html.py:88
 #: care/templates/care/edit.html:100 care/templates/care/edit.html.py:114
 #: care/templates/care/myinfo.html:65 care/templates/care/myinfo.html.py:90
+#: care/templates/care/upload.html:75 care/templates/care/upload.html.py:90
 msgid "Close"
 msgstr "Закрити"
 
-#: care/templates/care/edit.html:75
+#: care/templates/care/edit.html:75 care/templates/care/upload.html:76
 msgid "Add new category"
 msgstr "Додати нову категорiю"
 
-#: care/templates/care/edit.html:80
+#: care/templates/care/edit.html:80 care/templates/care/upload.html:82
 msgid "New category name:"
 msgstr "Назва нової категорії:"
 
 #: care/templates/care/edit.html:89 care/templates/care/edit.html.py:115
 #: care/templates/care/myinfo.html:91 care/templates/care/myinfo.html:154
-#: care/templates/care/upload.html:127 care/templates/care/upload.html:212
+#: care/templates/care/upload.html:91 care/templates/care/upload.html:158
+#: care/templates/care/upload.html:253
 #: care/templates/registration/registration_form.html:55
 msgid "Save changes"
 msgstr "Зберегти зміни"
@@ -460,7 +453,7 @@ msgid "Edit image:"
 msgstr "Редагувати зображення:"
 
 #: care/templates/care/edit.html:137 care/templates/care/myinfo.html:115
-#: care/templates/care/upload.html:165
+#: care/templates/care/upload.html:115 care/templates/care/upload.html:196
 #: care/templates/password_reset/recovery_form.html:20
 #: care/templates/password_reset/reset.html:22
 #: care/templates/registration/registration_form.html:62
@@ -468,7 +461,7 @@ msgstr "Редагувати зображення:"
 msgid "Error!"
 msgstr "Виникла помилка!"
 
-#: care/templates/care/edit.html:141 care/templates/care/upload.html:169
+#: care/templates/care/edit.html:141 care/templates/care/upload.html:200
 msgid "Picture name:"
 msgstr "Назва зображення:"
 
@@ -573,88 +566,88 @@ msgstr "Ліміт завантажень на сьогодні вичерпан
 msgid "Try add another picture tomorrow..."
 msgstr "Спробуйте додати нові зображення завтра!"
 
-#: care/templates/care/upload.html:72
+#: care/templates/care/upload.html:99
 msgid "Add new image to service:"
 msgstr "Завантажити нове зображення до сервiсу:"
 
-#: care/templates/care/upload.html:84
-#, fuzzy
-#| msgid "Upload a new image:"
+#: care/templates/care/upload.html:111
 msgid "1 Upload a new image:"
 msgstr "1 Завантажте нове зображення:"
 
-#: care/templates/care/upload.html:96
+#: care/templates/care/upload.html:117
+msgid "Loading..."
+msgstr ""
+
+#: care/templates/care/upload.html:127
 msgid "Please take your attention to:"
 msgstr "Будь ласка, звернiть вашу увагу на наступне:"
 
-#: care/templates/care/upload.html:98
+#: care/templates/care/upload.html:129
 msgid "attention1"
 msgstr ""
 "Зображення повинно бути в високій роздільній здатності (Full HD: 1920x1800 "
 "пiкселiв або вище)"
 
-#: care/templates/care/upload.html:99
+#: care/templates/care/upload.html:130
 msgid "attention2"
 msgstr "Максимальна роздільна здатність: 7680x4320 пiкселiв"
 
-#: care/templates/care/upload.html:100
+#: care/templates/care/upload.html:131
 msgid "attention3"
 msgstr "Формат файлу зображення має бути JPG, JPEG або PNG"
 
-#: care/templates/care/upload.html:101
+#: care/templates/care/upload.html:132
 msgid "attention4"
 msgstr "Максимальний розмір файлу зображення не може бути більше 8 Mб"
 
-#: care/templates/care/upload.html:102
+#: care/templates/care/upload.html:133
 msgid "attention5"
 msgstr ""
 "Фотографія не повинна містити будь-яку інформацію наклепницького, "
 "образливого, непристойного, порнографічного, вульгарного характеруабо що "
 "порушує авторські права або інші права будь-якої людини"
 
-#: care/templates/care/upload.html:103
+#: care/templates/care/upload.html:134
 msgid "attention6"
 msgstr ""
 "Вам не дозволяється розміщувати захищені авторським правом фотографії,які не "
 "належать вам"
 
-#: care/templates/care/upload.html:113
+#: care/templates/care/upload.html:144
 msgid "2 Choose thumbnail:"
 msgstr "2 Виберіть мініатюру"
 
-#: care/templates/care/upload.html:136
+#: care/templates/care/upload.html:167
 msgid "Thumbnail will looks:"
 msgstr "Мініатюра буде виглядати так:"
 
-#: care/templates/care/upload.html:152
+#: care/templates/care/upload.html:183
 msgid "3 Finish with description:"
 msgstr "3 Додайте трохи описiв:"
 
-#: care/templates/care/upload.html:160
+#: care/templates/care/upload.html:191
 #: care/templates/registration/registration_form.html:21
 msgid "Required Field"
 msgstr "Обов'язкове поле"
 
-#: care/templates/care/upload.html:178
+#: care/templates/care/upload.html:209
 msgid "Image:"
 msgstr "Зображення:"
 
-#: care/templates/care/upload.html:180
+#: care/templates/care/upload.html:211
 msgid "Select the file here"
 msgstr "Оберiть файл тут"
 
-#: care/templates/care/upload.html:188
+#: care/templates/care/upload.html:229
 msgid "Type category here"
 msgstr "Напишіть назву категорії тут"
 
-#: care/templates/care/upload.html:202
+#: care/templates/care/upload.html:243
 msgid "Type tag here"
 msgstr "Напишіть назву тегу тут"
 
 #: care/templates/password_reset/recovery_done.html:4
 #: care/templates/password_reset/recovery_done.html:6
-#, fuzzy
-#| msgid "Enter Password"
 msgid "New password set"
 msgstr "Новий пароль встановлено"
 
@@ -664,8 +657,6 @@ msgid ""
 msgstr "Ваш пароль успішно змiнено!Увійдіть, використовуючи його, прямо зараз!"
 
 #: care/templates/password_reset/recovery_done.html:12
-#, fuzzy
-#| msgid "Login"
 msgid "login page"
 msgstr "Увiйти"
 
@@ -724,8 +715,6 @@ msgstr "Змiна паролю на %(domain)s"
 #: care/templates/password_reset/recovery_form.html:14
 #: care/templates/password_reset/reset.html:5
 #: care/templates/password_reset/reset.html:7
-#, fuzzy
-#| msgid "Password"
 msgid "Password recovery"
 msgstr "Змiна паролю"
 
@@ -739,8 +728,6 @@ msgstr ""
 
 #: care/templates/password_reset/recovery_form.html:26
 #: care/templates/password_reset/reset.html:45
-#, fuzzy
-#| msgid "Forgot you password?"
 msgid "Recover my password"
 msgstr "Забув пароль?"
 
@@ -763,8 +750,6 @@ msgid "Please choose your new password."
 msgstr "Оберiть, будь ласка, новий пароль"
 
 #: care/templates/password_reset/reset.html:29
-#, fuzzy
-#| msgid "Enter Password"
 msgid "New password:"
 msgstr "Введiть новий пароль:"
 
@@ -827,8 +812,6 @@ msgid "Link is valid for %(expiration_days)s days."
 msgstr "Посилання валiдне %(expiration_days)s днi."
 
 #: care/templates/registration/activation_email_subject.txt:2
-#, fuzzy
-#| msgid "Activation"
 msgid "account activation!"
 msgstr "Активацiя"
 
@@ -864,8 +847,6 @@ msgid "Enter login name"
 msgstr "Вкажiть логiн"
 
 #: care/templates/registration/registration_form.html:25
-#, fuzzy
-#| msgid "Login"
 msgid "Login name"
 msgstr "Логiн"
 
@@ -890,10 +871,6 @@ msgstr "Пiдтвердiть пароль"
 msgid "I have read and agree with"
 msgstr "Погоджуюся з"
 
-#: care/templates/registration/registration_form.html:75
-msgid "en"
-msgstr "ua"
-
 #: care/views.py:229
 msgid "You were added maximum count of categories per today. Try tomorrow!"
 msgstr ""
@@ -914,14 +891,10 @@ msgid "There are no tag name presented!"
 msgstr "Вкажiть назву тегу"
 
 #: care/views.py:271
-#, fuzzy
-#| msgid "Category name too short ( minimum 3 symbols )"
 msgid "Tag name too short ( minimum 3 symbols )"
 msgstr "Назва тегу дуже коротка (мiнiмум 3 символа)"
 
 #: care/views.py:273
-#, fuzzy
-#| msgid "Category name too long ( maximum 75 symbols )"
 msgid "Tag name too long ( maximum 75 symbols )"
 msgstr "Назва тегу дуже довга (максiмум 75 символiв)"
 
@@ -950,50 +923,44 @@ msgid "Provide picture..."
 msgstr "Додайте зображення"
 
 #: care/views.py:393
-#, fuzzy
-#| msgid "Picture name"
 msgid "Picture is wrong"
 msgstr ""
 "Фото не відповідає нашій політиці.Спробуйте додати iнше зображення, будь "
 "ласка!"
 
 #: care/views.py:397
-#, fuzzy
-#| msgid "Picture name"
 msgid "Picture name is required"
 msgstr "Вкажiть назву зображення"
 
 #: care/views.py:399
-#, fuzzy
-#| msgid "Picture name"
 msgid "Picture name too short!"
 msgstr "Назва зображення дуже коротка"
 
 #: care/views.py:401
-#, fuzzy
-#| msgid "Picture name"
 msgid "Picture name too long!"
 msgstr "Назва зображення дуже довга"
 
-#: care/views.py:465
-msgid "Too low image size, please use bigger!"
-msgstr "Розмір файлу зображення занадто малий, ви впевнені, що це Full HD?"
-
-#: care/views.py:476
-msgid "Too big image size! Please use smaller."
-msgstr "Розмір файлу зображення занадто великий, спробуйте зменшити його!"
-
-#: care/views.py:501
+#: care/views.py:473
 msgid "Image file too large"
 msgstr "Розмір файлу зображення занадто великий, спробуйте зменшити його!"
 
-#, fuzzy
-#~| msgid "Log in again"
+#: care/views.py:489
+msgid "Too low image size, please use bigger!"
+msgstr "Розмір файлу зображення занадто малий, ви впевнені, що це Full HD?"
+
+#: care/views.py:500
+msgid "Too big image size! Please use smaller."
+msgstr "Розмір файлу зображення занадто великий, спробуйте зменшити його!"
+
+#~ msgid "Edit"
+#~ msgstr "Редагувати"
+
+#~ msgid "Add upload"
+#~ msgstr "Додати зображення"
+
 #~ msgid "Log in"
 #~ msgstr "Увiйти"
 
-#, fuzzy
-#~| msgid "Thank you!"
 #~ msgid "Thank you! Ato.care "
 #~ msgstr "Дякуемо!"
 

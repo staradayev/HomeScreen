@@ -1,5 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Kreon:400,700);
 
+@font-face {
+    font-family: EOX; /* Гарнитура шрифта */
+    src: url(../fonts/Exo2-Regular.eot); /* Для IE5-8 */
+    src: local(pompadur), url(../fonts/Exo2-Regular.ttf); /* Для остальных браузеров */
+   }
+
 html,
 body {
   height: 100%;
@@ -59,8 +65,8 @@ h1,h2,h3,h4 {
 }
 
 header {
-  background: url('/static/img/93598546.jpg') no-repeat center center;
-  height:550px;
+  /*background: url('/static/img/93598546.jpg') no-repeat center center;*/
+  /*height:510px;*/
   color:#000000;
 }
 
@@ -87,20 +93,31 @@ header .dropdown-menu {
 }
 
 .masthead h1 {
-  font-size:70px;
+  
 }
 
 .masthead p{
-  font-size: 35px;
+  font-size: 1em;
   color: wheat;
 }
 
 .masthead a{
-  color: midnightblue;
+  color: lightgoldenrodyellow;
 }
 
 .masthead .logo{
   font-weight: 200;
+  font-size: 2em;
+  background-image: url('/static/img/ATO.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 123px;
+  font-family: EOX;
+  padding-left: 1.25em !important;
+}
+
+.masthead .logo-small{
+  font-size: 4em;
 }
 
 .masthead a.btn{
@@ -108,7 +125,7 @@ header .dropdown-menu {
 }
 
 .head-row{
-  padding-top: 212px;
+  /*padding-top: 212px;*/
 
 }
 
@@ -177,8 +194,8 @@ header .dropdown-menu {
 
 @media (max-width: 768px) {
 	header {
-		background: url('/static/img/93598546.jpg') no-repeat center center;
-    height: 550px;
+		/*background: url('/static/img/93598546.jpg') no-repeat center center;
+    height: 510px;*/
     color: #000000;
 	}
 }
@@ -271,7 +288,7 @@ section {
 
 .counter .backshadow{
 background-color: rgba(5,5,5,.8);
-  
+  padding-bottom: 0.8em;
 }
 
 .counter h1{
@@ -410,6 +427,15 @@ margin: 5px;
   margin: 0;
 padding: 0;
 vertical-align: middle;
+}
+
+.header-cover{
+  width: 100%; 
+  height: 100%; 
+  position: absolute; 
+  top: 0; 
+  background-color: rgba(5,5,5,.3); 
+  z-index: 1;
 }
 
 

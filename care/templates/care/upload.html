@@ -12,7 +12,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="/" style="background-image: url('/static/img/logo.png');background-size: contain;min-width: 123px;"></a>
+      		<a class="navbar-brand" href="/">ATO.care</a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -67,6 +67,33 @@
 </div>
 {% else %}
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
+       <h4 class="modal-title" id="myModalLabel">{% trans "Add new category" %}</h4>
+      </div>
+      <div class="modal-body">
+      	<p style="display:none;" class="text-warning fa fa-warning fa-lg" id="cat_warning"></p>
+
+        <div class="form-group">
+        	<label for="id_cat_name">{% trans "New category name:" %}</label>
+        	<div class="input-group">
+                <input type="text" class="form-control" name="cat_name" id="id_cat_name" placeholder="{% blocktrans %}Category name{% endblocktrans %}" required maxlength="75" >
+                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+            </div>
+        </div>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+       <button type="button" class="btn btn-primary" id="BtnSendCategory">{% trans "Save changes" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
 	<div class="col-md-7">
 		<h1>{% trans "Add new image to service:" %}</h1>
@@ -83,7 +110,11 @@
     		<div class="col-md-12">
     			<h3>{% trans "1 Upload a new image:" %}</h3>
     			<br />
-    			<br />
+
+    			<div class="alert alert-danger" id="uploadWarning" style="display: none;">
+                    <span class="glyphicon glyphicon-remove"></span><strong>{% trans "Error!" %} <span id="uploadWarningContent"></span></strong>
+                </div>
+                <h4 id="progress-header" style="display: none;">{% trans "Loading..." %} <span id="progress-percent"></span></h1>
     			{% load jfutags %}
 				{% jfu %}
     		</div>
@@ -124,7 +155,7 @@
     	<div class="row">
     		<div class="col-md-12">
 				<br />
-				<button type="button" class="btn btn-primary" id="BtnSendThumb">{% trans "Save changes" %}</button>
+				<button type="button" class="btn btn-primary pull-right" id="BtnSendThumb">{% trans "Save changes" %}</button>
 			</div>
 		</div>
 	</div>
@@ -181,8 +212,18 @@
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>	
-
-	                <div class="form-group">  
+	                <div class="form-group">
+                   	<label for="id_categories">{% trans "Categories:" %}</label>
+                    	<div class="input-group" style="width: 100%">
+	                        <select multiple class="form-control" id="id_categories" name="categories"  size="6" value="{{form.categories.value}}">
+	                        	{% for category in form.categories.value %}
+	                        		<option value="{{category.id}}">{{category.name}}</option>
+	                        	{% endfor %}
+							</select>
+							<span class="input-group-addon btn btn-default" id="AddCategoryModalBtn"><span class="fa fa-plus fa-lg text-success"></span></span>
+	                    </div>
+	                </div>
+	                <!-- <div class="form-group">  
 				    	<label for="CategoryLabel" class="control-label">{% trans "Categories:" %}</label>
 				    	<div class="input-group">
 		                    <input type="text" autocomplete="off" data-provide="typeahead" class="form-control typeahead" name="cat_name" id="cat_name" placeholder="{% blocktrans %}Type category here{% endblocktrans %}" required maxlength="" >
@@ -191,10 +232,10 @@
 				    	
 				      	<ul class="list-group" id="categories_list">
 				      		
-						 <!-- Categories placed here -->	
+						
 						    
 						</ul>
-					</div>
+					</div>-->	
 
 	                <div class="form-group">
 			        	<label for="id_tags">{% trans "Tags:" %}</label>
@@ -209,7 +250,7 @@
 			        </div>				    
 
 
-				    <input type="button" id="btnFinish" value="{% blocktrans %}Save changes{% endblocktrans %}" class="btn btn-info pull-right" />
+				    <input type="button" id="btnFinish" value="{% blocktrans %}Save changes{% endblocktrans %}" class="btn btn-primary pull-right" />
 				</form>
 				<br />
 				<br />
@@ -533,13 +574,16 @@
   		});
 	});
 
+	$(document).on('click','#AddCategoryModalBtn',function(e){
+		$('#myModal').modal('show');
+		    $('#myModal').on('shown', function() {
+		        $("#id_cat_name").focus();
+		    })
+	});
+
 	$(document).on('click','#btnFinish',function(e){
-		catsIds = [];
-		if(cats){
-			for (var i = 0; i < cats.length; i++) {
-				catsIds.push(cats[i].id);
-			};
-		}
+		catsIds = $('#id_categories').val();
+
 
 		tagsIds = [];
 		if(tags){
@@ -567,7 +611,33 @@
   		});
 	});
 
-	//btnFinish
+	$(document).on('click','#BtnSendCategory',function(e){
+    	var cName = $("#id_cat_name").val();
+    	$.ajax({
+ 		    	url : "/care/addcategory/",
+ 		    	type : "POST",
+ 		    	data : JSON.stringify({"category_name" : encodeURIComponent(cName)}),
+ 		    	contentType: 'application/json; charset=utf-8',
+ 		    	success : function(results){
+ 		      		if (results.success == "true") {
+		      			$('#id_categories')
+					         .append($("<option></option>")
+					         .attr("value",results.val)
+					         .attr("selected","selected")
+					         .text(results.name));
+		      			$('#cat_warning').text('');
+		      			$('#cat_warning').hide();
+		      			$('#myModal').modal('hide');
+		      			cat_val = $(".typeahead").val('');
+		      			addToCategories({ id: results.val, name: results.name });
+ 		        	//handle DOM insertion and other stuff
+ 		      		} else {
+		      			$('#cat_warning').show();
+		      			$('#cat_warning').text(results.message);
+ 		      		}
+ 	    		}
+ 	  		});
+	});
 
 
 </script>

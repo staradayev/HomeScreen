@@ -1,4 +1,8 @@
-
+@font-face {
+    font-family: EOX; /* Гарнитура шрифта */
+    src: url(../fonts/Exo2-Regular.eot); /* Для IE5-8 */
+    src: local(pompadur), url(../fonts/Exo2-Regular.ttf); /* Для остальных браузеров */
+   }
 
 .ato-status{
   position: relative;
@@ -92,7 +96,7 @@ body {
 }
 
 .container .text-center.t {
-  width: 85%;
+  width: 100%;
 }
 
 
@@ -351,6 +355,49 @@ font-weight: 400;
 line-height: 1.42857143;
 color: #333;
 white-space: nowrap;
+}
+
+.navbar-brand{
+  background-image: url('/static/img/ATO.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 123px;
+  font-family: EOX;
+  padding-left: 50px !important;
+  font-size: 1.6em !important;
+}
+
+.fileupload-buttonbar .btn{
+  width: 100%;
+  border-radius: 0;
+}
+
+.fileupload-buttonbar .btn span{
+  width: 100%;
+  top: 45%;
+  position: relative;
+}
+
+.bottom-polaroid{
+  padding-bottom: 15% !important;
+}
+
+.rel-position{
+  position: relative;
+}
+
+.polaroid-print{
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  opacity: 1;
+  background-color: #000;
+  top: 0;
+  transition: opacity .3s ease-out;
+  -moz-transition: opacity .3s ease-out;
+  -webkit-transition: opacity .3s ease-out;
+  -o-transition: opacity .3s ease-out;
+  -webkit-transform: translateZ(0);
 }
 
 

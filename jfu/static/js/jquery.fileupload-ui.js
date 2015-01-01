@@ -101,9 +101,11 @@
                     return $this.fileupload('process', data);
                 }).always(function () {
                     data.context.each(function (index) {
-                        $(this).find('.size').text(
-                            that._formatFileSize(data.files[index].size)
-                        );
+                        if(data.files[index]){
+                            $(this).find('.size').text(
+                                that._formatFileSize(data.files[index].size)
+                            );
+                        }
                     }).removeClass('processing');
                     that._renderPreviews(data);
                 }).done(function () {
