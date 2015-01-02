@@ -438,4 +438,10 @@ vertical-align: middle;
   z-index: 1;
 }
 
+.share li{
+  display: inline;
+padding-left: 0.4rem;
+padding-right: 0.4rem;
+}
+
 

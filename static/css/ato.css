@@ -201,7 +201,7 @@ code {
 /* Removes the default 20px margin and creates some padding space for the indicators and controls */
 .carousel {
     margin-bottom: 0;
-  padding: 0 40px 0px 40px;
+  padding: 0px 30px 0px 30px;
 }
 
 .carousel-control {
@@ -253,6 +253,7 @@ background: #333333;
 padding-left: 6%;
 padding-top: 6%;
 padding-right: 6%;
+border-radius: 0px;
 }
 
 .selected_pic {
@@ -400,6 +401,20 @@ white-space: nowrap;
   -webkit-transform: translateZ(0);
 }
 
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  .smallcontainer .col-sm-3{
+  padding-left: 2px;
+  padding-right: 2px;
+}
 
+.smallcontainer .row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
 
+#preview-pane{
+  display: none !important;
+}
+}
 
