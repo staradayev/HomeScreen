@@ -437,28 +437,101 @@ def UploadPictureView( request ):
 	# has been configured to send files one at a time.
 	# If multiple files can be uploaded simulatenously,
 	# 'file' may be a list of files.
-	file = upload_receive( request )
+	try:
+		file = upload_receive( request )
 
-	p_author = User.objects.get(username = request.user.username)
+		p_author = User.objects.get(username = request.user.username)
 
-	image = file
+		image = file
 
-	if not image:
+		if not image:
+			return UploadResponseError( request, {
+				"error": (_(u"No image!")),
+				"url": "", 
+				"thumbnail_url": "", 
+				"delete_url": "", 
+				"delete_type": "DELETE", 
+				"name": '', 
+				"size": ''
+			})
+		else:
+			#validate content type
+			main, sub = image.content_type.split('/')
+			if not (main == 'image' and sub.lower() in ['jpeg', 'pjpeg', 'png', 'jpg']):
+				return UploadResponseError( request, {
+					"error": (_(u'Please use a JPEG or PNG image.')),
+					"url": "", 
+					"thumbnail_url": "", 
+					"delete_url": "", 
+					"delete_type": "DELETE", 
+					"name": '', 
+					"size": ''
+				})
+
+			#validate file size
+			if len(image) > (10 * 1024 * 1024):
+				return UploadResponseError( request, {
+					"error": (_(u'Image file too large')),
+					"url": "", 
+					"thumbnail_url": "", 
+					"delete_url": "", 
+					"delete_type": "DELETE", 
+					"name": '', 
+					"size": ''
+				})
+			from django.core.files.images import get_image_dimensions
+			w, h = get_image_dimensions(image)
+
+			#validate dimensions
+			mwidth = 1920 
+			mheight = 1080
+			if (w > h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
+				return UploadResponseError( request, {
+					"error": (_(u"Too low image size, please use bigger!")),
+					"url": "", 
+					"thumbnail_url": "", 
+					"delete_url": "", 
+					"delete_type": "DELETE", 
+					"name": '', 
+					"size": ''
+				})
+			#portaint or landscape max size check
+			if (w > h and (w > mwidth*8 and h > mheight*8)) or (w < h and (h > mwidth*8 and w > mheight*8)):
+				return UploadResponseError( request, {
+					"error": (_(u"Too big image size! Please use smaller.")),
+					"url": "", 
+					"thumbnail_url": "", 
+					"delete_url": "", 
+					"delete_type": "DELETE", 
+					"name": '', 
+					"size": ''
+				})
+
+					
+
+
+
+		instance = Picture.create(file, p_author)
+		instance.save()
+
+		basename = os.path.basename( instance.photo_origin.path )
+
+		file_dict = {
+			'name' : basename,
+			'size' : file.size,
+
+			'url': instance.photo_origin.url,
+			'thumbnailUrl': instance.photo_origin.url,
+
+			'deleteUrl': reverse('care:jfu_delete', kwargs = { 'pk': instance.pk }),
+			'deleteType': 'POST',
+			'id' : instance.id
+		}
+
+		return UploadResponse( request, file_dict )
+	except Exception, e:
 		return UploadResponseError( request, {
-			"error": (_(u"No image!")),
-			"url": "", 
-			"thumbnail_url": "", 
-			"delete_url": "", 
-			"delete_type": "DELETE", 
-			"name": '', 
-			"size": ''
-		})
-	else:
-		#validate content type
-		main, sub = image.content_type.split('/')
-		if not (main == 'image' and sub.lower() in ['jpeg', 'pjpeg', 'png', 'jpg']):
-			return UploadResponseError( request, {
-				"error": (_(u'Please use a JPEG or PNG image.')),
+				"error": (_(u"No image!")+e),
 				"url": "", 
 				"thumbnail_url": "", 
 				"delete_url": "", 
@@ -467,67 +540,7 @@ def UploadPictureView( request ):
 				"size": ''
 			})
 
-		#validate file size
-		if len(image) > (10 * 1024 * 1024):
-			return UploadResponseError( request, {
-				"error": (_(u'Image file too large')),
-				"url": "", 
-				"thumbnail_url": "", 
-				"delete_url": "", 
-				"delete_type": "DELETE", 
-				"name": '', 
-				"size": ''
-			})
-		from django.core.files.images import get_image_dimensions
-		w, h = get_image_dimensions(image)
-
-		#validate dimensions
-		mwidth = 1920 
-		mheight = 1080
-		if (w > h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
-			return UploadResponseError( request, {
-				"error": (_(u"Too low image size, please use bigger!")),
-				"url": "", 
-				"thumbnail_url": "", 
-				"delete_url": "", 
-				"delete_type": "DELETE", 
-				"name": '', 
-				"size": ''
-			})
-		#portaint or landscape max size check
-		if (w > h and (w > mwidth*8 and h > mheight*8)) or (w < h and (h > mwidth*8 and w > mheight*8)):
-			return UploadResponseError( request, {
-				"error": (_(u"Too big image size! Please use smaller.")),
-				"url": "", 
-				"thumbnail_url": "", 
-				"delete_url": "", 
-				"delete_type": "DELETE", 
-				"name": '', 
-				"size": ''
-			})
-
-				
-
-
-
-	instance = Picture.create(file, p_author)
-	instance.save()
-
-	basename = os.path.basename( instance.photo_origin.path )
-
-	file_dict = {
-		'name' : basename,
-		'size' : file.size,
-
-		'url': instance.photo_origin.url,
-		'thumbnailUrl': instance.photo_origin.url,
-
-		'deleteUrl': reverse('care:jfu_delete', kwargs = { 'pk': instance.pk }),
-		'deleteType': 'POST',
-		'id' : instance.id
-	}
-
-	return UploadResponse( request, file_dict )
+	
 
 @require_POST
 def upload_delete( request, pk ):

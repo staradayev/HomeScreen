@@ -4,6 +4,12 @@
     src: local(pompadur), url(../fonts/Exo2-Regular.ttf); /* Для остальных браузеров */
    }
 
+@font-face {
+    font-family: BFT; /* Гарнитура шрифта */
+    src: url(../fonts/B52.eot); /* Для IE5-8 */
+    src: local(B52), url(../fonts/B52.ttf); /* Для остальных браузеров */
+   }
+
 .ato-status{
   position: relative;
   top: -51px;
@@ -249,21 +255,33 @@ background: #333333;
 
 .thumbnail.caroselPrev {
   margin-bottom: 0px;
-  padding-bottom: 25%;
+  padding-bottom: 10%;
 padding-left: 6%;
 padding-top: 6%;
 padding-right: 6%;
 border-radius: 0px;
+
+position: relative;
+background: #fff;
+-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+
 }
 
-.selected_pic {
-  background-color: rgba(0,0,0,.1);
-  border: 1px solid #ccc;
+.thumbnail.selected_pic {
+  background: url(../img/textures/ricepaper2_@2X.png);
+  background-size: contain;
   border-radius: 1px;
+  border: 1px solid #aaa;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2) inset;
 }
 
 .photo_backgr{
   background-color: #f2eee3;
+  font-family: BFT;
 }
 
 .no_under{
@@ -401,20 +419,83 @@ white-space: nowrap;
   -webkit-transform: translateZ(0);
 }
 
+.jcrop-holder img { max-width: none;}
+
+.carousel-inner a:before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    top: -20px;
+    width: 32px;
+    height: 45px;
+    background: url('../img/pin1.png');
+}
+
+.carousel-inner {
+overflow: hidden;
+overflow: visible;
+}
+
+.over-yes{
+  overflow: hidden;
+  background: url(../img/textures/brickwall_@2X.png);
+}
+
+
+.polaroid-back{
+  padding: 2em;
+  background: url(../img/textures/lightpaperfibers_@2X.png);
+  background-size: contain;
+  
+}
+
+.polaroid-face{
+ /* padding: 2em;*/
+  background: url(../img/textures/lightpaperfibers_@2X.png);
+  background-size: contain;
+}
+
+.paper{
+  background: url(../img/textures/linedpaper.png);
+  padding: 1em;
+}
+
+.back-none{
+  background-color: transparent !important;
+}
+
+.slider-preview{
+  max-width:100%;
+  padding: 1px;
+  border-radius: 0px; 
+  margin-bottom: 20%;
+}
+
+#BtnSendThumb{
+  margin-top: 4%;
+  margin-bottom: 3%;
+}
+
 /* Landscape phones and smaller */
 @media (max-width: 480px) {
-  .smallcontainer .col-sm-3{
-  padding-left: 2px;
-  padding-right: 2px;
+  .smallcontainer .col-xs-3{
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .smallcontainer .row{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  #preview-pane{
+    display: none !important;
+  }
+
+  .carousel-inner a:before{
+    display: none;
+  }
 }
 
-.smallcontainer .row{
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
-#preview-pane{
-  display: none !important;
-}
-}
 

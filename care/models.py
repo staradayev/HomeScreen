@@ -145,7 +145,7 @@ class Picture(MultilingualModel):
 			fullpath = photopath.rsplit('/', 1)[0]  # the path only (minus the filename.extension)
 
 			# use the file extension to determine if the image is valid before proceeding
-			if extension not in ['jpg', 'jpeg', 'gif', 'png']: 
+			if extension.lower() not in ['jpg', 'jpeg', 'gif', 'png']: 
 				super(Picture, self).delete()
 				sys.exit()
 

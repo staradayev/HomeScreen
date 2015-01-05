@@ -143,7 +143,7 @@
 	<div class="col-md-8">
 		<h3>{% trans "2 Choose thumbnail:" %}</h3>
     	<br />
-		<div class="well photo_backgr curved-hz-1"> 
+		<div class="well photo_backgr curved-hz-1 polaroid-face" style="overflow: visible;"> 
     	<div class="row">
     		<div class="col-md-12">
     			<div id="UploadedImageContainer">
@@ -160,7 +160,7 @@
 		</div>
 	</div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 visible-lg visible-md ">
     	<div class="row">
     		<div class="col-md-11">
     			<hr>
@@ -270,7 +270,7 @@
 
     		<div class="col-md-11 col-md-offset-1">
     			
-    			 <div class="well photo_backgr lifted img-pad"> 
+    			 <div class="well photo_backgr lifted img-pad polaroid-face"> 
     			<img src=""  class="img-responsive  img-thumbnail" id="UploadedImageFull">
 			</div>
     		</div>
@@ -503,8 +503,13 @@
 			    },function(){
 			    	// Use the API to get the real image size
 				      var bounds = this.getBounds();
+                      console.log("Bounds:");
 				      boundx = bounds[0];
+                      console.log("x:"+boundx);
+                      console.log("orginal x="+$('#UploadedImage').width());
 				      boundy = bounds[1];
+                      console.log("y:"+boundy);
+                      console.log("orgonal y="+$('#UploadedImage').height());
 
 			        jcrop_api = this;
 

@@ -4,10 +4,7 @@
 {% comment %}
 Bootstrap CSS Toolkit styles
 {% endcomment %}
-<link 
-    rel="stylesheet" 
-    href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/ato.css">
 {% endblock %}
 
 {% block CSS_BLUEIMP_GALLERY %}
@@ -90,7 +87,7 @@ Bootstrap CSS Toolkit styles
     {% endcomment %}
 
         <div class="col-lg-12">
-            <div class="well photo_backgr lifted bottom-polaroid"> 
+            <div class="well photo_backgr lifted bottom-polaroid polaroid-face"> 
             {% comment %}
              The fileinput-button span is used to style the file input field as button 
             {% endcomment %}
@@ -241,45 +238,7 @@ Bootstrap CSS Toolkit styles
     </div>
     
 
-    <tr class="template-upload fade" style="display: none;">
-        {% block JS_UPLOAD_TEMPLATE_PREVIEW %}
-        <td>
-            <span class="preview"></span>
-        </td>
-        {% endblock %}
-
-        {% block JS_UPLOAD_TEMPLATE_UPLOAD %}
-        <td>
-            <p class="name">{{ JQ_OPEN }}=file.name{{ JQ_CLOSE }}</p>
-            <strong class="error text-danger"></strong>
-        </td>
-        {% endblock %}
-
-        {% block JS_UPLOAD_TEMPLATE_PROGRESSBAR %}
-        <td>
-            <p class="size">Processing...</p>
-            <div class="progress progress-striped active" role="progressbar"
-                    aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-            </div>
-        </td>
-        {% endblock %}
-
-        {% block JS_UPLOAD_TEMPLATE_CONTROLS %}
-        <td>
-            {% block JS_UPLOAD_TEMPLATE_START %}
-            {{ JQ_OPEN }} if (!i && !o.options.autoUpload) { {{ JQ_CLOSE }}
-                <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
-                </button>
-            {{ JQ_OPEN }} } {{ JQ_CLOSE }}
-            {% endblock %}
-
-            
-        </td>
-        {% endblock %}
-    </tr>
+    
 {{ JQ_OPEN }} } {{ JQ_CLOSE }}
 </script>
 {% endblock %}
