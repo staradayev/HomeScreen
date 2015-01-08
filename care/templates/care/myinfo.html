@@ -161,8 +161,38 @@
     <div class="col-sm-1">
     </div>
     <div class="col-sm-4 visible-md visible-lg">
+    	<img id="user_pic" src="{{user_picture}}" alt="ATO.care" class="img-responsive img-thumbnail img-rounded">
 
-    	<img src="{{STATIC_URL}}img/kolobok.png" alt="ATO.care" class="img-responsive img-rounded">
+<div class="upload_form">
+  <form id="upload" action="/care/adduserphoto/" method="post" enctype="multipart/form-data" class="upload-form">{% csrf_token %}
+    	<div style="display:none">
+    		<input name="files" id="lefile" type="file">
+    	</div>
+    	<hr>
+    	<div id="warn" style="display:none;">
+    		<div class="alert alert-danger">
+                <span class="glyphicon glyphicon-remove"></span>{% trans "Error!" %} 
+                <br>
+                <strong id="warning_upload">  </strong>
+            </div>
+    	</div>
+    	<div class="progress" style="display:none;">
+	      	<div class="bar">&nbsp;</div >
+	      	<div class="percent">0%</div >
+      	</div>
+      
+      	<div style="display: inline" class="input-append">
+      		<a class="btn btn-info" onclick="$('input[id=lefile]').click();">{% trans "Select photo" %}</a>
+        	<label id="photoCover" class="input-large" type="text">
+      	</div>
+      	<button id="upload-btn" class="btn upload-button"  style="display:none;"><i class="icon-arrow-up"></i></a></button>
+      
+ 
+ 
+  </form>
+</div>
+ 
+   	
 	</div>
 	<div class="col-sm-1">
     </div>
@@ -170,6 +200,72 @@
 <br />
 <br />
 <script src="{{STATIC_URL}}js/jquery.min.js"></script>
+
+<script src="{{STATIC_URL}}js/jquery.form.js"></script>
+
+<script type="text/javascript">
+      $('input[id=lefile]').change(function() {
+         $('#photoCover').html($(this).val());
+         $('#warning_upload').html('');
+         $('#warn').hide();
+         if($(this).val()){
+         	$('#upload-btn').click();
+         }
+      });
+      </script>
+ 
+      <script type="text/javascript">
+              (function() {
+                  
+              var bar = $('.bar');
+              var percent = $('.percent');
+              var status = $('#status');
+                 
+              $('#upload').ajaxForm({
+                  beforeSend: function() {
+                      $('.progress').show();
+                      document.getElementById("upload-btn").disabled=true;
+                      status.empty();
+                      var percentVal = '0%';
+                      bar.width(percentVal)
+                      percent.html(percentVal);
+                  },
+                  uploadProgress: function(event, position, total, percentComplete) {
+                      var percentVal = percentComplete + '%';
+                      bar.width(percentVal)
+                      percent.html(percentVal);
+                  },
+                  success: function() {
+                      var percentVal = '100%';
+                      bar.width(percentVal)
+                      percent.html("100%");
+                  },
+                complete: function(xhr) {
+                  status.html(xhr.responseText);
+                  var resp = jQuery.parseJSON(xhr.responseText);
+
+                  if(resp.success == true){
+                  	$('#user_pic').attr('src', resp.img_url);
+                  	
+                  	$('#warning_upload').html('');
+                  	$('#warn').hide();
+                  }else{
+                  	$('#warning_upload').html(resp.message);
+                  	$('#warn').show();
+                  }
+                  $('#photoCover').html('');
+                  
+                  //$('.uploads_table tr:last').after().fadeIn("slow");
+
+                  setTimeout(function (){ $('.progress').hide(700); }, 500);
+                  document.getElementById("upload-btn").disabled=false;
+                }
+              }); 
+
+              })();       
+      </script>
+
+
 <script>
 	
 	$( document ).ready(function() {

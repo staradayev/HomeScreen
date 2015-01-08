@@ -185,6 +185,35 @@ code {
   padding-bottom: 20% !important;
 }
 
+.rotate-left:hover,
+.rotate-right:hover{
+  color:  #357ebd;
+}
+
+.parent-over{
+  position: relative;
+}
+
+.over-on-hover{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  background-color: #fff;
+}
+
+.over-on-hover:hover{
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 
 
 
@@ -472,7 +501,7 @@ overflow: visible;
   margin-bottom: 20%;
 }
 
-#BtnSendThumb{
+.BtnSendThumb{
   margin-top: 4%;
   margin-bottom: 3%;
 }
@@ -497,5 +526,23 @@ overflow: visible;
     display: none;
   }
 }
+
+.bar{
+  background-color: #428bca;
+  opacity: 0.6;
+  display: block;
+}
+
+.progress{
+  position: relative;
+}
+
+.percent{
+  position: absolute;
+top: 0;
+left: 45%;
+}
+
+
 
 

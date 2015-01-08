@@ -10,6 +10,9 @@ from multilingual_model.models import MultilingualModel, MultilingualTranslation
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
 from django.conf import settings
+import helpers
+from django.utils.deconstruct import deconstructible
+from django.db.models.signals import pre_delete
 
 
 class Tag(MultilingualModel):
@@ -64,7 +67,21 @@ class CategoryTranslation(MultilingualTranslation):
 	parent = models.ForeignKey(Category, related_name='translations')
 	name = models.CharField(verbose_name=_(u"Category name"), max_length=75)
 
-		
+@deconstructible
+class PathAndRename(object):
+
+	def __init__(self, sub_path):
+		self.path = sub_path
+
+	def __call__(self, instance, filename):
+		now = str(int(time.time()))
+		hashPath = hashlib.md5(now).hexdigest()
+		path = 'gallery/'+hashPath[:2]+'/'+hashPath[2:4]+'/'+hashPath+'/'
+		ext = filename.split('.')[-1]
+		# get filename
+		filename = '{}.{}'.format(uuid4().hex, ext)
+		# return the whole path to the file
+		return os.path.join(path, filename)
 
 class Picture(MultilingualModel):
 
@@ -74,24 +91,16 @@ class Picture(MultilingualModel):
 		medium (photo_medium)
 		original (photo_FULL_HD)
 	"""
-	def path_and_rename(path):
-		def wrapper(instance, filename):
-			now = str(int(time.time()))
-			hashPath = hashlib.md5(now).hexdigest()
-			path = 'gallery/'+hashPath[:2]+'/'+hashPath[2:4]+'/'+hashPath+'/'
-			ext = filename.split('.')[-1]
-			# get filename
-			filename = '{}.{}'.format(uuid4().hex, ext)
-			# return the whole path to the file
-			return os.path.join(path, filename)
-		return wrapper
+
+	path_and_rename = PathAndRename('gallerydef/')
 
 	
 	#picture_name = models.CharField(verbose_name=_(u"Picture name"), maxength=100)
 	date_pub = models.DateTimeField(auto_now_add=True, auto_now=True)
 	approve_status = models.BooleanField(default=False)
+	complete_status = models.BooleanField(default=False)
 	date_approve = models.DateTimeField(null=True)
-	photo_origin = models.ImageField(verbose_name=_(u"original file upload"), upload_to=path_and_rename('gallerydef/'))
+	photo_origin = models.ImageField(verbose_name=_(u"original file upload"), upload_to=path_and_rename)
 	photo_medium = models.CharField(max_length=255, blank=True)
 	photo_thumb = models.CharField(max_length=255, blank=True)
 	category = models.ManyToManyField(Category, blank=True)
@@ -186,31 +195,25 @@ class Picture(MultilingualModel):
 			self.photo_thumb = filepath + thumbname
 
 			super(Picture, self).save()
-			add_watermark(fullpath + '/' + medname, "ATO.care", fullpath + '/' + medname)
+			#add_watermark(fullpath + '/' + medname, "ATO.care", fullpath + '/' + medname)
 
-FONT = 'ARIAL.TTF'
 
-def add_watermark(in_file, text, out_file='watermark.jpg', angle=23, opacity=0.25):
-	print in_file
-	img = Image.open(in_file).convert('RGB')
-	watermark = Image.new('RGBA', img.size, (0,0,0,0))
-	size = 2
-	print settings.STATIC_ROOT + "css/" + FONT
-	n_font = ImageFont.truetype(settings.STATIC_ROOT + "css/" + FONT, size)
-	n_width, n_height = n_font.getsize(text)
-	while n_width+n_height < watermark.size[0]:
-		size += 2
-		n_font = ImageFont.truetype(settings.STATIC_ROOT + "css/" + FONT, size)
-		n_width, n_height = n_font.getsize(text)
-	draw = ImageDraw.Draw(watermark, 'RGBA')
-	draw.text(((watermark.size[0] - n_width) / 2,
-			  (watermark.size[1] - n_height) / 2),
-			  text, font=n_font)
-	watermark = watermark.rotate(angle,Image.BICUBIC)
-	alpha = watermark.split()[3]
-	alpha = ImageEnhance.Brightness(alpha).enhance(opacity)
-	watermark.putalpha(alpha)
-	Image.composite(watermark, img, watermark).save(out_file, 'JPEG')
+def file_cleanup(sender, instance, *args, **kwargs):
+	'''
+		Deletes the file(s) associated with a model instance. The model
+		is not saved after deletion of the file(s) since this is meant
+		to be used with the pre_delete signal.
+	'''
+	
+	try:
+		print("Delete preview "+settings.MEDIA_ROOT + instance.photo_medium)
+		os.remove(settings.MEDIA_ROOT + instance.photo_medium)
+		print("Delete thumbnail "+settings.MEDIA_ROOT + instance.photo_thumb)
+		os.remove(settings.MEDIA_ROOT + instance.photo_thumb)
+	except Exception, e:
+		print("Can't delete thumbnail and preview of !" + instance.pk)
+
+pre_delete.connect(file_cleanup, sender=Picture)
 
 class PictureTranslation(MultilingualTranslation):
 	class Meta:
@@ -234,14 +237,15 @@ class Link(models.Model):
 		return up
 
 class UserProfile(models.Model):
-
+	user = models.ForeignKey(User, unique=True)
+	links = models.ManyToManyField(Link, blank=True)
+	user_picture = models.CharField(verbose_name=_(u"photo_url"), max_length=100, blank=True)
 	@classmethod
 	def create(cls, user):
 		up = cls(user=user)
 		# do something with the book
 		return up
-	user = models.ForeignKey(User, unique=True)
-	links = models.ManyToManyField(Link, blank=True)
+
 
 class Organization(MultilingualModel):
 	date_pub = models.DateTimeField(auto_now_add=True)

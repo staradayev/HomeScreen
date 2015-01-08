@@ -241,7 +241,7 @@ $(document).ready(function() {
     			if(pages[idx+1].entity[z].id == picture) {
     				pic = pages[idx+1].entity[z];
     				activePicture = pic;
-    				$('#picture_preview').attr('src', pic.preview_url);
+    				$('#picture_preview').attr('src', pic.preview_url+"?"+new Date().getTime());
     				$('#picture_preview').attr('alt', pic.name);
     				//
     				
@@ -358,7 +358,7 @@ $(document).ready(function() {
     		var a = $('.item.active .polaroid-small')[i];
     		$(a).attr('id', data.entity[i].id);
     		var b = $('.item.active .polaroid-small img')[i];
-    		$(b).attr('src', data.entity[i].thumb_url);
+    		$(b).attr('src', data.entity[i].thumb_url+"?"+new Date().getTime());
     		$(a).click(OpenPictureInfo);
     		/*$('.item.active .row').append(function() {
 			  	return $('<div class="col-md-3 col-sm-3 col-xs-3" id="' + data.entity[i].id + '"><a href="#x" class="thumbnail caroselPrev"><img src="' + data.entity[i].thumb_url + '" alt="Image" style="max-width:100%;" /></a></div>').click(OpenPictureInfo);
