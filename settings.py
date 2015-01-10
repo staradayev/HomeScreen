@@ -97,14 +97,14 @@ LOGIN_URL = '/care/login'
 #Template dirs
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
-STATIC_ROOT = '/home/projects/atosite/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 #static dirs
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = '/home/projects/atosite/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = '/media/'
 

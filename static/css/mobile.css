@@ -1,0 +1,80 @@
+.header a{
+    margin: 10px auto;
+    text-transform: none;
+    font-size: 1.5em;
+    float: right;
+}
+.header p{
+    display: block;
+    padding: 0 25px;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin: 5px auto 0px;
+}
+.header p.avaliable-in{
+    letter-spacing: 1px;
+    color: #73c3f5;
+}.header{
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 95%;
+    background: white;
+    z-index: 2;
+    float: left;
+}
+.ato-logo{
+    height: 292px;
+    background: url('/static/img/ATO%20v1_2.png') no-repeat center center;
+}
+.msgid-title div{
+    text-align: center;
+    padding: 1em;
+    margin-bottom: 1em;
+    word-wrap: break-word;
+}
+.img-responsive{
+    margin: 0 auto;
+}
+.counter .backshadow{
+    background: black;
+}
+.menu{
+    position: absolute;
+}
+.navbar{
+    text-align: left;
+    background: url('/static/img/ATO%20v1_2.png') left center no-repeat;
+    background-size: contain;
+}
+.navbar p{
+    line-height: 1em;
+    margin-left: 20%;
+}
+.col-xs-6{
+    height: 100%;
+}
+
+@media only screen and (min-width : 320px) {
+        *{font-size:90%}
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+        *{font-size:100%}
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+        *{font-size:110%}
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+        *{font-size:120%}
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+        *{font-size:130%}
+    }

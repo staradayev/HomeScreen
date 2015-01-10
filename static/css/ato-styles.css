@@ -445,3 +445,9 @@ padding-right: 0.4rem;
 }
 
 
+.user-now{
+  text-decoration: none;
+  color: lightskyblue !important;
+  text-transform: capitalize;
+}
+

@@ -365,30 +365,30 @@ def upload_thumb( request ):
 	data = simplejson.loads(request.body)
 	pic = {}
 	if data is not None:
-		#try:
-		pic = Picture.objects.get(pk=data["pic_id"])
-		print("Thumbnail:")
-		print(pic.photo_origin.path)
-		print(settings.MEDIA_ROOT + pic.photo_medium)
-		print(settings.MEDIA_ROOT + pic.photo_thumb)
-		im = Image.open(pic.photo_origin.path)
-		w, h = im.size
-		#'try crop and save'
-		im.crop((int(w*data["left"]), int(h*data["top"]), int(w*data["right"]), int(h*data["bottom"]))).save(settings.MEDIA_ROOT + pic.photo_thumb)
-		#'try open and resize'
-		img = Image.open(settings.MEDIA_ROOT + pic.photo_thumb).resize( (240, 240) )
-		#'try save'
-		img.save(settings.MEDIA_ROOT + pic.photo_thumb)
-		#settings.MEDIA_ROOT + pic.photo_thumb
-		#'saved'
-		response_data = {}
-		response_data['success'] = 'true'
-		response_data['id'] = pic.id
-	
-		#, "data" : dataReturn
-		return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
-		#except:
-			#return HttpResponse(simplejson.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")			
+		try:
+			pic = Picture.objects.get(pk=data["pic_id"])
+			print("Thumbnail:")
+			print(pic.photo_origin.path)
+			print(settings.MEDIA_ROOT + pic.photo_medium)
+			print(settings.MEDIA_ROOT + pic.photo_thumb)
+			im = Image.open(pic.photo_origin.path)
+			w, h = im.size
+			#'try crop and save'
+			im.crop((int(w*data["left"]), int(h*data["top"]), int(w*data["right"]), int(h*data["bottom"]))).save(settings.MEDIA_ROOT + pic.photo_thumb)
+			#'try open and resize'
+			img = Image.open(settings.MEDIA_ROOT + pic.photo_thumb).resize( (240, 240) )
+			#'try save'
+			img.save(settings.MEDIA_ROOT + pic.photo_thumb)
+			#settings.MEDIA_ROOT + pic.photo_thumb
+			#'saved'
+			response_data = {}
+			response_data['success'] = 'true'
+			response_data['id'] = pic.id
+		
+			#, "data" : dataReturn
+			return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
+		except:
+			return HttpResponse(simplejson.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")			
 	else:
 		#, "message" : "Invalid data received by server"
 		return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")

@@ -12,7 +12,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="/">ATO.care</a>
+      		<a class="navbar-brand" href="/">pics.ATO.care</a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -35,7 +35,7 @@
 			              <form name="setLang{{ lang.1 }}" id="setLang{{ lang.1 }}" action="/i18n/setlang/" method="POST">
 			              	<li>
 			                {% csrf_token %}
-			                <input name="next" type="hidden" value="/care/edit">
+			                <input name="next" type="hidden" value="/care">
 			                <input type="hidden" name="language" value="{{ lang.0 }}">
 			                <a href="" class="{{ lang.1 }} form-li" onclick="document.getElementById('setLang{{ lang.1 }}').submit();return false;">{{ lang.1 }}</a>
 			             	</li>
