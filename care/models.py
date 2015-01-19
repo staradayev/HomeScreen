@@ -277,6 +277,7 @@ class Download(models.Model):
 	amount = models.FloatField()
 	picture = models.ForeignKey(Picture)
 	category = models.ManyToManyField(Category, blank=True)
+	tag = models.ManyToManyField(Tag, blank=True)
 	organization = models.ForeignKey(Organization)
 	donator = models.CharField(verbose_name=_(u"Donator uiid"), max_length=50)
 	t_uuid = models.CharField(verbose_name=_(u"Transaction uiid"), max_length=400)

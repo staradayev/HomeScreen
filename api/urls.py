@@ -12,4 +12,5 @@ urlpatterns = patterns('',
 	url(r'^download/$', views.download),
 	url(r'^author/$', views.author_list),
 	
+	url(r'^tags/$', views.tag_list),
 )

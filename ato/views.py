@@ -5,6 +5,7 @@ from django.db.models import Sum
 from care.models import Download, UserProfile, Picture, Organization
 from addition import HomeView
 import re
+from django.conf import settings
 
 
 def IndexView(request):
@@ -18,7 +19,7 @@ def IndexUAView(request):
 	pictures = Picture.objects.filter(approve_status=True).count()
 	amount = Download.objects.aggregate(Sum('amount'))
 	if amount['amount__sum']:
-		donated = amount['amount__sum']
+		donated = str(int(amount['amount__sum']) * settings.DONATED_LEFT)
 	else:
 		donated = 0
 	organizations = []
@@ -102,7 +103,7 @@ def IndexENView(request):
 	pictures = Picture.objects.filter(approve_status=True).count()
 	amount = Download.objects.aggregate(Sum('amount'))
 	if amount['amount__sum']:
-		donated = amount['amount__sum']
+		donated = str(int(amount['amount__sum']) * settings.DONATED_LEFT)
 	else:
 		donated = 0
 	organizations = []

@@ -1,80 +1,409 @@
-.header a{
-    margin: 10px auto;
-    text-transform: none;
-    font-size: 1.5em;
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*GRID*/
+.container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    padding-bottom: 0px !important;
+    overflow: hidden;
+}
+.row{
+    position: relative;
+}
+.column{
+    float: left;
+    display: block;
+    position: relative;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+ 
+.clearfix:after {
+  clear: both;
+} 
+.clearfix {
+  *zoom: 1;
+}
+
+.column.full{
+    width: 100%;
+    width: 100%;
+    padding-bottom: 0px;
+}
+.three-quarter{
+    width: 75%;
+}
+.column.two-thirds{
+    width: 66.7%;
+}
+.column.half{
+    width: 50%;
+}
+.column.third{
+    width: 33.3%;
+}
+.column.fourth{
+    width: 24.95%;
+}
+.column.fifth{
+    width: 20%;
+}
+.column.flow-opposite{
     float: right;
 }
-.header p{
-    display: block;
-    padding: 0 25px;
-    font-size: 1.5em;
-    font-weight: 400;
-    margin: 5px auto 0px;
+/**/
+
+
+
+/* Small screens and default settings*/
+html, body{
+    padding: 0;
+    margin: 0;
 }
-.header p.avaliable-in{
-    letter-spacing: 1px;
-    color: #73c3f5;
-}.header{
-    display: flex;
-    align-items: center;
+.tiny-splitter{
+    height: 1px;
+    background: #141414;
+    box-shadow: 0 0 3px 0 #505050;
+}
+.gn-menu .tiny-splitter{
+    margin-bottom: 3px;
+}
+/*Header*/
+.header{
     position: fixed;
-    width: 95%;
+    width: 100%;
     background: white;
     z-index: 2;
-    float: left;
 }
-.ato-logo{
-    height: 292px;
-    background: url('/static/img/ATO%20v1_2.png') no-repeat center center;
+.header .column.full .column.two-thirds{
+    padding: 0.5em 0.5em 0;
 }
-.msgid-title div{
-    text-align: center;
-    padding: 1em;
-    margin-bottom: 1em;
+.download-app-header{
+    height: 4em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+}
+.header p{
+    font-size: 0.8em;
+    font-weight: 400;
+    line-height: 0.8em;
+}
+p.avaliable-in{
+    color: #73c3f5;
     word-wrap: break-word;
 }
-.img-responsive{
-    margin: 0 auto;
+
+/*Download Button*/
+.download{
+    margin-top: 0.25em;
+    height: 2.5em;
 }
-.counter .backshadow{
-    background: black;
+.download a{
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #222;
+    font-weight: 600;
+    font-size: 1.2em;
+    padding: 0.3em 0.7em;
+    display: inline-block;
+    letter-spacing: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    float: right;
+    height: 100%;
 }
-.menu{
-    position: absolute;
+.close{
+    text-align: center;
+    height: 100%;
+    line-height: 2em;
+/*    vertical-align: bottom;*/
+    color: #73c3f5 !important;
+    opacity: 1;
 }
-.navbar{
-    text-align: left;
-    background: url('/static/img/ATO%20v1_2.png') left center no-repeat;
+
+/*Nav Menu*/
+
+/*Trigger Icon Styles*/
+.gn-icon-menu{
+    display: block;
+    width: 3em;
+    height: 100%;
+    padding-top: 0.8em;
+}
+.gn-icon-menu .trigger-icon{
+    height: 0.2em;
+    margin-top: 0.2em;
+    clear: left;
+    background: white;
+    margin-left: 25%;
+}
+.gn-icon-menu:hover .trigger-icon{
+    background: #73c3f5;
+}
+/*Menu Styles*/
+.gn-menu-main, .gn-menu-main ul{
+    margin: 0;
+    padding: 0;
+    background: #222;
+    color: white;
+    list-style: none;
+    text-transform: none;
+    font-weight: 400;
+}
+.gn-menu-main{
+    width: 100%;
+    height: 3em;
+}
+.gn-menu-main>li{
+    display: block;
+    float: left;
+    margin: 0;
+    height: 100%;
+}
+.gn-menu-main:after {
+    display: table;
+    clear: both;
+    content: '';
+}
+/*All Links in Nav Menu*/
+.gn-menu-main a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+.gn-menu-main a:hover{
+    color: #73c3f5;
+}
+.gn-menu-wrapper.gn-open-all,
+.gn-menu-wrapper.gn-open-part {
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    transform: translateX(0px);
+}
+.gn-menu-wrapper.gn-open-all {
+		width: 70%;
+}
+/*Sliding Nav Menu Styles*/
+.gn-menu{
+    width: 100%;
+}
+.gn-menu li{
+    margin: 0;
+    padding: 0.3em 0;
+    height: 2em;
+    font-size: 1em;
+    line-height: 2em;
+}
+.gn-menu-main li.gn-trigger {
+    position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.gn-menu-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 70%;
+    z-index: 3;
+    background: #222;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-transition: -webkit-transform 0.3s, width 0.3s;
+    -moz-transition: -moz-transform 0.3s, width 0.3s;
+    transition: transform 0.3s, width 0.3s;
+}
+/*ICONS*/
+.icons{
+    text-align: center;
+    color: #ffef24;
+}
+.help-icon{
+    width: 100%;
+    height: 120%;
+    background: url('../img/help-icon.png') center center no-repeat;
     background-size: contain;
 }
-.navbar p{
-    line-height: 1em;
-    margin-left: 20%;
+/*Menu Header*/
+.menu-header{
+    text-align: center;
+    background: #141414;
 }
-.col-xs-6{
+.menu-header a{
+    color: #73c3f5;
+    font-weight: 600;
+}
+/*Language Divs*/
+.language-change{
     height: 100%;
 }
 
+.Ukrainian, .English{
+    display: block;
+    height: 1em;
+}
+.Ukrainian{
+    background-position: right center;
+}
+.English{
+    background-position: left center;
+}
+
+/*Menu Center Div*/
+.navbar{
+    height: 100%;
+}
+.navbar p{
+    font-weight: 600;
+    font-size: 0.9em;
+    height: 1em;
+}
+
+/*Center Navbar Icon*/
+.navbar-center{
+    position: relative;
+    height: 2em;
+    font-size: 0.8em;
+}
+.navbar-center .column.third{
+    height: 100%;
+    background: url('../img/ATO.png') center center no-repeat;
+    background-size: contain;
+}
+/*Big Logo*/
+.ato-logo{
+    margin-top: 4em;
+    height: 292px;
+    background: url('../img/ATO.png') center center no-repeat;
+    background-size: contain;
+}
+/*Text Divs*/
+.msgid-title{
+    margin: 5% 5% 5% 5%;
+    width: 90%;
+}
+.msgid-title div{
+    text-align: center;
+    padding: 0.5em 0;
+}
+/*Counters Section*/
+.sectionheader{
+
+    background: url('../img/bg-3old.jpg') center center no-repeat;
+    background-size: cover;
+    padding-top: 0;
+    min-height: 200px;
+}
+/*Images in Panel Sections*/
+.img-responsive{
+    margin: 0 auto;
+}
+/*Help Cards */
+.panel-body p{
+    font-weight: 100;
+    font-size: 0.8em;
+}
+.panel-body .lead{
+    font-weight: 400;
+    font-size: 1em;
+}
+/*Footer Bottom text*/
+.text-muted{
+    font-size: 0.8em;
+}
+
+.close{
+    padding-left: 0.2em;
+}
+.header .column.full .column.download-btn{
+    padding: 0.5em 0.25em 0.4em;
+}
+
+.navbar-right{
+    width: 15% !important;
+    float: right !important;
+}
+
+.download-play{
+    background: url('../img/play-logo.png') center center no-repeat;
+    background-size: contain; 
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 240px) {
+    .gn-menu-wrapper.gn-open-all {
+		width: 70%;
+        -webkit-transform: translateX(0px);
+        -moz-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+}
+@media only screen and (min-width : 294px) {
+    .ato-logo{
+        margin-top: 5em;
+    }
+}
 @media only screen and (min-width : 320px) {
-        *{font-size:90%}
+    *{font-size: 105%}
+    .gn-icon-menu{
+        padding-top: 0.65em;
     }
-
-    /* Extra Small Devices, Phones */ 
-    @media only screen and (min-width : 480px) {
-        *{font-size:100%}
+    .ato-logo{
+        margin-top: 7em;
     }
-
-    /* Small Devices, Tablets */
-    @media only screen and (min-width : 768px) {
-        *{font-size:110%}
+}
+@media only screen and (min-width : 480px) {
+    *{font-size: 110%}
+    .download{
+        margin-top: 0.15em;
     }
-
-    /* Medium Devices, Desktops */
-    @media only screen and (min-width : 992px) {
-        *{font-size:120%}
+    .close{
+        line-height: 2.4em;
     }
-
-    /* Large Devices, Wide Screens */
-    @media only screen and (min-width : 1200px) {
-        *{font-size:130%}
+    .gn-menu-wrapper.gn-open-all {
+		width: 50%;
     }
+    .gn-menu li{
+        font-size: 0.7em;
+    }
+    .gn-icon-menu{
+        padding-top: 0.45em;
+    }
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    *{font-size: 115%}
+    .download{
+        margin-top: 0.07em;
+    }
+    .close{
+        line-height: 2.8em;
+    }
+    .gn-menu li{
+        font-size: 0.6em;
+    }
+    .gn-icon-menu{
+        padding-top: 0.25em;
+    }
+}
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+}
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+    
+}

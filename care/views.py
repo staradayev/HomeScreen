@@ -350,8 +350,9 @@ def AddLinkView(request):
 @login_required()
 def AddUploadView(request, picture_id):
 	picture = Picture.objects.get(pk=picture_id)
+	p_author = User.objects.get(username = request.user.username) 
 	organization = Organization.objects.get(pk=1)
-	up = Download.create("0.99", picture, organization, "admin", "care-development");
+	up = Download.create("0.99", picture, organization, p_author.email, "care-development");
 	up.save()
 	for cat in picture.category.all():
 		up.category.add(Category.objects.get(pk=int(cat.id)))
