@@ -114,8 +114,9 @@ MEDIA_URL = '/media/'
 LANGUAGE_CODE = 'ua'
 #
 LANGUAGES = (
-    ('en', 'English'),
     ('ua', 'Ukrainian'),
+    ('en', 'English'),
+    
 )
 
 LOCALE_PATHS = (

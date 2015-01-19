@@ -344,6 +344,11 @@ p.avaliable-in{
     background-size: contain; 
 }
 
+.counter .backshadow {
+    background-color: rgba(5,5,5,.45);
+    padding-bottom: 0.8em;
+}
+
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 240px) {
     .gn-menu-wrapper.gn-open-all {

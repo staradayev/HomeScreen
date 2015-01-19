@@ -14,7 +14,7 @@
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="shortcut icon" type="image/png" href="http://dev.ato.care/static//img/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="/static/img/favicon.ico">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,7 +41,7 @@
                 <div class="column fifth flow-opposite close">
                     <i class="fa fa-close fa-lg"></i>
                 </div>
-                <a href="http://ato.care/#">{% trans "View" %}</a>
+                <a href="#">{% trans "View" %}</a>
             </div>
         </div>
         <div class="column full tiny-splitter"></div>
@@ -63,7 +63,7 @@
                         <ul class="gn-menu">
                             <li>
                                 <div class="column full menu-header">
-                                    <a href="http://dev.ato.care/en/#section1">{% trans "pics.ATO.Care" %}</a>
+                                    <a href="#section1">{% trans "pics.ATO.Care" %}</a>
                                 </div>
                             </li>
                             <li>
@@ -71,14 +71,14 @@
                                     <i class="fa fa-question-circle fa-lg"></i>
                                 </div>
                                 <div class="column three-quarter flow-opposite">
-                                    <a href="http://dev.ato.care/en/#section2">{% trans "About" %}</a>
+                                    <a href="#section2">{% trans "About" %}</a>
                                 </div>
                                 <div class="column full tiny-splitter"></div>
                             </li>
                             <li>
                                 <div class="column fourth help-icon"></div>
                                 <div class="column three-quarter flow-opposite">
-                                    <a href="http://dev.ato.care/en/#section3">{% trans "Help" %}</a>
+                                    <a href="#section3">{% trans "Help" %}</a>
                                 </div>
                                 <div class="column full tiny-splitter"></div>
                             </li>
@@ -87,7 +87,7 @@
                                     <i class="fa fa-download fa-lg"></i>
                                 </div>
                                 <div class="column three-quarter flow-opposite">
-                                    <a href="http://dev.ato.care/en/#section4">{% trans "Download" %}</a>
+                                    <a href="#section4">{% trans "Download" %}</a>
                                 </div>
                                 <div class="column full tiny-splitter"></div>
                             </li>
@@ -96,40 +96,27 @@
                                     <i class="fa fa-sign-in fa-lg"></i>
                                 </div>
                                 <div class="column three-quarter flow-opposite">
-                                    <a href="http://dev.ato.care/en/#section5">{% trans "Join" %}</a>
+                                    <a href="#section5">{% trans "Join" %}</a>
                                 </div>
                             </li>
                             <li>
                                 <div class="column full menu-header">
-                                    <a href="http://dev.ato.care/en/#section1">{% trans "Language" %}</a>
+                                    <a href="#">{% trans "Language" %}</a>
                                 </div>
                             </li>
                             
-<!--             Language-->
                             <li class="column full language-change">
-                                
-                <!--                    Set Ukrainian-->
-                                    <div class="column half">
-                                        <form name="setLangUkrainian" action="http://ato.care/i18n/setlang/" method="POST">
-                                            <input type="hidden" name="csrfmiddlewaretoken" value="WOEmmzFjlzhTssQU0M1Vjqf9wyTV5CNZ">
+                                    {% for lang in LANGUAGES %}
+                                        <div class="column half">
+                                          <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                                            {% csrf_token %}
                                             <input name="next" type="hidden" value="/">
-                                            <input type="hidden" name="language" value="ua">
-                                            <a href="http://ato.care/#" class="Ukrainian" onclick="document.setLangUkrainian.submit();
-                                            return false;"></a>
-                                        </form>
-                                    </div>
-                <!--                    Set English-->
-                                    <div class="column half flow-opposite">
-                                        <form name="setLangEnglish" action="http://ato.care/i18n/setlang/" method="POST">
-                                            <input type="hidden" name="csrfmiddlewaretoken" value="WOEmmzFjlzhTssQU0M1Vjqf9wyTV5CNZ">
-                                            <input name="next" type="hidden" value="/">
-                                            <input type="hidden" name="language" value="en">
-                                            <a href="http://ato.care/#" class="English" onclick="document.setLangEnglish.submit();
-                                            return false;"></a>
-                                        </form>
-                                    </div>
-                                
-                            </li><!--Lang end-->
+                                            <input type="hidden" name="language" value="{{ lang.0 }}">
+                                            <a href="#" class="{{ lang.1 }}" onclick="document.setLang{{ lang.1 }}.submit();
+                                                return false;"></a>
+                                          </form>
+                                        </div>
+                                    {% endfor %}
                             
                         </ul>
                     </div><!-- /gn-scroller -->
@@ -158,7 +145,7 @@
 
     
 <!--    Big Logo-->
-    <div class="row clearfix">
+    <div class="row clearfix" id="section1">
         <div class="ato-logo"></div>
     </div>
 <!--    Text Divs-->
@@ -192,15 +179,15 @@
         </section>
     </div>   
 <!--   Text Divs-->
-    <div class="row clearfix msgid-title">
+    <div class="row clearfix msgid-title" >
         <div class="column full">{% trans "About title 2" %}</div>
         <div class="column full">{% trans "About text 1" %}</div>
-        <div class="column full">{% trans "About text 2" %}</div>
+        <div class="column full" id="section3">{% trans "About text 2" %}</div>
         <div class="column full">{% trans "Help title 1" %}</div>
     </div>
     
 <!--    Panel Sections-->
-    <div class="row clearfix">
+    <div class="row clearfix" id="section4">
         <div class="column full">
             <div class="panel panel-default">
                 <div><img src="/static/img/banner1.jpg" class="img-responsive"></div>
@@ -208,20 +195,20 @@
                     <p class="lead">{% trans "Help card header 1" %}</p>
                     <p>{% trans "Help card content 1" %}</p>
                     <p>
-                        <a href="http://ato.care/#section4" class="btn btn-default">{% trans "Install" %}</a>
+                        <a href="#" class="btn btn-default">{% trans "Install" %}</a>
                     </p>
                 </div>
             </div><!--/panel-->
         </div><!--/col-->
 
-        <div class="column full">
+        <div class="column full" id="section5">
             <div class="panel panel-default">
                 <div class="panel-thumbnail"><img src="/static/img/banner2.jpg" class="img-responsive"></div>
                 <div class="panel-body  text-center">
                     <p class="lead">{% trans "Help card header 2" %}</p>
                     <p>{% trans "Help card content 2" %}</p>
                     <p>
-                        <a href="http://ato.care/#section5" class="btn btn-default">{% trans "Sign in" %}</a>
+                        <a href="/care/login" class="btn btn-default">{% trans "Sign in" %}</a>
                     </p>
                 </div>
             </div><!--/panel--> 
@@ -234,10 +221,10 @@
                     <p class="lead">{% trans "Help card header 3" %}</p>
                     <p>{% trans "Help card content 3" %}</p>
                     <ul class="space text-center share">
-                        <li><a href="http://ato.care/#"><i class="fa fa-vk fa-2x"></i></a></li><!-- Change # with your Pinterest Account -->
-                        <li><a href="http://ato.care/#"><i class="fa fa-twitter fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
-                        <li><a href="http://ato.care/#"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
-                        <li><a href="http://ato.care/#"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->    
+                        <li><a href="#"><i class="fa fa-vk fa-2x"></i></a></li><!-- Change # with your Pinterest Account -->
+                        <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
+                        <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
+                        <li><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->    
                     </ul> <!-- End social media -->
                 </div>
             </div><!--/panel--> 
