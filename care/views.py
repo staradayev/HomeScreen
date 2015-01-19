@@ -27,6 +27,7 @@ from django.core.files.images import get_image_dimensions
 from PIL import Image
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import formats
+from additional import UploadFile
 
 def logout(request, redirect_url=None):
 	auth.logout(request)
@@ -47,7 +48,7 @@ def DetailView(request):
 		return HttpResponseRedirect('/care/myinfo')
 
 	p_author = User.objects.get(username = request.user.username)
-	picture_list = Picture.objects.filter(author=p_author).order_by('-date_pub').all()
+	picture_list = Picture.objects.filter(author=p_author, complete_status=True).order_by('-date_pub').all()
 	pictures_all_count = picture_list.count()
 
 
@@ -63,6 +64,7 @@ def InfoView(request):
 	name_empty = False
 	link_types = None
 	user_links = None
+	user_pic = None
 	# if this is a POST request we need to process the form data
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
@@ -100,9 +102,19 @@ def InfoView(request):
 			up.save()
 			user_p = UserProfile.objects.get(user=user)
 		finally:
-			user_links = user_p.links			
+			user_links = user_p.links
+				
+	try:
+		user = User.objects.get(username = request.user.username)
+		user_p = UserProfile.objects.get(user=user)
+		user_pic = settings.MEDIA_URL + user_p.user_picture
+		print ("!="+user_pic)
+		if '' == user_p.user_picture:
+			user_pic = settings.STATIC_URL + 'img/default/ATO.png'
+	except Exception, e:
+		user_pic = settings.STATIC_URL + 'img/default/ATO.png'		
 
-	return render(request, 'care/myinfo.html', {'form': form, 'name_empty': name_empty,'link_types':link_types, 'user_links': user_links,})
+	return render(request, 'care/myinfo.html', {'form': form, 'name_empty': name_empty,'link_types':link_types, 'user_links': user_links, 'user_picture':user_pic})
 
 @login_required()
 def UploadView(request):
@@ -117,6 +129,17 @@ def UploadView(request):
 	pics = Picture.objects.filter(author=p_author, date_pub__range=(today_min, today_max))
 	if pics.count() > 24:
 		limit_detected = True
+
+	try:
+		pic_u = Picture.objects.filter(complete_status=False, author=p_author).first()
+		pic_complete = {}
+		pic_complete['url'] = pic_u.photo_origin.url
+		pic_complete['id'] = pic_u.pk
+		pic_complete['deleteUrl'] = reverse('care:jfu_delete', kwargs = { 'pk': pic_u.pk })
+		print('found uncompleted picture')
+	except Exception, e:
+		pic_complete = None
+		print('No uncompleted pictures')
 
 
 	# if this is a POST request we need to process the form data
@@ -159,7 +182,7 @@ def UploadView(request):
 			'tags' : tags,})
 		
 
-	return render(request, 'care/upload.html', {'form': form, 'limit_detected': limit_detected,})
+	return render(request, 'care/upload.html', {'form': form, 'limit_detected': limit_detected, 'not_completed': pic_complete})
 
 @login_required()
 def EditView(request, picture_id):
@@ -182,21 +205,7 @@ def EditView(request, picture_id):
 			TAG_CHOICES = [[x.id, x.name] for x in Tag.objects.filter()]
 			form = EditPictureForm(CATEGORY_CHOICES, TAG_CHOICES, request.POST, request.FILES)
 			# check whether it's valid:
-			if form.is_valid():
-				# process the data in form.cleaned_data as required
-				selected_image.save()
-				image_trans = PictureTranslation.objects.get(parent_id=selected_image.id)
-				image_trans.name = form.cleaned_data['name']
-				image_trans.save()
-
-				for cat in form.cleaned_data['categories']:
-					selected_image.category.add(Category.objects.get(pk=int(cat)))
-				for t in form.cleaned_data['tags']:
-					selected_image.tag.add(Tag.objects.get(pk=int(t)))
-
-				selected_image.save()
-				
-				return HttpResponseRedirect('/care/')
+			
 
 		# if a GET (or any other method) we'll create a blank form
 		else:
@@ -209,8 +218,12 @@ def EditView(request, picture_id):
 				'tags' : tags,
 				'name': selected_image.name,})
 		
+		pic_complete = {}
+		pic_complete['url'] = selected_image.photo_origin.url
+		pic_complete['id'] = selected_image.pk
+		pic_complete['deleteUrl'] = reverse('care:jfu_delete', kwargs = { 'pk': selected_image.pk })
 
-	return render(request, 'care/edit.html', {'form': form, 'limit_detected': limit_detected, 'img':selected_image,})
+	return render(request, 'care/edit.html', {'form': form, 'limit_detected': limit_detected, 'img':selected_image, 'image':pic_complete})
 
 
 @login_required
@@ -337,8 +350,9 @@ def AddLinkView(request):
 @login_required()
 def AddUploadView(request, picture_id):
 	picture = Picture.objects.get(pk=picture_id)
+	p_author = User.objects.get(username = request.user.username) 
 	organization = Organization.objects.get(pk=1)
-	up = Download.create("0.99", picture, organization, "admin", "care-development");
+	up = Download.create("0.99", picture, organization, p_author.email, "care-development");
 	up.save()
 	for cat in picture.category.all():
 		up.category.add(Category.objects.get(pk=int(cat.id)))
@@ -354,6 +368,10 @@ def upload_thumb( request ):
 	if data is not None:
 		try:
 			pic = Picture.objects.get(pk=data["pic_id"])
+			print("Thumbnail:")
+			print(pic.photo_origin.path)
+			print(settings.MEDIA_ROOT + pic.photo_medium)
+			print(settings.MEDIA_ROOT + pic.photo_thumb)
 			im = Image.open(pic.photo_origin.path)
 			w, h = im.size
 			#'try crop and save'
@@ -413,14 +431,19 @@ def upload_description( request ):
 				pic_trans.save()
 
 			if data["pic_cats"]:
+				selected_image.category.clear()	
 				for cat in data["pic_cats"]:
 					selected_image.category.add(Category.objects.get(pk=int(cat)))
-			if data["pic_tags"]:		
+			if data["pic_tags"]:
+				selected_image.tag.clear()	
 				for t in data["pic_tags"]:
 					selected_image.tag.add(Tag.objects.get(pk=int(t)))
 
 			if data["pic_cats"] or data["pic_tags"]:
 				selected_image.save()
+
+			selected_image.complete_status = True
+			selected_image.save()
 			
 			return HttpResponse(simplejson.dumps({'success':"true", 'message':"Saved success!"}), content_type="application/json")
 		except:
@@ -528,10 +551,15 @@ def UploadPictureView( request ):
 			'id' : instance.id
 		}
 
+		print("Uploaded:")
+		print(instance.photo_origin.path)
+		print(settings.MEDIA_ROOT + instance.photo_medium)
+		print(settings.MEDIA_ROOT + instance.photo_thumb)
+
 		return UploadResponse( request, file_dict )
 	except Exception, e:
 		return UploadResponseError( request, {
-				"error": (_(u"No image!")+e),
+				"error": (_(u"No image!"))+e.NameError,
 				"url": "", 
 				"thumbnail_url": "", 
 				"delete_url": "", 
@@ -547,10 +575,15 @@ def upload_delete( request, pk ):
 	success = True
 	try:
 		instance = Picture.objects.get( pk = pk )
-		os.unlink( instance.photo_origin.path )
-		instance.delete()
+		p_author = User.objects.get(username = request.user.username)
+		if instance.author.id == p_author.id and instance.approve_status == False:
+			os.unlink( instance.photo_origin.path )
+			instance.delete()
+			success = {'success':"true", 'message':''}
+		else:
+			success = {'success':"false", 'message':(_("This photo can't be deleted"))}
 	except Picture.DoesNotExist:
-		success = False
+		success = {'success':"false", 'message':(_("Can't delete photo"))}
 
 	return JFUResponse( request, success )
 
@@ -625,7 +658,7 @@ def get_picture_list(request):
 		pictures = []
 
 		p_author = User.objects.get(username = request.user.username)
-		picture_list = Picture.objects.filter(author=p_author).order_by('-date_pub').all()
+		picture_list = Picture.objects.filter(author=p_author, complete_status=True).order_by('-date_pub').all()
 		pictures_all_count = picture_list.count()
 		pictures_on_page = 4
 		paginator = Paginator(picture_list, pictures_on_page)
@@ -700,4 +733,63 @@ def get_picture_list(request):
 	response["Access-Control-Max-Age"] = "1000"  
 	response["Access-Control-Allow-Headers"] = "*"
 	return response
+
+
+@csrf_exempt
+@login_required
+def upload_user_photo(request):
+	
+	if request.method == 'POST':
+		uploadfile = UploadFile(request=request, key='files', location='upload')
+		return uploadfile.upload(request.user.id)
+
+@login_required
+def rotate_photo(request):
+	data = simplejson.loads(request.body)
+	pic = {}
+	if data is not None:
+		#try:
+		pic = Picture.objects.get(pk=data["pic_id"])
+		print("Uploaded:")
+		print(pic.photo_origin.path)
+		print(settings.MEDIA_ROOT + pic.photo_medium)
+		print(settings.MEDIA_ROOT + pic.photo_thumb)
+
+		angle = 270
+		if data["angle"] == "left":
+			angle = 90
+		else:
+			angle = 270
+		im = Image.open(pic.photo_origin.path)
+		w, h = im.size
+		print("rotate origin: " + pic.photo_origin.path)
+		#rotating it by built in PIL command
+		rotated_origin = im.rotate(angle)
+		#saving rotated image instead of original. Overwriting is on. 
+		rotated_origin.save(pic.photo_origin.path, overwrite=True)
+		print("rotate medium: " + settings.MEDIA_ROOT+pic.photo_medium)
+		#rotating it by built in PIL command
+		rotated_medium = Image.open(settings.MEDIA_ROOT + pic.photo_medium).rotate(angle)
+		#saving rotated image instead of original. Overwriting is on. 
+		rotated_medium.save(settings.MEDIA_ROOT+pic.photo_medium, overwrite=True)
+		print("rotate thumb: " + settings.MEDIA_ROOT+pic.photo_thumb)
+		#rotating it by built in PIL command
+		rotated_thumb = Image.open(settings.MEDIA_ROOT + pic.photo_thumb).rotate(angle)
+		#saving rotated image instead of original. Overwriting is on. 
+		rotated_thumb.save(settings.MEDIA_ROOT+pic.photo_thumb, overwrite=True)		
+		print("All done!")
+		#settings.MEDIA_ROOT + pic.photo_thumb
+		#'saved'
+		response_data = {}
+		response_data['success'] = 'true'
+		response_data['id'] = pic.id
+	
+		#, "data" : dataReturn
+		return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
+		#except:
+		#	return HttpResponse(simplejson.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")			
+	else:
+		#, "message" : "Invalid data received by server"
+		return HttpResponse(simplejson.dumps({'success':"False", 'message':_(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
+
 

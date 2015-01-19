@@ -10,4 +10,7 @@ urlpatterns = patterns('',
 	url(r'^organizations/$', views.organizations),
 	url(r'^search/$', views.search),
 	url(r'^download/$', views.download),
+	url(r'^author/$', views.author_list),
+	
+	url(r'^tags/$', views.tag_list),
 )

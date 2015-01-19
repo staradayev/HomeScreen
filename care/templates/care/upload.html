@@ -12,7 +12,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="/">ATO.care</a>
+      		<a class="navbar-brand" href="/">pics.ATO.care</a>
     	</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -96,7 +96,14 @@
 
 <div class="row">
 	<div class="col-md-7">
-		<h1>{% trans "Add new image to service:" %}</h1>
+		<h1>
+            {% if not_completed %}
+                {% trans "Continue adding new image to service:" %}
+            {% else %}
+                {% trans "Add new image to service:" %}
+            {% endif %}
+        </h1>
+        
 		<p style="display:none;" class="text-danger fa fa-warning fa-lg" id="upload_warning"></p>
 	</div>
 	<div class="col-md-3 col-md-offset-2">
@@ -155,7 +162,20 @@
     	<div class="row">
     		<div class="col-md-12">
 				<br />
-				<button type="button" class="btn btn-primary pull-right" id="BtnSendThumb">{% trans "Save changes" %}</button>
+                <div class="col-xs-4 BtnSendThumb">   
+                    <button type="button" class="btn btn-primary pull-left btnDelete BtnSendThumb">{% trans "Delete" %}</button>
+                </div>
+                <div class="col-xs-4 BtnSendThumb text-center visible-sm visible-md visible-lg">
+                    <i class="fa fa-rotate-left fa-4x addItem rotate-left">&nbsp;</i>
+                    <i class="fa fa-rotate-right fa-4x addItem rotate-right">&nbsp;</i>
+                </div>
+                <div class="col-xs-4 BtnSendThumb text-center visible-xs">
+                    <i class="fa fa-rotate-left fa-2x addItem rotate-left">&nbsp;</i>
+                    <i class="fa fa-rotate-right fa-2x addItem rotate-right">&nbsp;</i>
+                </div>
+				<div class="col-xs-4 BtnSendThumb">    
+                    <button type="button" class="btn btn-primary pull-right BtnSendThumb" id="BtnSendThumb">{% trans "Save changes" %}</button>
+                </div>
 			</div>
 		</div>
 	</div>
@@ -248,7 +268,7 @@
 			        		<input type="text" data-role="tagsinput" class="form-control disable" name="tag_names" id="tag_names" readonly>
 			        	</div>
 			        </div>				    
-
+                    <button type="button" class="btn btn-primary pull-left btnDelete">{% trans "Delete" %}</button>
 
 				    <input type="button" id="btnFinish" value="{% blocktrans %}Save changes{% endblocktrans %}" class="btn btn-primary pull-right" />
 				</form>
@@ -279,6 +299,13 @@
 	</div>
 </div>
 </div>
+{% if not_completed %}
+
+<input type="hidden" id="pic_uncompleted_id" value="{{not_completed.id}}">
+<input type="hidden" id="pic_uncompleted_url" value="{{not_completed.url}}">
+<input type="hidden" id="pic_uncompleted_deleteUrl" value="{{not_completed.deleteUrl}}">
+
+{% endif %}
 <script>
 	//////////////
 	///////
@@ -469,6 +496,11 @@
 		});
 
 		$("#tag_group").hide();
+
+        //NOT COMPLETED PICTURES
+        if($('#pic_uncompleted_id') && $('#pic_uncompleted_id').val()){
+            OnImageLoaded($('#pic_uncompleted_url').val(), $('#pic_uncompleted_id').val(), $('#pic_uncompleted_deleteUrl').val());
+        }
 	});
 
 
@@ -478,7 +510,7 @@
 	var jcrop_api,
         boundx,
         boundy;
-	var leftc, topc, rightc, bottomc, id_p;	
+	var leftc, topc, rightc, bottomc, id_p, d_url;	
 
 	$preview = $('#preview-pane'),
     $pcnt = $('#preview-pane .preview-container'),
@@ -487,12 +519,16 @@
     xsize = $pcnt.width(),
     ysize = $pcnt.height();
 
-	function OnImageLoaded(url, id){
+	function OnImageLoaded(url, id, dUrl){
+        d_url = dUrl;
 		id_p = id;
+        if(jcrop_api){
+            jcrop_api.destroy();
+        }
 		$('#upload_warning').hide();
-		$('#UploadedImage').attr('src', url);
-		$('#UploadedImageFull').attr('src', url);
-		$('#ThumbImage').attr('src', url);
+		$('#UploadedImage').attr('src', url+"?"+new Date().getTime());
+		$('#UploadedImageFull').attr('src', url+"?"+new Date().getTime());
+		$('#ThumbImage').attr('src', url+"?"+new Date().getTime());
         $('#UploadStep').hide(400, function(){
         	 $('#ThumbStep').show(400, function(){
         		$('#UploadedImage').Jcrop({
@@ -517,6 +553,7 @@
 
 			        // Move the preview into the jcrop container for css positioning
       				$preview.appendTo(jcrop_api.ui.holder);
+                    $('.preview-container img').attr('src', url+"?"+new Date().getTime());
 			    });
         	});
         }); 
@@ -615,6 +652,68 @@
     		}
   		});
 	});
+
+    $(document).on('click','.btnDelete',function(e){
+        $.ajax({
+            url : d_url,
+            type : "POST",
+            contentType: 'application/json; charset=utf-8',
+            success : function(data){
+                results = JSON.parse(data)
+                if (results.success == "true") {
+                    $('#upload_warning').hide();
+                    go_to_url('/care/detail');
+                } else {
+                    $('#upload_warning').show();
+                    $('#upload_warning').text(results.message);
+                }
+            }
+        });
+    });
+
+    $(document).on('click','.rotate-left',function(e){
+        $.ajax({
+            url : "/care/rotatephoto/",
+            type : "POST",
+            data : JSON.stringify({"pic_id" : id_p, "angle": "left"}),
+            contentType: 'application/json; charset=utf-8',
+            success : function(data){
+                results = data;
+                if (results.success == "true") {
+                    $('#upload_warning').hide();
+                    $('#ThumbStep').hide(400);
+                    setTimeout(function(){
+                        OnImageLoaded($('#UploadedImage').attr('src'), id_p, d_url);
+                    }, 1000);
+                } else {
+                    $('#upload_warning').show();
+                    $('#upload_warning').text(results.message);
+                }
+            }
+        });
+    });
+
+    $(document).on('click','.rotate-right',function(e){
+        $.ajax({
+            url : "/care/rotatephoto/",
+            type : "POST",
+            data : JSON.stringify({"pic_id" : id_p, "angle": "right"}),
+            contentType: 'application/json; charset=utf-8',
+            success : function(data){
+                results = data;
+                if (results.success == "true") {
+                    $('#upload_warning').hide();
+                    $('#ThumbStep').hide(400);
+                    setTimeout(function(){
+                        OnImageLoaded($('#UploadedImage').attr('src'), id_p, d_url);
+                    }, 1000);
+                } else {
+                    $('#upload_warning').show();
+                    $('#upload_warning').text(results.message);
+                }
+            }
+        });
+    });
 
 	$(document).on('click','#BtnSendCategory',function(e){
     	var cName = $("#id_cat_name").val();

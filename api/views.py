@@ -7,6 +7,8 @@ from itertools import chain, groupby
 from django.db.models import Count, Max, Sum
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.templatetags.static import static
+from validate_email import validate_email
+from django.conf import settings
 
 def category_list(request):
 	if request.method == 'GET':
@@ -42,7 +44,7 @@ def category_list(request):
 				#category['picture_url'] = cat.picture_set.filter(approve_status=True).annotate(count_d = Count('download')).order_by('-count_d')first().photo_thumb
 				#p_cats = cat.picture_set
 				#p_cats = p_cats.aggregate(Max('price'))
-				pics = Picture.objects.filter(category=cat.id).annotate(count = Count('download')).order_by('-count').first()
+				pics = Picture.objects.filter(category=cat.id, approve_status=True).annotate(count = Count('download')).order_by('-count').first()
 				if pics is not None:
 					category['picture_url'] = pics.photo_thumb
 					categories.append(category)
@@ -88,8 +90,17 @@ def popular_list(request):
 			for pic in pictures:
 				picture = {};
 				picture['id'] = pic.id
-				picture['downloads'] = pic.download_set.filter().count()
 				picture['picture_url'] = pic.photo_thumb
+				picture['name'] = pic.name
+				picture['downloads'] = pic.download_set.filter().count()
+				usr = User.objects.get(pk=pic.author.id)
+				picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
+				picture['author_id'] = usr.id
+				donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
+				if donated['amount__sum']:
+					picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
+				else:
+					picture['amount'] = 0
 
 				popular.append(picture)
 
@@ -144,7 +155,16 @@ def picture_by_cat_list(request):
 				picture = {};
 				picture['id'] = pic.id
 				picture['picture_url'] = pic.photo_thumb
-				#picture['name'] = pic.picture_name
+				picture['name'] = pic.name
+				picture['downloads'] = pic.download_set.filter().count()
+				usr = User.objects.get(pk=pic.author.id)
+				picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
+				picture['author_id'] = usr.id
+				donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
+				if donated['amount__sum']:
+					picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
+				else:
+					picture['amount'] = 0
 
 				popular.append(picture)
 			cat = Category.objects.get(pk=cat_id).name
@@ -178,7 +198,7 @@ def picture(request):
 				pic = Picture.objects.filter(approve_status=True).get(pk=pic_id)
 			except:
 				return HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
-			
+
 			picture = {};
 			picture['id'] = pic.id
 			picture['downloads'] = pic.download_set.filter().count()
@@ -186,6 +206,13 @@ def picture(request):
 			picture['name'] = pic.name
 			usr = User.objects.get(pk=pic.author.id)
 			picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
+			picture['author_id'] = usr.id
+			donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
+			if donated['amount__sum']:
+				picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
+			else:
+				picture['amount'] = 0
+
 			json_posts = json.dumps({'success':"true", 'message':'', 'entity':picture})
 			response = HttpResponse(json_posts, content_type="application/json")
 		except:
@@ -203,6 +230,9 @@ def organizations(request):
 	if request.method == 'GET':
 		if not request.GET.get('ln'):
 			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
+		if not request.GET.get('user_id'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
+
 
 		translation.activate(request.GET.get('ln'))
 
@@ -217,8 +247,16 @@ def organizations(request):
 				organization['description'] = org.description
 				organization['author'] = org.author
 				donated = Download.objects.filter(organization=org.id).aggregate(Sum('amount'))
-				organization['amount'] = donated['amount__sum']
-				organization['user_amount'] = 0
+				if donated['amount__sum']:
+					organization['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
+				else:
+					organization['amount'] = 0
+				
+				donatedByUsr = Download.objects.filter(organization=org.id, donator=request.GET.get('user_id')).aggregate(Sum('amount'))
+				if donatedByUsr['amount__sum']:
+					organization['user_amount'] = str(int(donatedByUsr['amount__sum']) * settings.DONATED_LEFT)
+				else:
+					organization['user_amount'] =  0
 
 				organizations.append(organization)
 
@@ -291,7 +329,16 @@ def search(request):
 					picture = {};
 					picture['id'] = pic.id
 					picture['picture_url'] = pic.photo_thumb
-					#picture['name'] = pic.picture_name
+					picture['name'] = pic.name
+					picture['downloads'] = pic.download_set.filter().count()
+					usr = User.objects.get(pk=pic.author.id)
+					picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
+					picture['author_id'] = usr.id
+					donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
+					if donated['amount__sum']:
+						picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
+					else:
+						picture['amount'] = 0
 
 					popular.append(picture)
 				json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'page_name':request.GET.get('param'), 'entity':popular})
@@ -328,27 +375,145 @@ def download(request):
 		
 		if not request.GET.get('user_id'):
 			return HttpResponse(json.dumps({'success':"false", 'message':'Provide user id'}), content_type="application/json")
+		#verify email exist
+		is_valid = validate_email(request.GET.get('user_id'), verify=True)
+		print("api is valid '"+request.GET.get('user_id')+"' = "+str(is_valid))
+		if not is_valid:
+			return HttpResponse(json.dumps({'success':"false", 'message':"Some error... Why? :)"}), content_type="application/json")
 
-		#try:	
-		pic_id = int(request.GET.get('id'))
-		try:
-			pic = Picture.objects.filter(approve_status=True).get(pk=pic_id)
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
-		finally:
+		try:	
+			pic_id = int(request.GET.get('id'))
 			try:
-				org = Organization.objects.get(pk=request.GET.get('org_id'))
-				up = Download.create(request.GET.get('amount'), pic, org, request.GET.get('user_id'), "api-development");
-				up.save()
-				for cat in pic.category.all():
-					up.category.add(Category.objects.get(pk=int(cat.id)))
-				up.save()
-				response = HttpResponse(open(pic.photo_origin.path, "rb").read(), content_type="image/jpg")
+				pic = Picture.objects.filter(approve_status=True).get(pk=pic_id)
+				try:
+					org = Organization.objects.get(pk=request.GET.get('org_id'))
+					up = Download.create(request.GET.get('amount'), pic, org, request.GET.get('user_id'), "api-development");
+					up.save()
+					for cat in pic.category.all():
+						up.category.add(Category.objects.get(pk=int(cat.id)))
+					up.save()
+					response = HttpResponse(open(pic.photo_origin.path, "rb").read(), content_type="image/jpg")
+				except:
+					response = HttpResponse(json.dumps({'success':"false", 'message':"Wrong organization in request..."}), content_type="application/json")
 			except:
-				response = HttpResponse(json.dumps({'success':"false", 'message':"Wrong organization in request..."}), content_type="application/json")
+				return HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")	
+		except:
+			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
+	else:
+		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
+	
+	response["Access-Control-Allow-Origin"] = "*"  
+	response["Access-Control-Allow-Methods"] = "POST, GET"  
+	response["Access-Control-Max-Age"] = "1000"  
+	response["Access-Control-Allow-Headers"] = "*"
+	return response
+
+def author_list(request):
+	if request.method == 'GET':
+		if not request.GET.get('ln'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
+		if not request.GET.get('id'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
+
+		try:
+			p_author = User.objects.get(pk = request.GET.get('id'))
+			translation.activate(request.GET.get('ln'))
+			author_pics = []
+			picture_author = "%s %s" % (p_author.first_name, p_author.last_name)
+			picture_list = Picture.objects.filter(approve_status=True, author=p_author).annotate(count = Count('download')).order_by('-count')
+			
+			picture_on_page = 20
+			paginator = Paginator(picture_list, picture_on_page)
+
+			try:
+				page = request.GET.get('page')
+				try:
+					pictures = paginator.page(page)
+				except PageNotAnInteger:
+					# If page is not an integer, deliver first page.
+					pictures = paginator.page(1)
+					page = 1
+				except EmptyPage:
+					# If page is out of range (e.g. 9999), deliver last page of results.
+					pictures = paginator.page(paginator.num_pages)
+					page = paginator.num_pages
 				
-		#except:
-			#response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
+				for pic in pictures:
+					picture = {};
+					picture['id'] = pic.id
+					picture['downloads'] = pic.download_set.filter().count()
+					picture['picture_url'] = pic.photo_thumb
+					picture['name'] = pic.name
+					picture['downloads'] = pic.download_set.filter().count()
+					picture['author'] = "%s %s" % (p_author.first_name, p_author.last_name)
+					picture['author_id'] = p_author.id
+					donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
+					if donated['amount__sum']:
+						picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
+					else:
+						picture['amount'] = 0
+
+					author_pics.append(picture)
+
+				json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':author_pics, 'page_name':picture_author})
+				response = HttpResponse(json_posts, content_type="application/json")
+			except:
+				response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
+		
+		except Exception, e:
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
+
+	else:
+		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
+	
+	response["Access-Control-Allow-Origin"] = "*"  
+	response["Access-Control-Allow-Methods"] = "POST, GET"  
+	response["Access-Control-Max-Age"] = "1000"  
+	response["Access-Control-Allow-Headers"] = "*"
+	return response
+
+
+
+def tag_list(request):
+	if request.method == 'GET':
+		if not request.GET.get('ln'):
+			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
+
+		translation.activate(request.GET.get('ln'))
+
+		tags = []
+		tag_list = Tag.objects.filter(approve_status=True).annotate(count = Count('download')).order_by('-count')
+		
+		tag_on_page = 20
+		paginator = Paginator(tag_list, tag_on_page)
+
+		try:
+			page = request.GET.get('page')
+			try:
+				tags = paginator.page(page)
+			except PageNotAnInteger:
+				# If page is not an integer, deliver first page.
+				tags = paginator.page(1)
+				page = 1
+			except EmptyPage:
+				# If page is out of range (e.g. 9999), deliver last page of results.
+				tags = paginator.page(paginator.num_pages)
+				page = paginator.num_pages
+			
+			for tag_des in tags:
+				tag = {};
+				tag['id'] = tag_des.id
+				tag['name'] = tag_des.name
+				tag['downloads'] = tag_des.download_set.filter().count()
+				pics = Picture.objects.filter(category=tag_des.id, approve_status=True).annotate(count = Count('download')).order_by('-count').first()
+				if pics is not None:
+					tag['picture_url'] = pics.photo_thumb
+					categories.append(tag)
+
+			json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':categories})
+			response = HttpResponse(json_posts, content_type="application/json")
+		except:
+			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
 	else:
 		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
 	

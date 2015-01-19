@@ -530,7 +530,7 @@ The File Upload validation plugin
             $('#fileuploadPreview').hide();
             $('#fileupload').hide();
 
-            OnImageLoaded(data._response.result.files[0].url, data._response.result.files[0].id);
+            OnImageLoaded(data._response.result.files[0].url, data._response.result.files[0].id, data._response.result.files[0].deleteUrl);
 
         });
 
