@@ -28,5 +28,9 @@ urlpatterns = patterns('',
 	url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^reset/', include('password_reset.urls')),
-    
 )
+
+handler404 = 'care.views.custom_404'
+handler403 = 'care.views.custom_404'
+handler400 = 'care.views.custom_404'
+handler500 = 'care.views.custom_404'

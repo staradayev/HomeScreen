@@ -28,6 +28,10 @@ from PIL import Image
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import formats
 from additional import UploadFile
+from django.shortcuts import render_to_response
+
+def custom_404(request):
+	return render_to_response('care/404.html')
 
 def logout(request, redirect_url=None):
 	auth.logout(request)
