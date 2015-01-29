@@ -71,6 +71,7 @@ ROOT_URLCONF = 'atosite.urls'
 
 WSGI_APPLICATION = 'atosite.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_PREFLIGHT_MAX_AGE = 1000
 CORS_ALLOW_METHODS = (
         'GET',
         'POST',
@@ -115,7 +116,7 @@ LANGUAGE_CODE = 'ua'
 LANGUAGES = (
     ('ua', 'Ukrainian'),
     ('en', 'English'),
-    
+
 )
 
 LOCALE_PATHS = (
@@ -155,3 +156,8 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'info@ato.care'
+
+# API settings
+CATEGORIES_PER_PAGE = 20
+PICTURES_PER_PAGE = 20
+TAGS_PER_PAGE = 20
