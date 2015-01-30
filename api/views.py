@@ -64,8 +64,10 @@ class CategoryListView(BaseMixin):
                 'downloads': category_item.download_set.all().count()
             }
             pic = Picture.objects.filter(category=category_item.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
+            pictures_queryset = Picture.objects.filter(category=category_item.id, approve_status=True)
             if pic is not None:
                 category['picture_url'] = pic.photo_thumb
+                category['pictures_count'] = pictures_queryset.count()
             categories.append(category)
         return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': categories})
 
