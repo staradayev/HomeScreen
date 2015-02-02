@@ -1,6 +1,6 @@
 from django.views.generic.base import View
 from django.http import JsonResponse
-from care.models import Category, Download, Picture, Organization, Tag
+from care.models import Category, Download, Picture, Organization, Tag, UserProfile
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils import translation
@@ -144,7 +144,11 @@ class PictureView(BaseMixin):
             try:
                 picture_queryset = Picture.objects.filter(approve_status=True).get(pk=self.id)
                 user = User.objects.get(pk=picture_queryset.author.id)
+                user_profile = UserProfile.objects.get(user=user)
                 donated = Download.objects.filter(picture=picture_queryset.id).aggregate(Sum('amount'))
+                links = []
+                for link in user_profile.links.all():
+                    links.append(link.link_url)
                 picture = {
                     'id': picture_queryset.id,
                     'name': picture_queryset.name,
@@ -152,11 +156,12 @@ class PictureView(BaseMixin):
                     'picture_url': picture_queryset.photo_medium,
                     'author': "{0} {1}".format(user.first_name, user.last_name),
                     'author_id': user.id,
+                    'author_links': links,
                     'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                 }
                 return JsonResponse({'success': "true", 'message': '', 'entity': picture})
-            except:
-                return JsonResponse({'success': "false", 'message': "Wrong picture request..."})
+            except Exception, e:
+                return JsonResponse({'success': "false", 'message': "Wrong picture request...", "error": str(e)})
 
 
 class OrganizationsView(BaseMixin):
