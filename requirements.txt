@@ -1,0 +1,10 @@
+django
+mysql-python
+#django-registration (don't support django 1.7)
+django-registration-redux
+django-cors-headers
+django-multilingual-model
+django-autocomplete-light
+unidecode
+validate_email
+pyDNS

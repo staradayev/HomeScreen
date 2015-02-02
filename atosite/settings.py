@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'atobase',
         'USER': 'atouser',
         'PASSWORD': 'care2014',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': 'mysql.us2h.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -94,12 +94,12 @@ DATABASES = {
 LOGIN_URL = '/care/login'
 
 
-#Template dirs
+# Template dirs
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 STATIC_ROOT = '/Users/staradayev/Documents/Projects/django-learn/atosite/static_root/'
 
-#static dirs
+# static dirs
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -142,9 +142,9 @@ DONATED_LEFT = 0.6
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/care/detail/'
 
-#Registration fields
+# Registration fields
 
-ACCOUNT_ACTIVATION_DAYS = 3 # days count while activation active
+ACCOUNT_ACTIVATION_DAYS = 3     # days count while activation active
 REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
 
