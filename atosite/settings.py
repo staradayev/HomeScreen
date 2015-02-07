@@ -26,6 +26,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -116,7 +117,6 @@ LANGUAGE_CODE = 'ua'
 LANGUAGES = (
     ('ua', 'Ukrainian'),
     ('en', 'English'),
-
 )
 
 LOCALE_PATHS = (

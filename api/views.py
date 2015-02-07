@@ -1,6 +1,6 @@
 from django.views.generic.base import View
 from django.http import JsonResponse
-from care.models import Category, Download, Picture, Organization, Tag, UserProfile
+from care.models import Category, Download, Picture, Organization, Tag, UserProfile, LinkType
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils import translation
@@ -148,13 +148,16 @@ class PictureView(BaseMixin):
                 donated = Download.objects.filter(picture=picture_queryset.id).aggregate(Sum('amount'))
                 links = []
                 for link in user_profile.links.all():
-                    links.append(link.link_url)
+                    lnk = {}
+                    lnk['link_url'] = link.link_url
+                    lnk['link_type'] = link.link_type.type_tag
+                    links.append(lnk)
                 picture = {
                     'id': picture_queryset.id,
                     'name': picture_queryset.name,
                     'downloads': picture_queryset.download_set.all().count(),
                     'picture_url': picture_queryset.photo_medium,
-                    'author': "{0} {1}".format(user.first_name, user.last_name),
+                    'author': u"{0} {1}".format(user.first_name, user.last_name),
                     'author_id': user.id,
                     'author_links': links,
                     'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
@@ -226,7 +229,7 @@ class SearchView(BaseMixin):
                             'name': picture_item.name,
                             'picture_url': picture_item.photo_thumb,
                             'downloads': picture_item.download_set.all().count(),
-                            'author': "{0} {1}".format(user.first_name, user.last_name),
+                            'author': u"{0} {1}".format(user.first_name, user.last_name),
                             'author_id': user.id,
                             'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                         }
@@ -269,7 +272,7 @@ class AuthorListView(BaseMixin):
             try:
                 author_pictures = []
                 picture_author = User.objects.get(pk=self.id)
-                picture_author_name = "{0} {1}".format(picture_author.first_name, picture_author.last_name)
+                picture_author_name = u"{0} {1}".format(picture_author.first_name, picture_author.last_name)
                 picture_list = Picture.objects.filter(approve_status=True, author=picture_author).annotate(count=Count('download')).order_by('-count')
                 paginator = Paginator(picture_list, settings.PICTURES_PER_PAGE)
                 pictures_paginated = paginator.page(self.page_number if self.page_number <= paginator.num_pages else paginator.num_pages)
