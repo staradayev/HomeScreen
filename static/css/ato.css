@@ -452,13 +452,39 @@ white-space: nowrap;
 
 .carousel-inner a:before{
     content: '';
-    position: absolute;
-    left: 50%;
-    margin-left: -5px;
-    top: -20px;
-    width: 32px;
-    height: 45px;
-    background: url('../img/pin1.png');
+  position: absolute;
+  left: 50%;
+  margin-left: -5px;
+  top: -45px;
+  width: 11px;
+  height: 75px;
+  /* background-size: contain; */
+  background: url('../img/pin3.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  -webkit-box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.35), 0 0 40px rgba(0, 0, 0, 0.13) inset;
+  -moz-box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.35), 0 0 40px rgba(0, 0, 0, 0.13) inset;
+  box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.35), 0 0 40px rgba(0, 0, 0, 0.13) inset;
+}
+
+.carousel.slide:before{
+  content: '';
+  position: absolute;
+  left: 0%;
+  margin-left: -5px;
+  top: -9px;
+  width: 100%;
+  height: 5px;
+  /* background-size: contain; */
+  opacity: 0.85;
+  background: url('../img/rope5.png');
+  background-size: contain;
+  /* background-repeat: no-repeat; */
+  background-repeat-x: repeat;
+  background-repeat-y: no-repeat;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
 .carousel-inner {
@@ -469,6 +495,7 @@ overflow: visible;
 .over-yes{
   overflow: hidden;
   background: url(../img/textures/brickwall_@2X.png);
+  padding-top: 49px;
 }
 
 
