@@ -1,525 +1,320 @@
-from care.models import Category, Download, Picture, UserProfile, Organization, Tag
+from django.views.generic.base import View
+from django.http import JsonResponse
+from care.models import Category, Download, Picture, Organization, Tag, UserProfile
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-import json
 from django.utils import translation
 from itertools import chain, groupby
-from django.db.models import Count, Max, Sum
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.templatetags.static import static
+from django.db.models import Count, Sum
+from django.core.paginator import Paginator
 from validate_email import validate_email
 from django.conf import settings
 
-def category_list(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
 
-		translation.activate(request.GET.get('ln'))
+class BaseMixin(View):
+    http_method_names = ['get']
 
-		categories = []
-		cat_list = Category.objects.filter(approve_status=True).annotate(count = Count('download')).order_by('-count')
-		
-		cat_on_page = 20
-		paginator = Paginator(cat_list, cat_on_page)
+    def http_method_not_allowed(self, request):
+        return JsonResponse({'success': "false", 'message': 'Only GET allowed'})
 
-		try:
-			page = request.GET.get('page')
-			try:
-				cats = paginator.page(page)
-			except PageNotAnInteger:
-				# If page is not an integer, deliver first page.
-				cats = paginator.page(1)
-				page = 1
-			except EmptyPage:
-				# If page is out of range (e.g. 9999), deliver last page of results.
-				cats = paginator.page(paginator.num_pages)
-				page = paginator.num_pages
-			
-			for cat in cats:
-				category = {};
-				category['id'] = cat.id
-				category['name'] = cat.name
-				category['downloads'] = cat.download_set.filter().count()
-				#category['picture_url'] = cat.picture_set.filter(approve_status=True).annotate(count_d = Count('download')).order_by('-count_d')first().photo_thumb
-				#p_cats = cat.picture_set
-				#p_cats = p_cats.aggregate(Max('price'))
-				pics = Picture.objects.filter(category=cat.id, approve_status=True).annotate(count = Count('download')).order_by('-count').first()
-				if pics is not None:
-					category['picture_url'] = pics.photo_thumb
-					categories.append(category)
+    def dispatch(self, request):
+        self.language = request.GET.get('ln')
+        self.page_number = request.GET.get('page')
+        self.id = request.GET.get('id')
+        self.user_id = request.GET.get('user_id')
+        self.org_id = request.GET.get('org_id')
+        self.amount = request.GET.get('amount')
+        self.param = request.GET.get('param')
+        return super(BaseMixin, self).dispatch(request)
 
-			json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':categories})
-			response = HttpResponse(json_posts, content_type="application/json")
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
-
-def popular_list(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
-
-		translation.activate(request.GET.get('ln'))
-		popular = []
-		picture_list = Picture.objects.filter(approve_status=True).annotate(count = Count('download')).order_by('-count')
-		
-		picture_on_page = 20
-		paginator = Paginator(picture_list, picture_on_page)
-
-		try:
-			page = request.GET.get('page')
-			try:
-				pictures = paginator.page(page)
-			except PageNotAnInteger:
-				# If page is not an integer, deliver first page.
-				pictures = paginator.page(1)
-				page = 1
-			except EmptyPage:
-				# If page is out of range (e.g. 9999), deliver last page of results.
-				pictures = paginator.page(paginator.num_pages)
-				page = paginator.num_pages
-			
-			for pic in pictures:
-				picture = {};
-				picture['id'] = pic.id
-				picture['picture_url'] = pic.photo_thumb
-				picture['name'] = pic.name
-				picture['downloads'] = pic.download_set.filter().count()
-				usr = User.objects.get(pk=pic.author.id)
-				picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
-				picture['author_id'] = usr.id
-				donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
-				if donated['amount__sum']:
-					picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
-				else:
-					picture['amount'] = 0
-
-				popular.append(picture)
-
-			json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':popular})
-			response = HttpResponse(json_posts, content_type="application/json")
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
-
-def picture_by_cat_list(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
-
-		translation.activate(request.GET.get('ln'))
-		
-		if not request.GET.get('id'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
-		
-		c_id = int(request.GET.get('id'))
-
-		popular = []
-		try:
-				
-			page = request.GET.get('page')
-			cat_id = int(c_id)
-
-			picture_list = Picture.objects.filter(approve_status=True, category=cat_id).annotate(count = Count('download')).order_by('-count')
-
-			picture_on_page = 20
-			paginator = Paginator(picture_list, picture_on_page)
-
-			try:
-				pictures = paginator.page(page)
-			except PageNotAnInteger:
-				# If page is not an integer, deliver first page.
-				pictures = paginator.page(1)
-				page = 1
-			except EmptyPage:
-				# If page is out of range (e.g. 9999), deliver last page of results.
-				pictures = paginator.page(paginator.num_pages)
-				page = paginator.num_pages
-			
-			for pic in pictures:
-				picture = {};
-				picture['id'] = pic.id
-				picture['picture_url'] = pic.photo_thumb
-				picture['name'] = pic.name
-				picture['downloads'] = pic.download_set.filter().count()
-				usr = User.objects.get(pk=pic.author.id)
-				picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
-				picture['author_id'] = usr.id
-				donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
-				if donated['amount__sum']:
-					picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
-				else:
-					picture['amount'] = 0
-
-				popular.append(picture)
-			cat = Category.objects.get(pk=cat_id).name
-			json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'page_name':cat, 'entity':popular})
-			response = HttpResponse(json_posts, content_type="application/json")
-		
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
-
-def picture(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
-
-		translation.activate(request.GET.get('ln'))
-		if not request.GET.get('id'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
-		
-		try:	
-
-			pic_id = int(request.GET.get('id'))
-			try:
-				pic = Picture.objects.filter(approve_status=True).get(pk=pic_id)
-			except:
-				return HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
-
-			picture = {};
-			picture['id'] = pic.id
-			picture['downloads'] = pic.download_set.filter().count()
-			picture['picture_url'] = pic.photo_medium
-			picture['name'] = pic.name
-			usr = User.objects.get(pk=pic.author.id)
-			picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
-			picture['author_id'] = usr.id
-			donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
-			if donated['amount__sum']:
-				picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
-			else:
-				picture['amount'] = 0
-
-			json_posts = json.dumps({'success':"true", 'message':'', 'entity':picture})
-			response = HttpResponse(json_posts, content_type="application/json")
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
-
-def organizations(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
-		if not request.GET.get('user_id'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
+    def check_params(self, request, params_list):
+        for param in params_list:
+            if request.GET.get(param) is None:
+                return JsonResponse({'success': "false", 'message': "Please provide " + param})
+            elif self.language and param == 'ln':
+                translation.activate(self.language)
+            elif request.GET.get(param) and param == 'page':
+                if not isinstance(self.page_number, (int, long)):
+                    try:
+                        self.page_number = int(self.page_number)
+                    except:
+                        self.page_number = 1
+            elif request.GET.get(param) and param == 'user_id':
+                if not validate_email(request.GET.get(param), verify=True):
+                    return JsonResponse({'success': "false", 'message': "Please provide valid" + param})
 
 
-		translation.activate(request.GET.get('ln'))
-
-		organizations = []
-		org_list = Organization.objects.all() #.annotate(count = Count('download')).order_by('-count')
-
-		try:			
-			for org in org_list:
-				organization = {};
-				organization['id'] = org.id
-				organization['name'] = org.name
-				organization['description'] = org.description
-				organization['author'] = org.author
-				donated = Download.objects.filter(organization=org.id).aggregate(Sum('amount'))
-				if donated['amount__sum']:
-					organization['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
-				else:
-					organization['amount'] = 0
-				
-				donatedByUsr = Download.objects.filter(organization=org.id, donator=request.GET.get('user_id')).aggregate(Sum('amount'))
-				if donatedByUsr['amount__sum']:
-					organization['user_amount'] = str(int(donatedByUsr['amount__sum']) * settings.DONATED_LEFT)
-				else:
-					organization['user_amount'] =  0
-
-				organizations.append(organization)
-
-			json_posts = json.dumps({'success':"true", 'message':'', 'entity':organizations})
-			response = HttpResponse(json_posts, content_type="application/json")
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
-
-def search(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
-
-		if not request.GET.get('param'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide search param'}), content_type="application/json")
+class CategoryListView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page'])
+        if check_result:
+            return check_result
+        categories_queryset = Category.objects.filter(approve_status=True).annotate(count=Count('download')).order_by('-count')
+        paginator = Paginator(categories_queryset, settings.CATEGORIES_PER_PAGE)
+        if self.page_number <= paginator.num_pages:
+            page = self.page_number
+        else:
+            page = paginator.num_pages
+        categories_paginated = paginator.page(page)
+        categories = []
+        for category_item in categories_paginated:
+            category = {
+                'id': category_item.id,
+                'name': category_item.name,
+                'downloads': category_item.download_set.all().count()
+            }
+            pic = Picture.objects.filter(category=category_item.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
+            pictures_queryset = Picture.objects.filter(category=category_item.id, approve_status=True)
+            if pic is not None:
+                category['picture_url'] = pic.photo_thumb
+                category['pictures_count'] = pictures_queryset.count()
+            categories.append(category)
+        return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': categories})
 
 
-		translation.activate(request.GET.get('ln'))
-		pic_cat_list = {}
-		pic_tag_list = {}
-		pic_list = {}
-		try:	
-
-			pic_list = Picture.objects.filter(approve_status=True, translations__name__icontains=request.GET.get('param')) #.annotate(count = Count('download')).order_by('-count')
-
-			cat_list = Category.objects.filter(approve_status=True, translations__name__icontains=request.GET.get('param'))
-			
-			pic_cat_list = {}
-			if cat_list:
-				for cat in cat_list:
-					pic_cat_list = list(chain(pic_cat_list, Picture.objects.filter(approve_status=True, category=cat.id)))
-
-			tag_list = Tag.objects.filter(approve_status=True, translations__name__icontains=request.GET.get('param'))
-
-			if tag_list:
-				for tag in tag_list:
-					pic_tag_list = list(chain(pic_tag_list, Picture.objects.filter(approve_status=True, tag=tag.id)))
-
-			pictures = list(chain(pic_list, pic_cat_list, pic_tag_list))
-
-			unique_results = [rows.next() for (key, rows) in groupby(pictures, key=lambda obj: obj.id)]
-			
-			if unique_results:
-				popular = []
-				page = request.GET.get('page')
-
-				picture_on_page = 20
-				paginator = Paginator(unique_results, picture_on_page)
-
-				try:
-					pictures = paginator.page(page)
-				except PageNotAnInteger:
-					# If page is not an integer, deliver first page.
-					pictures = paginator.page(1)
-					page = 1
-				except EmptyPage:
-					# If page is out of range (e.g. 9999), deliver last page of results.
-					pictures = paginator.page(paginator.num_pages)
-					page = paginator.num_pages
-				
-				for pic in pictures:
-					picture = {};
-					picture['id'] = pic.id
-					picture['picture_url'] = pic.photo_thumb
-					picture['name'] = pic.name
-					picture['downloads'] = pic.download_set.filter().count()
-					usr = User.objects.get(pk=pic.author.id)
-					picture['author'] = "%s %s" % (usr.first_name, usr.last_name)
-					picture['author_id'] = usr.id
-					donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
-					if donated['amount__sum']:
-						picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
-					else:
-						picture['amount'] = 0
-
-					popular.append(picture)
-				json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'page_name':request.GET.get('param'), 'entity':popular})
-				response = HttpResponse(json_posts, content_type="application/json")
-			else:
-				response = HttpResponse(json.dumps({'success':"true", 'message':'There are no results...'}), content_type="application/json")
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
-
-def download(request):
-	if request.method == 'GET':
-		response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
-
-		translation.activate(request.GET.get('ln'))
-
-		if not request.GET.get('id'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
-		
-		if not request.GET.get('org_id'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide organization id'}), content_type="application/json")
-
-		if not request.GET.get('amount'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide amount'}), content_type="application/json")
-		
-		if not request.GET.get('user_id'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide user id'}), content_type="application/json")
-		#verify email exist
-		is_valid = validate_email(request.GET.get('user_id'), verify=True)
-		print("api is valid '"+request.GET.get('user_id')+"' = "+str(is_valid))
-		if not is_valid:
-			return HttpResponse(json.dumps({'success':"false", 'message':"Some error... Why? :)"}), content_type="application/json")
-
-		try:	
-			pic_id = int(request.GET.get('id'))
-			try:
-				pic = Picture.objects.filter(approve_status=True).get(pk=pic_id)
-				try:
-					org = Organization.objects.get(pk=request.GET.get('org_id'))
-					up = Download.create(request.GET.get('amount'), pic, org, request.GET.get('user_id'), "api-development");
-					up.save()
-					for cat in pic.category.all():
-						up.category.add(Category.objects.get(pk=int(cat.id)))
-					up.save()
-					response = HttpResponse(open(pic.photo_origin.path, "rb").read(), content_type="image/jpg")
-				except:
-					response = HttpResponse(json.dumps({'success':"false", 'message':"Wrong organization in request..."}), content_type="application/json")
-			except:
-				return HttpResponse(json.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")	
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
-
-def author_list(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
-		if not request.GET.get('id'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
-
-		try:
-			p_author = User.objects.get(pk = request.GET.get('id'))
-			translation.activate(request.GET.get('ln'))
-			author_pics = []
-			picture_author = "%s %s" % (p_author.first_name, p_author.last_name)
-			picture_list = Picture.objects.filter(approve_status=True, author=p_author).annotate(count = Count('download')).order_by('-count')
-			
-			picture_on_page = 20
-			paginator = Paginator(picture_list, picture_on_page)
-
-			try:
-				page = request.GET.get('page')
-				try:
-					pictures = paginator.page(page)
-				except PageNotAnInteger:
-					# If page is not an integer, deliver first page.
-					pictures = paginator.page(1)
-					page = 1
-				except EmptyPage:
-					# If page is out of range (e.g. 9999), deliver last page of results.
-					pictures = paginator.page(paginator.num_pages)
-					page = paginator.num_pages
-				
-				for pic in pictures:
-					picture = {};
-					picture['id'] = pic.id
-					picture['downloads'] = pic.download_set.filter().count()
-					picture['picture_url'] = pic.photo_thumb
-					picture['name'] = pic.name
-					picture['downloads'] = pic.download_set.filter().count()
-					picture['author'] = "%s %s" % (p_author.first_name, p_author.last_name)
-					picture['author_id'] = p_author.id
-					donated = Download.objects.filter(picture=pic.id).aggregate(Sum('amount'))
-					if donated['amount__sum']:
-						picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT)
-					else:
-						picture['amount'] = 0
-
-					author_pics.append(picture)
-
-				json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':author_pics, 'page_name':picture_author})
-				response = HttpResponse(json_posts, content_type="application/json")
-			except:
-				response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-		
-		except Exception, e:
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide vaild id'}), content_type="application/json")
-
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
+class PopularListView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page'])
+        if check_result:
+            return check_result
+        else:
+            pictures_queryset = Picture.objects.filter(approve_status=True).annotate(count=Count('download')).order_by('-count')
+            paginator = Paginator(pictures_queryset, settings.PICTURES_PER_PAGE)
+            if self.page_number <= paginator.num_pages:
+                page = self.page_number
+            else:
+                page = paginator.num_pages
+            pictures_paginated = paginator.page(page)
+            pictures = []
+            for picture_item in pictures_paginated:
+                picture = {
+                    'id': picture_item.id,
+                    'picture_url': picture_item.photo_thumb,
+                    'name': picture_item.name,
+                    'downloads': picture_item.download_set.all().count(),
+                }
+                user = User.objects.get(pk=picture_item.author.id)
+                picture['author'] = "%s %s" % (user.first_name, user.last_name)
+                picture['author_id'] = user.id
+                donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                pictures.append(picture)
+            return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures})
 
 
+class PictureByCategoryListView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page', 'id'])
+        if check_result:
+            return check_result
+        else:
+            pictures_queryset = Picture.objects.filter(approve_status=True, category=self.id).annotate(count=Count('download')).order_by('-count')
+            if pictures_queryset:
+                paginator = Paginator(pictures_queryset, settings.PICTURES_PER_PAGE)
+                if self.page_number <= paginator.num_pages:
+                    page = self.page_number
+                else:
+                    page = paginator.num_pages
+                pictures_paginated = paginator.page(page)
+                pictures = []
+                for picture_item in pictures_paginated:
+                    picture = {
+                        'id': picture_item.id,
+                        'picture_url': picture_item.photo_thumb,
+                        'name': picture_item.name,
+                        'downloads': picture_item.download_set.all().count(),
+                    }
+                    user = User.objects.get(pk=picture_item.author.id)
+                    picture['author'] = "%s %s" % (user.first_name, user.last_name)
+                    picture['author_id'] = user.id
+                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                    picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    pictures.append(picture)
+                return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures})
+            else:
+                return JsonResponse({'success': "false", 'message': "No result for this id"})
 
-def tag_list(request):
-	if request.method == 'GET':
-		if not request.GET.get('ln'):
-			return HttpResponse(json.dumps({'success':"false", 'message':'Provide language'}), content_type="application/json")
 
-		translation.activate(request.GET.get('ln'))
+class PictureView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'id'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                picture_queryset = Picture.objects.filter(approve_status=True).get(pk=self.id)
+                user = User.objects.get(pk=picture_queryset.author.id)
+                user_profile = UserProfile.objects.get(user=user)
+                donated = Download.objects.filter(picture=picture_queryset.id).aggregate(Sum('amount'))
+                links = []
+                for link in user_profile.links.all():
+                    links.append(link.link_url)
+                picture = {
+                    'id': picture_queryset.id,
+                    'name': picture_queryset.name,
+                    'downloads': picture_queryset.download_set.all().count(),
+                    'picture_url': picture_queryset.photo_medium,
+                    'author': "{0} {1}".format(user.first_name, user.last_name),
+                    'author_id': user.id,
+                    'author_links': links,
+                    'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                }
+                return JsonResponse({'success': "true", 'message': '', 'entity': picture})
+            except Exception, e:
+                return JsonResponse({'success': "false", 'message': "Wrong picture request...", "error": str(e)})
 
-		tags = []
-		tag_list = Tag.objects.filter(approve_status=True).annotate(count = Count('download')).order_by('-count')
-		
-		tag_on_page = 20
-		paginator = Paginator(tag_list, tag_on_page)
 
-		try:
-			page = request.GET.get('page')
-			try:
-				tags = paginator.page(page)
-			except PageNotAnInteger:
-				# If page is not an integer, deliver first page.
-				tags = paginator.page(1)
-				page = 1
-			except EmptyPage:
-				# If page is out of range (e.g. 9999), deliver last page of results.
-				tags = paginator.page(paginator.num_pages)
-				page = paginator.num_pages
-			
-			for tag_des in tags:
-				tag = {};
-				tag['id'] = tag_des.id
-				tag['name'] = tag_des.name
-				tag['downloads'] = tag_des.download_set.filter().count()
-				pics = Picture.objects.filter(category=tag_des.id, approve_status=True).annotate(count = Count('download')).order_by('-count').first()
-				if pics is not None:
-					tag['picture_url'] = pics.photo_thumb
-					categories.append(tag)
+class OrganizationsView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'id'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                organizations = []
+                organizations_queryset = Organization.objects.all()
+                for organization_item in organizations_queryset:
+                    donated = Download.objects.filter(organization=organization_item.id).aggregate(Sum('amount'))
+                    donatedByUsr = Download.objects.filter(organization=organization_item.id, donator=request.GET.get('user_id')).aggregate(Sum('amount'))
+                    organization = {
+                        'id': organization_item.id,
+                        'name': organization_item.name,
+                        'author': organization_item.author,
+                        'description': organization_item.description,
+                        'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0,
+                        'user_amount': str(int(donatedByUsr['amount__sum']) * settings.DONATED_LEFT) if donatedByUsr['amount__sum'] else 0
+                    }
+                    organizations.append(organization)
+                return JsonResponse({'success': "true", 'message': '', 'entity': organizations})
+            except:
+                return JsonResponse({'success': "false", 'message': "Some error..."})
 
-			json_posts = json.dumps({'success':"true", 'message':'', 'page':page, 'count':paginator.num_pages, 'entity':categories})
-			response = HttpResponse(json_posts, content_type="application/json")
-		except:
-			response = HttpResponse(json.dumps({'success':"false", 'message':"Some error..."}), content_type="application/json")
-	else:
-		response = HttpResponse(json.dumps({'success':"false", 'message':'Only GET allowed'}), content_type="application/json")
-	
-	response["Access-Control-Allow-Origin"] = "*"  
-	response["Access-Control-Allow-Methods"] = "POST, GET"  
-	response["Access-Control-Max-Age"] = "1000"  
-	response["Access-Control-Allow-Headers"] = "*"
-	return response
 
+class SearchView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page', 'param'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                picture_category_list = []
+                picture_tag_list = []
+                picture_list = Picture.objects.filter(approve_status=True, translations__name__icontains=self.param)
+                category_list = Category.objects.filter(approve_status=True, translations__name__icontains=self.param)
+                tag_list = Tag.objects.filter(approve_status=True, translations__name__icontains=self.param)
+                if category_list:
+                    for category in category_list:
+                        picture_category_list = list(chain(picture_category_list, Picture.objects.filter(approve_status=True, category=category.id)))
+                if tag_list:
+                    for tag in tag_list:
+                        picture_tag_list = list(chain(picture_tag_list, Picture.objects.filter(approve_status=True, tag=tag.id)))
+                pictures = list(chain(picture_list, picture_category_list, picture_tag_list))
+                unique_results = [rows.next() for (key, rows) in groupby(pictures, key=lambda obj: obj.id)]
+                if unique_results:
+                    results = []
+                    paginator = Paginator(unique_results, settings.PICTURES_PER_PAGE)
+                    if self.page_number <= paginator.num_pages:
+                        page = self.page_number
+                    else:
+                        page = paginator.num_pages
+                    pictures_paginated = paginator.page(page)
+                    for picture_item in pictures_paginated:
+                        user = User.objects.get(pk=picture_item.author.id)
+                        donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                        picture = {
+                            'id': picture_item.id,
+                            'name': picture_item.name,
+                            'picture_url': picture_item.photo_thumb,
+                            'downloads': picture_item.download_set.all().count(),
+                            'author': "{0} {1}".format(user.first_name, user.last_name),
+                            'author_id': user.id,
+                            'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                        }
+                        results.append(picture)
+                    return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'page_name': page, 'entity': results})
+                else:
+                    return JsonResponse({'success': "true", 'message': 'There are no results...'})
+            except:
+                return JsonResponse({'success': "false", 'message': "Some error..."})
+
+
+class DownloadView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page', 'id', 'org_id', 'user_id', 'amount'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                picture = Picture.objects.filter(approve_status=True).get(pk=self.id)
+                try:
+                    organization = Organization.objects.get(pk=self.org_id)
+                    up = Download.create(self.amount, picture, organization, self.user_id, "api-development")
+                    up.save()
+                    for category in picture.category.all():
+                        up.category.add(Category.objects.get(pk=int(category.id)))
+                    up.save()
+                    return HttpResponse(open(picture.photo_origin.path, "rb").read(), content_type="image/jpg")
+                except:
+                    return JsonResponse({'success': "false", 'message': "Wrong organization in request..."})
+            except:
+                return JsonResponse({'success': "false", 'message': "Wrong picture request..."})
+
+
+class AuthorListView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page', 'id'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                author_pictures = []
+                picture_author = User.objects.get(pk=self.id)
+                picture_author_name = "{0} {1}".format(picture_author.first_name, picture_author.last_name)
+                picture_list = Picture.objects.filter(approve_status=True, author=picture_author).annotate(count=Count('download')).order_by('-count')
+                paginator = Paginator(picture_list, settings.PICTURES_PER_PAGE)
+                pictures_paginated = paginator.page(self.page_number if self.page_number <= paginator.num_pages else paginator.num_pages)
+                for picture_item in pictures_paginated:
+                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                    picture = {
+                        'id': picture_item.id,
+                        'downloads': picture_item.download_set.all().count(),
+                        'picture_url': picture_item.photo_thumb,
+                        'name': picture_item.name,
+                        'author': picture_author_name,
+                        'author_id': picture_author.id,
+                        'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    }
+                    author_pictures.append(picture)
+                return JsonResponse({'success': "true", 'message': '', 'page': self.page_number, 'count': paginator.num_pages, 'entity': author_pictures, 'page_name': picture_author_name})
+            except:
+                return JsonResponse({'success': "false", 'message': 'Provide vaild id'})
+
+
+class TagListView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                tags = []
+                tags_list = Tag.objects.filter(approve_status=True).annotate(count=Count('download')).order_by('-count')
+                paginator = Paginator(tags_list, settings.TAGS_PER_PAGE)
+                if self.page_number <= paginator.num_pages:
+                    page = self.page_number
+                else:
+                    page = paginator.num_pages
+                tags_paginated = paginator.page(page)
+                for tag_item in tags_paginated:
+                    pictures = Picture.objects.filter(category=tag_item.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
+                    tag = {
+                        'id': tag_item.id,
+                        'name': tag_item.name,
+                        'downloads': tag_item.download_set.all().count(),
+                    }
+                    if pictures:
+                        tag['picture_url'] = tag_item.photo_thumb
+                    tags.append(tag)
+                return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': tags})
+            except:
+                return JsonResponse({'success': "false", 'message': 'Some error'})

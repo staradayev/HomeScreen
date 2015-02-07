@@ -1,16 +1,15 @@
-from django.conf.urls import patterns, url, include
-from django.contrib import auth
+from django.conf.urls import patterns, url
 from api import views
 
-urlpatterns = patterns('',
-	url(r'^categories/$', views.category_list),
-	url(r'^popular/$', views.popular_list),
-	url(r'^catpictures/$', views.picture_by_cat_list),
-	url(r'^picture/$', views.picture),
-	url(r'^organizations/$', views.organizations),
-	url(r'^search/$', views.search),
-	url(r'^download/$', views.download),
-	url(r'^author/$', views.author_list),
-	
-	url(r'^tags/$', views.tag_list),
+urlpatterns = patterns(
+    '',
+    url(r'^categories/$', views.CategoryListView.as_view()),
+    url(r'^popular/$', views.PopularListView.as_view()),
+    url(r'^catpictures/$', views.PictureByCategoryListView.as_view()),
+    url(r'^picture/$', views.PictureView.as_view()),
+    url(r'^organizations/$', views.OrganizationsView.as_view()),
+    url(r'^search/$', views.SearchView.as_view()),
+    url(r'^download/$', views.DownloadView.as_view()),
+    url(r'^author/$', views.AuthorListView.as_view()),
+    url(r'^tags/$', views.TagListView.as_view()),
 )

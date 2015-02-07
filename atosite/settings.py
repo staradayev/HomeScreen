@@ -71,6 +71,7 @@ ROOT_URLCONF = 'atosite.urls'
 
 WSGI_APPLICATION = 'atosite.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_PREFLIGHT_MAX_AGE = 1000
 CORS_ALLOW_METHODS = (
         'GET',
         'POST',
@@ -85,7 +86,7 @@ DATABASES = {
         'NAME': 'atobase',
         'USER': 'atouser',
         'PASSWORD': 'care2014',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': 'mysql.us2h.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -93,17 +94,17 @@ DATABASES = {
 LOGIN_URL = '/care/login'
 
 
-#Template dirs
+# Template dirs
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 STATIC_ROOT = '/Users/staradayev/Documents/Projects/django-learn/atosite/static_root/'
 
-#static dirs
+# static dirs
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = '/Users/staradayev/Documents/Projects/django-learn/atosite/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = '/media/'
 
@@ -115,7 +116,7 @@ LANGUAGE_CODE = 'ua'
 LANGUAGES = (
     ('ua', 'Ukrainian'),
     ('en', 'English'),
-    
+
 )
 
 LOCALE_PATHS = (
@@ -141,9 +142,9 @@ DONATED_LEFT = 0.6
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/care/detail/'
 
-#Registration fields
+# Registration fields
 
-ACCOUNT_ACTIVATION_DAYS = 3 # days count while activation active
+ACCOUNT_ACTIVATION_DAYS = 3     # days count while activation active
 REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
 
@@ -155,3 +156,8 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'info@ato.care'
+
+# API settings
+CATEGORIES_PER_PAGE = 20
+PICTURES_PER_PAGE = 20
+TAGS_PER_PAGE = 20
