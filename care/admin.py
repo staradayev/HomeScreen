@@ -45,7 +45,16 @@ class PictureAdmin(admin.ModelAdmin):
 	get_name.admin_order_field = 'translations'
 
 admin.site.register(Picture, PictureAdmin)
-admin.site.register(Link)
+
+class LinkAdmin(admin.ModelAdmin):
+	list_display = ('get_name', 'link_url')
+
+	def get_name(self, obj):
+		return obj.link_type.type_tag
+	get_name.short_description = 'Name'
+	get_name.admin_order_field = 'translations'
+
+admin.site.register(Link, LinkAdmin)
 admin.site.register(UserProfile)
 
 class OrganizationTranslationInline(TranslationStackedInline):
