@@ -306,14 +306,14 @@ class TagListView(BaseMixin):
                     page = paginator.num_pages
                 tags_paginated = paginator.page(page)
                 for tag_item in tags_paginated:
-                    pictures = Picture.objects.filter(category=tag_item.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
+                    # pictures = Picture.objects.filter(category=tag_item.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
                     tag = {
                         'id': tag_item.id,
                         'name': tag_item.name,
                         'downloads': tag_item.download_set.all().count(),
                     }
-                    if pictures:
-                        tag['picture_url'] = tag_item.photo_thumb
+                    # if pictures:
+                    #    tag['picture_url'] = tag_item.photo_thumb
                     tags.append(tag)
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': tags})
             except:
