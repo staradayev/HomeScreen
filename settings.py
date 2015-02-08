@@ -94,12 +94,12 @@ DATABASES = {
 LOGIN_URL = '/care/login'
 
 
-#Template dirs
+# Template dirs
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-#static dirs
+# static dirs
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -141,9 +141,9 @@ DONATED_LEFT = 0.6
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/care/detail/'
 
-#Registration fields
+# Registration fields
 
-ACCOUNT_ACTIVATION_DAYS = 3 # days count while activation active
+ACCOUNT_ACTIVATION_DAYS = 3     # days count while activation active
 REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
 
@@ -160,3 +160,4 @@ DEFAULT_FROM_EMAIL = 'info@ato.care'
 CATEGORIES_PER_PAGE = 20
 PICTURES_PER_PAGE = 20
 TAGS_PER_PAGE = 20
+PHOTOGRAPHERS_PER_PAGE = 20

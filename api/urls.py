@@ -14,4 +14,5 @@ urlpatterns = patterns(
     url(r'^tags/$', views.TagListView.as_view()),
     url(r'^newest/$', views.NewestView.as_view()),
     url(r'^mostraised/$', views.MostRaisedView.as_view()),
+    url(r'^photographers/$', views.PhotographersView.as_view()),
 )

@@ -392,3 +392,50 @@ class MostRaisedView(BaseMixin):
             except:
                 return JsonResponse({'success': "false", 'message': 'Some error'})
 
+
+class PhotographersView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                photographers = []
+                photographers_queryset = UserProfile.objects.all()
+                paginator = Paginator(photographers_queryset, settings.PHOTOGRAPHERS_PER_PAGE)
+                if self.page_number <= paginator.num_pages:
+                    page = self.page_number
+                else:
+                    page = paginator.num_pages
+                photographers_paginated = paginator.page(page)
+                for photographer_item in photographers_paginated:
+                    photographer = {
+                        'author_id': photographer_item.user.id,
+                        'author': photographer_item.user.first_name + " " + photographer_item.user.last_name,
+                    }
+                    user_profile = UserProfile.objects.get(user=photographer_item.user.id)
+                    links = []
+                    for link in user_profile.links.all():
+                        lnk = {}
+                        lnk['link_url'] = link.link_url
+                        lnk['link_type'] = link.link_type.type_tag
+                        links.append(lnk)
+                    photographer['links'] = links
+                    photographer['pictures'] = []
+                    picture_list = Picture.objects.filter(approve_status=True, author=photographer_item.user.id).annotate(count=Count('download')).order_by('-count')[:20]
+                    for picture_item in picture_list:
+                        donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                        picture = {
+                            'id': picture_item.id,
+                            'downloads': picture_item.download_set.all().count(),
+                            'picture_url': picture_item.photo_thumb,
+                            'name': picture_item.name,
+                            'author': photographer_item.user.first_name + " " + photographer_item.user.last_name,
+                            'author_id': photographer_item.user.id,
+                            'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                        }
+                        photographer['pictures'].append(picture)
+                    photographers.append(photographer)
+                return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': photographers})
+            except:
+                return JsonResponse({'success': "false", 'message': 'Some error'})
