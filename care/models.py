@@ -211,7 +211,7 @@ def file_cleanup(sender, instance, *args, **kwargs):
         print("Delete thumbnail "+settings.MEDIA_ROOT + instance.photo_thumb)
         os.remove(settings.MEDIA_ROOT + instance.photo_thumb)
     except Exception, e:
-        print("Can't delete thumbnail and preview of !" + instance.pk)
+        print("Can't delete thumbnail and preview of !" + str(instance.pk))
 
 pre_delete.connect(file_cleanup, sender=Picture)
 
