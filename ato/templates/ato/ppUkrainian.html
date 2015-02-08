@@ -8,6 +8,27 @@
 {% block content %}
 
 <div class="row">
+  <div class="col-xs-12">
+          <ul class="nav navbar-nav">
+              <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Мова <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      {% for lang in LANGUAGES %}
+                        
+                          <form name="setLang{{ lang.1 }}" id="setLang{{ lang.1 }}" action="/i18n/setlang/" method="POST">
+                            <li>
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="/pp{{ lang.0 }}">
+                            <input type="hidden" name="language" value="{{ lang.0 }}">
+                            <a href="" class="lang-li form-li" onclick="document.getElementById('setLang{{ lang.1 }}').submit();return false;">{{ lang.1 }}</a>
+                            </li>
+                          </form>
+                        
+                      {% endfor %}
+                    </ul>
+                  </li>
+            </ul>
+  </div>
 	<div class="col-xs-12">
 		<h2>{% trans "Terms and Conditions" %}</h2>
 

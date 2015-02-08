@@ -423,6 +423,13 @@ background-position-y: center;
 margin: 5px;
 }
 
+.lang-li{
+height: 20px;
+display: block;
+margin: 5%;
+margin-left: 20%;
+}
+
 .mid{
   margin: 0;
 padding: 0;
