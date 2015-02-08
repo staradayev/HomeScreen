@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'atobase',
         'USER': 'atouser',
         'PASSWORD': 'care2014',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': 'mysql.us2h.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

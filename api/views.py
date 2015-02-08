@@ -1,6 +1,6 @@
 from django.views.generic.base import View
 from django.http import JsonResponse
-from care.models import Category, Download, Picture, Organization, Tag, UserProfile, LinkType
+from care.models import Category, Download, Picture, Organization, Tag, UserProfile
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils import translation
@@ -9,6 +9,7 @@ from django.db.models import Count, Sum
 from django.core.paginator import Paginator
 from validate_email import validate_email
 from django.conf import settings
+from operator import itemgetter
 
 
 class BaseMixin(View):
@@ -321,3 +322,73 @@ class TagListView(BaseMixin):
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': tags})
             except:
                 return JsonResponse({'success': "false", 'message': 'Some error'})
+
+
+class NewestView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                pictures_list = []
+                pictures_list_queryset = Picture.objects.filter(approve_status=True).annotate(count=Count('download')).order_by('-date_approve')
+                paginator = Paginator(pictures_list_queryset, settings.PICTURES_PER_PAGE)
+                if self.page_number <= paginator.num_pages:
+                    page = self.page_number
+                else:
+                    page = paginator.num_pages
+                pictures_list_paginated = paginator.page(page)
+                for picture_item in pictures_list_paginated:
+                    picture = {
+                        'id': picture_item.id,
+                        'picture_url': picture_item.photo_thumb,
+                        'name': picture_item.name,
+                        'downloads': picture_item.download_set.all().count(),
+                        'date_approve': picture_item.date_approve
+                    }
+                    user = User.objects.get(pk=picture_item.author.id)
+                    picture['author'] = "%s %s" % (user.first_name, user.last_name)
+                    picture['author_id'] = user.id
+                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                    picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    pictures_list.append(picture)
+                return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures_list})
+            except:
+                return JsonResponse({'success': "false", 'message': 'Some error'})
+
+
+class MostRaisedView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'page'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                pictures_list = []
+                pictures_list_queryset = Picture.objects.filter(approve_status=True).annotate(count=Count('download'))
+                paginator = Paginator(pictures_list_queryset, settings.PICTURES_PER_PAGE)
+                if self.page_number <= paginator.num_pages:
+                    page = self.page_number
+                else:
+                    page = paginator.num_pages
+                pictures_list_paginated = paginator.page(page)
+                for picture_item in pictures_list_paginated:
+                    picture = {
+                        'id': picture_item.id,
+                        'picture_url': picture_item.photo_thumb,
+                        'name': picture_item.name,
+                        'downloads': picture_item.download_set.all().count(),
+                        'date_approve': picture_item.date_approve
+                    }
+                    user = User.objects.get(pk=picture_item.author.id)
+                    picture['author'] = "%s %s" % (user.first_name, user.last_name)
+                    picture['author_id'] = user.id
+                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                    picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    pictures_list.append(picture)
+                pictures_list = sorted(pictures_list, key=itemgetter('amount'), reverse=True)
+                return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures_list})
+            except:
+                return JsonResponse({'success': "false", 'message': 'Some error'})
+
