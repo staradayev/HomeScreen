@@ -105,9 +105,24 @@ header .dropdown-menu {
   color: lightgoldenrodyellow;
 }
 
+.masthead a:hover{
+  color: lightgoldenrodyellow;
+}
+
 .masthead .logo{
   font-weight: 200;
-  font-size: 2em;
+  font-size: 1.35em;
+  background-image: url('/static/img/ATO.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 123px;
+  font-family: EOX;
+  padding-left: 1.25em !important;
+}
+
+.masthead .logo:hover{
+  font-weight: 200;
+  font-size: 1.35em;
   background-image: url('/static/img/ATO.png');
   background-size: contain;
   background-repeat: no-repeat;
