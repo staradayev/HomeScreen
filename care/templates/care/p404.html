@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <!-- saved from url=(0023)http://dev.ato.care/en/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,6 +27,9 @@
         }
         .col-md-6{
             position: relative;
+        }
+        body{
+            background: url('/static/img/404-bg.png');
         }
         .img-shadow{
             -webkit-box-shadow: 0 0 35px 0 #222;
@@ -69,14 +74,7 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(-50%, -60%);
-                font-size: 0.8em;
-            }
-            .with-logo{
-                position: absolute;
-                top: 10%;
-                left: 50%;
-                
+                transform: translate(-50%, -50%);
             }
         }
         @media only screen and (min-width : 768px){
@@ -93,6 +91,12 @@
             .not-found{
                 margin-top: 50%;
             }
+            .button:before{
+                left: -0.82em;
+            }
+            .button:after{
+                left: -0.6em;
+            }
     </style>
     
 
@@ -101,16 +105,16 @@
 <body>
     <div class="content">
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3 col-md-5 col-md-offset-1 with-logo">
+            <div class="hidden-xs col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-1">
                 <div class="img-shadow">
-                    <img src="/static/img/ATO-biglogo.png" alt="" class="img-responsive hidden-xs">
+                    <img src="/static/img/ATO-biglogo.png" alt="" class="img-responsive">
                 </div>
                 <p><a href="#">pics.ATO.Care</a></p>
             </div>
-            <div class="col-sm-6 col-sm-offset-3 col-md-5 col-md-offset-1">
+            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-1">
                 <div class="not-found">
-                    <h1>Page not found</h1>
-                        <input class="button" onclick="window.history.back();" type="button" value="Back"/></input>
+                    <h1>{% trans "Page not Found" %}</h1>
+                        <input class="button" onclick="window.history.back();" type="button" value="{% trans "Back" %}"/></input>
 
                 </div>
             </div>

@@ -32,9 +32,14 @@
     <div class="row clearfix header">
         <div class="column full download-app-header">
             <div class="column two-thirds">
-                <p class="">{% trans "pics.ATO.Care" %} {% trans "for Android" %}</p>
-                <p class="" style="display: none">{% trans "pics.ATO.Care" %} {% trans "for iPhone" %}</p>
-                <p class="avaliable-in">{% trans "Avaliable free in the App Store" %}</p>
+                <p class="">{% trans "pics.ATO.Care" %} {% trans "for" %}
+                    <span class="android">Android</span>
+                    <span class="apple">iPhone</span>
+                </p>
+                <p class="avaliable-in">{% trans "Free in the" %}
+                    <span class="android">Play Store</span>
+                    <span class="apple">App Store</span>
+                </p>
             </div>
             <!--        Download Button-->
             <div class="column third flow-opposite download">
@@ -275,6 +280,14 @@
                $('#mini-download').show();
            }); 
         });    
+    </script>
+    <!--    Android/iOS detection-->
+    <script type="text/javascript"> // <![CDATA[
+        if ( (navigator.userAgent.indexOf('Android') != -1) ) {
+            $('.apple').hide();
+        } else{
+            $('.android').hide();
+        } // ]]>
     </script>
 
 </body>
