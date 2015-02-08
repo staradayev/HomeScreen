@@ -136,7 +136,12 @@ header .dropdown-menu {
 }
 
 .masthead a.btn{
+  color: #ddd;
+}
+
+.masthead a.btn:hover{
   color: #fff;
+  background-color: #000;
 }
 
 .head-row{
