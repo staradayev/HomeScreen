@@ -169,7 +169,7 @@ class PictureView(BaseMixin):
 
 class OrganizationsView(BaseMixin):
     def get(self, request):
-        check_result = self.check_params(request, params_list=['ln', 'id'])
+        check_result = self.check_params(request, params_list=['ln'])
         if check_result:
             return check_result
         else:
