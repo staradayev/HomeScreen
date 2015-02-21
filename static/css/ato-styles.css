@@ -376,8 +376,8 @@ margin: 10px 10px 10px 10px;
 }
 
 .space {
-padding-top: 5px;
-padding-bottom: 17px;
+/*padding-top: 5px;
+padding-bottom: 17px;*/
 display: block;
 list-style: none;
 -webkit-margin-before: 1em;

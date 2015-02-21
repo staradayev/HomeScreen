@@ -190,3 +190,8 @@ def PPUView(request):
 	template = loader.get_template('ato/ppUkrainian.html')
 	context = RequestContext(request, {'LANG': request.LANGUAGE_CODE})
 	return HttpResponse(template.render(context))
+
+def SocialView(request):
+	template = loader.get_template('ato/social.html')
+	context = RequestContext(request, {'LANG': request.LANGUAGE_CODE})
+	return HttpResponse(template.render(context))
