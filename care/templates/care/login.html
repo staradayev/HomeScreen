@@ -36,7 +36,14 @@
 			
 
 			<br>
-			<a href="/reset/recover/">{% trans "Forgot you password?" %}</a>
+			<div class="row">
+				<div class="col-sm-6 col-xs-6 col-lg-6 col-md-6 text-left">
+					<a href="{% url 'ato:index' %}"><i class="fa fa-arrow-left"></i>&nbsp;{% trans "Back to Home" %}</a>
+				</div>
+				<div class="col-sm-6 col-xs-6 col-lg-6 col-md-6 text-right">
+					<a href="/reset/recover/">{% trans "Forgot you password?" %}</a>
+				</div>
+			</div>
 		</form>
 		
 
