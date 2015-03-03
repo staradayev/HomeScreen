@@ -127,7 +127,7 @@
           {% if user.is_authenticated %}
           <li><a href="/care/myinfo" class="user-now text-right">{{ user.username }}&nbsp;<i class="fa fa-user"></i></a></li>
           {% else %}
-          <li><a href="/care/login">{% trans "Join" %}</a></li>
+          <li><a href="/care/login" class="user-now text-right upper"><i class="join-user"></i>&nbsp;{% trans "Join" %}</a></li>
           {% endif %}
           <!--<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">LN<b class="caret"></b></a>
