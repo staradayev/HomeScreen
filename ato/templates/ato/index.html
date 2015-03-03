@@ -5,6 +5,23 @@
     <div id="carousel-example-generic" class="carousel slide" data-interval="4000" data-ride="carousel">
 
         <div class="header-cover">
+          <div class="carousel-lang text-right">
+            <div class="row">
+              <div class="col-xs-4 col-sm-6 col-md-8 col-lg-10">
+              </div>
+              {% for lang in LANGUAGES %}
+                <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1 nearest">
+                  <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="/">
+                    <input type="hidden" name="language" value="{{ lang.0 }}">
+                    <a href="#" class="{{ lang.1 }}" onclick="document.setLang{{ lang.1 }}.submit();
+                        return false;"></a>
+                  </form>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
             <div class="carousel-caption visible-md visible-lg">
                 
                     <div class="row head-row">
@@ -49,6 +66,7 @@
                       </div>
                     </div>
                 </div>
+
         </div>
 
         <!-- Wrapper for slides -->

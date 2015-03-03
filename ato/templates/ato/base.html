@@ -39,20 +39,20 @@
           <h1>{% trans "pics.ATO.Care" %}</h1>
 
           <div class="row pad">
-          <div class="col-sm-4 col-sm-offset-1 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">
+          <div class="col-xs-4 col-xs-offset-1 col-sm-4 col-sm-offset-1 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">
           </div>
           {% for lang in LANGUAGES %}
-            <div class="col-sm-1 col-md-1 col-lg-1">
-              <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 nearest">
+              <form name="setLang{{ lang.1}}top" action="/i18n/setlang/" method="POST">
                 {% csrf_token %}
                 <input name="next" type="hidden" value="/">
                 <input type="hidden" name="language" value="{{ lang.0 }}">
-                <a href="#" class="{{ lang.1 }}" onclick="document.setLang{{ lang.1 }}.submit();
+                <a href="#" class="{{ lang.1 }}" onclick="document.setLang{{ lang.1 }}top.submit();
                     return false;"></a>
               </form>
             </div>
           {% endfor %}
-          <div class="col-sm-4 col-sm-offset-1 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">
+          <div class="col-xs-4 col-xs-offset-1 col-sm-4 col-sm-offset-1 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">
           </div>
           </div>
 
