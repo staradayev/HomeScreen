@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from care.models import Picture, PictureTranslation, Category, CategoryTranslation, Tag, TagTranslation, LinkType, Link, UserProfile, Download, Organization
+from care.models import Picture, PictureTranslation, Category, CategoryTranslation, Tag, TagTranslation, LinkType, Link, UserProfile, Download, Organization, Like
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
@@ -362,6 +362,19 @@ def AddUploadView(request, picture_id):
 
     return HttpResponse("Thank you, upload tracked!")
 
+@login_required()
+def AddLikeView(request, picture_id):
+    picture = Picture.objects.get(pk=picture_id)
+    p_author = User.objects.get(username=request.user.username)
+    l = picture.like_set.filter(user__icontains=p_author.email)
+    if not l:
+        like = Like.create(p_author.email, picture)
+        like.save()
+
+        return HttpResponse("Thank you, like tracked!")
+    else:
+        return HttpResponse("Already tracked tracked!")
+    
 
 # End of developing section
 @csrf_exempt
@@ -688,7 +701,11 @@ def get_picture_list(request):
                 picture['id'] = pic.id
                 picture['name'] = pic.name
                 picture['downloads'] = pic.download_set.filter().count()
-
+                picture['likes'] = pic.like_set.filter().count()
+                if pic.like_set.filter(user=p_author.email).count() > 0:
+                    picture['liked'] = 'true'
+                else:
+                    picture['liked'] = 'false'
                 picture['thumb_url'] = pic.get_thumb()
                 picture['preview_url'] = pic.get_medium()
                 picture['author'] = "%s %s" % (p_author.first_name, p_author.last_name)

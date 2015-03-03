@@ -1,6 +1,6 @@
 from django.views.generic.base import View
 from django.http import JsonResponse
-from care.models import Category, Download, Picture, Organization, Tag, UserProfile
+from care.models import Category, Download, Picture, Organization, Tag, UserProfile, Like
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils import translation
@@ -22,6 +22,7 @@ class BaseMixin(View):
         self.language = request.GET.get('ln')
         self.page_number = request.GET.get('page')
         self.id = request.GET.get('id')
+        self.user = request.GET.get('user')
         self.user_id = request.GET.get('user_id')
         self.org_id = request.GET.get('org_id')
         self.amount = request.GET.get('amount')
@@ -42,7 +43,7 @@ class BaseMixin(View):
                         self.page_number = 1
             elif request.GET.get(param) and param == 'user_id':
                 if not validate_email(request.GET.get(param), verify=True):
-                    return JsonResponse({'success': "false", 'message': "Please provide valid" + param})
+                    return JsonResponse({'success': "false", 'message': "Please provide valid " + param})
 
 
 class CategoryListView(BaseMixin):
@@ -93,6 +94,7 @@ class PopularListView(BaseMixin):
                     'picture_url': picture_item.photo_thumb,
                     'name': picture_item.name,
                     'downloads': picture_item.download_set.all().count(),
+                    'likes': picture_item.like_set.filter().count(),
                 }
                 user = User.objects.get(pk=picture_item.author.id)
                 picture['author'] = "%s %s" % (user.first_name, user.last_name)
@@ -124,6 +126,7 @@ class PictureByCategoryListView(BaseMixin):
                         'picture_url': picture_item.photo_thumb,
                         'name': picture_item.name,
                         'downloads': picture_item.download_set.all().count(),
+                        'likes': picture_item.like_set.filter().count(),
                     }
                     user = User.objects.get(pk=picture_item.author.id)
                     picture['author'] = "%s %s" % (user.first_name, user.last_name)
@@ -148,6 +151,9 @@ class PictureView(BaseMixin):
                 user_profile = UserProfile.objects.get(user=user)
                 donated = Download.objects.filter(picture=picture_queryset.id).aggregate(Sum('amount'))
                 links = []
+                liked = 'false'
+                if request.GET.get('user_id') is not None and picture_queryset.like_set.filter(user=request.GET.get('user_id')).count() > 0:
+                    liked = 'true'
                 for link in user_profile.links.all():
                     lnk = {}
                     lnk['link_url'] = link.link_url
@@ -161,6 +167,8 @@ class PictureView(BaseMixin):
                     'author': u"{0} {1}".format(user.first_name, user.last_name),
                     'author_id': user.id,
                     'author_links': links,
+                    'likes': picture_queryset.like_set.filter().count(),
+                    'liked': liked,
                     'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                 }
                 return JsonResponse({'success': "true", 'message': '', 'entity': picture})
@@ -232,6 +240,7 @@ class SearchView(BaseMixin):
                             'downloads': picture_item.download_set.all().count(),
                             'author': u"{0} {1}".format(user.first_name, user.last_name),
                             'author_id': user.id,
+                            'likes': picture_item.like_set.filter().count(),
                             'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                         }
                         results.append(picture)
@@ -263,6 +272,27 @@ class DownloadView(BaseMixin):
             except:
                 return JsonResponse({'success': "false", 'message': "Wrong picture request..."})
 
+class LikeView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['id', 'user'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                picture = Picture.objects.filter(approve_status=True).get(pk=self.id)
+                try:
+                    l = picture.like_set.filter(user__icontains=self.user)
+                    if not l:
+                        like = Like.create(self.user, picture)
+                        like.save()
+                        return JsonResponse({'success': "true", 'message':'Liked!'})
+                    else:
+                        return JsonResponse({'success': "false", 'message':'Already exist!'})
+                except:
+                    return JsonResponse({'success': "false", 'message': "Wrong picture in request..."})
+            except:
+                return JsonResponse({'success': "false", 'message': "Wrong picture request..."})
+
 
 class AuthorListView(BaseMixin):
     def get(self, request):
@@ -286,6 +316,7 @@ class AuthorListView(BaseMixin):
                         'name': picture_item.name,
                         'author': picture_author_name,
                         'author_id': picture_author.id,
+                        'likes': picture_item.like_set.filter().count(),
                         'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                     }
                     author_pictures.append(picture)
@@ -345,6 +376,7 @@ class NewestView(BaseMixin):
                         'picture_url': picture_item.photo_thumb,
                         'name': picture_item.name,
                         'downloads': picture_item.download_set.all().count(),
+                        'likes': picture_item.like_set.filter().count(),
                         'date_approve': picture_item.date_approve
                     }
                     user = User.objects.get(pk=picture_item.author.id)
@@ -379,6 +411,7 @@ class MostRaisedView(BaseMixin):
                         'picture_url': picture_item.photo_thumb,
                         'name': picture_item.name,
                         'downloads': picture_item.download_set.all().count(),
+                        'likes': picture_item.like_set.filter().count(),
                         'date_approve': picture_item.date_approve
                     }
                     user = User.objects.get(pk=picture_item.author.id)

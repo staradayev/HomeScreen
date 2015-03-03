@@ -15,4 +15,6 @@ urlpatterns = patterns(
     url(r'^newest/$', views.NewestView.as_view()),
     url(r'^mostraised/$', views.MostRaisedView.as_view()),
     url(r'^photographers/$', views.PhotographersView.as_view()),
+    url(r'^like/$', views.LikeView.as_view()),
+    
 )

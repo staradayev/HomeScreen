@@ -283,7 +283,13 @@ class Download(models.Model):
     t_uuid = models.CharField(verbose_name=_(u"Transaction uiid"), max_length=400)
 
 class Like(models.Model):
-    picture = models.ForeignKey(Picture, unique=True)
+    @classmethod
+    def create(cls, ato_user, picture):
+        like = cls(user=ato_user, photo=picture)
+        # do something with the book
+        return like
+
+    photo = models.ForeignKey(Picture, unique=False)
     user = models.CharField('user uiid', max_length=50)
     date_pub = models.DateTimeField(auto_now_add=True)
 

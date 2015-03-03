@@ -46,6 +46,14 @@ margin-left: 0.1em;
 margin-right: 0.1em;
 }
 
+.ato-status .liked{
+    text-align: left;
+color: white;
+font-size: 2.8em;
+margin-left: 0.1em;
+margin-right: 0.1em;
+}
+
 .ato-status .fa-question{
 color: #FF8B8B;
 font-size: 3.3em;
