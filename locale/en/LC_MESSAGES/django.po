@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-23 11:18+0000\n"
+"POT-Creation-Date: 2015-03-03 22:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,9 +21,9 @@ msgstr ""
 #: ato/templates/ato/index-mobile.html:35
 #: ato/templates/ato/index-mobile.html:71
 #: ato/templates/ato/index-mobile.html:135
-#: ato/templates/ato/index-mobile.html:246 ato/templates/ato/index.html:12
-#: ato/templates/ato/index.html.py:34 ato/templates/ato/index.html:39
-#: ato/templates/ato/index.html.py:104 ato/templates/ato/index.html:298
+#: ato/templates/ato/index-mobile.html:246 ato/templates/ato/index.html:29
+#: ato/templates/ato/index.html.py:51 ato/templates/ato/index.html:56
+#: ato/templates/ato/index.html.py:122 ato/templates/ato/index.html:316
 msgid "pics.ATO.Care"
 msgstr ""
 
@@ -45,20 +45,20 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: ato/templates/ato/index-mobile.html:79 ato/templates/ato/index.html:26
-#: ato/templates/ato/index.html.py:105
+#: ato/templates/ato/index-mobile.html:79 ato/templates/ato/index.html:43
+#: ato/templates/ato/index.html.py:123
 msgid "About"
 msgstr ""
 
-#: ato/templates/ato/index-mobile.html:86 ato/templates/ato/index.html:106
+#: ato/templates/ato/index-mobile.html:86 ato/templates/ato/index.html:124
 msgid "Help"
 msgstr ""
 
-#: ato/templates/ato/index-mobile.html:96 ato/templates/ato/index.html:108
+#: ato/templates/ato/index-mobile.html:96 ato/templates/ato/index.html:126
 msgid "Download"
 msgstr ""
 
-#: ato/templates/ato/index-mobile.html:105 ato/templates/ato/index.html:112
+#: ato/templates/ato/index-mobile.html:105 ato/templates/ato/index.html:130
 msgid "Join"
 msgstr "Join"
 
@@ -66,96 +66,96 @@ msgstr "Join"
 msgid "Language"
 msgstr ""
 
-#: ato/templates/ato/index-mobile.html:136 ato/templates/ato/index.html:13
-#: ato/templates/ato/index.html.py:40
+#: ato/templates/ato/index-mobile.html:136 ato/templates/ato/index.html:30
+#: ato/templates/ato/index.html.py:57
 msgid "Help Ukraine"
 msgstr "Ukraine in HD quality"
 
-#: ato/templates/ato/index-mobile.html:160 ato/templates/ato/index.html:136
+#: ato/templates/ato/index-mobile.html:160 ato/templates/ato/index.html:154
 #: ato/templates/ato/social.html:84
 msgid "Care title 1"
 msgstr "Customize your device with Ukrainian HD wallpapers"
 
-#: ato/templates/ato/index-mobile.html:161 ato/templates/ato/index.html:172
+#: ato/templates/ato/index-mobile.html:161 ato/templates/ato/index.html:190
 msgid "About title 1"
 msgstr "pics.ATO.Сare"
 
-#: ato/templates/ato/index-mobile.html:170 ato/templates/ato/index.html:156
+#: ato/templates/ato/index-mobile.html:170 ato/templates/ato/index.html:174
 msgid "Total Downloads"
 msgstr "Downloads"
 
-#: ato/templates/ato/index-mobile.html:174 ato/templates/ato/index.html:160
+#: ato/templates/ato/index-mobile.html:174 ato/templates/ato/index.html:178
 msgid "Total rized"
 msgstr "Raised"
 
-#: ato/templates/ato/index-mobile.html:178 ato/templates/ato/index.html:164
+#: ato/templates/ato/index-mobile.html:178 ato/templates/ato/index.html:182
 msgid "Pictires in app"
 msgstr "Pictures"
 
-#: ato/templates/ato/index-mobile.html:182 ato/templates/ato/index.html:168
+#: ato/templates/ato/index-mobile.html:182 ato/templates/ato/index.html:186
 #: ato/templates/ato/social.html:44 care/templates/care/detail.html:31
 #: care/templates/care/edit.html:31 care/templates/care/myinfo.html:31
 #: care/templates/care/upload.html:31
 msgid "Photographers"
 msgstr ""
 
-#: ato/templates/ato/index-mobile.html:190 ato/templates/ato/index.html:178
+#: ato/templates/ato/index-mobile.html:190 ato/templates/ato/index.html:196
 msgid "About title 2"
 msgstr "pics.ATO.Care - your chance to help!"
 
-#: ato/templates/ato/index-mobile.html:191 ato/templates/ato/index.html:181
+#: ato/templates/ato/index-mobile.html:191 ato/templates/ato/index.html:199
 msgid "About text 1"
 msgstr ""
 "Let's help together! Funds raised with pics.ATO.Care are transferred to "
 "charity organizations we cooperate with according to your choice. We help "
 "to: "
 
-#: ato/templates/ato/index-mobile.html:192 ato/templates/ato/index.html:207
+#: ato/templates/ato/index-mobile.html:192 ato/templates/ato/index.html:225
 msgid "About text 2"
 msgstr ""
 "Reports regarding funds transfers you can find out on charity organizations "
 "Facebook communities and our NEWS BLOG."
 
-#: ato/templates/ato/index-mobile.html:193 ato/templates/ato/index.html:215
+#: ato/templates/ato/index-mobile.html:193 ato/templates/ato/index.html:233
 msgid "Help title 1"
 msgstr "How can you help? It is simple!"
 
-#: ato/templates/ato/index-mobile.html:202 ato/templates/ato/index.html:225
+#: ato/templates/ato/index-mobile.html:202 ato/templates/ato/index.html:243
 msgid "Help card header 1"
 msgstr "Download wallpapers on your device"
 
-#: ato/templates/ato/index-mobile.html:203 ato/templates/ato/index.html:226
+#: ato/templates/ato/index-mobile.html:203 ato/templates/ato/index.html:244
 msgid "Help card content 1"
 msgstr "and make a volunteer donation"
 
-#: ato/templates/ato/index-mobile.html:205 ato/templates/ato/index.html:28
-#: ato/templates/ato/index.html.py:229
+#: ato/templates/ato/index-mobile.html:205 ato/templates/ato/index.html:45
+#: ato/templates/ato/index.html.py:247
 msgid "Install"
 msgstr ""
 
-#: ato/templates/ato/index-mobile.html:215 ato/templates/ato/index.html:240
+#: ato/templates/ato/index-mobile.html:215 ato/templates/ato/index.html:258
 msgid "Help card header 2"
 msgstr "Passionate about photography?"
 
-#: ato/templates/ato/index-mobile.html:216 ato/templates/ato/index.html:241
+#: ato/templates/ato/index-mobile.html:216 ato/templates/ato/index.html:259
 msgid "Help card content 2"
 msgstr "it is your chance to help!"
 
-#: ato/templates/ato/index-mobile.html:218 ato/templates/ato/index.html:244
-#: ato/templates/ato/index.html.py:323 care/templates/care/login.html:29
+#: ato/templates/ato/index-mobile.html:218 ato/templates/ato/index.html:262
+#: ato/templates/ato/index.html.py:341 care/templates/care/login.html:29
 #: care/templates/registration/login.html:29
 msgid "Sign in"
 msgstr "Sign In"
 
-#: ato/templates/ato/index-mobile.html:228 ato/templates/ato/index.html:255
+#: ato/templates/ato/index-mobile.html:228 ato/templates/ato/index.html:273
 msgid "Help card header 3"
 msgstr "Share with friends"
 
-#: ato/templates/ato/index-mobile.html:229 ato/templates/ato/index.html:256
+#: ato/templates/ato/index-mobile.html:229 ato/templates/ato/index.html:274
 msgid "Help card content 3"
 msgstr "Stop being indifferent"
 
-#: ato/templates/ato/index.html:140 ato/templates/ato/social.html:88
+#: ato/templates/ato/index.html:158 ato/templates/ato/social.html:88
 msgid "Care text 1"
 msgstr ""
 "pics.ATO.Care is a project for photographers who are willing to help "
@@ -168,7 +168,7 @@ msgstr ""
 "which are most downloaded, money raised and check who is the author of these "
 "masterpieces!"
 
-#: ato/templates/ato/index.html:144
+#: ato/templates/ato/index.html:162
 msgid "Care text 2"
 msgstr ""
 "pics.ATO.Care HD wallpapers include numerous beatiful pictures from "
@@ -176,43 +176,43 @@ msgstr ""
 "register as a photographer, upload Ukrainian signts pictures to pics.ATO."
 "Care - Let your talent help people!"
 
-#: ato/templates/ato/index.html:277
+#: ato/templates/ato/index.html:295
 msgid "Help title 2"
 msgstr "Your support is needed more than ever!"
 
-#: ato/templates/ato/index.html:280
+#: ato/templates/ato/index.html:298
 msgid "Help text 1"
 msgstr ""
 
-#: ato/templates/ato/index.html:290
+#: ato/templates/ato/index.html:308
 msgid "Download header 1"
 msgstr "pics.ATO.Care - we are already helping!"
 
-#: ato/templates/ato/index.html:298
+#: ato/templates/ato/index.html:316
 msgid "Download header 2"
 msgstr "Download"
 
-#: ato/templates/ato/index.html:299
+#: ato/templates/ato/index.html:317
 msgid "Download text 1"
 msgstr ""
 
-#: ato/templates/ato/index.html:301
+#: ato/templates/ato/index.html:319
 msgid "Download text 2"
 msgstr ""
 "Funds received by pics.ATO.Care from HD wallpapers purchase process are "
 "transferred to charities according to your choice. We cooperate with "
 "following organizations and volunteers:"
 
-#: ato/templates/ato/index.html:310 ato/templates/ato/index.html.py:311
+#: ato/templates/ato/index.html:328 ato/templates/ato/index.html.py:329
 #: care/templates/registration/registration_form.html:76
 msgid "en"
 msgstr ""
 
-#: ato/templates/ato/index.html:320
+#: ato/templates/ato/index.html:338
 msgid "WE'RE COMING SOON"
 msgstr "Through help to happiness!"
 
-#: ato/templates/ato/index.html:321
+#: ato/templates/ato/index.html:339
 msgid "Sign up"
 msgstr ""
 
@@ -280,23 +280,23 @@ msgstr "Categoryies"
 msgid "Logout"
 msgstr ""
 
-#: care/additional.py:32 care/forms.py:52 care/views.py:475 care/views.py:559
+#: care/additional.py:32 care/forms.py:52 care/views.py:488 care/views.py:572
 msgid "No image!"
 msgstr "No image selected"
 
-#: care/additional.py:43 care/forms.py:70 care/views.py:488
+#: care/additional.py:43 care/forms.py:70 care/views.py:501
 msgid "Please use a JPEG or PNG image."
 msgstr "Please use a JPG, JPEG or PNG image format"
 
-#: care/additional.py:49 care/views.py:500
+#: care/additional.py:49 care/views.py:513
 msgid "Image file too large"
 msgstr "Picture file size is too big, please try to compress it!"
 
-#: care/additional.py:62 care/views.py:516
+#: care/additional.py:62 care/views.py:529
 msgid "Too low image size, please use bigger!"
 msgstr "Picture file size is too small, are you sure it is Full HD?"
 
-#: care/additional.py:69 care/views.py:527
+#: care/additional.py:69 care/views.py:540
 msgid "Too big image size! Please use smaller."
 msgstr "Picture file size is too big, please try to compress it!"
 
@@ -468,41 +468,45 @@ msgstr ""
 msgid "here"
 msgstr "here"
 
-#: care/templates/care/detail.html:120
+#: care/templates/care/detail.html:121
 msgid "Picture approved"
 msgstr ""
 
-#: care/templates/care/detail.html:125
+#: care/templates/care/detail.html:127
 msgid "Under approval"
 msgstr ""
 
-#: care/templates/care/detail.html:139
+#: care/templates/care/detail.html:141
 msgid "Uploaded to server:"
 msgstr ""
 
-#: care/templates/care/detail.html:148
+#: care/templates/care/detail.html:150
 msgid "Author:"
 msgstr ""
 
-#: care/templates/care/detail.html:155
+#: care/templates/care/detail.html:157
 msgid "Approved:"
 msgstr ""
 
-#: care/templates/care/detail.html:163 care/templates/care/edit.html:139
+#: care/templates/care/detail.html:165 care/templates/care/edit.html:139
 #: care/templates/care/edit.html.py:271 care/templates/care/edit.html:286
 #: care/templates/care/edit.html.py:377 care/templates/care/upload.html:246
 #: care/templates/care/upload.html:257
 msgid "Categories:"
 msgstr ""
 
-#: care/templates/care/detail.html:175 care/templates/care/edit.html:151
+#: care/templates/care/detail.html:177 care/templates/care/edit.html:151
 #: care/templates/care/edit.html.py:300 care/templates/care/edit.html:393
 #: care/templates/care/upload.html:271
 msgid "Tags:"
 msgstr ""
 
-#: care/templates/care/detail.html:184
+#: care/templates/care/detail.html:186
 msgid "Downloads:"
+msgstr ""
+
+#: care/templates/care/detail.html:195
+msgid "Likes:"
 msgstr ""
 
 #: care/templates/care/edit.html:75
@@ -633,7 +637,13 @@ msgstr "Please Sign In"
 msgid "Register"
 msgstr "Register"
 
-#: care/templates/care/login.html:39 care/templates/registration/login.html:39
+#: care/templates/care/login.html:41 care/templates/registration/login.html:41
+#, fuzzy
+#| msgid "Back to the site"
+msgid "Back to Home"
+msgstr "Return to the Home page"
+
+#: care/templates/care/login.html:44 care/templates/registration/login.html:44
 msgid "Forgot you password?"
 msgstr "Forgot password?"
 
@@ -998,7 +1008,7 @@ msgstr ""
 "You have added maximum number of categories for today, please try tomorrow!"
 
 #: care/views.py:267 care/views.py:306 care/views.py:344 care/views.py:348
-#: care/views.py:398 care/views.py:456 care/views.py:793
+#: care/views.py:411 care/views.py:469 care/views.py:810
 msgid "There is an error! Please contact us, if you know why?"
 msgstr "Some error occurred. Please contact us with issue report. Thanks!"
 
@@ -1038,31 +1048,31 @@ msgstr "URL is too short!"
 msgid "Url too long!"
 msgstr "URL is too long!"
 
-#: care/views.py:409
+#: care/views.py:422
 msgid "Provide picture..."
 msgstr "Select picture"
 
-#: care/views.py:414
+#: care/views.py:427
 msgid "Picture is wrong"
 msgstr "Picture do not comply with our policy. Try another one please!"
 
-#: care/views.py:418
+#: care/views.py:431
 msgid "Picture name is required"
 msgstr "Specify Picture Name"
 
-#: care/views.py:420
+#: care/views.py:433
 msgid "Picture name too short!"
 msgstr "Picture Name is too short!"
 
-#: care/views.py:422
+#: care/views.py:435
 msgid "Picture name too long!"
 msgstr "Picture Name is too long!"
 
-#: care/views.py:580
+#: care/views.py:593
 msgid "This photo can't be deleted"
 msgstr "Picture cannot be deleted"
 
-#: care/views.py:582
+#: care/views.py:595
 msgid "Can't delete photo"
 msgstr "Picture cannot be deleted"
 
