@@ -75,7 +75,14 @@ class UploadFile(object):
 			filename = '{}.{}'.format(uuid4().hex, ext)
 
 			module_dir = os.path.dirname(__file__)
-			file_path = os.path.join(module_dir, self.PATH+filename)
+
+			now = str(int(time.time()))
+			hashPath = hashlib.md5(now).hexdigest()
+			path = settings.MEDIA_ROOT + 'users/'+hashPath[:2]+'/'+hashPath[2:4]+'/'+hashPath+'/'
+			self.PATH = path
+			self.LOCATION_PATH = 'users/'+hashPath[:2]+'/'+hashPath[2:4]+'/'+hashPath+'/'
+
+			file_path = os.path.join(module_dir, path+filename)
 
 			print(file_path)
 
@@ -99,9 +106,15 @@ class UploadFile(object):
 				p_author = UserProfile.objects.get(user=u_id)
 				try:
 					print("Delete "+settings.MEDIA_ROOT + p_author.user_picture)
+					os.remove(settings.MEDIA_ROOT + p_author.original_picture)
 					os.remove(settings.MEDIA_ROOT + p_author.user_picture)
+					os.remove(settings.MEDIA_ROOT + p_author.user_thumbnail)
 				except Exception, e:
 					print("New user photo!")
+				if p_author:
+					p_author.original_picture = ''
+					p_author.user_picture = ''
+					p_author.user_thumbnail = ''
 			except Exception, e:
 				user = User.objects.get(pk=u_id)
 				up = UserProfile.create(user)
@@ -110,14 +123,14 @@ class UploadFile(object):
 				p_author = UserProfile.objects.get(user=user)
 			finally:
 				print(self.LOCATION_PATH + filename)
-				p_author.user_picture = self.LOCATION_PATH + filename
+				p_author.original_picture = self.LOCATION_PATH + filename
 				p_author.save()
 
 	 
 			response_data = {
 				'success': True,
 				'message': '',
-				'img_url': str('http://'+self.request.META['HTTP_HOST']+settings.MEDIA_URL + p_author.user_picture),
+				'img_url': str('http://'+self.request.META['HTTP_HOST']+settings.MEDIA_URL + p_author.original_picture),
 			}
 				
 			response = HttpResponse(json.dumps(response_data), content_type = 'application/json')

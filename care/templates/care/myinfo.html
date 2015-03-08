@@ -55,7 +55,14 @@
 	                </ul>
 	              </li>
 	        		
-	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
+	          	<li>
+                <a href="{% url 'care:myinfo' %}" class="user-a">
+                  {% for profile in user.userprofile_set.all %}
+                  <img src="{{profile.get_thumb}}" class="img img-thumbnail user-thumbnail" />
+                  {% endfor %}
+                  &nbsp;{{ user.get_username }}
+                </a>
+              </li>
 	        		
 	        	<li><a href="{% url 'care:logout' %}" class="navbar-link"><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
 	      	    
@@ -113,7 +120,7 @@
 			<br />
 	</div>
 </div>
-<div class="row">
+<div class="row" id="myInfoContent">
     <div class="col-sm-6">
     	<div class="row">
     		<div class="col-md-12">
@@ -171,7 +178,7 @@
     <div class="col-sm-1">
     </div>
     <div class="col-sm-4 visible-md visible-lg">
-    	<img id="user_pic" src="{{user_picture}}" alt="ATO.care" class="img-responsive img-thumbnail img-rounded">
+    	<img id="user_pic" src="{{user_picture}}" alt="ATO.care" class="img-responsive img-thumbnail img-rounded user-rounded">
 
 <div class="upload_form">
   <form id="upload" action="/care/adduserphoto/" method="post" enctype="multipart/form-data" class="upload-form">{% csrf_token %}
@@ -189,12 +196,15 @@
     	<div class="progress" style="display:none;">
 	      	<div class="bar">&nbsp;</div >
 	      	<div class="percent">0%</div >
-      	</div>
+      </div>
       
-      	<div style="display: inline" class="input-append">
+      <div style="display: inline" class="input-append">
       		<a class="btn btn-info" onclick="$('input[id=lefile]').click();">{% trans "Select photo" %}</a>
         	<label id="photoCover" class="input-large" type="text">
-      	</div>
+      </div>
+      <div style="display: none" class="input-select">
+          <a class="btn btn-info" id="BtnSendCrop">{% trans "Save" %}</a>
+      </div>
       	<button id="upload-btn" class="btn upload-button"  style="display:none;"><i class="icon-arrow-up"></i></a></button>
       
  
@@ -209,6 +219,13 @@
 </div>
 <br />
 <br />
+
+
+
+{% if unfinished %}
+<input type="hidden" id="pic_uncompleted_url" value="{{unfinished.url}}">
+{% endif %}
+
 <script src="{{STATIC_URL}}js/jquery.min.js"></script>
 
 <script src="{{STATIC_URL}}js/jquery.form.js"></script>
@@ -226,6 +243,11 @@
  
       <script type="text/javascript">
               (function() {
+
+              var jcrop_api,
+                    boundx,
+                    boundy;
+              var leftc, topc, rightc, bottomc, id_p, d_url;  
                   
               var bar = $('.bar');
               var percent = $('.percent');
@@ -239,6 +261,7 @@
                       var percentVal = '0%';
                       bar.width(percentVal)
                       percent.html(percentVal);
+                      $('#user_pic').removeClass('user-rounded');
                   },
                   uploadProgress: function(event, position, total, percentComplete) {
                       var percentVal = percentComplete + '%';
@@ -259,6 +282,9 @@
                   	
                   	$('#warning_upload').html('');
                   	$('#warn').hide();
+
+                    cropUserPhoto();
+
                   }else{
                   	$('#warning_upload').html(resp.message);
                   	$('#warn').show();
@@ -271,6 +297,99 @@
                   document.getElementById("upload-btn").disabled=false;
                 }
               }); 
+
+              function getRandom() {
+                var dim = jcrop_api.getBounds();
+                return [
+                  Math.round(0.15 * dim[0]),
+                  Math.round(0.15 * dim[1]),
+                  Math.round(0.5 * dim[0]),
+                  Math.round(0.5 * dim[1])
+                ];
+              };
+
+              function showCoords(c)
+                {
+                  if (parseInt(c.w) > 0)
+                    {
+                        xs = $('#user_pic').width(),
+                        ys = $('#user_pic').height();
+
+                        leftc = (c.x/xs);
+                        topc = (c.y/ys);
+                        rightc = (c.x2/xs);
+                        bottomc = (c.y2/ys);
+                     }
+                };
+
+              function cropUserPhoto(){
+                  $('.input-append').hide(400, function(){
+                      $('.input-select').show(400, function(){});
+                  });
+                                        
+                  $('#user_pic').Jcrop({
+                      onChange:   showCoords,
+                      onSelect:   showCoords,
+                      aspectRatio: 1 / 1,
+                      minSize: [90, 90]
+                  },function(){
+                    // Use the API to get the real image size
+                      var bounds = this.getBounds();
+                              console.log("Bounds:");
+                      boundx = bounds[0];
+                              console.log("x:"+boundx);
+                              console.log("orginal x="+$('#user_pic').width());
+                      boundy = bounds[1];
+                              console.log("y:"+boundy);
+                              console.log("orgonal y="+$('#user_pic').height());
+
+                      jcrop_api = this;
+
+                      jcrop_api.setSelect(getRandom());
+                  });
+              }
+
+              $(document).on('click','#BtnSendCrop',function(e){
+                  $.ajax({
+                    url : "/care/adduserthumb/",
+                    type : "POST",
+                    data : JSON.stringify({"left" : leftc, "top" : topc, 'right': rightc, 'bottom': bottomc}),
+                    contentType: 'application/json; charset=utf-8',
+                    success : function(results){
+                        if (results.success == "true") {
+                          $('#user_pic').addClass('user-rounded');
+                          $('#user_pic').attr('src', results.pic_url+"?"+new Date().getTime());
+                          $('.input-select').hide(400, function(){
+                              $('.input-append').show(400, function(){});
+                          });
+
+                          $('#warning_upload').html('');
+                          $('#warn').hide();
+                          jcrop_api.destroy();
+                          
+                        //handle DOM insertion and other stuff
+                        } else {
+                          $('#warning_upload').html(results.message);
+                          $('#warn').show();
+                        }
+                    }
+                  });
+                });
+
+                $( document ).ready(function() {
+                  if($('#pic_uncompleted_url') && $('#pic_uncompleted_url').val()){
+                      $('#user_pic').removeClass('user-rounded');
+                      $('#user_pic').attr('src', $('#pic_uncompleted_url').val());
+                      cropUserPhoto();
+                  }
+                });
+
+
+
+
+
+
+
 
               })();       
       </script>

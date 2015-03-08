@@ -124,8 +124,13 @@
           <li><a href="#section3">{% trans "Help" %}</a></li>
           
           <li><a href="#section4">{% trans "Download" %}</a></li>
+
           {% if user.is_authenticated %}
-          <li><a href="/care/myinfo" class="user-now text-right">{{ user.username }}&nbsp;<i class="fa fa-user"></i></a></li>
+          <li><a href="/care/myinfo" class="user-now text-right user-a">
+              {% for profile in user.userprofile_set.all %}
+                  <img src="{{profile.get_thumb}}" class="img img-thumbnail user-thumbnail" />
+              {% endfor %}
+            &nbsp;{{ user.username }}</a></li>
           {% else %}
           <li><a href="/care/login" class="user-now text-right upper"><i class="join-user"></i>&nbsp;{% trans "Join" %}</a></li>
           {% endif %}

@@ -69,6 +69,7 @@ class CategoryListView(BaseMixin):
             pictures_queryset = Picture.objects.filter(category=category_item.id, approve_status=True)
             if pic is not None:
                 category['picture_url'] = pic.photo_thumb
+                category['picture_big_url'] = pic.photo_big_thumb
                 category['pictures_count'] = pictures_queryset.count()
             categories.append(category)
         return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': categories})
@@ -92,6 +93,7 @@ class PopularListView(BaseMixin):
                 picture = {
                     'id': picture_item.id,
                     'picture_url': picture_item.photo_thumb,
+                    'picture_big_url': picture_item.photo_big_thumb,
                     'name': picture_item.name,
                     'downloads': picture_item.download_set.all().count(),
                     'likes': picture_item.like_set.filter().count(),
@@ -101,6 +103,13 @@ class PopularListView(BaseMixin):
                 picture['author_id'] = user.id
                 donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
                 picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                try:
+                    user_profile = UserProfile.objects.get(user=user)
+                    picture['author_thumbnail'] = user_profile.get_thumb()
+                    picture['author_photo'] = user_profile.get_user_picture()
+                except Exception, e:
+                    picture['author_thumbnail'] = None
+                    picture['author_photo'] = None
                 pictures.append(picture)
             return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures})
 
@@ -124,6 +133,7 @@ class PictureByCategoryListView(BaseMixin):
                     picture = {
                         'id': picture_item.id,
                         'picture_url': picture_item.photo_thumb,
+                        'picture_big_url': picture_item.photo_big_thumb,
                         'name': picture_item.name,
                         'downloads': picture_item.download_set.all().count(),
                         'likes': picture_item.like_set.filter().count(),
@@ -133,6 +143,13 @@ class PictureByCategoryListView(BaseMixin):
                     picture['author_id'] = user.id
                     donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
                     picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    try:
+                        user_profile = UserProfile.objects.get(user=user)
+                        picture['author_thumbnail'] = user_profile.get_thumb()
+                        picture['author_photo'] = user_profile.get_user_picture()
+                    except Exception, e:
+                        picture['author_thumbnail'] = None
+                        picture['author_photo'] = None
                     pictures.append(picture)
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures})
             else:
@@ -164,9 +181,12 @@ class PictureView(BaseMixin):
                     'name': picture_queryset.name,
                     'downloads': picture_queryset.download_set.all().count(),
                     'picture_url': picture_queryset.photo_medium,
+                    'picture_big_url': picture_queryset.photo_big_thumb,
                     'author': u"{0} {1}".format(user.first_name, user.last_name),
                     'author_id': user.id,
                     'author_links': links,
+                    'author_thumbnail': user_profile.get_thumb(),
+                    'author_photo': user_profile.get_user_picture(),
                     'likes': picture_queryset.like_set.filter().count(),
                     'liked': liked,
                     'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
@@ -237,12 +257,20 @@ class SearchView(BaseMixin):
                             'id': picture_item.id,
                             'name': picture_item.name,
                             'picture_url': picture_item.photo_thumb,
+                            'picture_big_url': picture_item.photo_big_thumb,
                             'downloads': picture_item.download_set.all().count(),
                             'author': u"{0} {1}".format(user.first_name, user.last_name),
                             'author_id': user.id,
                             'likes': picture_item.like_set.filter().count(),
                             'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                         }
+                        try:
+                            user_profile = UserProfile.objects.get(user=user)
+                            picture['author_thumbnail'] = user_profile.get_thumb()
+                            picture['author_photo'] = user_profile.get_user_picture()
+                        except Exception, e:
+                            picture['author_thumbnail'] = None
+                            picture['author_photo'] = None
                         results.append(picture)
                     return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'page_name': page, 'entity': results})
                 else:
@@ -313,6 +341,7 @@ class AuthorListView(BaseMixin):
                         'id': picture_item.id,
                         'downloads': picture_item.download_set.all().count(),
                         'picture_url': picture_item.photo_thumb,
+                        'picture_big_url': picture_item.photo_big_thumb,
                         'name': picture_item.name,
                         'author': picture_author_name,
                         'author_id': picture_author.id,
@@ -320,7 +349,15 @@ class AuthorListView(BaseMixin):
                         'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                     }
                     author_pictures.append(picture)
-                return JsonResponse({'success': "true", 'message': '', 'page': self.page_number, 'count': paginator.num_pages, 'entity': author_pictures, 'page_name': picture_author_name})
+                try:
+                    user_profile = UserProfile.objects.get(user=picture_author)
+                    author_thumbnail = user_profile.get_thumb()
+                    author_photo = user_profile.get_user_picture()
+                except Exception, e:
+                    author_thumbnail = None
+                    author_photo = None
+                
+                return JsonResponse({'success': "true", 'message': '', 'page': self.page_number, 'count': paginator.num_pages, 'entity': author_pictures, 'page_name': picture_author_name, 'author_photo': author_photo, 'author_thumbnail': author_thumbnail })
             except:
                 return JsonResponse({'success': "false", 'message': 'Provide vaild id'})
 
@@ -374,6 +411,7 @@ class NewestView(BaseMixin):
                     picture = {
                         'id': picture_item.id,
                         'picture_url': picture_item.photo_thumb,
+                        'picture_big_url': picture_item.photo_big_thumb,
                         'name': picture_item.name,
                         'downloads': picture_item.download_set.all().count(),
                         'likes': picture_item.like_set.filter().count(),
@@ -384,6 +422,13 @@ class NewestView(BaseMixin):
                     picture['author_id'] = user.id
                     donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
                     picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    try:
+                        user_profile = UserProfile.objects.get(user=user)
+                        picture['author_thumbnail'] = user_profile.get_thumb()
+                        picture['author_photo'] = user_profile.get_user_picture()
+                    except Exception, e:
+                        picture['author_thumbnail'] = None
+                        picture['author_photo'] = None
                     pictures_list.append(picture)
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures_list})
             except:
@@ -409,6 +454,7 @@ class MostRaisedView(BaseMixin):
                     picture = {
                         'id': picture_item.id,
                         'picture_url': picture_item.photo_thumb,
+                        'picture_big_url': picture_item.photo_big_thumb,
                         'name': picture_item.name,
                         'downloads': picture_item.download_set.all().count(),
                         'likes': picture_item.like_set.filter().count(),
@@ -419,6 +465,13 @@ class MostRaisedView(BaseMixin):
                     picture['author_id'] = user.id
                     donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
                     picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    try:
+                        user_profile = UserProfile.objects.get(user=user)
+                        picture['author_thumbnail'] = user_profile.get_thumb()
+                        picture['author_photo'] = user_profile.get_user_picture()
+                    except Exception, e:
+                        picture['author_thumbnail'] = None
+                        picture['author_photo'] = None
                     pictures_list.append(picture)
                 pictures_list = sorted(pictures_list, key=itemgetter('amount'), reverse=True)
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': pictures_list})
@@ -462,12 +515,16 @@ class PhotographersView(BaseMixin):
                             'id': picture_item.id,
                             'downloads': picture_item.download_set.all().count(),
                             'picture_url': picture_item.photo_thumb,
+                            'picture_big_url': picture_item.photo_big_thumb,
                             'name': picture_item.name,
+                            'likes': picture_item.like_set.filter().count(),
                             'author': photographer_item.user.first_name + " " + photographer_item.user.last_name,
                             'author_id': photographer_item.user.id,
                             'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                         }
                         photographer['pictures'].append(picture)
+                    photographer['author_thumbnail'] = user_profile.get_thumb()
+                    photographer['author_photo'] = user_profile.get_user_picture()
                     photographers.append(photographer)
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': photographers})
             except:

@@ -24,6 +24,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils import formats
 from additional import UploadFile
 from django.shortcuts import render_to_response
+import re
+from uuid import uuid4
 
 
 def custom_404(request):
@@ -68,6 +70,7 @@ def InfoView(request):
     link_types = None
     user_links = None
     user_pic = None
+
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -107,17 +110,32 @@ def InfoView(request):
         finally:
             user_links = user_p.links
 
+        try:
+            pic_u = UserProfile.objects.get(user=user, user_picture='', user_thumbnail='')
+            print(pic_u.original_picture)
+            print(pic_u.user_picture)
+            print(pic_u.user_thumbnail)
+            if(pic_u.original_picture):
+                pic_complete = {}
+                pic_complete['url'] =  settings.MEDIA_URL + pic_u.original_picture
+                print('found uncompleted picture')
+            else:
+               pic_complete = None 
+        except:
+            pic_complete = None
+            print('No uncompleted pictures')
+
     try:
         user = User.objects.get(username=request.user.username)
         user_p = UserProfile.objects.get(user=user)
         user_pic = settings.MEDIA_URL + user_p.user_picture
         print ("!="+user_pic)
         if '' == user_p.user_picture:
-            user_pic = settings.STATIC_URL + 'img/default/ATO.png'
+            user_pic = settings.STATIC_URL + 'img/default/ato-user.png'
     except:
-        user_pic = settings.STATIC_URL + 'img/default/ATO.png'
+        user_pic = settings.STATIC_URL + 'img/default/ato-user.png'
 
-    return render(request, 'care/myinfo.html', {'form': form, 'name_empty': name_empty, 'link_types': link_types, 'user_links': user_links, 'user_picture': user_pic})
+    return render(request, 'care/myinfo.html', {'form': form, 'name_empty': name_empty, 'link_types': link_types, 'user_links': user_links, 'user_picture': user_pic, 'user_p':user_p, 'unfinished':pic_complete})
 
 
 @login_required()
@@ -396,6 +414,9 @@ def upload_thumb(request):
             img = Image.open(settings.MEDIA_ROOT + pic.photo_thumb).resize((240, 240))
             # 'try save'
             img.save(settings.MEDIA_ROOT + pic.photo_thumb)
+
+            imgBig = Image.open(settings.MEDIA_ROOT + pic.photo_big_thumb).resize((600, 600))
+            imgBig.save(settings.MEDIA_ROOT + pic.photo_big_thumb)
             # settings.MEDIA_ROOT + pic.photo_thumb
             # 'saved'
             response_data = {}
@@ -810,3 +831,50 @@ def rotate_photo(request):
         return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
 
 
+@csrf_exempt
+def upload_user_thumb(request):
+    data = simplejson.loads(request.body)
+    pic = {}
+    if data is not None:
+        try:
+            user = User.objects.get(username=request.user.username)
+            user_p = UserProfile.objects.get(user=user)
+            pic = user_p.original_picture
+            print("UserProfile photo original:" + pic)
+
+            ext = user_p.original_picture.split('.')[-1]
+            # get filename
+            
+            m = re.search('(^.*/)(\w{10,50}\.\w{2,3}$)', pic)
+            filepath = m.group(1)
+            print("FilePath: "+filepath)
+            im = Image.open(settings.MEDIA_ROOT + pic)
+            w, h = im.size
+            # 'try crop and save'
+            filename2 = '{}.{}'.format(uuid4().hex, ext)
+            user_p.user_picture = filepath + filename2
+            im.crop((int(w*data["left"]), int(h*data["top"]), int(w*data["right"]), int(h*data["bottom"]))).resize((400, 400)).save(settings.MEDIA_ROOT + user_p.user_picture)
+
+            # 'try open and resize'
+            filename1 = '{}.{}'.format(uuid4().hex, ext)
+            img = Image.open(settings.MEDIA_ROOT + user_p.user_picture).resize((50, 50))
+            user_p.user_thumbnail = filepath + filename1
+            user_p.save()
+            # 'try save'
+            img.save(settings.MEDIA_ROOT + user_p.user_thumbnail)
+            
+            
+            # settings.MEDIA_ROOT + pic.photo_thumb
+            # 'saved'
+            response_data = {}
+            response_data['success'] = 'true'
+            response_data['pic_url'] = str('http://'+request.META['HTTP_HOST']+settings.MEDIA_URL + user_p.user_picture)
+
+
+            # , "data" : dataReturn
+            return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
+        except:
+            return HttpResponse(simplejson.dumps({'success': "false", 'message': "Wrong picture request..."}), content_type="application/json")
+    else:
+        # , "message" : "Invalid data received by server"
+        return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")

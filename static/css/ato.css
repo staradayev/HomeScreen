@@ -578,6 +578,28 @@ top: 0;
 left: 45%;
 }
 
+.user-thumbnail{
+  height: 40px;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.user-a{
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+.user-rounded{
+  border-radius: 50%;
+}
+
+#myInfoContent .jcrop-holder div {
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+  margin: -1px;
+}
+
 
 
 

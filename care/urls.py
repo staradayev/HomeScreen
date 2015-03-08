@@ -29,6 +29,8 @@ urlpatterns = patterns('',
     url(r'^gettag/', views.GetTagView, name='get_tag'),
     url(r'^getpictures/', views.get_picture_list, name='get_pics'),
     url(r'^adduserphoto/$', views.upload_user_photo, name = 'upload_user_photo' ),
+    url(r'^adduserthumb/$', views.upload_user_thumb, name = 'upload_user_thumb' ),
+    
     url(r'^rotatephoto/$', views.rotate_photo, name = 'rotate_photo' ),
     
 )

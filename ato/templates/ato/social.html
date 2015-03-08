@@ -24,6 +24,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-heart fa-lg"></i> {% trans "My account" %} <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
@@ -34,6 +35,7 @@
                     <li><a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> {% trans "Upload" %}</a></li>
                   </ul>
                 </li>
+                {% endif %}
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-image fa-lg"></i> {% trans "Photos" %} <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
@@ -67,10 +69,24 @@
                       {% endfor %}
                     </ul>
                   </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="/care/myinfo" class="user-now text-right user-a">
+                            {% for profile in user.userprofile_set.all %}
+                                <img src="{{profile.get_thumb}}" class="img img-thumbnail user-thumbnail" />
+                            {% endfor %}
+                            &nbsp;{{ user.username }}
+                        </a>
+                    </li>
+                    <li><a href="{% url 'care:logout' %}" class="navbar-link"><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'care:detail' %}" class="user-now text-right upper">
+                            <i class="join-user"></i>&nbsp;{% trans "Join" %}
+                        </a>
+                    </li>
                     
-                <li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
-                    
-                <li><a href="{% url 'care:logout' %}" class="navbar-link"><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
+                {% endif %}
                 
             </ul>
         </div><!-- /.navbar-collapse -->

@@ -86,8 +86,9 @@ class PathAndRename(object):
 class Picture(MultilingualModel):
 
     """
-    three size sets:
-        thumbnail (photo_thumb)
+    four size sets:
+        thumbnail (photo_big_thumb)
+        bigthumbnail (photo_thumb)
         medium (photo_medium)
         original (photo_FULL_HD)
     """
@@ -102,6 +103,7 @@ class Picture(MultilingualModel):
     date_approve = models.DateTimeField(null=True)
     photo_origin = models.ImageField(verbose_name=_(u"original file upload"), upload_to=path_and_rename)
     photo_medium = models.CharField(max_length=255, blank=True)
+    photo_big_thumb = models.CharField(max_length=255, blank=True, default='')
     photo_thumb = models.CharField(max_length=255, blank=True)
     category = models.ManyToManyField(Category, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
@@ -118,6 +120,9 @@ class Picture(MultilingualModel):
 
     def get_thumb(self):
         return "/media/%s" % self.photo_thumb
+
+    def get_big_thumb(self):
+        return "/media/%s" % self.photo_big_thumb
 
     def get_medium(self):
         return "/media/%s" % self.photo_medium
@@ -140,7 +145,7 @@ class Picture(MultilingualModel):
         return image_obj
 
     def save(self):
-        sizes = {'thumbnail': {'height': 240, 'width': 320}, 'medium': {'height': 480, 'width': 640}, 'fullHD': {'height': 1080, 'width': 1920},}
+        sizes = {'big_thumbnail': {'height': 600, 'width': 600}, 'thumbnail': {'height': 240, 'width': 320}, 'medium': {'height': 480, 'width': 640}, 'fullHD': {'height': 1080, 'width': 1920},}
 
         super(Picture, self).save()
         if not self.photo_medium:
@@ -186,13 +191,19 @@ class Picture(MultilingualModel):
 
             self.photo_medium = filepath + medname
 
-            # create thumbnail (sqare - no need lands or port)
+            # create thumbnail small (sqare - no need lands or port)
             im.thumbnail((sizes['thumbnail']['width'], sizes['thumbnail']['height']), Image.ANTIALIAS)
             #thumbname = filename + "_" + str(sizes['thumbnail']['width']) + "x" + str(sizes['thumbnail']['height']) + ".jpg"
             thumbname = uuid4().hex + ".jpg"
             im.save(fullpath + '/' + thumbname)
             #add_watermark(fullpath + '/' + thumbname, "ATO.care", fullpath + '/' + thumbname)
             self.photo_thumb = filepath + thumbname
+
+            # create thumbnail small (sqare - no need lands or port)
+            im.thumbnail((sizes['big_thumbnail']['width'], sizes['big_thumbnail']['height']), Image.ANTIALIAS)
+            big_thumbname = uuid4().hex + ".jpg"
+            im.save(fullpath + '/' + big_thumbname)
+            self.photo_big_thumb = filepath + big_thumbname
 
             super(Picture, self).save()
             #add_watermark(fullpath + '/' + medname, "ATO.care", fullpath + '/' + medname)
@@ -210,6 +221,8 @@ def file_cleanup(sender, instance, *args, **kwargs):
         os.remove(settings.MEDIA_ROOT + instance.photo_medium)
         print("Delete thumbnail "+settings.MEDIA_ROOT + instance.photo_thumb)
         os.remove(settings.MEDIA_ROOT + instance.photo_thumb)
+        print("Delete big thumbnail "+settings.MEDIA_ROOT + instance.photo_big_thumb)
+        os.remove(settings.MEDIA_ROOT + instance.photo_big_thumb)
     except:
         print("Can't delete thumbnail and preview of !" + str(instance.pk))
 
@@ -239,12 +252,25 @@ class Link(models.Model):
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     links = models.ManyToManyField(Link, blank=True)
-    user_picture = models.CharField(verbose_name=_(u"photo_url"), max_length=100, blank=True)
+    original_picture = models.CharField(verbose_name=_(u"original_url"), max_length=255, blank=True, default='')
+    user_picture = models.CharField(verbose_name=_(u"photo_url"), max_length=255, blank=True, default='')
+    user_thumbnail = models.CharField(verbose_name=_(u"thumbnail_url"), max_length=255, blank=True, default='')
     @classmethod
     def create(cls, user):
         up = cls(user=user)
         # do something with the book
         return up
+    def get_thumb(self):
+        if self.user_thumbnail:
+            return "/media/%s" % self.user_thumbnail
+        else:
+            return settings.STATIC_URL + 'img/default/ato-user.png'
+
+    def get_user_picture(self):
+        if self.user_picture:
+            return "/media/%s" % self.user_picture
+        else:
+            return settings.STATIC_URL + 'img/default/ato-user.png'
 
 
 class Organization(MultilingualModel):

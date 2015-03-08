@@ -513,3 +513,14 @@ padding-right: 0.4rem;
   text-transform: capitalize;
 }
 
+.user-thumbnail{
+  height: 40px;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.user-a{
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+

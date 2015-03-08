@@ -55,7 +55,14 @@
 	                </ul>
 	              </li>
 	        		
-	          	<li><a href="{% url 'care:myinfo' %}">{{ user.get_username }}</a></li>
+	          	<li>
+	                <a href="{% url 'care:myinfo' %}" class="user-a">
+	                  {% for profile in user.userprofile_set.all %}
+	                  <img src="{{profile.get_thumb}}" class="img img-thumbnail user-thumbnail" />
+	                  {% endfor %}
+	                  &nbsp;{{ user.get_username }}
+	                </a>
+	              </li>
 	        		
 	        	<li><a href="{% url 'care:logout' %}" class="navbar-link"><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
 	      	    
