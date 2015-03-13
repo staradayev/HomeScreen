@@ -53,7 +53,7 @@ class UploadPictureForm(forms.Form):
 		else:
 			from django.core.files.images import get_image_dimensions
 			w, h = get_image_dimensions(image)
-
+			
 			#validate dimensions
 			mwidth = 1920 
 			mheight = 1080

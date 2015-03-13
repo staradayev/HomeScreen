@@ -1,10 +1,24 @@
 {% extends 'care/base.html' %}
 {% load i18n %}
 {% block headerscript %}
-	<link href="{{STATIC_URL}}css/social.css" rel="stylesheet">
+    <!-- UI -->
+	    <link href="{{STATIC_URL}}css/social.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/flexisel.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="{{STATIC_URL}}js/jquery.flexisel.js"></script>
+    <!-- /UI -->
+
+    <!-- Social scripts -->
+       <!--  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/social-stub-style.css"> -->
+        <script type="text/javascript" src="{{STATIC_URL}}js/social/angular.min.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/social/route.min.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/social/app.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/social/controllers.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/social/services.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/social/directives.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/ng-infinite-scroll.js"></script>
+    <!-- /Social scripts -->
+    <base href="/social/">
 {% endblock %}
 {% block header %}
 
@@ -39,15 +53,15 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-image fa-lg"></i> {% trans "Photos" %} <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"></i> {% trans "Newest" %}</a></li>
+                    <li><a href="/social/{{LANG}}/newest"></i> {% trans "Newest" %}</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">{% trans "Popular" %}</a></li>
+                    <li><a href="/social/{{LANG}}/popular">{% trans "Popular" %}</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">{% trans "Most rised" %}</a></li>
+                    <li><a href="/social/{{LANG}}/mostraised">{% trans "Most rised" %}</a></li>
                   </ul>
                 </li>
-                <li ><a href="#"><i class="fa fa-users fa-lg"></i> {% trans "Photographers" %}</a></li>
-                <li ><a href="#"><i class="fa fa-th fa-lg"></i> {% trans "Categoryies" %}</a></li>
+                <li ><a href="/social/{{LANG}}/authors"><i class="fa fa-users fa-lg"></i> {% trans "Photographers" %}</a></li>
+                <li ><a href="/social/{{LANG}}/categories"><i class="fa fa-th fa-lg"></i> {% trans "Categoryies" %}</a></li>
             </ul>
           
             <ul class="nav navbar-nav navbar-right">
@@ -60,7 +74,7 @@
                           <form name="setLang{{ lang.1 }}" id="setLang{{ lang.1 }}" action="/i18n/setlang/" method="POST">
                             <li>
                             {% csrf_token %}
-                            <input name="next" type="hidden" value="/care/myinfo">
+                            <input name="next" type="hidden" value="/social">
                             <input type="hidden" name="language" value="{{ lang.0 }}">
                             <a href="" class="{{ lang.1 }} form-li" onclick="document.getElementById('setLang{{ lang.1 }}').submit();return false;">{% if lang.1 == 'English' %} {% trans "English" %} {% else %} {% trans "Ukrainian" %} {% endif %}</a>
                             </li>
@@ -98,8 +112,8 @@
 {% block content %}
 
 <div class="container-fluid">
-    
-    <!-- Social submenu -->
+
+    <!-- Social submenu
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 category-content-indent">
             <div class="input-group">
@@ -107,11 +121,11 @@
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Search</button>
                 </span>
-            </div><!-- /input-group -->
+            </div>
         </div>
-    </div><!--/.row-->
+    </div>/.row-->
     
-    <!-- Categories -->
+    <!-- Categories 
    <div id="category" class="row social-content-indent">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 social-content-indent center-block"> 
             <div class="stackone hcenter">
@@ -149,9 +163,9 @@
             </div>
         </div>
     
-    </div><!--/.row-->
+    </div>row-->
    
-<!-- Popular -->
+<!-- Popular 
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1>Popular</h1>
@@ -479,8 +493,8 @@
                 </div>
             </div>
         </div>
-    </div><!--/.row-->
-    
+    </div>.row-->
+    <!--
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary photographer-inf">
@@ -528,12 +542,27 @@
                     </div>
                 </div>
             </div>
-        </div><!--/.col-12-->
-    </div><!--/.row-->
-</div><!--/.container-fluid-->
-<script>
-  $(window).load(function() {
-    $(".flexisel_carousel").flexisel({
+        </div>
+    </div>
+</div>container-fluid-->
+
+</div>
+
+<div ng-app="atoApp">
+    <div ng-view>
+
+    </div>
+
+</div>
+<input type="hidden" value="{{LANG}}" id="Lang_code">
+
+
+
+        <script>
+  var init_gallery = function() {
+    $(".flexisel_carousel").each(function(i, obj) {
+    //test
+    $("#flexisel_carousel"+ $(this).attr('pid') ).flexisel({
         enableResponsiveBreakpoints: true,
         clone: false,
         visibleItems: 4,
@@ -561,7 +590,16 @@
             
             
         }
-    });
-});		
+        });
+    })
+};     
 </script>
+
+
+
+
+
+
+
+
 {% endblock %}

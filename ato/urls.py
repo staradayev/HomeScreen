@@ -9,5 +9,5 @@ urlpatterns = patterns('',
     url(r'^en/$', views.IndexENView, name='index'),
     url(r'^ppen/$', views.PPEView, name='ppEnglish'),
     url(r'^ppua/$', views.PPUView, name='ppUkrainian'),
-    url(r'^social/$', views.SocialView, name='social'),
+    url(r'^social/', views.SocialView, name='social'),
 )

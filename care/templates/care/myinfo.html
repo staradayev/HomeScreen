@@ -253,50 +253,7 @@
               var percent = $('.percent');
               var status = $('#status');
                  
-              $('#upload').ajaxForm({
-                  beforeSend: function() {
-                      $('.progress').show();
-                      document.getElementById("upload-btn").disabled=true;
-                      status.empty();
-                      var percentVal = '0%';
-                      bar.width(percentVal)
-                      percent.html(percentVal);
-                      $('#user_pic').removeClass('user-rounded');
-                  },
-                  uploadProgress: function(event, position, total, percentComplete) {
-                      var percentVal = percentComplete + '%';
-                      bar.width(percentVal)
-                      percent.html(percentVal);
-                  },
-                  success: function() {
-                      var percentVal = '100%';
-                      bar.width(percentVal)
-                      percent.html("100%");
-                  },
-                complete: function(xhr) {
-                  status.html(xhr.responseText);
-                  var resp = jQuery.parseJSON(xhr.responseText);
-
-                  if(resp.success == true){
-                  	$('#user_pic').attr('src', resp.img_url);
-                  	
-                  	$('#warning_upload').html('');
-                  	$('#warn').hide();
-
-                    cropUserPhoto();
-
-                  }else{
-                  	$('#warning_upload').html(resp.message);
-                  	$('#warn').show();
-                  }
-                  $('#photoCover').html('');
-                  
-                  //$('.uploads_table tr:last').after().fadeIn("slow");
-
-                  setTimeout(function (){ $('.progress').hide(700); }, 500);
-                  document.getElementById("upload-btn").disabled=false;
-                }
-              }); 
+              
 
               function getRandom() {
                 var dim = jcrop_api.getBounds();
@@ -377,11 +334,59 @@
                 });
 
                 $( document ).ready(function() {
+
+                  $('#upload').ajaxForm({
+                  beforeSend: function() {
+                      $('.progress').show();
+                      document.getElementById("upload-btn").disabled=true;
+                      status.empty();
+                      var percentVal = '0%';
+                      bar.width(percentVal)
+                      percent.html(percentVal);
+                      $('#user_pic').removeClass('user-rounded');
+                  },
+                  uploadProgress: function(event, position, total, percentComplete) {
+                      var percentVal = percentComplete + '%';
+                      bar.width(percentVal)
+                      percent.html(percentVal);
+                  },
+                  success: function() {
+                      var percentVal = '100%';
+                      bar.width(percentVal)
+                      percent.html("100%");
+                  },
+                complete: function(xhr) {
+                  status.html(xhr.responseText);
+                  var resp = jQuery.parseJSON(xhr.responseText);
+
+                  if(resp.success == true){
+                    $('#user_pic').attr('src', resp.img_url);
+                    
+                    $('#warning_upload').html('');
+                    $('#warn').hide();
+
+                    cropUserPhoto();
+
+                  }else{
+                    $('#warning_upload').html(resp.message);
+                    $('#warn').show();
+                  }
+                  $('#photoCover').html('');
+                  
+                  //$('.uploads_table tr:last').after().fadeIn("slow");
+
+                  setTimeout(function (){ $('.progress').hide(700); }, 500);
+                  document.getElementById("upload-btn").disabled=false;
+                }
+              }); 
+
                   if($('#pic_uncompleted_url') && $('#pic_uncompleted_url').val()){
                       $('#user_pic').removeClass('user-rounded');
                       $('#user_pic').attr('src', $('#pic_uncompleted_url').val());
                       cropUserPhoto();
                   }
+
+
                 });
 
 

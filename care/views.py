@@ -415,6 +415,10 @@ def upload_thumb(request):
             # 'try save'
             img.save(settings.MEDIA_ROOT + pic.photo_thumb)
 
+            im2 = Image.open(pic.photo_origin.path)
+            # 'try crop and save'
+            im2.crop((int(w*data["left"]), int(h*data["top"]), int(w*data["right"]), int(h*data["bottom"]))).save(settings.MEDIA_ROOT + pic.photo_big_thumb)
+
             imgBig = Image.open(settings.MEDIA_ROOT + pic.photo_big_thumb).resize((600, 600))
             imgBig.save(settings.MEDIA_ROOT + pic.photo_big_thumb)
             # settings.MEDIA_ROOT + pic.photo_thumb
@@ -541,11 +545,11 @@ def UploadPictureView(request):
                 })
             from django.core.files.images import get_image_dimensions
             w, h = get_image_dimensions(image)
-
+            print("Dimensions w="+str(w)+"; h="+str(h)+";")
             # validate dimensions
             mwidth = 1920
             mheight = 1080
-            if (w > h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
+            if (w >= h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
                 return UploadResponseError(request, {
                     "error": (_(u"Too low image size, please use bigger!")),
                     "url": "",
@@ -556,7 +560,7 @@ def UploadPictureView(request):
                     "size": ''
                 })
             # portaint or landscape max size check
-            if (w > h and (w > mwidth*8 and h > mheight*8)) or (w < h and (h > mwidth*8 and w > mheight*8)):
+            if (w >= h and (w > mwidth*8 and h > mheight*8)) or (w < h and (h > mwidth*8 and w > mheight*8)):
                 return UploadResponseError(request, {
                     "error": (_(u"Too big image size! Please use smaller.")),
                     "url": "",

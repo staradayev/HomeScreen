@@ -99,14 +99,14 @@
                 </ol>-->
                  
                 <!-- Carousel items -->
-                <div class="carousel-inner visible-sm visible-md visible-lg visible-xs smallcontainer">
-                    
-	                
-                 
-                </div>
-                 
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+	                <div class="carousel-inner visible-sm visible-md visible-lg visible-xs smallcontainer">
+	                    
+		                
+	                 
+	                </div>
+	                 
+	                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+	                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
                 </div><!--/myCarousel-->
                  
             </div><!--/well-->   
@@ -427,6 +427,33 @@ $(document).ready(function() {
     		$('.item.active').find('.thumbnail').first().addClass('selected_pic');
     	}
     }
+});
+
+function findBootstrapEnvironment() {
+    var envs = ['xs', 'sm', 'md', 'lg'];
+
+    $el = $('<div>');
+    $el.appendTo($('body'));
+
+    for (var i = envs.length - 1; i >= 0; i--) {
+        var env = envs[i];
+
+        $el.addClass('hidden-'+env);
+        if ($el.is(':hidden')) {
+            $el.remove();
+            return env
+        }
+    };
+}
+
+$( window ).resize(function() {
+  	if(findBootstrapEnvironment() == 'xs'){
+  		$('.over-yes').removeClass('over-yes').addClass('over-just');
+  		$('.carousel.slide').removeClass('slide');
+  	}else{
+  		$('.over-just').removeClass('over-just').addClass('over-yes');
+  		$('.carousel').removeClass('slide').addClass('slide');
+  	}
 });
 
 </script>

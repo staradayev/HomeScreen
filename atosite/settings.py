@@ -96,7 +96,7 @@ LOGIN_URL = '/care/login'
 
 
 # Template dirs
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'static')]
 
 STATIC_ROOT = '/Users/staradayev/Documents/Projects/django-learn/atosite/static_root/'
 

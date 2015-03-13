@@ -120,14 +120,14 @@
     </div>
 </div>
 <div class="row" id="SelectRow">
-	<div class="col-md-4 col-md-offset-1">
-		 <div class="well photo_backgr lifted polaroid-face bottom-polaroid"> 
+	<div class="col-md-5">
+		 <div class="well photo_backgr lifted polaroid-face bottom-polaroid  increase-on-hover"> 
                 <div class="ato-approved text-center parent-over">
 			    	<span>
 				    	<img src="{{ MEDIA_URL }}{{img.photo_medium}}" alt="{{img.name}}" class="img-thumbnail img-full" id="picture_preview">
 				    </span>
 				    <div class="over-on-hover vcenter" id="ImageEdit">
-				    	<h3>{% trans "image" %}</h3>
+				    	<h3>&nbsp; <!--{% trans "image" %}--></h3>
 				    </div>
 				</div>
 		</div>
@@ -136,8 +136,8 @@
 	<div class="col-md-2 text-center">
 		<h3>{% trans "or" %}</h3>
 	</div>
-	<div class="col-md-4">
-		<div class="well photo_backgr curved-hz-1 polaroid-back"> 
+	<div class="col-md-5">
+		<div class="well photo_backgr curved-hz-1 polaroid-back increase-on-hover"> 
 
     	    	<div class="paper parent-over">
     	    		<h3 id="pic_name">{{img.name}}</h3>
@@ -166,7 +166,7 @@
 					</div>
 					{% endif %}
 					<div class="over-on-hover vcenter text-center" id="DescriptionEdit">
-				    	<h3>{% trans "description" %}</h3>
+				    	<h3>&nbsp; <!--{% trans "description" %}--></h3>
 				    </div>
     	    	</div>
     	</div>
@@ -174,7 +174,7 @@
 	<div class="row">
 		<div class="col-md-12 text-center">
 			<a href="/care/detail">
-				<h3>{% trans "Back" %}
+				<h3><i class="fa fa-arrow-left"></i>&nbsp;{% trans "Back" %}
 				</h3>
 			</a>
 		</div>

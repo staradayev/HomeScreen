@@ -55,15 +55,15 @@ class UploadFile(object):
 				#validate dimensions
 				mwidth = 250 
 				mheight = 250
-
-				if (w > h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
+				print("Dimensions w="+w+"; h="+h+";")
+				if (w >= h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
 					response_data = {
 						'success': False,
 						'message': (_(u'Too low image size, please use bigger!')),
 					}
 					return HttpResponse(json.dumps(response_data), content_type = 'application/json')
 				#portaint or landscape max size check
-				if (w > h and (w > mwidth*10 and h > mheight*10)) or (w < h and (h > mwidth*10 and w > mheight*10)):
+				if (w >= h and (w > mwidth*10 and h > mheight*10)) or (w < h and (h > mwidth*10 and w > mheight*10)):
 					response_data = {
 						'success': False,
 						'message': (_(u'Too big image size! Please use smaller.')),

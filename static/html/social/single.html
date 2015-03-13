@@ -1,0 +1,113 @@
+<!--<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-link">
+            <div class="container">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="back-button"><a data-back-btn href="#"><i class="fa fa-arrow-circle-o-left"></i></a></li>
+                        <li><a href="#/{{ln}}/popular">Popular</a></li>
+                        <li><a href="#/{{ln}}/mostraised">Most Raised</a></li>
+                        <li><a href="#/{{ln}}/newest">Newest</a></li>
+                        <li><a href="#/{{ln}}/categories">Categories</a></li>
+                        <li><a href="#/{{ln}}/authors">Authors</a></li>
+                        <li><span class="input-sm search"><input ng-model="searchLine"><a class="search-btn" data-search-btn href="#"><i class="fa fa-search"></i></a></span></li>
+                    </ul>
+                    <ul data-local-btns class="nav navbar-nav right-float"></ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>-->
+<div class="container">
+<div class="container-fluid" id="picture_content">
+	<div class="row">
+        <div class="col-md-12">
+            <h2><a data-back-btn href="#"><i class="fa fa-arrow-circle-o-left"></i></a>&nbsp;{{title}}</h2>
+        </div>
+    </div>
+    <div class="well photo_backgr lifted polaroid-face">
+
+		<div class="row">
+			<div class="col-md-9 col-sm-9 col-xs-12">
+	    	    <div class=""> 
+	                <div class="ato-approved text-center">
+				    	<span>
+					    	<img src="{{serverUrl}}/media/{{image.picture_url}}" alt="{{image.name}}" class="img-thumbnail img-full" id="picture_preview">
+					    	
+			      		</span>
+			    	</div>
+	            </div><!--/well-->   
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-12">
+	    	    <div class=""> 
+
+	    	    	<div class="paper">
+		                <h2 id="pic_name">{{image.name}}</h2>
+		                <div class="row">
+		                	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-6">
+		                        <div class="vertical-align">
+		                        	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
+			                            <a class="no-link" href="/social/{{ln}}/authorpictures/{{image.author_id}}"><img src="{{serverUrl}}{{image.author_thumbnail}}" alt="Photographer_ava" class="img-circle img-responsive img-thumbnail pull-right pop-photographer_ava"></a>
+			                        </div>
+			                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 detail-photographer">
+			                            <span><a class="no-link detail-photographer-name" href="/social/{{ln}}/authorpictures/{{image.author_id}}">{{image.author}}</a></span>
+			                        </div>
+			                       
+		                        </div>    
+		                    </div>
+		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 top-gutter">
+		                        <div class="vertical-align detail-info" ng-show="image.amount">
+		                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
+		                                <img src="/static/img/pig_25.png" alt="earned_money" class="img-responsive">
+		                            </div>
+		                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
+		                                <strong class="detail-text">{{image.amount}}</strong>
+		                            </div>
+		                        </div>
+		                       <div class="vertical-align detail-info" ng-show="image.downloads">
+		                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
+		                                <img src="/static/img/download_25.png" alt="downloads" class="img-responsive">
+		                            </div>
+		                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
+		                                <span class="detail-text">{{image.downloads}}</span>
+		                            </div>
+		                        </div>
+		                        <div class="vertical-align detail-info" ng-show="image.likes">
+		                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
+		                                <img src="/static/img/likes-icon.png" alt="likes" class="img-responsive">
+		                            </div>
+		                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
+		                                <span class="detail-text">{{image.likes}}</span>
+		                            </div>
+		                        </div>
+		                    </div>
+
+		                	<div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1 top-gutter">
+
+				      			<ul class="list-group " id="pic_category">
+				      				<li class="list-group-item no-gutter detail-category" ng-repeat="category in image.categories">
+				      					<a class="no-link" href="/social/{{ln}}/category/{{category.id}}">
+				      						<div class="row  no-gutter vertical-align">
+
+				      							<div class="col-xs-3 no-gutter">
+				      								<img src="{{serverUrl}}/media/{{category.picture_url}}" class="img img-responsive img-thumbnail">
+				      							</div>
+				      							<div class="col-xs-7 no-gutter">
+				      								&nbsp; {{category.name}}
+				      							</div>
+				      						</div>
+				      						
+				      					</a>
+				      				</li>
+				      			</ul>
+								   
+							</div>
+		                </div>
+
+	                </div>
+	            </div><!--/well-->   
+			</div>
+		</div>
+	</div>
+</div>
+</div>

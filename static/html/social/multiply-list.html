@@ -1,0 +1,40 @@
+<!--<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-link">
+            <div class="container">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="back-button"><a data-back-btn href="#"><i class="fa fa-arrow-circle-o-left"></i></a></li>
+                        <li><a href="#/{{ln}}/popular">Popular</a></li>
+                        <li><a href="#/{{ln}}/mostraised">Most Raised</a></li>
+                        <li><a href="#/{{ln}}/newest">Newest</a></li>
+                        <li><a href="#/{{ln}}/categories">Categories</a></li>
+                        <li><a href="#/{{ln}}/authors">Authors</a></li>
+                        <li><span class="input-sm search"><input ng-model="searchLine"><a class="search-btn" data-search-btn href="#"><i class="fa fa-search"></i></a></span></li>
+                    </ul>
+                    <ul data-local-btns class="nav navbar-nav right-float"></ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2><a data-back-btn href="#"><i class="fa fa-arrow-circle-o-left"></i></a>&nbsp;{{title}}</h2>
+            <div id="category" class="row social-content-indent" infinite-scroll="getNext()" infinite-scroll-distance="1" infinite-scroll-disabled="blocked">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 social-content-indent center-block" ng-repeat="multiply in multiplies"> 
+                    <div class="stackone hcenter">
+                        <a href="/social/{{ln}}/category/{{multiply.id}}">
+                            <img src="{{serverUrl}}/media/{{multiply.picture_url}}" ng-hide="multiply.picture_big_url">
+                            <img src="{{serverUrl}}/media/{{multiply.picture_big_url}}" ng-show="multiply.picture_big_url">
+                        </a>
+                        <span class="category-img-counter">{{multiply.pictures_count}} <i class="fa fa-camera-retro"></i></span>
+                        <p><a class="no-link grr" href="/social/{{ln}}/category/{{multiply.id}}">{{multiply.name}}</a></p>
+                    </div>
+                </div>
+            </div>
+            <!--<div ng-hide="multiplies.length" class="text-primary">There are no results.</div>-->
+
+    </div>
+</div>
