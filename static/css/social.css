@@ -211,6 +211,16 @@ span.category-img-counter{
     padding-top: 5px
 }
 
+.bottom-gutter{
+    padding-bottom: 5px
+}
+
+.left-gutter{
+      padding-left: 10%;
+}
+
+  
+
 .detail-text{
     font-size: 1.5em;
 }
@@ -219,5 +229,66 @@ span.category-img-counter{
     margin-top: 39%;
   text-align: center;
   font-size: 2em;
+}
+
+
+.btn-addon-right{
+  border-radius: 0px 6px 6px 0px;
+}
+
+.normal-font{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.fa-liked{
+    background-image: url('/static/img/likes-icon.png');
+      width: 1.5em;
+      height: 1.3em;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      margin-right: 0.25em;
+}
+
+.fa-not-liked{
+    opacity: 0.4;
+}
+
+.fa-raized{
+    background-image: url('/static/img/pig_25.png');
+      width: 1.5em;
+      height: 1.3em;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      margin-right: 0.25em;
+}
+
+.fa-downloaded{
+    background-image: url('/static/img/download_25.png');
+      width: 1.5em;
+      height: 1.3em;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      margin-right: 0.25em;
+}
+
+.btn-not-btn{
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    cursor: auto;
+}
+
+.btn-not-btn:hover,
+.btn-not-btn:focus,
+.btn-not-btn.active{
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    cursor: auto;
+    box-shadow: none;
+    outline: none !important;
 }
 
