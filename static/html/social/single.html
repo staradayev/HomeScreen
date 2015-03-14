@@ -28,7 +28,7 @@
     <div class="well photo_backgr lifted polaroid-face">
 
 		<div class="row">
-			<div class="col-md-9 col-sm-9 col-xs-12">
+			<div class="col-md-9 col-sm-8 col-xs-12">
 	    	    <div class=""> 
 	                <div class="ato-approved text-center">
 				    	<span>
@@ -38,7 +38,7 @@
 			    	</div>
 	            </div><!--/well-->   
 			</div>
-			<div class="col-md-3 col-sm-3 col-xs-12">
+			<div class="col-md-3 col-sm-4 col-xs-12">
 	    	    <div class=""> 
 
 	    	    	<div class="paper">
@@ -55,31 +55,39 @@
 			                       
 		                        </div>    
 		                    </div>
-		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 top-gutter">
-		                        <div class="vertical-align detail-info" ng-show="image.amount">
-		                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-		                                <img src="/static/img/pig_25.png" alt="earned_money" class="img-responsive">
-		                            </div>
-		                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-		                                <strong class="detail-text">{{image.amount}}</strong>
-		                            </div>
-		                        </div>
-		                       <div class="vertical-align detail-info" ng-show="image.downloads">
-		                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-		                                <img src="/static/img/download_25.png" alt="downloads" class="img-responsive">
-		                            </div>
-		                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-		                                <span class="detail-text">{{image.downloads}}</span>
-		                            </div>
-		                        </div>
-		                        <div class="vertical-align detail-info" ng-show="image.likes">
-		                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-		                                <img src="/static/img/likes-icon.png" alt="likes" class="img-responsive">
-		                            </div>
-		                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-		                                <span class="detail-text">{{image.likes}}</span>
-		                            </div>
-		                        </div>
+		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align ">
+		                    	<div class="input-group normal-font">
+								  <span class="input-group-addon" id="basic-addon-like">{{image.likes}}</span>
+								    
+								    <button disabled="disabled" ng-show="is_auth == 'false'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align">
+									  <i class="fa fa-liked"></i>Like
+									</button>
+
+								    <button ng-show="is_auth == 'true' && image.liked == 'false'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align" ng-click="like(image)">
+									  <i ng-class="{fa: true, 'fa-liked': true, 'fa-not-liked': image.liked == 'false'}"></i>Like
+									</button>
+
+									<button ng-show="is_auth == 'true' && image.liked == 'true'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align btn-not-btn">
+									  <i class="fa fa-liked"></i>Like
+									</button>
+
+								</div>
+		                    </div>
+		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align">
+		                    	<div class="input-group normal-font">
+								  <span class="input-group-addon" id="basic-addon2">{{image.downloads}}</span>
+								    <button data-toggle="modal" data-target="#myModal" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align">
+									  <i class="fa fa-downloaded"></i>Download
+									</button>
+								</div>
+		                    </div>
+		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align">
+		                    	<div class="input-group normal-font">
+								  <span class="input-group-addon" id="basic-addon3">${{image.amount}}</span>
+								    <button type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align btn-not-btn active">
+									  <i class="fa fa-raized"></i>Rized
+									</button>
+								</div>
 		                    </div>
 
 		                	<div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1 top-gutter">
@@ -110,4 +118,25 @@
 		</div>
 	</div>
 </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="myModalLabel">Donate</h3>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

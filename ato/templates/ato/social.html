@@ -548,7 +548,14 @@
 
 </div>
 
-<div ng-app="atoApp">
+<div ng-app="atoApp" >
+
+    {% if user.is_authenticated %}
+        <div ng-init="is_auth='true'; u_email='{{user.email}}'"></div>
+    {% else %}
+        <div ng-init="is_auth='false'"></div>
+    {% endif %}
+
     <div ng-view>
 
     </div>
@@ -559,6 +566,13 @@
 
 
         <script>
+$( document ).ready(function() {
+        $.ajaxSetup({
+            headers: { "X-CSRFToken": $.cookie("csrftoken") }
+        });
+
+    });
+
   var init_gallery = function() {
     $(".flexisel_carousel").each(function(i, obj) {
     //test
@@ -592,7 +606,24 @@
         }
         });
     })
-};     
+};    
+
+var like_picture = function(picture_id){
+        $.ajax({
+                url : "/care/like/"+picture_id+"/",
+                type : "POST",
+                contentType: 'application/json; charset=utf-8',
+                success : function(results){
+                    if (results.success == "true") {
+                        $('#basic-addon-like')
+                             .text(results.likes);
+                        $('.fa-not-liked').removeClass('fa-not-liked');
+                        
+                    }
+                }
+            });
+    
+} 
 </script>
 
 

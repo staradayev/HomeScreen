@@ -221,9 +221,14 @@ angular.module('atoControllers', [])
                 else
                     $scope.title = 'Зображення';
                 
-                atoApi.getPicture($routeParams.ln, $routeParams.picId).then(function(response){
+                atoApi.getPicture($routeParams.ln, $routeParams.picId, $scope.u_email).then(function(response){
                     $scope.image = response.entity;
                 });
+
+                $scope.like = function(pic){
+                    like_picture(pic.id);
+                    pic.liked = 'true';
+                }
         }])
     
     .controller('AuthorsCtrl', ['$scope', '$routeParams', '$window', 'atoApi',

@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     #Temp for debug
     url(r'^addupload/(?P<picture_id>\d+)/$', views.AddUploadView, name='addupload'),
     url(r'^addlike/(?P<picture_id>\d+)/$', views.AddLikeView, name='addlike'),
+    url(r'^like/(?P<picture_id>\d+)/$', views.AddLikePhotographerView, name='like'),
+    
     #end Temp for debug
     url(r'^upload/', views.UploadView, name='upload'),
     url(r'^addcategory/', views.AddCategoryView, name='addcat'),

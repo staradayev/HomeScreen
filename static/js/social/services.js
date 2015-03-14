@@ -3,15 +3,17 @@ angular.module('atoServices', [])
         var factory = {},
             apiUrl = 'http://127.0.0.1:8000/api/';
         
-        factory.getPicture = function(ln, id){
+        factory.getPicture = function(ln, id, u_email){
             if(!id)
                 return;
             
             var deffered = $q.defer();
             
             ln = ln || 'ua';
+            var url = (u_email) ? apiUrl+'picture?ln='+ln+'&id='+id+'&user_id='+u_email : apiUrl+'picture?ln='+ln+'&id='+id;
+
             
-            $http.get(apiUrl+'picture?ln='+ln+'&id='+id)
+            $http.get(url)
                 .success(function(data){
                     deffered.resolve(data);
                 })

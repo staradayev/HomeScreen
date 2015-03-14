@@ -790,50 +790,71 @@ def rotate_photo(request):
     data = simplejson.loads(request.body)
     pic = {}
     if data is not None:
-        # try:
-        pic = Picture.objects.get(pk=data["pic_id"])
-        print("Uploaded:")
-        print(pic.photo_origin.path)
-        print(settings.MEDIA_ROOT + pic.photo_medium)
-        print(settings.MEDIA_ROOT + pic.photo_thumb)
+        try:
+            pic = Picture.objects.get(pk=data["pic_id"])
+            print("Uploaded:")
+            print(pic.photo_origin.path)
+            print(settings.MEDIA_ROOT + pic.photo_medium)
+            print(settings.MEDIA_ROOT + pic.photo_thumb)
 
-        angle = 270
-        if data["angle"] == "left":
-            angle = 90
-        else:
             angle = 270
-        im = Image.open(pic.photo_origin.path)
-        w, h = im.size
-        print("rotate origin: " + pic.photo_origin.path)
-        # rotating it by built in PIL command
-        rotated_origin = im.rotate(angle)
-        # saving rotated image instead of original. Overwriting is on.
-        rotated_origin.save(pic.photo_origin.path, overwrite=True)
-        print("rotate medium: " + settings.MEDIA_ROOT+pic.photo_medium)
-        # rotating it by built in PIL command
-        rotated_medium = Image.open(settings.MEDIA_ROOT + pic.photo_medium).rotate(angle)
-        # saving rotated image instead of original. Overwriting is on.
-        rotated_medium.save(settings.MEDIA_ROOT+pic.photo_medium, overwrite=True)
-        print("rotate thumb: " + settings.MEDIA_ROOT+pic.photo_thumb)
-        # rotating it by built in PIL command
-        rotated_thumb = Image.open(settings.MEDIA_ROOT + pic.photo_thumb).rotate(angle)
-        # saving rotated image instead of original. Overwriting is on.
-        rotated_thumb.save(settings.MEDIA_ROOT+pic.photo_thumb, overwrite=True)
-        print("All done!")
-        # settings.MEDIA_ROOT + pic.photo_thumb
-        # 'saved'
-        response_data = {}
-        response_data['success'] = 'true'
-        response_data['id'] = pic.id
+            if data["angle"] == "left":
+                angle = 90
+            else:
+                angle = 270
+            im = Image.open(pic.photo_origin.path)
+            w, h = im.size
+            print("rotate origin: " + pic.photo_origin.path)
+            # rotating it by built in PIL command
+            rotated_origin = im.rotate(angle)
+            # saving rotated image instead of original. Overwriting is on.
+            rotated_origin.save(pic.photo_origin.path, overwrite=True)
+            print("rotate medium: " + settings.MEDIA_ROOT+pic.photo_medium)
+            # rotating it by built in PIL command
+            rotated_medium = Image.open(settings.MEDIA_ROOT + pic.photo_medium).rotate(angle)
+            # saving rotated image instead of original. Overwriting is on.
+            rotated_medium.save(settings.MEDIA_ROOT+pic.photo_medium, overwrite=True)
+            print("rotate thumb: " + settings.MEDIA_ROOT+pic.photo_thumb)
+            # rotating it by built in PIL command
+            rotated_thumb = Image.open(settings.MEDIA_ROOT + pic.photo_thumb).rotate(angle)
+            # saving rotated image instead of original. Overwriting is on.
+            rotated_thumb.save(settings.MEDIA_ROOT+pic.photo_thumb, overwrite=True)
+            print("All done!")
+            # settings.MEDIA_ROOT + pic.photo_thumb
+            # 'saved'
+            response_data = {}
+            response_data['success'] = 'true'
+            response_data['id'] = pic.id
 
-        # , "data" : dataReturn
-        return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
-        # except:
-        #   return HttpResponse(simplejson.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
+            # , "data" : dataReturn
+            return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
+        except:
+            return HttpResponse(simplejson.dumps({'success':"false", 'message':"Wrong picture request..."}), content_type="application/json")
     else:
         # , "message" : "Invalid data received by server"
         return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
 
+@login_required
+def AddLikePhotographerView(request, picture_id):
+    try:
+        picture = Picture.objects.get(pk=picture_id)
+        p_author = User.objects.get(username=request.user.username)
+        l = picture.like_set.filter(user__icontains=p_author.email)
+        if not l:
+            like = Like.create(p_author.email, picture)
+            like.save()
+
+            response_data = {}
+            response_data['success'] = 'true'
+            response_data['likes'] = picture.like_set.filter().count()
+
+            # , "data" : dataReturn
+            return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
+        else:
+            return HttpResponse("Already tracked tracked!")
+    except Exception, e:
+        return HttpResponse(simplejson.dumps({'success':"false", 'message':"Wrong request..."}), content_type="application/json")
+    
 
 @csrf_exempt
 def upload_user_thumb(request):

@@ -11,7 +11,7 @@ body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
   -webkit-font-smoothing: antialiased;
-  font: normal 14px;
+  font-size: 16px;
   font-family: 'Roboto', sans-serif;
 }
 
