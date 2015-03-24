@@ -1,7 +1,7 @@
 angular.module('atoServices', [])
     .factory('atoApi', ['$http', '$q', '$rootScope', '$location', function($http, $q, $rootScope, $location){
         var factory = {},
-            apiUrl = 'http://127.0.0.1:8000/api/';
+            apiUrl = 'http://dev.ato.care/api/';
         
         factory.getPicture = function(ln, id, u_email){
             if(!id)
