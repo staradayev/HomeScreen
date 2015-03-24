@@ -25,3 +25,5 @@ def add_watermark(in_file, text, out_file='watermark.jpg', angle=23, opacity=0.2
 	alpha = ImageEnhance.Brightness(alpha).enhance(opacity)
 	watermark.putalpha(alpha)
 	Image.composite(watermark, img, watermark).save(out_file, 'JPEG')
+
+

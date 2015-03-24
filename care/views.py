@@ -28,7 +28,6 @@ from django.shortcuts import render_to_response
 import re
 from uuid import uuid4
 
-
 def custom_404(request):
     return render_to_response('care/404.html')
 
