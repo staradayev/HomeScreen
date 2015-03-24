@@ -244,7 +244,7 @@ angular.module('atoControllers', [])
                         atoApi.getPayForm($routeParams.ln, org.id, $scope.image.id).then(function(response){
                             $scope.payForm = $sce.trustAsHtml(response.form);
                         });
-                    
+
                     }else{
                         $scope.error = $scope.trans_req + " " + $scope.trans_TC;
                     }
@@ -263,14 +263,6 @@ angular.module('atoControllers', [])
                 $scope.maxPage = 1;
                 $scope.blocked = false;
                     $scope.title = $scope.trans_photographers;                
-                
-                atoApi.getAuthors($routeParams.ln, $routeParams.pageNum).then(function(response){
-                    $scope.photographers = response.entity;
-                    //console.log($scope.photographers);
-                    setTimeout(function(){
-                        init_gallery();
-                    }, 100); 
-                });
 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
