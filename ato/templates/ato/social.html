@@ -155,6 +155,9 @@ trans_photographers
         trans_download_text_5 = '{% trans 'But with advertisement watching...' %}';
         trans_download_text_6 = '{% trans '* The part of advertisement money we will donate to help organizations' %}';
         trans_free = '{% trans 'Free' %}';
+        trans_read_and_agree = '{% trans 'I have read and agree with' %}';
+        trans_TC = '{% trans 'Terms and Conditions' %}';
+        trans_req = '{% trans 'field is required' %}';
         "></div>
     {% else %}
         <div ng-init="is_auth='false';
@@ -177,6 +180,9 @@ trans_photographers
         trans_download_text_5 = '{% trans 'But with advertisement watching...' %}';
         trans_download_text_6 = '{% trans '* The part of advertisement money we will donate to help organizations' %}';
         trans_free = '{% trans 'Free' %}';
+        trans_read_and_agree = '{% trans 'I have read and agree with' %}';
+        trans_TC = '{% trans 'Terms and Conditions' %}';
+        trans_req = '{% trans 'field is required' %}';
         "></div>
     {% endif %}
 
@@ -387,6 +393,13 @@ var setPage = function(page, param){
     
     
 }
+
+function Terms(){
+        var url = '/pp' + '{% trans "en" %}';
+        var win = window.open(url, '_blank');
+        win.focus();
+        
+      }
 
 </script>
 

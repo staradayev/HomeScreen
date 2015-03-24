@@ -144,6 +144,15 @@
       </div>
       <div class="modal-body">
       	<div class="row">
+      		<div class="col-md-12"><label>
+	              <input id="tc_checkbox" type="checkbox" required checked="checked" ng-model="TC"> {{trans_read_and_agree}} <a href="" onclick="Terms();" style="color: #777;">{{trans_TC}}</a>
+	            </label>
+	        </div>
+	        <div class="col-md-12" ng-show="error">
+	              <div class="alert alert-danger" id="uploadWarning" style="">
+                    <span class="glyphicon glyphicon-remove"></span><strong>{{error}}</strong>
+                </div>
+	        </div>
       		<div class="col-md-8">
       			<span>{{trans_download_text_1}}</span>
       			<br />
@@ -206,10 +215,12 @@
 
 <script type="text/javascript">
 $(function(){
-
+ 
     $(".dropdown-menu.amount").on('click', 'li a', function(){
-      $(".btn.amount-btn:first-child").text($(this).text());
-      $(".btn.amount-btn:first-child").val($(this).text());
+      if($('#tc_checkbox').prop('checked') == true){
+      	$(".btn.amount-btn:first-child").text($(this).text());
+      	$(".btn.amount-btn:first-child").val($(this).text());
+      }
    });
 
 });

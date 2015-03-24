@@ -229,13 +229,25 @@ angular.module('atoControllers', [])
                 };
 
                 $scope.freeStuff = function(pic){
-                    window.open($scope.serverUrl+"/care/freeload/"+$scope.image.id+"/1");
+                    if($scope.TC){
+                        $scope.error = null;
+                        window.open($scope.serverUrl+"/care/freeload/"+$scope.image.id+"/1");
+
+                    }else{
+                        $scope.error = $scope.trans_req + " " + $scope.trans_TC;
+                    }
                 };
 
                 $scope.setOrganization = function(org){
-                    atoApi.getPayForm($routeParams.ln, org.id, $scope.image.id).then(function(response){
-                        $scope.payForm = $sce.trustAsHtml(response.form);
-                    });
+                    if($scope.TC){
+                        $scope.error = null;
+                        atoApi.getPayForm($routeParams.ln, org.id, $scope.image.id).then(function(response){
+                            $scope.payForm = $sce.trustAsHtml(response.form);
+                        });
+                    
+                    }else{
+                        $scope.error = $scope.trans_req + " " + $scope.trans_TC;
+                    }
                 };
 
                 $scope.tagSearch = function(tag){
