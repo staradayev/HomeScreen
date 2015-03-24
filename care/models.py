@@ -24,7 +24,7 @@ class Tag(MultilingualModel):
         try:
             return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
         except TagTranslation.DoesNotExist:
-            return _(u'Unnamed')
+            return 'None'
     @classmethod
     def create(cls, author):
         tag_obj = cls(author=author)
@@ -52,7 +52,7 @@ class Category(MultilingualModel):
         try:
             return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
         except CategoryTranslation.DoesNotExist:
-            return _(u'Unnamed')
+            return 'None'
     @classmethod
     def create(cls, author):
         cat_obj = cls(author=author)
@@ -116,7 +116,7 @@ class Picture(MultilingualModel):
         try:
             return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
         except PictureTranslation.DoesNotExist:
-            return _(u'Unnamed')
+            return 'None'
 
     def get_thumb(self):
         return "/media/%s" % self.photo_thumb
@@ -280,7 +280,7 @@ class Organization(MultilingualModel):
         try:
             return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
         except OrganizationTranslation.DoesNotExist:
-            return _(u'Unnamed')
+            return 'None'
 
 class OrganizationTranslation(MultilingualTranslation):
     class Meta:

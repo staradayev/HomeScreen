@@ -68,7 +68,7 @@
                         <ul class="gn-menu">
                             <li>
                                 <div class="column full menu-header">
-                                    <a href="#section1">{% trans "pics.ATO.Care" %}</a>
+                                    <a href="{% url 'ato:social' %}">{% trans "pics.ATO.Care" %}</a>
                                 </div>
                             </li>
                             <li>
@@ -76,7 +76,7 @@
                                     <i class="fa fa-question-circle fa-lg"></i>
                                 </div>
                                 <div class="column three-quarter flow-opposite">
-                                    <a href="#section2">{% trans "About" %}</a>
+                                    <a href="#section1">{% trans "About" %}</a>
                                 </div>
                                 <div class="column full tiny-splitter"></div>
                             </li>
@@ -153,7 +153,7 @@
     
 <!--    Big Logo-->
     <div class="row clearfix" id="section1">
-        <div class="ato-logo"></div>
+        <a href="{% url 'ato:social' %}"><div class="ato-logo"></div></a>
     </div>
 <!--    Text Divs-->
     <div class="row clearfix msgid-title">

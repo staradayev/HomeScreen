@@ -1,5 +1,5 @@
-angular.module('atoApp', ['ngRoute', 'atoServices', 'atoControllers', 'atoDirectives', 'infinite-scroll'])
-    .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
+angular.module('atoApp', ['ngRoute', 'atoServices', 'atoControllers', 'atoDirectives', 'infinite-scroll', 'ngSanitize'])
+    .config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider){
         $routeProvider
         .when('/:ln/category/:catId', {
             templateUrl: '/static/html/social/multiply.html',
@@ -75,7 +75,7 @@ angular.module('atoApp', ['ngRoute', 'atoServices', 'atoControllers', 'atoDirect
 
         //Remove # from url
         $locationProvider.html5Mode(true);
-
+        
         
     }]).run(function($rootScope) {
         $rootScope.serverUrl = "http://127.0.0.1:8000"

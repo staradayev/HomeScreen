@@ -40,9 +40,9 @@ class ParamValidationError(Exception):
 
 class LiqPay(object):
     FORM_TEMPLATE = u'''\
-<form method="post" action="{action}" accept-charset="utf-8">
+<form method="post" action="{action}" target="_blank" accept-charset="utf-8">
 \t{param_inputs}
-    <input type="image" src="//static.liqpay.com/buttons/p1{language}.radius.png" name="btn_text" />
+    <input type="image" src="//static.liqpay.com/buttons/d4{language}.radius.png" name="btn_text" />
 </form>'''
     INPUT_TEMPLATE = u'<input type="hidden" name="{name}" value="{value}"/>'
 

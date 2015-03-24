@@ -12,6 +12,7 @@
        <!--  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/social-stub-style.css"> -->
         <script type="text/javascript" src="{{STATIC_URL}}js/social/angular.min.js"></script>
         <script type="text/javascript" src="{{STATIC_URL}}js/social/route.min.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/social/angular-sanitize.min.js"></script>
         <script type="text/javascript" src="{{STATIC_URL}}js/social/app.js"></script>
         <script type="text/javascript" src="{{STATIC_URL}}js/social/controllers.js"></script>
         <script type="text/javascript" src="{{STATIC_URL}}js/social/services.js"></script>
@@ -38,35 +39,30 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                {% if user.is_authenticated %}
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-heart fa-lg"></i> {% trans "My account" %} <span class="caret"></span></a>
+                <li class="dropdown" id="photoPage">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-image fa-lg"></i><span id="photosName"> {% trans "Photos" %} </span><span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> {% trans "My pictures" %}</a></li>
+                    <li id="newestPage"><a href="/social/{{LANG}}/newest"></i><span id="newestTitle">&nbsp;{% trans "Newest" %}</span></a></li>
                     <li class="divider"></li>
-                    <li><a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> {% trans "My info" %}</a></li>
+                    <li id="popularPage"><a href="/social/{{LANG}}/popular"><span id="popularTitle">&nbsp;{% trans "Popular" %}</span></a></li>
                     <li class="divider"></li>
-                    <li><a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> {% trans "Upload" %}</a></li>
+                    <li id="mostPage"><a href="/social/{{LANG}}/mostraised"><span id="mostTitle">&nbsp;{% trans "Most rised" %}</span></a></li>
                   </ul>
                 </li>
-                {% endif %}
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-image fa-lg"></i> {% trans "Photos" %} <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="/social/{{LANG}}/newest"></i> {% trans "Newest" %}</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/social/{{LANG}}/popular">{% trans "Popular" %}</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/social/{{LANG}}/mostraised">{% trans "Most rised" %}</a></li>
-                  </ul>
-                </li>
-                <li ><a href="/social/{{LANG}}/authors"><i class="fa fa-users fa-lg"></i> {% trans "Photographers" %}</a></li>
-                <li ><a href="/social/{{LANG}}/categories"><i class="fa fa-th fa-lg"></i> {% trans "Categoryies" %}</a></li>
+                <li id="photographerPage"><a href="/social/{{LANG}}/authors"><i class="fa fa-users fa-lg"></i> {% trans "Photographers" %}</a></li>
+                <li  id="categoryPage"><a href="/social/{{LANG}}/categories"><i class="fa fa-th fa-lg"></i> {% trans "Categoryies" %}</a></li>
             </ul>
-          
+                <div class="col-md-2 col-sm-2 col-xs-12 top-navbar" id="searchPage">
+                    <div class="input-group">
+                      <input type="text" id="searchVal" class="form-control" placeholder="{% trans 'Search for...' %}">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" id="searchBtn" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown">
+                <!--<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Language <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       {% for lang in LANGUAGES %}
@@ -82,19 +78,29 @@
                         
                       {% endfor %}
                     </ul>
-                  </li>
+                  </li>-->
+
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="/care/myinfo" class="user-now text-right user-a">
+                        <a href="/care/myinfo" class="user-now text-right user-a" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {% for profile in user.userprofile_set.all %}
                                 <img src="{{profile.get_thumb}}" class="img img-thumbnail user-thumbnail" />
                             {% endfor %}
-                            &nbsp;{{ user.username }}
+                            <i id="userName">&nbsp;{{ user.username }}&nbsp;</i><span class="caret">
                         </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'care:detail' %}"><i class="fa fa-image fa-lg"></i> {% trans "My pictures" %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'care:myinfo' %}"><i class="fa fa-user fa-lg"></i> {% trans "My info" %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'care:upload' %}"><i class="fa fa-upload fa-lg"></i> {% trans "Upload" %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'care:logout' %}" class=""><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
+                        </ul>
                     </li>
-                    <li><a href="{% url 'care:logout' %}" class="navbar-link"><i class="fa fa-sign-out fa-lg"></i> {% trans "Logout" %} </a></li>
+                    
                 {% else %}
-                    <li>
+                    <li class="join">
                         <a href="{% url 'care:detail' %}" class="user-now text-right upper">
                             <i class="join-user"></i>&nbsp;{% trans "Join" %}
                         </a>
@@ -113,465 +119,169 @@
 
 <div class="container-fluid">
 
-    <!-- Social submenu
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 category-content-indent">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
-                </span>
-            </div>
-        </div>
-    </div>/.row-->
-    
-    <!-- Categories 
-   <div id="category" class="row social-content-indent">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 social-content-indent center-block"> 
-            <div class="stackone hcenter">
-                <img src="http://placehold.it/600x600">
-                <span class="category-img-counter">2'250 <i class="fa fa-camera-retro"></i></span>
-                <p>Category name</p>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 social-content-indent"> 
-            <div class="stackone hcenter">
-                <img src="http://placehold.it/600x600">
-                <span class="category-img-counter">2'000 <i class="fa fa-camera-retro"></i></span>
-                <p>Some text</p>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 social-content-indent"> 
-            <div class="stackone hcenter">
-                <img src="http://placehold.it/600x600">
-                <span class="category-img-counter">1'000 <i class="fa fa-camera-retro"></i></span>
-                <p>Some text</p>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 social-content-indent"> 
-            <div class="stackone hcenter">
-                <img src="http://placehold.it/600x600">
-                <span class="category-img-counter">250 <i class="fa fa-camera-retro"></i></span>
-                <p>Some text</p>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 social-content-indent"> 
-            <div class="stackone hcenter">
-                <img src="http://placehold.it/600x600">
-                <span class="category-img-counter">100 <i class="fa fa-camera-retro"></i></span>
-                <p>Some text</p>
-            </div>
-        </div>
-    
-    </div>row-->
-   
-<!-- Popular 
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1>Popular</h1>
-        </div>
-    </div>
-    <div id="popular" class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 social-content-indent"> 
-            <div class="photo-shadow hcenter">
-                <div class="stackone">
-                    <img src="http://placehold.it/600x600">
-                </div>
-                <div class="popular-img-inform clearfix vertical-align">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/pig_25.png" alt="earned_money" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>12.34</strong>
-                            </div>
-                        </div>
-                       <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/download_25.png" alt="downloads" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>154</span>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/likes-icon.png" alt="likes" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>1'500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 no-gutter">
-                        <div class="vertical-align">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pop-photographer-name no-gutter">
-                            <span>Misha Popovskii</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                            <img src="http://placehold.it/600x600" alt="Photographer_ava" class="img-circle img-responsive pull-right pop-photographer_ava">
-                        </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 social-content-indent"> 
-            <div class="photo-shadow">
-                <div class="stackone">
-                    <img src="http://placehold.it/600x600">
-                </div>
-                <div class="popular-img-inform clearfix vertical-align">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/pig_25.png" alt="earned_money" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>12.34</strong>
-                            </div>
-                        </div>
-                       <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/download_25.png" alt="downloads" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>154</span>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/likes-icon.png" alt="likes" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>1'500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 no-gutter">
-                        <div class="vertical-align">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pop-photographer-name no-gutter">
-                            <span>Misha Popovskii</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                            <img src="http://placehold.it/600x600" alt="Photographer_ava" class="img-circle img-responsive pull-right pop-photographer_ava">
-                        </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 social-content-indent"> 
-            <div class="photo-shadow">
-                <div class="stackone">
-                    <img src="http://placehold.it/600x600">
-                </div>
-                <div class="popular-img-inform clearfix vertical-align">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/pig_25.png" alt="earned_money" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>12.34</strong>
-                            </div>
-                        </div>
-                       <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/download_25.png" alt="downloads" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>154</span>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/likes-icon.png" alt="likes" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>1'500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 no-gutter">
-                        <div class="vertical-align">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pop-photographer-name no-gutter">
-                            <span>Misha Popovskii</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                            <img src="http://placehold.it/600x600" alt="Photographer_ava" class="img-circle img-responsive pull-right pop-photographer_ava">
-                        </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 social-content-indent"> 
-            <div class="photo-shadow">
-                <div class="stackone">
-                    <img src="http://placehold.it/600x600">
-                </div>
-                <div class="popular-img-inform clearfix vertical-align">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/pig_25.png" alt="earned_money" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>12.34</strong>
-                            </div>
-                        </div>
-                       <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/download_25.png" alt="downloads" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>154</span>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/likes-icon.png" alt="likes" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>1'500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 no-gutter">
-                        <div class="vertical-align">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pop-photographer-name no-gutter">
-                            <span>Misha Popovskii</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                            <img src="http://placehold.it/600x600" alt="Photographer_ava" class="img-circle img-responsive pull-right pop-photographer_ava">
-                        </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 social-content-indent"> 
-            <div class="photo-shadow">
-                <div class="stackone">
-                    <img src="http://placehold.it/600x600">
-                </div>
-                <div class="popular-img-inform clearfix vertical-align">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/pig_25.png" alt="earned_money" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>12.34</strong>
-                            </div>
-                        </div>
-                       <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/download_25.png" alt="downloads" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>154</span>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/likes-icon.png" alt="likes" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>1'500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 no-gutter">
-                        <div class="vertical-align">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pop-photographer-name no-gutter">
-                            <span>Misha Popovskii</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                            <img src="http://placehold.it/600x600" alt="Photographer_ava" class="img-circle img-responsive pull-right pop-photographer_ava">
-                        </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 social-content-indent"> 
-            <div class="photo-shadow">
-                <div class="stackone">
-                    <img src="http://placehold.it/600x600">
-                </div>
-                <div class="popular-img-inform clearfix vertical-align">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/pig_25.png" alt="earned_money" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>12.34</strong>
-                            </div>
-                        </div>
-                       <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/download_25.png" alt="downloads" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>154</span>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/likes-icon.png" alt="likes" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>1'500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 no-gutter">
-                        <div class="vertical-align">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pop-photographer-name no-gutter">
-                            <span>Misha Popovskii</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                            <img src="http://placehold.it/600x600" alt="Photographer_ava" class="img-circle img-responsive pull-right pop-photographer_ava">
-                        </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 social-content-indent"> 
-            <div class="photo-shadow">
-                <div class="stackone">
-                    <img src="http://placehold.it/600x600">
-                </div>
-                <div class="popular-img-inform clearfix vertical-align">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/pig_25.png" alt="earned_money" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>12.34</strong>
-                            </div>
-                        </div>
-                       <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/download_25.png" alt="downloads" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>154</span>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
-                                <img src="{{STATIC_URL}}img/likes-icon.png" alt="likes" class="img-responsive">
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <span>1'500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pop-photographer-name no-gutter">
-                                <span>Misha Popovskii</span>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                                <img src="http://placehold.it/600x600" alt="Photographer_ava" class="img-circle img-responsive pull-right pop-photographer_ava">
-                            </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>.row-->
-    <!--
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="panel panel-primary photographer-inf">
-                <div class="panel-body">
-                    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 no-gutter vertical-align">
-                        <img src="http://placehold.it/400x400" alt="Photographer_ava" class="img-responsive img-circle pop-photographer_ava"/>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 no-gutter">
-                        <div class="vertical-align">
-                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 no-gutter photographer-name left-indent">
-                                <span>Vasya Pupkin</span>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 no-gutter">
-                                <div class="vertical-align earned-money pull-right">
-                                    <img src="{{STATIC_URL}}img/pig_50.png" alt="earned_money" class="img-responsive">
-                                    <strong>12.34</strong>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vertical-align">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social-net no-gutter left-indent">
-                                 <i class="fa fa-vk fa-2x"></i>&nbsp;
-                                 <i class="fa fa-google-plus fa-2x"></i>&nbsp;
-                                 <i class="fa fa-facebook fa-2x"></i>&nbsp;
-                                 <i class="fa fa-twitter fa-2x"></i>&nbsp;
-                                 <i class="fa fa-instagram fa-2x"></i>&nbsp;
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-gutter">
-                                    <div class="photographer-gallery clearfix left-indent">
-                                        <ul class="flexisel_carousel"> 
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>    
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                            <li><img src="http://placehold.it/150x150"/></li>
-                                        </ul>
-                                    </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>container-fluid-->
-
 </div>
 
 <div ng-app="atoApp" >
 
+    <!-- 
+trans_categories
+trans_popular
+trans_most_rised
+trans_recently_added
+trans_search
+trans_picture
+trans_photographers
+-->
+
     {% if user.is_authenticated %}
-        <div ng-init="is_auth='true'; u_email='{{user.email}}'"></div>
+        <div ng-init="is_auth='true'; 
+        u_email='{{user.email}}';
+        trans_categories = '{% trans 'Categories' %}';
+        trans_popular = '{% trans 'Popular' %}';
+        trans_most_rised = '{% trans 'Most rised' %}';
+        trans_recently_added = '{% trans 'Recently added' %}';
+        trans_search = '{% trans 'Search' %}';
+        trans_picture = '{% trans 'Photo' %}';
+        trans_photographers = '{% trans 'Photographers' %}';
+        trans_see_more = '{% trans 'See more' %}';
+        trans_like = '{% trans 'Like' %}';
+        trans_download = '{% trans 'Download' %}';
+        trans_download_title_1 = '{% trans 'Help, please!' %}';
+        trans_download_text_1 = '{% trans 'Do not be indifferent to make a donation to people in need!' %}';
+        trans_select_donation = '{% trans 'Select organization' %}';
+        trans_download_text_2 = '{% trans 'Help people with just 1$. Its not too match, but enough to save someone life...' %}';
+        trans_download_text_3 = '{% trans '* Download will start right after payment process complete' %}';
+        trans_download_text_4 = '{% trans 'Or you can dowload it free!' %}';
+        trans_download_text_5 = '{% trans 'But with advertisement watching...' %}';
+        trans_download_text_6 = '{% trans '* The part of advertisement money we will donate to help organizations' %}';
+        trans_free = '{% trans 'Free' %}';
+        "></div>
     {% else %}
-        <div ng-init="is_auth='false'"></div>
+        <div ng-init="is_auth='false';
+        trans_categories = '{% trans 'Categories' %}';
+        trans_popular = '{% trans 'Popular' %}';
+        trans_most_rised = '{% trans 'Most rised' %}';
+        trans_recently_added = '{% trans 'Recently added' %}';
+        trans_search = '{% trans 'Search' %}';
+        trans_picture = '{% trans 'Photo' %}';
+        trans_photographers = '{% trans 'Photographers' %}';
+        trans_see_more = '{% trans 'See more' %}';
+        trans_like = '{% trans 'Like' %}';
+        trans_download = '{% trans 'Download' %}';
+        trans_download_title_1 = '{% trans 'Help, please!' %}';
+        trans_download_text_1 = '{% trans 'Do not be indifferent to make a donation to people in need!' %}';
+        trans_select_donation = '{% trans 'Select organization' %}';
+        trans_download_text_2 = '{% trans 'Help people with just 1$. Its not too match, but enough to save someone life...' %}';
+        trans_download_text_3 = '{% trans '* Download will start right after payment process complete' %}';
+        trans_download_text_4 = '{% trans 'Or you can dowload it free!' %}';
+        trans_download_text_5 = '{% trans 'But with advertisement watching...' %}';
+        trans_download_text_6 = '{% trans '* The part of advertisement money we will donate to help organizations' %}';
+        trans_free = '{% trans 'Free' %}';
+        "></div>
     {% endif %}
 
     <div ng-view>
 
     </div>
-
+<a href="#" data-back-btn class="scrollBack"></a>
 </div>
+
+
+
+<a href="#" class="scrollToTop smaller"></a>
 <input type="hidden" value="{{LANG}}" id="Lang_code">
 
+<script>
 
+var relayout;
 
-        <script>
+$(document).ready(function(){
+    
+    //Check to see if the window is top if not then display button
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('.scrollBack').fadeOut(250, function(){
+                $('.scrollToTop').fadeIn(250);
+            });
+            
+        } else {
+            $('.scrollToTop').fadeOut(250, function(){
+                $('.scrollBack').fadeIn(250);
+            });
+        }
+    });
+    
+    //Click event to scroll to top
+    $('.scrollToTop').click(function(){
+        $('html, body').animate({scrollTop : 0},800);
+        return false;
+    });
+
+    // Wrap everything in an IIFE
+(function($, viewport){
+
+    var doStuff = function(){
+        if( viewport.is('xs') && !$('.scrollBack').hasClass('smaller')) {
+            $('.scrollBack').addClass('smaller');
+        }else if(!viewport.is('xs') && $('.scrollBack').hasClass('smaller')){
+            $('.scrollBack').removeClass('smaller');
+        }
+        if( viewport.is('xs') && !$('.tabs').hasClass('little-bit')) {
+            $('.tabs').addClass('little-bit');
+        }else if(!viewport.is('xs') && $('.tabs').hasClass('little-bit')){
+            $('.tabs').removeClass('little-bit');
+        }
+
+        if( viewport.is('sm')){
+            $('#userName').hide()
+        }else{
+            $('#userName').show()
+        }
+    }
+    // Do stuff in the lowest resolutions only
+    if( viewport.is('xs') ) {
+        doStuff();
+    }
+
+    // Do the same, but only after document has loaded
+    $(document).ready(function() {
+        doStuff();
+
+        $('#bs-example-navbar-collapse-1').on('show.bs.collapse', function () {
+            $('.scrollBack').hide()
+        });
+
+        $('#bs-example-navbar-collapse-1').on('hidden.bs.collapse', function () {
+            $('.scrollBack').show()
+        });
+    });
+
+    // Execute code each time window size changes
+    $(window).bind('resize', function() {
+        viewport.changed(function(){
+            doStuff();
+        });
+    });
+
+    relayout = doStuff;
+
+})(jQuery, ResponsiveBootstrapToolkit);
+    
+});
+
 $( document ).ready(function() {
         $.ajaxSetup({
             headers: { "X-CSRFToken": $.cookie("csrftoken") }
         });
 
+
     });
+
+        $('#searchBtn').on('click', function (e) {
+            if($("#searchVal").val()){
+                window.location = '/social/{{LANG}}/search/' + encodeURIComponent($("#searchVal").val());
+            }   
+        });
 
   var init_gallery = function() {
     $(".flexisel_carousel").each(function(i, obj) {
@@ -621,16 +331,63 @@ var like_picture = function(picture_id){
                         
                     }
                 }
+            });  
+}
+
+var donate = function(amount){
+    $.ajax({
+                url : "/care/donate/"+amount+"/",
+                type : "POST",
+                contentType: 'application/json; charset=utf-8',
+                success : function(results){
+                    if (results.success == "true") {
+                        alert("success");
+                        
+                    }
+                }
             });
+}
+
+var setPage = function(page, param){
+    if(page){
+        //clear 
+        $('.active').removeClass('active');
+        switch(page){
+            case 'search':
+                $('#searchPage').addClass('active');
+                $('#searchVal').attr('placeholder', param)
+                break;
+            case 'category':
+                $('#categoryPage').addClass('active');
+                break;
+            case 'popular':
+                $("#photoPage").addClass('active');
+                $("#photosName").html($('#popularTitle').html());
+                $("#popularPage").addClass('active');
+                break;
+            case 'most':
+                $("#photoPage").addClass('active');
+                $("#photosName").html($('#mostTitle').html());
+                $("#mostPage").addClass('active');
+                break;
+            case 'newest':
+                $("#photoPage").addClass('active');
+                $("#photosName").html($('#newestTitle').html());
+                $("#newestPage").addClass('active');
+                break;
+            case 'photo':
+                $('#photoPage').addClass('active');
+                break;
+            case 'photographer':
+                $('#photographerPage').addClass('active');
+                break;
+            
+        }
+    }
     
-} 
+    
+}
+
 </script>
-
-
-
-
-
-
-
 
 {% endblock %}

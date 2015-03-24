@@ -5,7 +5,7 @@ from care import views
 
 urlpatterns = patterns('',
     url(r'^$', views.DetailView, name='detail'),
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'care/login.html', 'extra_context': {'next':'/care/detail'}}),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'care/login.html', 'extra_context': {'next':'/care/detail'}}, name='login'),
     url(r'^logged/', views.logged, name='logged'),
     url(r'^logout/', views.logout, name='logout'),
     url(r'^detail/', views.DetailView, name='detail'),
@@ -34,5 +34,10 @@ urlpatterns = patterns('',
     url(r'^adduserthumb/$', views.upload_user_thumb, name = 'upload_user_thumb' ),
     
     url(r'^rotatephoto/$', views.rotate_photo, name = 'rotate_photo' ),
-    
+
+    url(r'^freeload/(?P<picture_id>\d+)/(?P<org_id>\d+)$', views.FreeLoadView, name='freeload'),
+    url(r'^payform/(?P<picture_id>\d+)/(?P<org_id>\d+)$', views.PayLoadView, name='payform'),
+    url(r'^donload/(?P<picture_id>\d+)/(?P<org_id>\d+)/(?P<ord_id>\d+)$', views.DonLoadView, name='donload'),
+
+    url(r'^error/$', views.custom_404, name = 'error' ),
 )

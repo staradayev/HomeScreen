@@ -26,7 +26,7 @@
 	        	<li class="dropdown">
 		          <a href="{% url 'ato:social' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-users fa-lg"></i> {% trans "Discover" %} <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
-		            <li><a href="{% url 'ato:social' %}"><i class="fa fa-image fa-lg"></i> {% trans "Photos" %}</a></li>
+		            <li><a href="{% url 'ato:social' %}/{{LANG}}/newest"><i class="fa fa-image fa-lg"></i> {% trans "Photos" %}</a></li>
 		            <li class="divider"></li>
 		            <li><a href="{% url 'ato:social' %}"><i class="fa fa-users fa-lg"></i> {% trans "Photographers" %}</a></li>
 		            <li class="divider"></li>
@@ -123,13 +123,9 @@
 				    	<img src="" alt="" class="img-thumbnail img-full" id="picture_preview">
 				    	
 				    	<span class="ato-status" id="pic_already_approved" style="display: none;">
-				    		<a class="download_image"><i class="fa fa-download fa-4x"></i></a>
-				    		<a class="like_image"><i class="liked fa fa-heart fa-4x"></i></a>
 				    		<abbr class="no_under" title="{% blocktrans %}Picture approved{% endblocktrans %}"><i class="fa fa-check-square-o fa-4x"></i></abbr>
 				    	</span>
 				    	<span class="ato-status" id="pic_under_approval" style="display: none;">
-				    		<a class="download_image"><i class="fa fa-download fa-4x"></i></a>
-				    		<a class="like_image"><i class="liked fa fa-heart fa-4x"></i></a>
 				    		<a id="edit_image" ><i class="fa fa-pencil-square-o fa-4x"></i></a>
 				    		<abbr class="no_under" title="{% blocktrans %}Under approval{% endblocktrans %}"><i class="fa fa-question fa-4x"></i></abbr>
 				    	</span>

@@ -1,5 +1,5 @@
 angular.module('atoServices', [])
-    .factory('atoApi', ['$http', '$q', function($http, $q){
+    .factory('atoApi', ['$http', '$q', '$rootScope', '$location', function($http, $q, $rootScope, $location){
         var factory = {},
             apiUrl = 'http://127.0.0.1:8000/api/';
         
@@ -15,9 +15,15 @@ angular.module('atoServices', [])
             
             $http.get(url)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
-                .error(function(){});
+                .error(function(){
+                    
+                });
         
             return deffered.promise;
         };
@@ -32,7 +38,11 @@ angular.module('atoServices', [])
             page = page || 1;
             $http.get(apiUrl+'catpictures?ln='+ln+'&id='+id+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         
@@ -47,7 +57,11 @@ angular.module('atoServices', [])
             
             $http.get(apiUrl+'categories?ln='+ln+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         
@@ -62,7 +76,11 @@ angular.module('atoServices', [])
             
             $http.get(apiUrl+'popular?ln='+ln+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         
@@ -77,7 +95,11 @@ angular.module('atoServices', [])
             
             $http.get(apiUrl+'mostraised?ln='+ln+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         
@@ -92,7 +114,11 @@ angular.module('atoServices', [])
             
             $http.get(apiUrl+'newest?ln='+ln+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         
@@ -110,7 +136,11 @@ angular.module('atoServices', [])
             
             $http.get(apiUrl+'search?ln='+ln+'&param='+searchVal+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         
@@ -125,7 +155,11 @@ angular.module('atoServices', [])
             
             $http.get(apiUrl+'photographers?ln='+ln+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         
@@ -143,7 +177,46 @@ angular.module('atoServices', [])
             
             $http.get(apiUrl+'author?ln='+ln+'&id='+id+'&page='+page)
                 .success(function(data){
-                    deffered.resolve(data);
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
+                })
+                .error(function(){});
+        
+            return deffered.promise;
+        };
+
+        factory.getOrganizations = function(ln, user_id){
+            var deffered = $q.defer();
+            
+            ln = ln || 'ua';
+            user_id = user_id || null;
+            
+            $http.get(apiUrl+'organizations?ln='+ln+'&user_id='+user_id)
+                .success(function(data){
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
+                })
+                .error(function(){});
+        
+            return deffered.promise;
+        };
+
+        factory.getPayForm = function(ln, org_id, pic_id){
+            var deffered = $q.defer(); 
+            
+            $http.get($rootScope.serverUrl+'/care/payform/'+pic_id+'/'+org_id)
+                .success(function(data){
+                    if(data.success.toLowerCase() == 'true'){
+                        deffered.resolve(data);
+                    }else{
+                        window.location = '/care/error';
+                    }
                 })
                 .error(function(){});
         

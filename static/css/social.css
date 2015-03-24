@@ -211,6 +211,14 @@ span.category-img-counter{
     padding-top: 5px
 }
 
+.top-gutter-1{
+    padding-top: 1%;
+}
+
+.top-gutter-2{
+    padding-top: 2%;
+}
+
 .bottom-gutter{
     padding-bottom: 5px
 }
@@ -292,3 +300,129 @@ span.category-img-counter{
     outline: none !important;
 }
 
+.join{
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+.scrollToTop{
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+      text-align: center;
+      /* background: whiteSmoke; */
+      font-weight: bold;
+      color: #444;
+      text-decoration: none;
+      position: fixed;
+      bottom: 68px;
+      left: 15px;
+      display: none;
+      background: url('/static/img/top2.png') no-repeat;
+      background-size: contain;
+}
+.scrollToTop:hover{
+    text-decoration:none;
+}
+
+.scrollBack{
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+      text-align: center;
+      /* background: whiteSmoke; */
+      font-weight: bold;
+      color: #444;
+      text-decoration: none;
+      position: fixed;
+      top: 78px;
+      left: 15px;
+      background: url('/static/img/back.png') no-repeat;
+      background-size: contain;
+}
+.scrollBack:hover{
+    text-decoration:none;
+}
+
+.scrollBack.smaller{
+    width: 30px;
+    height: 30px;
+    top: 62px;
+}
+
+.relative-me{
+    position: relative;
+}
+
+.tabs{
+    position: absolute;
+    bottom: 2%;
+    left: 0%;
+}
+
+.tabs ul{
+      margin:0;
+      padding:0;
+      list-style:none;
+      float:left;
+}
+
+.tabs ul li{
+      line-height: 1.7em;
+      margin-top: 0.3em;
+      cursor: pointer;
+}
+
+.yellow a{
+    background-color: #ffef26;
+    line-height: 1.7em;
+  display: inline-block;
+  padding-left: 0.4em;
+  padding-right: 0.3em;
+
+  color: #000;
+  opacity: 0.9;
+
+  -webkit-box-shadow: 0px 0px 5px #222;
+    -moz-box-shadow: 0px 0px 5px #222;
+    box-shadow: 0px 0px 5px #222;
+}
+
+.blue a{
+    background-color: #22a1fe;
+    line-height: 1.7em;
+  display: inline-block;
+  padding-left: 0.4em;
+  padding-right: 0.3em;
+  color: #fff;
+opacity: 0.9;
+
+-webkit-box-shadow: 0px 0px 5px #222;
+    -moz-box-shadow: 0px 0px 5px #222;
+    box-shadow: 0px 0px 5px #222;
+}
+
+.tabs.little-bit ul li{
+    line-height: 1em;
+}
+
+.tabs.little-bit .yellow,
+.tabs.little-bit .blue{
+    font-size: 0.6em;
+}
+
+.top-navbar{
+    padding-top: 8px;
+    padding-bottom: 7px;
+}
+
+.top-navbar.active{
+    color: #555;
+    background-color: #e7e7e7;
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: gray;
+}
