@@ -5,8 +5,9 @@ angular.module('atoControllers', [])
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.blocked = false;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage("category");
                 $scope.maxPage = 1;
-                $scope.title = 'Category';
+                $scope.title = '';
 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
@@ -39,11 +40,9 @@ angular.module('atoControllers', [])
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.blocked = false;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage("category");
                 $scope.maxPage = 1;
-                if($scope.ln == 'en')
-                    $scope.title = 'Categories';
-                else
-                    $scope.title = 'Категорії'; 
+                    $scope.title = $scope.trans_categories;
 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
@@ -62,6 +61,7 @@ angular.module('atoControllers', [])
                                 }
                                 $scope.page = $scope.page + 1;
                                 $scope.blocked = false;
+
                             }
                         });
                     }
@@ -74,12 +74,10 @@ angular.module('atoControllers', [])
             function($scope, $routeParams, $window, atoApi){                
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage("popular");
                 $scope.maxPage = 1;
                 $scope.blocked = false;
-                if($scope.ln == 'en')
-                    $scope.title = 'Popular';
-                else
-                    $scope.title = 'Популярні';
+                    $scope.title = $scope.trans_popular;
 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
@@ -112,12 +110,10 @@ angular.module('atoControllers', [])
             function($scope, $routeParams, $window, atoApi){                
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage("most");
                 $scope.maxPage = 1;
                 $scope.blocked = false;
-                if($scope.ln == 'en')
-                    $scope.title = 'Most Raised';
-                else
-                    $scope.title = 'Найбільш Актуальні';
+                    $scope.title = $scope.trans_most_rised;
 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
@@ -147,13 +143,11 @@ angular.module('atoControllers', [])
             function($scope, $routeParams, $window, atoApi){                
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage("newest");
                 $scope.maxPage = 1;
                 $scope.blocked = false;
 
-                if($scope.ln == 'en')
-                    $scope.title = 'Newest Pictures';
-                else
-                    $scope.title = 'Нові Зображення';
+                $scope.title = $scope.trans_recently_added;
 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
@@ -182,12 +176,11 @@ angular.module('atoControllers', [])
             function($scope, $routeParams, $window, atoApi){
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage('search', $routeParams.searchVal);
                 $scope.maxPage = 1;
                 $scope.blocked = false;
-                if($scope.ln == 'en')
-                    $scope.title = 'Search';
-                else
-                    $scope.title = 'Пошук';                
+                $scope.search = true;
+                    $scope.title = $routeParams.searchVal;              
 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
@@ -213,34 +206,51 @@ angular.module('atoControllers', [])
                 $scope.getNext();
         }])
     
-    .controller('SingleCtrl', ['$scope', '$routeParams', '$window', 'atoApi',
-            function($scope, $routeParams, $window, atoApi){                
+    .controller('SingleCtrl', ['$scope', '$routeParams', '$sce', '$window', 'atoApi',
+            function($scope, $routeParams, $sce, $window, atoApi){                
                 $scope.ln = $scope.current_lang || $routeParams.ln;
-                if($scope.ln == 'en')
-                    $scope.title = 'Picture';
-                else
-                    $scope.title = 'Зображення';
+                setPage("photo");
+                    $scope.title = $scope.trans_picture;  
                 
                 atoApi.getPicture($routeParams.ln, $routeParams.picId, $scope.u_email).then(function(response){
                     $scope.image = response.entity;
                 });
 
+                atoApi.getOrganizations($routeParams.ln, ($scope.is_auth) ? $scope.u_email : null).then(function(response){
+                    $scope.orgs = response.entity;
+                    setTimeout(function(){
+                        relayout();
+                    }, 100)        
+                })
+
                 $scope.like = function(pic){
                     like_picture(pic.id);
                     pic.liked = 'true';
-                }
+                };
+
+                $scope.freeStuff = function(pic){
+                    window.open($scope.serverUrl+"/care/freeload/"+$scope.image.id+"/1");
+                };
+
+                $scope.setOrganization = function(org){
+                    atoApi.getPayForm($routeParams.ln, org.id, $scope.image.id).then(function(response){
+                        $scope.payForm = $sce.trustAsHtml(response.form);
+                    });
+                };
+
+                $scope.tagSearch = function(tag){
+                    window.location = $scope.serverUrl + '/social/' + $scope.ln + '/search/' + encodeURIComponent(tag.name.replace('#', ''));
+                };
         }])
     
     .controller('AuthorsCtrl', ['$scope', '$routeParams', '$window', 'atoApi',
             function($scope, $routeParams, $window, atoApi){
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage("photographer");
                 $scope.maxPage = 1;
                 $scope.blocked = false;
-                if($scope.ln == 'en')
-                    $scope.title = 'Authors';
-                else
-                    $scope.title = 'Автори';                
+                    $scope.title = $scope.trans_photographers;                
                 
                 atoApi.getAuthors($routeParams.ln, $routeParams.pageNum).then(function(response){
                     $scope.photographers = response.entity;
@@ -267,6 +277,10 @@ angular.module('atoControllers', [])
                                     for (var i = 0; i < response.entity.length; i++) {
                                         $scope.photographers.push(response.entity[i]);
                                     };
+
+                                    setTimeout(function(){
+                                        init_gallery();
+                                    }, 100); 
                                 }
                                 $scope.page = $scope.page + 1;
                                 $scope.blocked = false;
@@ -280,12 +294,10 @@ angular.module('atoControllers', [])
             function($scope, $routeParams, $window, atoApi){
                 $scope.ln = $scope.current_lang || $routeParams.ln;
                 $scope.page = $routeParams.pageNum || 0;
+                setPage("photographer");
                 $scope.maxPage = 1;
                 $scope.blocked = false;
-                if($scope.ln == 'en')
-                    $scope.title = 'Author';
-                else
-                    $scope.title = 'Автор';                
+                $scope.photographer = {};             
                 
                 $scope.getNext = function(){
                     if($scope.page < $scope.maxPage){
@@ -297,7 +309,11 @@ angular.module('atoControllers', [])
                                 if($scope.page == 0){
                                     $scope.images = response.entity;
                                     $scope.maxPage = response.count;
-                                    $scope.title = response.page_name;
+                                    $scope.photographer.name = response.page_name;
+                                    $scope.photographer.photo = response.author_photo;
+                                    $scope.photographer.thumbnail = response.author_thumbnail;
+                                    $scope.photographer.links = response.author_links;
+                                    $scope.photographer.help = response.author_help;
                                 }else{
                                     for (var i = 0; i < response.entity.length; i++) {
                                         $scope.images.push(response.entity[i]);

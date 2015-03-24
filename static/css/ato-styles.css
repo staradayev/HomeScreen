@@ -144,6 +144,15 @@ header .dropdown-menu {
   background-color: #000;
 }
 
+.masthead .login{
+  height: 20px;
+  line-height: 25px;
+  margin: 5px;
+  display: inline-block;
+  color: #ddd;
+  font-weight: normal;
+}
+
 .head-row{
   /*padding-top: 212px;*/
 

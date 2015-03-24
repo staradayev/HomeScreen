@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h2><a data-back-btn href="#"><i class="fa fa-arrow-circle-o-left"></i></a>&nbsp;{{title}}</h2>
+            <h2>&nbsp;&nbsp;&nbsp;&nbsp;{{title}}</h2>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
                                             <li ng-repeat="picture in photographer.pictures"><a href="/social/{{ln}}/picture/{{picture.id}}"><img src="{{serverUrl}}/media/{{picture.picture_url}}"/></a></li>
                                             <li ng-show="photographer.pictures">
                                                 <div class="vertical-align">
-                                                    <a href="/social/{{ln}}/authorpictures/{{photographer.author_id}}" class="no-link seeMore"><i class="fa fa-plus-circle"></i> See more</a>
+                                                    <a href="/social/{{ln}}/authorpictures/{{photographer.author_id}}" class="no-link seeMore"><i class="fa fa-plus-circle"></i> {{trans_see_more}}</a>
                                                 </div>
                                             </li>
                                         </ul>

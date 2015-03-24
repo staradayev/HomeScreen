@@ -22,7 +22,38 @@
 <div class="container-fluid">
      <div class="row">
         <div class="col-md-12">
-            <h2><a data-back-btn href="#"><i class="fa fa-arrow-circle-o-left"></i></a>&nbsp;{{title}}</h2>
+
+            <h2 ng-show="!photographer && !search">&nbsp;&nbsp;&nbsp;&nbsp;{{title}}</h2>
+
+            <h2 ng-show="search">&nbsp;&nbsp;&nbsp;&nbsp;<small>{{trans_search}}:</small>&nbsp;&nbsp;{{title}}</h2>
+
+            <div class="row"  ng-show="photographer">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    <img class="img img-thumbnail img-responsive img-circle" src="{{serverUrl}}{{photographer.photo}}">
+                </div>
+                <div class="col-lg-10 col-md-9 col-sm-8 col-xs-6 no-gutter">
+                        <div class="vertical-align">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-gutter photographer-name left-indent top-gutter-1">
+                                <span><a class="no-link" href="/social/{{ln}}/authorpictures/{{photographer.author_id}}">{{photographer.name}}</a></span>
+                            </div>
+                           
+                        </div>
+                        <div class="vertical-align">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social-net no-gutter left-indent" ng-show="photographer.links">
+                                 <a href="{{lnk.link_url}}" target="blank" class="no-link" ng-repeat="lnk in photographer.links"><i class="fa fa-{{lnk.link_type}} fa-2x" ></i>&nbsp;&nbsp;</a>
+                                 
+                            </div>
+                        </div>
+                        <div class="vertical-align" ng-show="photographer.help">
+                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-gutter top-gutter-2">
+                                <div class="vertical-align earned-money">
+                                    <img src="/static/img/pig_50.png" alt="earned_money" class="img-responsive">
+                                    <strong>{{photographer.help}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
         </div>
     </div>
     <div id="popular" class="row" infinite-scroll="getNext()" infinite-scroll-distance="1" infinite-scroll-disabled="blocked">
@@ -45,14 +76,14 @@
                                 <strong>{{image.amount}}</strong>
                             </div>
                         </div>
-                       <!--<div class="vertical-align" ng-show="{{image.downloads}}">
+                       <div class="vertical-align" ng-show="image.downloads && !(image.likes && image.amount)">
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
                                 <img src="/static/img/download_25.png" alt="downloads" class="img-responsive">
                             </div>
                             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
                                 <span>{{image.downloads}}</span>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="vertical-align" ng-show="image.likes">
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
                                 <img src="/static/img/likes-icon.png" alt="likes" class="img-responsive">
@@ -80,3 +111,4 @@
 
     </div>
 </div>
+

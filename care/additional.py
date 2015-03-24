@@ -55,7 +55,7 @@ class UploadFile(object):
 				#validate dimensions
 				mwidth = 250 
 				mheight = 250
-				print("Dimensions w="+w+"; h="+h+";")
+				print("Dimensions w="+str(w)+"; h="+str(h)+";")
 				if (w >= h and (w < mwidth and h < mheight)) or (w < h and (h < mwidth and w < mheight)):
 					response_data = {
 						'success': False,

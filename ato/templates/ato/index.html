@@ -7,7 +7,10 @@
         <div class="header-cover">
           <div class="carousel-lang text-right">
             <div class="row">
-              <div class="col-xs-4 col-sm-6 col-md-8 col-lg-10">
+              <div class="col-md-4 col-lg-8">
+              </div>
+              <div class="col-xs-4 col-sm-6 col-md-4 col-lg-2">
+                <a href="{% url 'care:login' %}" class="login">{% trans "Login" %}</a>
               </div>
               {% for lang in LANGUAGES %}
                 <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1 nearest">
@@ -119,8 +122,8 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav nav-justified">
 
-          <li class="active"><a href="#section1"><strong>{% trans "pics.ATO.Care" %}</strong></a></li>
-          <li><a href="#section2">{% trans "About" %}</a></li>
+          <li ><a href="{% url 'ato:social' %}"><strong>{% trans "pics.ATO.Care" %}</strong></a></li>
+          <li class="active"><a href="#section1">{% trans "About" %}</a></li>
           <li><a href="#section3">{% trans "Help" %}</a></li>
           
           <li><a href="#section4">{% trans "Download" %}</a></li>
@@ -291,11 +294,11 @@
 
               <ul class="space text-center share">
                
-                <li><a href="#"><i class="fa fa-vk fa-2x"></i></a></li><!-- Change # with your Pinterest Account -->
-                <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
+                <li><a  href="http://vk.com/public90039447" target="_blank"><i class="fa fa-vk fa-2x"></i></a></li><!-- Change # with your Pinterest Account -->
+                <li><a href="https://twitter.com/pics_ATO_Care" target="_blank"><i class="fa fa-twitter fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
               
-                <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
-                <li><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->    
+                <li><a href="https://www.facebook.com/pics.ato.care" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
+                <li><a href="https://plus.google.com/u/0/communities/100486064908229100027" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->    
                   
              </ul> <!-- End social media -->
 

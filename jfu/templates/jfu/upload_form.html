@@ -112,7 +112,7 @@ Bootstrap CSS Toolkit styles
                     The file input for the upload form.
                 {% endcomment %}
                 <input 
-                    type="file" name="files[]" multiple
+                    type="file" name="files[]"
 
                     {% if accepted_mime_types %}
                         accept = '{{ accepted_mime_types|join:"," }}'
@@ -476,8 +476,11 @@ The File Upload validation plugin
             formData: formData,
             singleFileUploads: true,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            sequentialUploads: true,
+            limitConcurrentUploads: 1,
+            maxNumberOfFiles: 1,
             {% block JS_OPTS %}
-            sequentialUploads: true
+
             {% endblock %}
 
         }).bind('fileuploadadd', function (e, data) {

@@ -68,7 +68,7 @@
                         <ul class="gn-menu">
                             <li>
                                 <div class="column full menu-header">
-                                    <a href="#section1">{% trans "pics.ATO.Care" %}</a>
+                                    <a href="{% url 'ato:social' %}">{% trans "pics.ATO.Care" %}</a>
                                 </div>
                             </li>
                             <li>
@@ -76,7 +76,7 @@
                                     <i class="fa fa-question-circle fa-lg"></i>
                                 </div>
                                 <div class="column three-quarter flow-opposite">
-                                    <a href="#section2">{% trans "About" %}</a>
+                                    <a href="#section1">{% trans "About" %}</a>
                                 </div>
                                 <div class="column full tiny-splitter"></div>
                             </li>
@@ -153,7 +153,7 @@
     
 <!--    Big Logo-->
     <div class="row clearfix" id="section1">
-        <div class="ato-logo"></div>
+        <a href="{% url 'ato:social' %}"><div class="ato-logo"></div></a>
     </div>
 <!--    Text Divs-->
     <div class="row clearfix msgid-title">
@@ -228,10 +228,10 @@
                     <p class="lead">{% trans "Help card header 3" %}</p>
                     <p>{% trans "Help card content 3" %}</p>
                     <ul class="space text-center share">
-                        <li><a href="#"><i class="fa fa-vk fa-2x"></i></a></li><!-- Change # with your Pinterest Account -->
-                        <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
-                        <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
-                        <li><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->    
+                        <li><a href="http://vk.com/public90039447" target="_blank"><i class="fa fa-vk fa-2x"></i></a></li><!-- Change # with your Pinterest Account -->
+                        <li><a href="https://twitter.com/pics_ATO_Care" target="_blank"><i class="fa fa-twitter fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
+                        <li><a href="https://www.facebook.com/pics.ato.care" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
+                        <li><a href="https://plus.google.com/u/0/communities/100486064908229100027" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->    
                     </ul> <!-- End social media -->
                 </div>
             </div><!--/panel--> 

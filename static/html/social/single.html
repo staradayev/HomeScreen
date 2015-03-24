@@ -22,13 +22,14 @@
 <div class="container-fluid" id="picture_content">
 	<div class="row">
         <div class="col-md-12">
-            <h2><a data-back-btn href="#"><i class="fa fa-arrow-circle-o-left"></i></a>&nbsp;{{title}}</h2>
+            <h2>&nbsp;&nbsp;&nbsp;&nbsp;{{image.name}}</h2>
         </div>
     </div>
+    <br>
     <div class="well photo_backgr lifted polaroid-face">
 
 		<div class="row">
-			<div class="col-md-9 col-sm-8 col-xs-12">
+			<div class="col-md-9 col-sm-8 col-xs-12 relative-me">
 	    	    <div class=""> 
 	                <div class="ato-approved text-center">
 				    	<span>
@@ -37,12 +38,23 @@
 			      		</span>
 			    	</div>
 	            </div><!--/well-->   
+	            <div class="tabs">
+	            	<ul>
+	            		<li ng-repeat="tag in image.tags"><span ng-class-odd="'blue'" ng-class-even="'yellow'"><a href="" ng-click="tagSearch(tag)">{{tag.name}}</a></span></li>
+	            		
+	            	</ul>
+	            </div>
 			</div>
 			<div class="col-md-3 col-sm-4 col-xs-12">
 	    	    <div class=""> 
-
+	    	    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-gutter" ng-show="image.amount">
+                                <div class="vertical-align earned-money pull-right">
+                                    <img src="/static/img/pig_50.png" alt="earned_money" class="img-responsive">
+                                    <strong>{{image.amount}}</strong>
+                                </div>
+                            </div>
 	    	    	<div class="paper">
-		                <h2 id="pic_name">{{image.name}}</h2>
+		                <!--<h2 id="pic_name">{{image.name}}</h2>-->
 		                <div class="row">
 		                	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-6">
 		                        <div class="vertical-align">
@@ -60,15 +72,15 @@
 								  <span class="input-group-addon" id="basic-addon-like">{{image.likes}}</span>
 								    
 								    <button disabled="disabled" ng-show="is_auth == 'false'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align">
-									  <i class="fa fa-liked"></i>Like
+									  <i class="fa fa-liked"></i>{{trans_like}}
 									</button>
 
 								    <button ng-show="is_auth == 'true' && image.liked == 'false'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align" ng-click="like(image)">
-									  <i ng-class="{fa: true, 'fa-liked': true, 'fa-not-liked': image.liked == 'false'}"></i>Like
+									  <i ng-class="{fa: true, 'fa-liked': true, 'fa-not-liked': image.liked == 'false'}"></i>{{trans_like}}
 									</button>
 
 									<button ng-show="is_auth == 'true' && image.liked == 'true'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align btn-not-btn">
-									  <i class="fa fa-liked"></i>Like
+									  <i class="fa fa-liked"></i>{{trans_like}}
 									</button>
 
 								</div>
@@ -77,18 +89,18 @@
 		                    	<div class="input-group normal-font">
 								  <span class="input-group-addon" id="basic-addon2">{{image.downloads}}</span>
 								    <button data-toggle="modal" data-target="#myModal" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align">
-									  <i class="fa fa-downloaded"></i>Download
+									  <i class="fa fa-downloaded"></i>{{trans_download}}
 									</button>
 								</div>
 		                    </div>
-		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align">
+		                    <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align">
 		                    	<div class="input-group normal-font">
 								  <span class="input-group-addon" id="basic-addon3">${{image.amount}}</span>
 								    <button type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align btn-not-btn active">
 									  <i class="fa fa-raized"></i>Rized
 									</button>
 								</div>
-		                    </div>
+		                    </div>-->
 
 		                	<div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1 top-gutter">
 
@@ -128,15 +140,77 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" id="myModalLabel">Donate</h3>
+        <h3 class="modal-title" id="myModalLabel">{{trans_download_title_1}}</h3>
       </div>
       <div class="modal-body">
+      	<div class="row">
+      		<div class="col-md-8">
+      			<span>{{trans_download_text_1}}</span>
+      			<br />
+      			<br />
+      			<div class="col-md-10 col-md-offset-2"  class="text-center">
+
+	      			<div class="dropdown" class="text-center">
+					  <a id="dLabel" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" class="btn btn-default amount-btn btn-lg">
+					    {{trans_select_donation}}
+					    <span class="caret"></span>
+					  </a>
+
+					  <ul class="dropdown-menu amount" role="menu" aria-labelledby="dLabel">
+					    <li role="presentation" ng-repeat="org in orgs"><a role="menuitem" tabindex="-1" href="#" ng-click="setOrganization(org)">{{org.name}}</a></li>
+					    
+					  </ul>
+					</div>
+				</div>
+				<br />
+				<div class="col-md-6 col-md-offset-3">
+      				<img src="/static/img/default/ato-user.png" class="img img-responsive">
+      			</div>
+				<br />
+				<div class="col-md-12"  class="text-center">
+					<span>{{trans_download_text_2}}</span>
+      			</div>
+      			<br /><br />
+				<div class="col-md-12 top-gutter">
+					<small>{{trans_download_text_3}}</small>
+					<br />
+				</div>
+      		</div>
+      		<div class="col-md-4">
+      			{{trans_download_text_4}} 
+      			<br />
+      			{{trans_download_text_5}}
+      			<br /><br />
+      			<small>{{trans_download_text_6}}</small>
+      			<hr />
+      			<button type="button" class="btn btn-default btn-small" ng-click="freeStuff()">{{trans_free}}</button>
+      		</div>
+      	</div>
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      	<div class="col-sm-6 text-left">
+      		<div ng-bind-html="payForm"></div>
+      		
+      	</div>
+      	<div class="col-sm-6 text-right">
+      		<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      	</div>
+        
+        
       </div>
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+$(function(){
+
+    $(".dropdown-menu.amount").on('click', 'li a', function(){
+      $(".btn.amount-btn:first-child").text($(this).text());
+      $(".btn.amount-btn:first-child").val($(this).text());
+   });
+
+});
+</script>
