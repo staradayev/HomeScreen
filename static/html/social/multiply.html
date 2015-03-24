@@ -76,7 +76,7 @@
                                 <strong>${{image.amount}}</strong>
                             </div>
                         </div>
-                       <div class="vertical-align" ng-show="image.downloads && !(image.likes && image.amount)">
+                       <div class="vertical-align" ng-show="image.downloads">
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
                                 <img src="/static/img/download_25.png" alt="downloads" class="img-responsive">
                             </div>
@@ -84,7 +84,7 @@
                                 <span>{{image.downloads}}</span>
                             </div>
                         </div>
-                        <div class="vertical-align" ng-show="image.likes">
+                        <div class="vertical-align" ng-show="image.likes && !(image.downloads && image.amount)">
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
                                 <img src="/static/img/likes-icon.png" alt="likes" class="img-responsive">
                             </div>
