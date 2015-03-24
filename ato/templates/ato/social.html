@@ -40,7 +40,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown" id="photoPage">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-image fa-lg"></i><span id="photosName"> {% trans "Photos" %} </span><span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-image fa-lg"></i><span id="photosName"> {% trans "Newest" %} </span><span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li id="newestPage"><a href="/social/{{LANG}}/newest"></i><span id="newestTitle">&nbsp;{% trans "Newest" %}</span></a></li>
                     <li class="divider"></li>
@@ -158,6 +158,7 @@ trans_photographers
         trans_read_and_agree = '{% trans 'I have read and agree with' %}';
         trans_TC = '{% trans 'Terms and Conditions' %}';
         trans_req = '{% trans 'field is required' %}';
+        trans_only_registered_can_like = '{% trans 'Only registered users can like pictures, join us!' %}';
         "></div>
     {% else %}
         <div ng-init="is_auth='false';
@@ -183,6 +184,7 @@ trans_photographers
         trans_read_and_agree = '{% trans 'I have read and agree with' %}';
         trans_TC = '{% trans 'Terms and Conditions' %}';
         trans_req = '{% trans 'field is required' %}';
+        trans_only_registered_can_like = '{% trans 'Only registered users can like pictures, join us!' %}';
         "></div>
     {% endif %}
 

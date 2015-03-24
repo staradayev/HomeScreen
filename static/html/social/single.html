@@ -84,7 +84,12 @@
 									</button>
 
 								</div>
+								<br>
+								
 		                    </div>
+		                    <div ng-show="is_auth == 'false'" class="col-lg-12 col-md-12 col-sm-12 col-xs-12left-gutter vertical-align  bottom-gutter">
+		                    	<small ng-show="is_auth == 'false'">* {{trans_only_registered_can_like}}</small>
+		                    </div >
 		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align">
 		                    	<div class="input-group normal-font">
 								  <span class="input-group-addon" id="basic-addon2">{{image.downloads}}</span>

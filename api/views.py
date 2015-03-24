@@ -254,7 +254,7 @@ class SearchView(BaseMixin):
                 picture_tag_list = []
                 picture_list = Picture.objects.filter(approve_status=True, translations__name__icontains=self.param)
                 category_list = Category.objects.filter(approve_status=True, translations__name__icontains=self.param)
-                tag_list = Tag.objects.filter(approve_status=True, translations__name__icontains=self.param)
+                tag_list = Tag.objects.filter(translations__name__icontains=self.param)
                 if category_list:
                     for category in category_list:
                         picture_category_list = list(chain(picture_category_list, Picture.objects.filter(approve_status=True, category=category.id)))
@@ -295,7 +295,7 @@ class SearchView(BaseMixin):
                         results.append(picture)
                     return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'page_name': page, 'entity': results})
                 else:
-                    return JsonResponse({'success': "true", 'message': 'There are no results...'})
+                    return JsonResponse({'success': "true", 'message': 'There are no results... Category results='+str(category_list.count())+'; Tags results='+str(tag_list.count())+'; Pictures results='+str(picture_list.count())})
             except:
                 return JsonResponse({'success': "false", 'message': "Some error..."})
 
