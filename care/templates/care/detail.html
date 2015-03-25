@@ -1,6 +1,6 @@
 {% extends 'care/base.html' %}
 {% load i18n %}
-
+{% load care_extra %}
 
 {% block content %}
 
@@ -79,7 +79,7 @@
 						
 
 						<div class="form-group">
-						    <label for="approvedLabel" class="col-md-4 control-label">{% trans "Author:" %}</label>
+						    <label for="approvedLabel" class="col-md-4 control-label author_name">{% trans "Author:" %}</label>
 						    <div class="col-md-8">
 						      	<p class="form-control-static" id="pic_author"><i class="fa fa-user "></i>&nbsp; </p>
 						    </div>
@@ -200,7 +200,7 @@ $(document).ready(function() {
     				
     				$('#pic_uploaded').empty().append('<i class="fa fa-upload "></i>&nbsp; ' + pic.published);
     				$('#pic_name').empty().append(pic.name);
-    				$('#pic_author').empty().append('<i class="fa fa-user "></i>&nbsp; ' + pic.author);
+    				$('#pic_author').empty().append('<li class="list-group-item back-none categoryContainer no-li"><a class="no-link" href="{% url "ato:social" %}{% active_lang request %}/authorpictures/' + pic.author_id + '"><img  src="' + pic.author_thumbnail + '" class="img img-responsive img-thumbnail categoryPreview img-circle">&nbsp;({% trans "You" %}) ' + pic.author + '</a></li>');
     				if(pic.approve){
     					$('#pic_approved').empty().append('<i class="fa fa-clock-o "></i>&nbsp; ' + pic.approve);
     					$('#pic_already_approved').show();
@@ -217,7 +217,7 @@ $(document).ready(function() {
     				if(pic.cats){
     					$('#pic_category').empty();
     					for (var i = 0; i < pic.cats.length; i++) {
-    						$('#pic_category').append('<li class="list-group-item back-none"><i class="fa fa-list-alt "></i>&nbsp; ' + pic.cats[i].name + '</li>')
+    						$('#pic_category').append('<li class="list-group-item back-none categoryContainer"><a class="no-link" href="{% url "ato:social" %}{% active_lang request %}/category/'+pic.cats[i].id+'"><img  src="' + pic.cats[i].picture_url + '" class="img img-responsive img-thumbnail categoryPreview">&nbsp; ' + pic.cats[i].name + '</a></li>')
     					};
     					$('#category_container').show();
     				}else{
@@ -229,7 +229,7 @@ $(document).ready(function() {
     					$('#pic_tags').empty();
 						$('#pic_tags').append('<input type="text" placeholder="" style="width: 3em !important; display: none;">');
     					for (var i = 0; i < pic.tags.length; i++) {
-    						$('#pic_tags').append('<span class="tag label label-info">' + pic.tags[i].name + '</span>')
+    						$('#pic_tags').append('<a class="no-link" href="{% url "ato:social" %}{% active_lang request %}/search/' + encodeURIComponent(pic.tags[i].name.replace('#', '')) + '"><span class="tag label label-info">' + pic.tags[i].name + '</span></a>')
     					};
     					$('#tag_container').show();
     				}else{

@@ -637,11 +637,12 @@ def GetCategoryView(request):
                 category = {}
                 category['id'] = cat.id
                 category['name'] = cat.name
-                # pics = Picture.objects.filter(category=cat.id).annotate(count = Count('download')).order_by('-count').first().photo_thumb
+                pic = Picture.objects.filter(category=cat.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
+                if pic is not None:
+                    category['picture_url'] = pic.get_thumb()
+                    categories.append(category)
 
-                # category['picture_url'] = pics
-
-                categories.append(category)
+                
 
         json_posts = simplejson.dumps({'success': "true", 'message': '', 'entity': categories})
         response = HttpResponse(json_posts, content_type="application/json")
@@ -734,6 +735,14 @@ def get_picture_list(request):
                 picture['thumb_url'] = pic.get_thumb()
                 picture['preview_url'] = pic.get_medium()
                 picture['author'] = "%s %s" % (p_author.first_name, p_author.last_name)
+                picture['author_id'] = p_author.id
+                try:
+                    user_profile = UserProfile.objects.get(user=p_author)
+                    picture['author_thumbnail'] = user_profile.get_thumb()
+                    picture['author_photo'] = user_profile.get_user_picture()
+                except Exception, e:
+                    picture['author_thumbnail'] = None
+                    picture['author_photo'] = None
                 picture['published'] = formats.date_format(pic.date_pub, "SHORT_DATETIME_FORMAT")
                 if pic.date_approve:
                     picture['approve'] = formats.date_format(pic.date_approve, "SHORT_DATETIME_FORMAT")
@@ -746,7 +755,10 @@ def get_picture_list(request):
                         category = {}
                         category['id'] = cat.id
                         category['name'] = cat.name
-                        picture['cats'].append(category)
+                        pic = Picture.objects.filter(category=cat.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
+                        if pic is not None:
+                            category['picture_url'] = pic.get_thumb()
+                            picture['cats'].append(category)
 
                 if pic.tag.all():
                     picture['tags'] = []

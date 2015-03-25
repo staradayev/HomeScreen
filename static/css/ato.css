@@ -630,6 +630,26 @@ left: 45%;
   margin: -1px;
 }
 
+.categoryPreview{
+    width: 4em;
+}
 
+.categoryContainer{
+  padding: 0;
+}
 
+#pic_category{
+    background: white;
+}
 
+.img-circle{
+  border-radius: 50%;
+}
+
+.no-li{
+    border: none;
+}
+
+.author_name{
+    margin-top: 1.3em;
+}
