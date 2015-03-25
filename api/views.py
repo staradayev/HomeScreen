@@ -552,7 +552,7 @@ class PhotographersView(BaseMixin):
                     photographer['links'] = links
                     photographer['pictures'] = []
                     photographer['donated'] = 0
-                    picture_list = Picture.objects.filter(approve_status=True, author=photographer_item.user.id).annotate(count=Count('download')).order_by('-count')[:20]
+                    picture_list = Picture.objects.filter(approve_status=True, author=photographer_item.user.id).annotate(count=Count('download')).order_by('-count')[:settings.PHOTOS_PER_PHOTOGRAPHER]
                     for picture_item in picture_list:
                         donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
                         picture = {
