@@ -248,42 +248,48 @@ def EditView(request, picture_id):
 
 @login_required
 def AddCategoryView(request):
-    data = simplejson.loads(request.body)
+    try:
+        data = simplejson.loads(request.body)
 
-    if data is not None:
-        category_send = urllib.url2pathname(unidecode(data["category_name"]))
-        print category_send
-        p_author = User.objects.get(username=request.user.username)
-        date = datetime.date
-        today_min = datetime.datetime.combine(date.today(), datetime.time.min)
-        today_max = datetime.datetime.combine(date.today(), datetime.time.max)
-        categories = Category.objects.filter(author=p_author, date_pub__range=(today_min, today_max))
-        if categories.count() > 14:
-            return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"You were added maximum count of categories per today. Try tomorrow!")}), content_type="application/json")
-        elif not category_send:
-            return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"There are no category name presented!")}), content_type="application/json")
-        elif len(category_send) < 3:
-            return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Category name too short ( minimum 3 symbols )")}), content_type="application/json")
-        elif len(category_send) > 75:
-            return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Category name too long ( maximum 75 symbols )")}), content_type="application/json")
+        if data is not None:
+            category_send = urllib.url2pathname(unidecode(data["category_name"]))
+            print category_send
+            p_author = User.objects.get(username=request.user.username)
+            date = datetime.date
+            today_min = datetime.datetime.combine(date.today(), datetime.time.min)
+            today_max = datetime.datetime.combine(date.today(), datetime.time.max)
+            categories = Category.objects.filter(author=p_author, date_pub__range=(today_min, today_max))
+            categories_same = Category.objects.filter(approve_status=True, translations__name__icontains=category_send)
+            if categories.count() > 14:
+                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"You were added maximum count of categories per today. Try tomorrow!")}), content_type="application/json")
+            elif not category_send:
+                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"There are no category name presented!")}), content_type="application/json")
+            elif len(category_send) < 3:
+                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Category name too short ( minimum 3 symbols )")}), content_type="application/json")
+            elif len(category_send) > 75:
+                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Category name too long ( maximum 75 symbols )")}), content_type="application/json")
+            elif categories_same:
+                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Entity already exist!")}), content_type="application/json")
+            else:
+                cat = Category.create(p_author)
+                cat.save()
+                category_trans = CategoryTranslation(language_code=translation.get_language())
+                category_trans.name = category_send.decode('utf-8')
+                category_trans.parent = cat
+                category_trans.save()
+                response_data = {}
+                response_data['success'] = 'true'
+                response_data['name'] = cat.name
+                response_data['val'] = cat.id
+
+                # , "data" : dataReturn
+                return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
         else:
-            cat = Category.create(p_author)
-            cat.save()
-            category_trans = CategoryTranslation(language_code=translation.get_language())
-            category_trans.name = category_send.decode('utf-8')
-            category_trans.parent = cat
-            category_trans.save()
-            response_data = {}
-            response_data['success'] = 'true'
-            response_data['name'] = cat.name
-            response_data['val'] = cat.id
+            # , "message" : "Invalid data received by server"
+            return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
 
-            # , "data" : dataReturn
-            return HttpResponse(simplejson.dumps(response_data), content_type="application/json")
-    else:
-        # , "message" : "Invalid data received by server"
+    except Exception, e:
         return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"There is an error! Please contact us, if you know why?")}), content_type="application/json")
-
 
 @login_required
 def AddTagView(request):
@@ -297,6 +303,8 @@ def AddTagView(request):
         today_min = datetime.datetime.combine(date.today(), datetime.time.min)
         today_max = datetime.datetime.combine(date.today(), datetime.time.max)
         tags = Tag.objects.filter(author=p_author, date_pub__range=(today_min, today_max))
+        tags_same = Tag.objects.filter(approve_status=True, translations__name__icontains=tag_send)
+        
         if tags.count() > 14:
             return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"You were added maximum count of tags per today. Try tomorrow!")}), content_type="application/json")
         elif not tag_send:
@@ -305,6 +313,8 @@ def AddTagView(request):
             return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Tag name too short ( minimum 3 symbols )")}), content_type="application/json")
         elif len(tag_send) > 75:
             return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Tag name too long ( maximum 75 symbols )")}), content_type="application/json")
+        elif tags_same:
+            return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Entity already exist!")}), content_type="application/json")
         else:
             tag = Tag.create(p_author)
             tag.save()
@@ -755,7 +765,7 @@ def get_picture_list(request):
                         category = {}
                         category['id'] = cat.id
                         category['name'] = cat.name
-                        pic = Picture.objects.filter(category=cat.id, approve_status=True).annotate(count=Count('download')).order_by('-count').first()
+                        pic = Picture.objects.filter(category=cat.id).annotate(count=Count('download')).order_by('-count').first()
                         if pic is not None:
                             category['picture_url'] = pic.get_thumb()
                             picture['cats'].append(category)
