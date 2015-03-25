@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 11:55+0000\n"
+"POT-Creation-Date: 2015-03-25 15:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,7 @@ msgstr ""
 
 #: ato/templates/ato/base.html:80 ato/templates/ato/index-mobile.html:252
 #: ato/templates/ato/ppEnglish.html:33 ato/templates/ato/ppUkrainian.html:33
+#: ato/templates/ato/social.html:159 ato/templates/ato/social.html.py:186
 #: care/templates/registration/registration_form.html:52
 msgid "Terms and Conditions"
 msgstr ""
@@ -55,11 +56,12 @@ msgid "Help"
 msgstr ""
 
 #: ato/templates/ato/index-mobile.html:96 ato/templates/ato/index.html:129
+#: ato/templates/ato/social.html:148 ato/templates/ato/social.html.py:175
 msgid "Download"
 msgstr ""
 
 #: ato/templates/ato/index-mobile.html:105 ato/templates/ato/index.html:138
-#: ato/templates/ato/social.html:100
+#: ato/templates/ato/social.html:105
 msgid "Join"
 msgstr "Join us"
 
@@ -93,9 +95,9 @@ msgid "Pictires in app"
 msgstr "Pictures"
 
 #: ato/templates/ato/index-mobile.html:182 ato/templates/ato/index.html:204
-#: ato/templates/ato/social.html:64 care/templates/care/detail.html:31
-#: care/templates/care/edit.html:31 care/templates/care/myinfo.html:31
-#: care/templates/care/upload.html:31
+#: ato/templates/ato/social.html:52 ato/templates/ato/social.html.py:145
+#: ato/templates/ato/social.html:172 care/templates/base.html:60
+#: care/templates/care/base.html:61 care/templates/care/upload.html:31
 msgid "Photographers"
 msgstr ""
 
@@ -233,6 +235,7 @@ msgstr ""
 "a>. <br/> You are always in the loop how funds are spent. "
 
 #: ato/templates/ato/index.html:346 ato/templates/ato/index.html.py:347
+#: ato/templates/ato/social.html:402
 #: care/templates/registration/registration_form.html:76
 msgid "en"
 msgstr ""
@@ -246,86 +249,169 @@ msgid "Sign up"
 msgstr ""
 
 #: ato/templates/ato/ppEnglish.html:23 ato/templates/ato/ppUkrainian.html:23
-#: ato/templates/ato/social.html:80 care/templates/base.html:45
-#: care/templates/care/detail.html:50 care/templates/care/edit.html:50
-#: care/templates/care/myinfo.html:50 care/templates/care/upload.html:50
+#: ato/templates/ato/social.html:75 care/templates/base.html:79
+#: care/templates/base.html.py:116 care/templates/care/base.html:80
+#: care/templates/care/upload.html:50
 msgid "English"
 msgstr ""
 
 #: ato/templates/ato/ppEnglish.html:23 ato/templates/ato/ppUkrainian.html:23
-#: ato/templates/ato/social.html:80 care/templates/base.html:45
-#: care/templates/care/detail.html:50 care/templates/care/edit.html:50
-#: care/templates/care/myinfo.html:50 care/templates/care/upload.html:50
+#: ato/templates/ato/social.html:75 care/templates/base.html:79
+#: care/templates/base.html.py:116 care/templates/care/base.html:80
+#: care/templates/care/upload.html:50
 msgid "Ukrainian"
 msgstr ""
 
-#: ato/templates/ato/social.html:44
-msgid "My account"
-msgstr "My Account"
-
-#: ato/templates/ato/social.html:46 care/templates/care/detail.html:21
-#: care/templates/care/edit.html:21 care/templates/care/myinfo.html:21
-#: care/templates/care/upload.html:21
-msgid "My pictures"
-msgstr "My Pictures"
-
-#: ato/templates/ato/social.html:48 care/templates/care/detail.html:22
-#: care/templates/care/edit.html:22 care/templates/care/myinfo.html:22
-#: care/templates/care/upload.html:22
-msgid "My info"
-msgstr "My Info"
-
-#: ato/templates/ato/social.html:50 care/templates/care/detail.html:24
-#: care/templates/care/edit.html:24 care/templates/care/myinfo.html:24
-#: care/templates/care/upload.html:24
-msgid "Upload"
-msgstr "Picture Upload"
-
-#: ato/templates/ato/social.html:55 care/templates/care/detail.html:29
-#: care/templates/care/edit.html:29 care/templates/care/myinfo.html:29
-#: care/templates/care/upload.html:29
-msgid "Photos"
-msgstr "Pictures"
-
-#: ato/templates/ato/social.html:57
+#: ato/templates/ato/social.html:43 ato/templates/ato/social.html.py:45
 msgid "Newest"
 msgstr "Recently Added"
 
-#: ato/templates/ato/social.html:59
+#: ato/templates/ato/social.html:47 ato/templates/ato/social.html.py:140
+#: ato/templates/ato/social.html:167
 msgid "Popular"
 msgstr ""
 
-#: ato/templates/ato/social.html:61
+#: ato/templates/ato/social.html:49 ato/templates/ato/social.html.py:141
+#: ato/templates/ato/social.html:168
 msgid "Most rised"
 msgstr "Most funds raised"
 
-#: ato/templates/ato/social.html:65
+#: ato/templates/ato/social.html:53
 msgid "Categoryies"
 msgstr "Categories"
 
-#: ato/templates/ato/social.html:96 care/templates/care/detail.html:67
-#: care/templates/care/edit.html:67 care/templates/care/myinfo.html:67
-#: care/templates/care/upload.html:67
+#: ato/templates/ato/social.html:57
+msgid "Search for..."
+msgstr ""
+
+#: ato/templates/ato/social.html:92 care/templates/base.html:50
+#: care/templates/care/base.html:51 care/templates/care/upload.html:21
+msgid "My pictures"
+msgstr "My Pictures"
+
+#: ato/templates/ato/social.html:94 care/templates/base.html:51
+#: care/templates/care/base.html:52 care/templates/care/upload.html:22
+msgid "My info"
+msgstr "My Info"
+
+#: ato/templates/ato/social.html:96 care/templates/base.html:53
+#: care/templates/care/base.html:54 care/templates/care/upload.html:24
+msgid "Upload"
+msgstr "Picture Upload"
+
+#: ato/templates/ato/social.html:98 care/templates/base.html:96
+#: care/templates/care/base.html:97 care/templates/care/upload.html:67
 msgid "Logout"
 msgstr ""
 
-#: care/additional.py:32 care/forms.py:52 care/views.py:514 care/views.py:598
+#: ato/templates/ato/social.html:139 ato/templates/ato/social.html.py:166
+#: care/templates/base.html:62 care/templates/care/base.html:63
+#: care/templates/care/upload.html:33
+msgid "Categories"
+msgstr "Categories"
+
+#: ato/templates/ato/social.html:142 ato/templates/ato/social.html.py:169
+msgid "Recently added"
+msgstr ""
+
+#: ato/templates/ato/social.html:143 ato/templates/ato/social.html.py:170
+msgid "Search"
+msgstr ""
+
+#: ato/templates/ato/social.html:144 ato/templates/ato/social.html.py:171
+#, fuzzy
+#| msgid "Photos"
+msgid "Photo"
+msgstr "Pictures"
+
+#: ato/templates/ato/social.html:146 ato/templates/ato/social.html.py:173
+msgid "See more"
+msgstr ""
+
+#: ato/templates/ato/social.html:147 ato/templates/ato/social.html.py:174
+msgid "Like"
+msgstr ""
+
+#: ato/templates/ato/social.html:149 ato/templates/ato/social.html.py:176
+#, fuzzy
+#| msgid "Choose link type, please!"
+msgid "Help, please!"
+msgstr "Choose link type"
+
+#: ato/templates/ato/social.html:150 ato/templates/ato/social.html.py:177
+msgid "Do not be indifferent to make a donation to people in need!"
+msgstr ""
+
+#: ato/templates/ato/social.html:151 ato/templates/ato/social.html.py:178
+#, fuzzy
+#| msgid "Select photo"
+msgid "Select organization"
+msgstr "Select"
+
+#: ato/templates/ato/social.html:152 ato/templates/ato/social.html.py:179
+msgid ""
+"Help people with just 1$. Its not too match, but enough to save someone "
+"life..."
+msgstr ""
+
+#: ato/templates/ato/social.html:153 ato/templates/ato/social.html.py:180
+msgid "* Download will start right after payment process complete"
+msgstr ""
+
+#: ato/templates/ato/social.html:154 ato/templates/ato/social.html.py:181
+msgid "Or you can dowload it free!"
+msgstr ""
+
+#: ato/templates/ato/social.html:155 ato/templates/ato/social.html.py:182
+msgid "But with advertisement watching..."
+msgstr ""
+
+#: ato/templates/ato/social.html:156 ato/templates/ato/social.html.py:183
+msgid "* The part of advertisement money we will donate to help organizations"
+msgstr ""
+
+#: ato/templates/ato/social.html:157 ato/templates/ato/social.html.py:184
+msgid "Free"
+msgstr ""
+
+#: ato/templates/ato/social.html:158 ato/templates/ato/social.html.py:185
+#: care/templates/registration/registration_form.html:52
+msgid "I have read and agree with"
+msgstr ""
+
+#: ato/templates/ato/social.html:160 ato/templates/ato/social.html.py:187
+#, fuzzy
+#| msgid "Picture name is required"
+msgid "field is required"
+msgstr "Specify Picture Name"
+
+#: ato/templates/ato/social.html:161 ato/templates/ato/social.html.py:188
+msgid "Only registered users can like pictures, join us!"
+msgstr ""
+
+#: ato/templates/ato/social.html:162 ato/templates/ato/social.html.py:189
+#, fuzzy
+#| msgid "There are no email presented!"
+msgid "There are no results found"
+msgstr "Email address was not specified"
+
+#: care/additional.py:32 care/forms.py:52 care/views.py:523 care/views.py:607
 msgid "No image!"
 msgstr "No image selected"
 
-#: care/additional.py:43 care/forms.py:70 care/views.py:527
+#: care/additional.py:43 care/forms.py:70 care/views.py:536
 msgid "Please use a JPEG or PNG image."
 msgstr "Please use a JPG, JPEG or PNG image format"
 
-#: care/additional.py:49 care/views.py:539
+#: care/additional.py:49 care/views.py:548
 msgid "Image file too large"
 msgstr "Picture file size is too big, please try to compress it!"
 
-#: care/additional.py:62 care/views.py:555
+#: care/additional.py:62 care/views.py:564
 msgid "Too low image size, please use bigger!"
 msgstr "Picture file size is too small, are you sure it is Full HD?"
 
-#: care/additional.py:69 care/views.py:566
+#: care/additional.py:69 care/views.py:575
 msgid "Too big image size! Please use smaller."
 msgstr "Picture file size is too big, please try to compress it!"
 
@@ -378,20 +464,19 @@ msgstr ""
 msgid "Image file too large ( maximum 8mb )"
 msgstr "Image file is too large (8 MB maximum)"
 
-#: care/forms.py:106 care/views.py:265
+#: care/forms.py:106 care/views.py:266
 msgid "There are no category name presented!"
 msgstr "No categories picked"
 
-#: care/forms.py:108 care/views.py:267
+#: care/forms.py:108 care/views.py:268
 msgid "Category name too short ( minimum 3 symbols )"
 msgstr "Category name is too short (3 characters minimum)"
 
-#: care/forms.py:110 care/views.py:269
+#: care/forms.py:110 care/views.py:270
 msgid "Category name too long ( maximum 75 symbols )"
 msgstr "Category name is too long (75 characters maximum)"
 
-#: care/models.py:25 care/models.py:27 care/models.py:53 care/models.py:55
-#: care/models.py:117 care/models.py:119 care/models.py:281 care/models.py:283
+#: care/models.py:25 care/models.py:53 care/models.py:117 care/models.py:281
 msgid "Unnamed"
 msgstr "Unnamed"
 
@@ -399,7 +484,7 @@ msgstr "Unnamed"
 msgid "#tagname"
 msgstr "Tag Name"
 
-#: care/models.py:68 care/templates/care/edit.html:100
+#: care/models.py:68 care/templates/care/edit.html:28
 #: care/templates/care/upload.html:101
 msgid "Category name"
 msgstr "Category Name"
@@ -408,8 +493,8 @@ msgstr "Category Name"
 msgid "original file upload"
 msgstr "Original File Upload"
 
-#: care/models.py:236 care/templates/care/edit.html:264
-#: care/templates/care/edit.html.py:378 care/templates/care/upload.html:239
+#: care/models.py:236 care/templates/care/edit.html:192
+#: care/templates/care/edit.html.py:306 care/templates/care/upload.html:239
 msgid "Picture name"
 msgstr "Picture Name"
 
@@ -483,142 +568,142 @@ msgstr "Home"
 msgid "Django templates!!!"
 msgstr ""
 
-#: care/templates/care/detail.html:27 care/templates/care/edit.html:27
-#: care/templates/care/myinfo.html:27 care/templates/care/upload.html:27
-msgid "Discover"
-msgstr "Discover"
+#: care/templates/base.html:56 care/templates/base.html.py:58
+#: care/templates/care/base.html:57 care/templates/care/base.html.py:59
+#: care/templates/care/upload.html:29
+msgid "Photos"
+msgstr "Pictures"
 
-#: care/templates/care/detail.html:33 care/templates/care/edit.html:33
-#: care/templates/care/myinfo.html:33 care/templates/care/upload.html:33
-msgid "Categories"
-msgstr "Categories"
-
-#: care/templates/care/detail.html:81
+#: care/templates/care/detail.html:10
 msgid "There are no uploaded pictures!"
 msgstr ""
 
-#: care/templates/care/detail.html:82
+#: care/templates/care/detail.html:11
 msgid "Please upload more pictures"
 msgstr ""
 
-#: care/templates/care/detail.html:82
+#: care/templates/care/detail.html:11
 #: care/templates/password_reset/recovery_email.html:201
 #: care/templates/registration/activation_email.html:196
 msgid "here"
 msgstr "here"
 
-#: care/templates/care/detail.html:126
+#: care/templates/care/detail.html:55
 msgid "Picture approved"
 msgstr ""
 
-#: care/templates/care/detail.html:130
+#: care/templates/care/detail.html:59
 msgid "Under approval"
 msgstr ""
 
-#: care/templates/care/detail.html:144
+#: care/templates/care/detail.html:73
 msgid "Uploaded to server:"
 msgstr ""
 
-#: care/templates/care/detail.html:153
+#: care/templates/care/detail.html:82
 msgid "Author:"
 msgstr ""
 
-#: care/templates/care/detail.html:160
+#: care/templates/care/detail.html:89
 msgid "Approved:"
 msgstr ""
 
-#: care/templates/care/detail.html:168 care/templates/care/edit.html:146
-#: care/templates/care/edit.html.py:278 care/templates/care/edit.html:293
-#: care/templates/care/edit.html.py:384 care/templates/care/upload.html:253
+#: care/templates/care/detail.html:97 care/templates/care/edit.html:74
+#: care/templates/care/edit.html.py:206 care/templates/care/edit.html:221
+#: care/templates/care/edit.html.py:312 care/templates/care/upload.html:253
 #: care/templates/care/upload.html:264
 msgid "Categories:"
 msgstr ""
 
-#: care/templates/care/detail.html:180 care/templates/care/edit.html:158
-#: care/templates/care/edit.html.py:307 care/templates/care/edit.html:400
+#: care/templates/care/detail.html:109 care/templates/care/edit.html:86
+#: care/templates/care/edit.html.py:235 care/templates/care/edit.html:328
 #: care/templates/care/upload.html:278
 msgid "Tags:"
 msgstr ""
 
-#: care/templates/care/detail.html:189
+#: care/templates/care/detail.html:118
 msgid "Downloads:"
 msgstr ""
 
-#: care/templates/care/detail.html:198
+#: care/templates/care/detail.html:127
 msgid "Likes:"
 msgstr ""
 
-#: care/templates/care/edit.html:82
+#: care/templates/care/detail.html:203
+msgid "You"
+msgstr ""
+
+#: care/templates/care/edit.html:10
 msgid "This image is non-editable or not exist..."
 msgstr "This image cannot be edited or does not exist..."
 
-#: care/templates/care/edit.html:91 care/templates/care/edit.html.py:106
-#: care/templates/care/myinfo.html:82 care/templates/care/myinfo.html:107
+#: care/templates/care/edit.html:19 care/templates/care/edit.html.py:34
+#: care/templates/care/myinfo.html:11 care/templates/care/myinfo.html.py:36
 #: care/templates/care/upload.html:92 care/templates/care/upload.html:107
 msgid "Close"
 msgstr ""
 
-#: care/templates/care/edit.html:92 care/templates/care/upload.html:93
+#: care/templates/care/edit.html:20 care/templates/care/upload.html:93
 msgid "Add new category"
 msgstr "Add New Category"
 
-#: care/templates/care/edit.html:98 care/templates/care/upload.html:99
+#: care/templates/care/edit.html:26 care/templates/care/upload.html:99
 msgid "New category name:"
 msgstr "Specify Category Name"
 
-#: care/templates/care/edit.html:107 care/templates/care/edit.html.py:216
-#: care/templates/care/edit.html:319 care/templates/care/myinfo.html:108
-#: care/templates/care/myinfo.html:171 care/templates/care/upload.html:108
+#: care/templates/care/edit.html:35 care/templates/care/edit.html.py:144
+#: care/templates/care/edit.html:247 care/templates/care/myinfo.html:37
+#: care/templates/care/myinfo.html:100 care/templates/care/upload.html:108
 #: care/templates/care/upload.html:194 care/templates/care/upload.html:290
 #: care/templates/registration/registration_form.html:55
 msgid "Save changes"
 msgstr "Save"
 
-#: care/templates/care/edit.html:118
+#: care/templates/care/edit.html:46
 msgid "Edit image:"
 msgstr "Edit"
 
-#: care/templates/care/edit.html:130
+#: care/templates/care/edit.html:58
 msgid "image"
 msgstr "Picture:"
 
-#: care/templates/care/edit.html:137 care/templates/care/login.html:32
+#: care/templates/care/edit.html:65 care/templates/care/login.html:32
 #: care/templates/registration/login.html:32
 msgid "or"
 msgstr ""
 
-#: care/templates/care/edit.html:169
+#: care/templates/care/edit.html:97
 msgid "description"
 msgstr "Description"
 
-#: care/templates/care/edit.html:177 care/templates/care/p404.html:117
+#: care/templates/care/edit.html:105 care/templates/care/p404.html:117
 msgid "Back"
 msgstr "Back"
 
-#: care/templates/care/edit.html:190
+#: care/templates/care/edit.html:118
 msgid "Edit picture:"
 msgstr "Edit picture"
 
-#: care/templates/care/edit.html:205 care/templates/care/edit.html.py:317
+#: care/templates/care/edit.html:133 care/templates/care/edit.html.py:245
 #: care/templates/care/upload.html:183 care/templates/care/upload.html:288
 msgid "Delete"
 msgstr ""
 
-#: care/templates/care/edit.html:226 care/templates/care/upload.html:204
+#: care/templates/care/edit.html:154 care/templates/care/upload.html:204
 msgid "Thumbnail will looks:"
 msgstr "Thumbnail picture:"
 
-#: care/templates/care/edit.html:245
+#: care/templates/care/edit.html:173
 msgid "Edit description:"
 msgstr "Edit description:"
 
-#: care/templates/care/edit.html:253 care/templates/care/upload.html:228
+#: care/templates/care/edit.html:181 care/templates/care/upload.html:228
 #: care/templates/registration/registration_form.html:21
 msgid "Required Field"
 msgstr ""
 
-#: care/templates/care/edit.html:258 care/templates/care/edit.html.py:372
-#: care/templates/care/myinfo.html:132 care/templates/care/myinfo.html:191
+#: care/templates/care/edit.html:186 care/templates/care/edit.html.py:300
+#: care/templates/care/myinfo.html:61 care/templates/care/myinfo.html:120
 #: care/templates/care/upload.html:139 care/templates/care/upload.html:233
 #: care/templates/password_reset/recovery_form.html:20
 #: care/templates/password_reset/reset.html:22
@@ -627,28 +712,28 @@ msgstr ""
 msgid "Error!"
 msgstr ""
 
-#: care/templates/care/edit.html:262 care/templates/care/edit.html.py:376
+#: care/templates/care/edit.html:190 care/templates/care/edit.html.py:304
 #: care/templates/care/upload.html:237
 msgid "Picture name:"
 msgstr "Picture Name:"
 
-#: care/templates/care/edit.html:271 care/templates/care/upload.html:246
+#: care/templates/care/edit.html:199 care/templates/care/upload.html:246
 msgid "Image:"
 msgstr "Picture:"
 
-#: care/templates/care/edit.html:273 care/templates/care/upload.html:248
+#: care/templates/care/edit.html:201 care/templates/care/upload.html:248
 msgid "Select the file here"
 msgstr "Select"
 
-#: care/templates/care/edit.html:295 care/templates/care/upload.html:266
+#: care/templates/care/edit.html:223 care/templates/care/upload.html:266
 msgid "Type category here"
 msgstr "Type Category Name here"
 
-#: care/templates/care/edit.html:309 care/templates/care/upload.html:280
+#: care/templates/care/edit.html:237 care/templates/care/upload.html:280
 msgid "Type tag here"
 msgstr "Type Tag Name here"
 
-#: care/templates/care/edit.html:415
+#: care/templates/care/edit.html:343
 msgid "Cancel"
 msgstr ""
 
@@ -686,74 +771,78 @@ msgstr "Return to the Home page"
 msgid "Forgot you password?"
 msgstr "Forgot password?"
 
-#: care/templates/care/myinfo.html:83
+#: care/templates/care/myinfo.html:12
 msgid "Add new link"
 msgstr "Add portfolio or community link"
 
-#: care/templates/care/myinfo.html:88
+#: care/templates/care/myinfo.html:17
 msgid "Choose link type:"
 msgstr "Choose Type"
 
-#: care/templates/care/myinfo.html:100
+#: care/templates/care/myinfo.html:29
 msgid "Link URL:"
 msgstr "URL"
 
-#: care/templates/care/myinfo.html:102
+#: care/templates/care/myinfo.html:31
 msgid "Link url"
 msgstr "URL"
 
-#: care/templates/care/myinfo.html:116
+#: care/templates/care/myinfo.html:45
 msgid "User information:"
 msgstr "User Info"
 
-#: care/templates/care/myinfo.html:118
+#: care/templates/care/myinfo.html:47
 msgid "Fill your name, to continue..."
 msgstr "Please enter your details to continue..."
 
-#: care/templates/care/myinfo.html:137
+#: care/templates/care/myinfo.html:66
 msgid "Email:"
 msgstr ""
 
-#: care/templates/care/myinfo.html:139
+#: care/templates/care/myinfo.html:68
 #: care/templates/registration/registration_form.html:32
 msgid "Email"
 msgstr ""
 
-#: care/templates/care/myinfo.html:145
+#: care/templates/care/myinfo.html:74
 msgid "First name:"
 msgstr "First Name:"
 
-#: care/templates/care/myinfo.html:147
+#: care/templates/care/myinfo.html:76
 msgid "First name"
 msgstr "First Name"
 
-#: care/templates/care/myinfo.html:154
+#: care/templates/care/myinfo.html:83
 msgid "Last name:"
 msgstr "Last Name:"
 
-#: care/templates/care/myinfo.html:156
+#: care/templates/care/myinfo.html:85
 msgid "Last name"
 msgstr "Last Name"
 
-#: care/templates/care/myinfo.html:162
+#: care/templates/care/myinfo.html:91
 msgid "Links:"
 msgstr "Portfolio Links:"
 
-#: care/templates/care/myinfo.html:173
+#: care/templates/care/myinfo.html:102
 msgid "Add new"
 msgstr "New"
 
-#: care/templates/care/myinfo.html:202
+#: care/templates/care/myinfo.html:131
 msgid "Select photo"
 msgstr "Select"
 
-#: care/templates/care/myinfo.html:206
+#: care/templates/care/myinfo.html:135
 msgid "Save"
 msgstr ""
 
 #: care/templates/care/p404.html:116
 msgid "Page not Found"
 msgstr ""
+
+#: care/templates/care/upload.html:27
+msgid "Discover"
+msgstr "Discover"
 
 #: care/templates/care/upload.html:82
 msgid "The daily limit of possible uploads exceeded!"
@@ -1041,83 +1130,87 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: care/templates/registration/registration_form.html:52
-msgid "I have read and agree with"
-msgstr ""
-
-#: care/views.py:263
+#: care/views.py:264
 msgid "You were added maximum count of categories per today. Try tomorrow!"
 msgstr ""
 "You have added maximum number of categories for today, please try tomorrow!"
 
-#: care/views.py:286 care/views.py:325 care/views.py:363 care/views.py:367
-#: care/views.py:437 care/views.py:495 care/views.py:836 care/views.py:906
+#: care/views.py:272 care/views.py:317
+msgid "Entity already exist!"
+msgstr ""
+
+#: care/views.py:289 care/views.py:292 care/views.py:334 care/views.py:372
+#: care/views.py:376 care/views.py:446 care/views.py:504 care/views.py:857
+#: care/views.py:927
 msgid "There is an error! Please contact us, if you know why?"
 msgstr "Some error occurred. Please contact us with issue report. Thanks!"
 
-#: care/views.py:302
+#: care/views.py:309
 msgid "You were added maximum count of tags per today. Try tomorrow!"
 msgstr "You have added maximum number of tags for today, please try tomorrow!"
 
-#: care/views.py:304
+#: care/views.py:311
 msgid "There are no tag name presented!"
 msgstr "Specify Tag name"
 
-#: care/views.py:306
+#: care/views.py:313
 msgid "Tag name too short ( minimum 3 symbols )"
 msgstr "Tag name is too short (3 characters minimum)"
 
-#: care/views.py:308
+#: care/views.py:315
 msgid "Tag name too long ( maximum 75 symbols )"
 msgstr "Tag name is too long (75 characters maximum)"
 
-#: care/views.py:337
+#: care/views.py:346
 msgid "You have maximum limit of links (10 links for user)"
 msgstr "You have added maximum available number of portfolio links"
 
-#: care/views.py:339
+#: care/views.py:348
 msgid "Choose link type, please!"
 msgstr "Choose link type"
 
-#: care/views.py:341
+#: care/views.py:350
 msgid "There are no url name presented!"
 msgstr "Specify URL"
 
-#: care/views.py:343
+#: care/views.py:352
 msgid "Url too short!"
 msgstr "URL is too short!"
 
-#: care/views.py:345
+#: care/views.py:354
 msgid "Url too long!"
 msgstr "URL is too long!"
 
-#: care/views.py:448
+#: care/views.py:457
 msgid "Provide picture..."
 msgstr "Select picture"
 
-#: care/views.py:453
+#: care/views.py:462
 msgid "Picture is wrong"
 msgstr "Picture do not comply with our policy. Try another one please!"
 
-#: care/views.py:457
+#: care/views.py:466
 msgid "Picture name is required"
 msgstr "Specify Picture Name"
 
-#: care/views.py:459
+#: care/views.py:468
 msgid "Picture name too short!"
 msgstr "Picture Name is too short!"
 
-#: care/views.py:461
+#: care/views.py:470
 msgid "Picture name too long!"
 msgstr "Picture Name is too long!"
 
-#: care/views.py:619
+#: care/views.py:628
 msgid "This photo can't be deleted"
 msgstr "Picture cannot be deleted"
 
-#: care/views.py:621
+#: care/views.py:630
 msgid "Can't delete photo"
 msgstr "Picture cannot be deleted"
+
+#~ msgid "My account"
+#~ msgstr "My Account"
 
 #~ msgid "Avaliable free in the App Store"
 #~ msgstr "Free in the App Store"
