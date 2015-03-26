@@ -955,7 +955,7 @@ def FreeLoadView(request, picture_id, org_id):
         picture = Picture.objects.get(pk=picture_id)
         #p_author = User.objects.get(username=request.user.username)
         organization = Organization.objects.get(pk=org_id)
-        up = Download.create(0, picture, organization, get_client_ip(request), "free")
+        up = Download.create(0, picture, organization, get_client_ip(request), "web-lfree")
         up.save()
         for cat in picture.category.all():
             up.category.add(Category.objects.get(pk=int(cat.id)))
@@ -967,43 +967,44 @@ def FreeLoadView(request, picture_id, org_id):
 
 
 def PayLoadView(request, picture_id, org_id):
-    #try:
-    picture = Picture.objects.get(pk=picture_id)
-    #p_author = User.objects.get(username=request.user.username)
-    organization = Organization.objects.get(pk=org_id)
-    
-    lang = "ru"
-    if translation.get_language() == "en":
-        lang = "en"
+    try:
+        picture = Picture.objects.get(pk=picture_id)
+        #p_author = User.objects.get(username=request.user.username)
+        organization = Organization.objects.get(pk=org_id)
+        
+        lang = "ru"
+        if translation.get_language() == "en":
+            lang = "en"
 
-    if request.user.is_authenticated():
-        user = User.objects.get(username=request.user.username)
-        user_id = user.email
-    else:
-        user_id = get_client_ip(request)
-    order = Download.create(0, picture, organization, user_id, "web-liqpay")
-    order.save()
+        if request.user.is_authenticated():
+            user = User.objects.get(username=request.user.username)
+            user_id = user.email
+        else:
+            user_id = get_client_ip(request)
+        order = Download.create(0, picture, organization, user_id, "web-liqpay")
+        order.save()
 
-    liqpay = LiqPay(settings.LIQPAY_PUBLIC, settings.LIQPAY_PRIVAT)
-    html_f = liqpay.cnb_form({
-        "version" : "3",
-        "amount" : "1",
-        "currency" : "USD",
-        "description" : "Donate for "+organization.name,
-        "order_id" : order.id,
-        "result_url" : "http://dev.ato.care/care/donload/"+picture_id+"/"+org_id+"/"+str(order.id),
-        "language" : lang,
-        "sandbox": 1,
-    })
+        liqpay = LiqPay(settings.LIQPAY_PUBLIC, settings.LIQPAY_PRIVAT)
+        html_f = liqpay.cnb_form({
+            "version" : "3",
+            "amount" : "1",
+            "currency" : "USD",
+            "description" : "Donate for "+organization.name,
+            "order_id" : order.id,
+            "result_url" : "http://dev.ato.care/care/donload/"+picture_id+"/"+org_id+"/"+str(order.id),
+            "language" : lang,
+            "sandbox": 1,
+        })
 
-    return HttpResponse(simplejson.dumps({'success': "true", 'message': "", 'form':html_f}), content_type="application/json")
-    #except Exception, e:
-    #    return HttpResponse(simplejson.dumps({'success': "false", 'message': "Wrong request..."}), content_type="application/json")
+        return HttpResponse(simplejson.dumps({'success': "true", 'message': "", 'form':html_f}), content_type="application/json")
+    except Exception, e:
+        return HttpResponse(simplejson.dumps({'success': "false", 'message': "Wrong request..."}), content_type="application/json")
 
 def DonLoadView(request, picture_id, org_id, ord_id):
     try:
         order = Download.objects.get(pk=ord_id, picture=picture_id, organization=org_id)
         if(order.amount == 0):
+            # -2% LiqPay
             order.amount = 0.98
             order.save()
 

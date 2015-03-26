@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-25 15:13+0000\n"
+"POT-Creation-Date: 2015-03-25 21:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,8 +24,6 @@ msgstr ""
 #: ato/templates/ato/index-mobile.html:246 ato/templates/ato/index.html:32
 #: ato/templates/ato/index.html.py:54 ato/templates/ato/index.html:59
 #: ato/templates/ato/index.html.py:125 ato/templates/ato/index.html:334
-#, fuzzy
-#| msgid "ATO.Care"
 msgid "pics.ATO.Care"
 msgstr "pics.ATO.Сare"
 
@@ -37,8 +35,6 @@ msgid "Terms and Conditions"
 msgstr "Умови використання"
 
 #: ato/templates/ato/index-mobile.html:35
-#, fuzzy
-#| msgid "or"
 msgid "for"
 msgstr "або"
 
@@ -80,8 +76,7 @@ msgstr "Україна в HD якостi"
 
 #: ato/templates/ato/index-mobile.html:160 ato/templates/ato/index.html:162
 msgid "Care title 1"
-msgstr ""
-"Допомогай людям, встановлюючи про-українськi HD фони на свій мобiльний!"
+msgstr "Допомогай людям, встановлюючи українськi HD фони!"
 
 #: ato/templates/ato/index-mobile.html:161 ato/templates/ato/index.html:208
 msgid "About title 1"
@@ -104,7 +99,7 @@ msgstr "Фотографiй"
 #: ato/templates/ato/social.html:172 care/templates/base.html:60
 #: care/templates/care/base.html:61 care/templates/care/upload.html:31
 msgid "Photographers"
-msgstr "Фотографiв"
+msgstr "Фотографи"
 
 #: ato/templates/ato/index-mobile.html:190 ato/templates/ato/index.html:214
 msgid "About title 2"
@@ -113,15 +108,15 @@ msgstr "pics.ATO.Сare - твiй шанс допомогти!"
 #: ato/templates/ato/index-mobile.html:191 ato/templates/ato/index.html:217
 msgid "About text 1"
 msgstr ""
-"Зібрані в ході благодійної акції кошти передаються благодійним організаціям "
-"за вашим вибором. <br/> Ми співпрацюємо з наступними організаціями та "
-"волонтерами:"
+"Зібрані кошти передаються благодійним організаціям за вашим вибором. <br/> "
+"Ми співпрацюємо з наступними організаціями та волонтерами:"
 
 #: ato/templates/ato/index-mobile.html:192 ato/templates/ato/index.html:243
 msgid "About text 2"
 msgstr ""
 "Звіти про передачу коштів ви зможете побачити на офіційних сторінках  "
-"спільнот в Facebook та нашому блозi."
+"спільнот в Facebook та на сайтi <a href='http://news.ato.care/'>news.ATO."
+"Care</."
 
 #: ato/templates/ato/index-mobile.html:193 ato/templates/ato/index.html:251
 msgid "Help title 1"
@@ -129,7 +124,7 @@ msgstr "Допомогати - це просто!"
 
 #: ato/templates/ato/index-mobile.html:202 ato/templates/ato/index.html:261
 msgid "Help card header 1"
-msgstr "Встановлюй фони на свiй мобiльний"
+msgstr "Встановлюй HD фони"
 
 #: ato/templates/ato/index-mobile.html:203 ato/templates/ato/index.html:262
 msgid "Help card content 1"
@@ -169,27 +164,26 @@ msgstr "Увiйти"
 #: ato/templates/ato/index.html:166
 msgid "Care text 1"
 msgstr ""
-"pics.ATO.Care - це проект для фотографiв, якi прагнуть допомогти мирним "
-"жителям, постраждалим внаслідок військової агресії на сході країни в ході "
-"анти-терористичної операції (АТО) та на потреби Український Армiї або "
-"Нацiональнiй Гвардiї.<br/>Наш проект працює таким чином:"
+"pics.ATO.Care - це проект для всiх, хто любить фотографувати та прагнуть "
+"допомогти мирним жителям, постраждалим в ході анти-терористичної операції "
+"(АТО) та на потреби Український Армiї або Нацiональнiй Гвардiї.<br/>Наш "
+"проект працює таким чином:"
 
 #: ato/templates/ato/index.html:171
 msgid "Care workflow 1"
-msgstr ""
-"Зареєструйся та додавай власнi високоякiснi знiмки на українську тематику."
+msgstr "Зареєструйся та додавай власнi знiмки на українську тематику."
 
 #: ato/templates/ato/index.html:172
 msgid "Care workflow 2"
 msgstr ""
-"Пicля модерацiї знiмки з'являються в мобiльному додатку для публiчного "
-"використання."
+"Пicля модерацiї знiмки з'являються в мобiльному додатку та на сайтi для "
+"публiчного використання."
 
 #: ato/templates/ato/index.html:173
 msgid "Care workflow 3"
 msgstr ""
-"В процессi завантаження обирай благодійну організацію і за бажанням "
-"пожертвуй на допомогу потребуючим."
+"В процессi завантаження обирай благодійну організацію і за бажанням жертвуй "
+"на допомогу потребуючим."
 
 #: ato/templates/ato/index.html:174
 msgid "Care workflow 4"
@@ -209,10 +203,10 @@ msgstr "Твоя пiдтримка зараз важлива як нiколи!"
 msgid "Help text 1"
 msgstr ""
 "Фони pics.ATO.Сare - це прекрасні якісні знімки від провідних фотографів-"
-"професіоналів та аматорів. Приєднуйтесь до проекту, завантажуйте HD фони на "
-"свiй мобiльний або планшет, поширюйте iнформацiю о проектi pics.ATO.Care "
-"серед своїх знайомих - це все реальна допомога людям, якi на це потребують."
-"<br/> Пам'ятайте - хто дає, тому й примножується."
+"професіоналів та аматорів. Приєднуйтесь до проекту, завантажуйте HD фони,  "
+"поширюйте iнформацiю о pics.ATO.Care серед знайомих - це все реальна "
+"допомога людям, якi на це потребують.<br/> Пам'ятайте - хто дає, тому й "
+"примножується."
 
 #: ato/templates/ato/index.html:326
 msgid "Download header 1"
@@ -225,22 +219,22 @@ msgstr "Завантажуй"
 #: ato/templates/ato/index.html:335
 msgid "Download text 1"
 msgstr ""
-"Android та iOS додатки pics.ATO.Care - це можливiсть встановлювати "
+"Android додаток <b>pics.ATO.Care</b> - це можливiсть встановлювати "
 "високоякiснi HD фони на свої мобiльнi пристрої, допомогаючи людям. Для цього "
-"безкоштовно завантажуйте додаток pics.ATO.Care в App Store або Google Play, "
-"насолоджуйтесь переглядаючи та встановлюючи патрiотичнi фони, якi зробленi "
-"нашими спiввiтчизниками з почуттям гордiстi за свою країну. По можливостi "
-"робiть благодiйнi внески на помiч людям.<br/> "
+"безкоштовно завантажуйте pics.ATO.Care в Google Play, насолоджуйтесь "
+"переглядаючи та встановлюючи патрiотичнi фони, якi зробленi нашими "
+"спiввiтчизниками з почуттям гордiстi за свою країну. По можливостi робiть "
+"благодiйнi внески на помiч людям.<br/> "
 
 #: ato/templates/ato/index.html:337
 msgid "Download text 2"
 msgstr ""
-"Пожертвувані кошти надходять на допомогу постраждалим мирним жителям та "
+"Пожертвувані кошти надходять на допомогу постраждалим мирним жителям, "
 "бiженцям та на потреби Української Армiї, Нацiональної Гвардiї й "
-"добровольчим батальонам. <br/>Ви самi обираєте суму внеска та органiзацiю, "
+"добровольчих батальонiв. <br/>Ви самi обираєте суму внеска та органiзацiю, "
 "якої цi кошти надiйдуть. Кожного мiсяця всi органiзацiї звiтують  о "
-"переданних коштах в Facebook та на порталi новин <a href='http://news.dev."
-"ato.care/'>news.ATO.Care</a> - ви завжди у курсi, як витрачаються благодiйнi "
+"переданних коштах в Facebook та на порталi новин <a href='http://news.ato."
+"care/'>news.ATO.Care</a> - ви завжди у курсi, як витрачаються благодiйнi "
 "кошти."
 
 #: ato/templates/ato/index.html:346 ato/templates/ato/index.html.py:347
@@ -272,8 +266,6 @@ msgid "Ukrainian"
 msgstr "Українська"
 
 #: ato/templates/ato/social.html:43 ato/templates/ato/social.html.py:45
-#, fuzzy
-#| msgid "Newer"
 msgid "Newest"
 msgstr "Новi"
 
@@ -288,14 +280,12 @@ msgid "Most rised"
 msgstr "Найбiльш збираючi"
 
 #: ato/templates/ato/social.html:53
-#, fuzzy
-#| msgid "Categories:"
 msgid "Categoryies"
 msgstr "Категорії"
 
 #: ato/templates/ato/social.html:57
 msgid "Search for..."
-msgstr ""
+msgstr "Я шукаю..."
 
 #: ato/templates/ato/social.html:92 care/templates/base.html:50
 #: care/templates/care/base.html:51 care/templates/care/upload.html:21
@@ -320,48 +310,38 @@ msgstr "Вийти"
 #: ato/templates/ato/social.html:139 ato/templates/ato/social.html.py:166
 #: care/templates/base.html:62 care/templates/care/base.html:63
 #: care/templates/care/upload.html:33
-#, fuzzy
-#| msgid "Categories:"
 msgid "Categories"
 msgstr "Категорії"
 
 #: ato/templates/ato/social.html:142 ato/templates/ato/social.html.py:169
 msgid "Recently added"
-msgstr ""
+msgstr "Новi"
 
 #: ato/templates/ato/social.html:143 ato/templates/ato/social.html.py:170
 msgid "Search"
-msgstr ""
+msgstr "Знайти"
 
 #: ato/templates/ato/social.html:144 ato/templates/ato/social.html.py:171
-#, fuzzy
-#| msgid "Photographers"
 msgid "Photo"
 msgstr "Фотографiй"
 
 #: ato/templates/ato/social.html:146 ato/templates/ato/social.html.py:173
 msgid "See more"
-msgstr ""
+msgstr "Бiльше"
 
 #: ato/templates/ato/social.html:147 ato/templates/ato/social.html.py:174
-#, fuzzy
-#| msgid "Likes:"
 msgid "Like"
 msgstr "Лайків"
 
 #: ato/templates/ato/social.html:149 ato/templates/ato/social.html.py:176
-#, fuzzy
-#| msgid "Choose link type, please!"
 msgid "Help, please!"
 msgstr "Оберiть, будь ласка, тип"
 
 #: ato/templates/ato/social.html:150 ato/templates/ato/social.html.py:177
 msgid "Do not be indifferent to make a donation to people in need!"
-msgstr ""
+msgstr "Вашому пожертвуванню будуть вдячнi тисячi людей"
 
 #: ato/templates/ato/social.html:151 ato/templates/ato/social.html.py:178
-#, fuzzy
-#| msgid "Select photo"
 msgid "Select organization"
 msgstr "Обрати"
 
@@ -369,46 +349,42 @@ msgstr "Обрати"
 msgid ""
 "Help people with just 1$. Its not too match, but enough to save someone "
 "life..."
-msgstr ""
+msgstr "Навiть ця сума врятує чиєсь життя обо допоможе потребуючим. "
 
 #: ato/templates/ato/social.html:153 ato/templates/ato/social.html.py:180
 msgid "* Download will start right after payment process complete"
-msgstr ""
+msgstr "Загрузка почнеться пiсля обробки платежу"
 
 #: ato/templates/ato/social.html:154 ato/templates/ato/social.html.py:181
 msgid "Or you can dowload it free!"
-msgstr ""
+msgstr "або завантаж безкоштовно"
 
 #: ato/templates/ato/social.html:155 ato/templates/ato/social.html.py:182
 msgid "But with advertisement watching..."
-msgstr ""
+msgstr "Якщо ви завантажуєте безкоштовно, то переглядаєте рекламу. "
 
 #: ato/templates/ato/social.html:156 ato/templates/ato/social.html.py:183
 msgid "* The part of advertisement money we will donate to help organizations"
-msgstr ""
+msgstr "Заробленi грошi будуть переданi до фонду ATO.Care. "
 
 #: ato/templates/ato/social.html:157 ato/templates/ato/social.html.py:184
 msgid "Free"
-msgstr ""
+msgstr "завантажити"
 
 #: ato/templates/ato/social.html:158 ato/templates/ato/social.html.py:185
 #: care/templates/registration/registration_form.html:52
 msgid "I have read and agree with"
-msgstr "Погоджуюся з"
+msgstr "Я погоджуюся з "
 
 #: ato/templates/ato/social.html:160 ato/templates/ato/social.html.py:187
-#, fuzzy
-#| msgid "Picture name is required"
 msgid "field is required"
 msgstr "Вкажiть назву зображення"
 
 #: ato/templates/ato/social.html:161 ato/templates/ato/social.html.py:188
 msgid "Only registered users can like pictures, join us!"
-msgstr ""
+msgstr "Тiльки зареєстрованi користувачi можуть лайкати фото. Приєднуйтесь!"
 
 #: ato/templates/ato/social.html:162 ato/templates/ato/social.html.py:189
-#, fuzzy
-#| msgid "There are no email presented!"
 msgid "There are no results found"
 msgstr "Вкажіть вашу email-адресу"
 
@@ -526,8 +502,6 @@ msgid "Link URL"
 msgstr "URL"
 
 #: care/models.py:255
-#, fuzzy
-#| msgid "original file upload"
 msgid "original_url"
 msgstr "Завантаження файлу"
 
@@ -590,8 +564,6 @@ msgstr ""
 #: care/templates/base.html:56 care/templates/base.html.py:58
 #: care/templates/care/base.html:57 care/templates/care/base.html.py:59
 #: care/templates/care/upload.html:29
-#, fuzzy
-#| msgid "Photographers"
 msgid "Photos"
 msgstr "Фотографiй"
 
@@ -685,8 +657,6 @@ msgid "Edit image:"
 msgstr "Редагувати зображення:"
 
 #: care/templates/care/edit.html:58
-#, fuzzy
-#| msgid "Image:"
 msgid "image"
 msgstr "Зображення:"
 
@@ -696,8 +666,6 @@ msgid "or"
 msgstr "або"
 
 #: care/templates/care/edit.html:97
-#, fuzzy
-#| msgid "Organization description"
 msgid "description"
 msgstr "Опис діяльності"
 
@@ -706,8 +674,6 @@ msgid "Back"
 msgstr "Назад"
 
 #: care/templates/care/edit.html:118
-#, fuzzy
-#| msgid "My pictures"
 msgid "Edit picture:"
 msgstr "Мої зображення"
 
@@ -721,8 +687,6 @@ msgid "Thumbnail will looks:"
 msgstr "Мініатюра буде виглядати так:"
 
 #: care/templates/care/edit.html:173
-#, fuzzy
-#| msgid "3 Finish with description:"
 msgid "Edit description:"
 msgstr "3 Додайте трохи описiв:"
 
@@ -791,8 +755,6 @@ msgid "Register"
 msgstr "Зареєструватися"
 
 #: care/templates/care/login.html:41 care/templates/registration/login.html:41
-#, fuzzy
-#| msgid "Back to the site"
 msgid "Back to Home"
 msgstr "Повернутися"
 
@@ -870,8 +832,6 @@ msgid "Page not Found"
 msgstr "Сторінка не знайдена :("
 
 #: care/templates/care/upload.html:27
-#, fuzzy
-#| msgid "Recover!"
 msgid "Discover"
 msgstr "Скинути пароль!"
 
@@ -884,8 +844,6 @@ msgid "Try add another picture tomorrow..."
 msgstr "Спробуйте додати нові зображення завтра!"
 
 #: care/templates/care/upload.html:118
-#, fuzzy
-#| msgid "Add new image to service:"
 msgid "Continue adding new image to service:"
 msgstr "Завантажити нове зображення:"
 
@@ -1063,8 +1021,8 @@ msgstr "Iнструкцiя по скиданню пароля успiшно вi�
 #: care/templates/password_reset/reset_sent.html:11
 #, fuzzy, python-format
 #| msgid ""
-#| "An email was sent to <strong>%(email)s</strong> %(ago)s ago. Use the link "
-#| "in it to set a new password."
+#| "An email was sent to <strong>%(email)s</strong>. Use the link in it to "
+#| "set a new password."
 msgid ""
 "An email was sent to <strong>%(email)s</strong>. Use the link in it to set a "
 "new password."
@@ -1186,8 +1144,7 @@ msgstr "Виникла помилка :("
 #: care/views.py:309
 msgid "You were added maximum count of tags per today. Try tomorrow!"
 msgstr ""
-"Ви додали максимальну кількість категорій на сьогодні, будь ласка, спробуйте "
-"завтра!"
+"Ви додали максимальну кількість категорій на сьогодні, спробуйте завтра!"
 
 #: care/views.py:311
 msgid "There are no tag name presented!"
@@ -1227,9 +1184,7 @@ msgstr "Додайте зображення"
 
 #: care/views.py:462
 msgid "Picture is wrong"
-msgstr ""
-"Фото не відповідає нашій політиці. Спробуйте додати iнше зображення, будь "
-"ласка!"
+msgstr "Фото не відповідає нашій політиці. Спробуйте додати iнше зображення!"
 
 #: care/views.py:466
 msgid "Picture name is required"

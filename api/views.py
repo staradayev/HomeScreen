@@ -24,6 +24,7 @@ class BaseMixin(View):
         self.id = request.GET.get('id')
         self.user = request.GET.get('user')
         self.user_id = request.GET.get('user_id')
+        self.user_uid = request.GET.get('user_uid')
         self.org_id = request.GET.get('org_id')
         self.amount = request.GET.get('amount')
         self.param = request.GET.get('param')
@@ -293,16 +294,16 @@ class SearchView(BaseMixin):
                             picture['author_thumbnail'] = None
                             picture['author_photo'] = None
                         results.append(picture)
-                    return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'page_name': page, 'entity': results})
+                    return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'page_name': self.param, 'entity': results})
                 else:
                     return JsonResponse({'success': "true", 'message': 'There are no results... Category results='+str(category_list.count())+'; Tags results='+str(tag_list.count())+'; Pictures results='+str(picture_list.count())})
             except:
                 return JsonResponse({'success': "false", 'message': "Some error..."})
 
 
-class DownloadView(BaseMixin):
+class DownloadAndroidView(BaseMixin):
     def get(self, request):
-        check_result = self.check_params(request, params_list=['ln', 'page', 'id', 'org_id', 'user_id', 'amount'])
+        check_result = self.check_params(request, params_list=['ln', 'id', 'org_id', 'user_id', 'amount'])
         if check_result:
             return check_result
         else:
@@ -310,7 +311,30 @@ class DownloadView(BaseMixin):
                 picture = Picture.objects.filter(approve_status=True).get(pk=self.id)
                 try:
                     organization = Organization.objects.get(pk=self.org_id)
-                    up = Download.create(self.amount, picture, organization, self.user_id, "api-development")
+                    # -30% Play market
+                    up = Download.create(self.amount*0.7, picture, organization, self.user_id, "api-android")
+                    up.save()
+                    for category in picture.category.all():
+                        up.category.add(Category.objects.get(pk=int(category.id)))
+                    up.save()
+                    return HttpResponse(open(picture.photo_origin.path, "rb").read(), content_type="image/jpg")
+                except:
+                    return JsonResponse({'success': "false", 'message': "Wrong organization in request..."})
+            except:
+                return JsonResponse({'success': "false", 'message': "Wrong picture request..."})
+
+class DownloadiOSView(BaseMixin):
+    def get(self, request):
+        check_result = self.check_params(request, params_list=['ln', 'id', 'org_id', 'user_uid', 'amount'])
+        if check_result:
+            return check_result
+        else:
+            try:
+                picture = Picture.objects.filter(approve_status=True).get(pk=self.id)
+                try:
+                    organization = Organization.objects.get(pk=self.org_id)
+                    # -30% Aplle store
+                    up = Download.create(self.amount*0.7, picture, organization, self.user_uid, "api-ios")
                     up.save()
                     for category in picture.category.all():
                         up.category.add(Category.objects.get(pk=int(category.id)))

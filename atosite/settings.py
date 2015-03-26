@@ -136,7 +136,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-DONATED_LEFT = 0.6
+DONATED_LEFT = 0.95
 
 
 # Static files (CSS, JavaScript, Images)
