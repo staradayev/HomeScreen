@@ -312,7 +312,7 @@ class DownloadAndroidView(BaseMixin):
                 try:
                     organization = Organization.objects.get(pk=self.org_id)
                     # -30% Play market
-                    up = Download.create(self.amount*0.7, picture, organization, self.user_id, "api-android")
+                    up = Download.create(int(self.amount)*0.7, picture, organization, self.user_id, "api-android")
                     up.save()
                     for category in picture.category.all():
                         up.category.add(Category.objects.get(pk=int(category.id)))
@@ -334,7 +334,7 @@ class DownloadiOSView(BaseMixin):
                 try:
                     organization = Organization.objects.get(pk=self.org_id)
                     # -30% Aplle store
-                    up = Download.create(self.amount*0.7, picture, organization, self.user_uid, "api-ios")
+                    up = Download.create(int(self.amount)*0.7, picture, organization, self.user_uid, "api-ios")
                     up.save()
                     for category in picture.category.all():
                         up.category.add(Category.objects.get(pk=int(category.id)))
@@ -390,7 +390,7 @@ class AuthorListView(BaseMixin):
                         
 
                 for picture_item in pictures_paginated:
-                    
+                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
                     picture = {
                         'id': picture_item.id,
                         'downloads': picture_item.download_set.all().count(),

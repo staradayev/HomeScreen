@@ -37,6 +37,7 @@ class PictureTranslationInline(TranslationStackedInline):
 
 class PictureAdmin(admin.ModelAdmin):
 	list_display = ('admin_thumbnail', 'get_name', 'approve_status')
+	readonly_fields = ('admin_image',)
 	inlines = [PictureTranslationInline]
 
 	def get_name(self, obj):
@@ -81,8 +82,17 @@ class OrganizationAdmin(admin.ModelAdmin):
 	get_name.admin_order_field = 'translations'
 
 admin.site.register(Organization, OrganizationAdmin)
-admin.site.register(Like)
-admin.site.register(Download)
+
+class LikeAdmin(admin.ModelAdmin):
+	list_display = ('admin_thumbnail', 'photo', 'user')
+
+admin.site.register(Like, LikeAdmin)
+
+class DownloadAdmin(admin.ModelAdmin):
+	list_display = ('amount', 't_uuid', 'donator')
+	
+
+admin.site.register(Download, DownloadAdmin)
 
 
 

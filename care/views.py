@@ -462,14 +462,14 @@ def upload_description(request):
                 return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Picture is wrong")}), content_type="application/json")
 
             name = ""
-            if not data["pic_name"]:
-                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Picture name is required")}), content_type="application/json")
-            elif len(data["pic_name"]) < 2:
-                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Picture name too short!")}), content_type="application/json")
-            elif len(data["pic_name"]) > 99:
-                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Picture name too long!")}), content_type="application/json")
-            else:
+            try:
                 name = urllib.url2pathname(unidecode(data["pic_name"]))
+                if len(name) < 2:
+                    return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Picture name too short!")}), content_type="application/json")
+                elif len(name) > 75:
+                    return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Picture name too long!")}), content_type="application/json")
+            except Exception, e:
+                return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Picture name is required")}), content_type="application/json") 
 
             pic_trans = None
             try:
@@ -934,21 +934,6 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
-
-def FreeLoadView(request, picture_id, org_id):
-    try:
-        picture = Picture.objects.get(pk=picture_id)
-        #p_author = User.objects.get(username=request.user.username)
-        organization = Organization.objects.get(pk=org_id)
-        up = Download.create(0, picture, organization, get_client_ip(request), "free")
-        up.save()
-        for cat in picture.category.all():
-            up.category.add(Category.objects.get(pk=int(cat.id)))
-        up.save()
-
-        return HttpResponse(open(picture.photo_origin.path, "rb").read(), content_type="image/jpg")
-    except Exception, e:
-        return HttpResponse(simplejson.dumps({'success': "false", 'message': "Wrong request..."}), content_type="application/json")
 
 def FreeLoadView(request, picture_id, org_id):
     try:

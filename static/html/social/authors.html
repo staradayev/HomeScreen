@@ -39,9 +39,9 @@
                                 <span><a class="no-link" href="/social/{{ln}}/authorpictures/{{photographer.author_id}}">{{photographer.author}}</a></span>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 no-gutter">
-                                <div class="vertical-align earned-money pull-right">
+                                <div class="vertical-align earned-money pull-right" ng-show="photographer.donated && parseFloat(photographer.donated) > 0">
                                     <img src="/static/img/pig_50.png" alt="earned_money" class="img-responsive">
-                                    <strong>${{photographer.donated}}</strong>
+                                    <strong>${{photographer.donated.toFixed(0)}}</strong>
                                 </div>
                             </div>
                         </div>

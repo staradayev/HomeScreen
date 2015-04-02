@@ -80,5 +80,9 @@ angular.module('atoApp', ['ngRoute', 'atoServices', 'atoControllers', 'atoDirect
     }]).run(function($rootScope) {
         $rootScope.serverUrl = "http://127.0.0.1:8000"
         $rootScope.current_lang = $('#Lang_code').val();
+        $rootScope.parseFloat = function(value)
+    {
+        return parseFloat(value);
+    }
     });
 

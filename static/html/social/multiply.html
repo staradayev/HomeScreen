@@ -44,11 +44,11 @@
                                  
                             </div>
                         </div>
-                        <div class="vertical-align" ng-show="photographer.help">
+                        <div class="vertical-align" ng-show="photographer.help && parseFloat(photographer.help) > 0 ">
                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-gutter top-gutter-2">
                                 <div class="vertical-align earned-money">
                                     <img src="/static/img/pig_50.png" alt="earned_money" class="img-responsive">
-                                    <strong>${{photographer.help}}</strong>
+                                    <strong>${{photographer.help.toFixed(0)}}</strong>
                                 </div>
                             </div>
                         </div>
@@ -68,12 +68,12 @@
                 </div>
                 <div class="popular-img-inform clearfix vertical-align">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-gutter">
-                        <div class="vertical-align" ng-show="image.amount">
+                        <div class="vertical-align" ng-show="image.amount && parseFloat(image.amount) > 0">
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-gutter img-money-info">
                                 <img src="/static/img/pig_25.png" alt="earned_money" class="img-responsive">
                             </div>
                             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 no-gutter img-money-info-text">
-                                <strong>${{image.amount}}</strong>
+                                <strong>${{parseFloat(image.amount).toFixed(0)}}</strong>
                             </div>
                         </div>
                        <div class="vertical-align" ng-show="image.downloads">
@@ -106,7 +106,7 @@
                 </div>
                 </div>
             </div>
-            <div ng-show="!images || !images.length" class="text-primary">
+            <div ng-show="images && images.length == 0" class="text-primary">
                 <div class="col-md-12">
                     <h4>{{trans_no_results}}</h4>
                 </div>

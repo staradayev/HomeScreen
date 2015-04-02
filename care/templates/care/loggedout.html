@@ -1,5 +1,7 @@
 {% extends 'care/base.html' %}
 {% load i18n %}
+{% block header %}
+{% endblock %}
 {% block content %}
 
 <form class="form-signin text-center" method="post">
@@ -10,6 +12,7 @@
 
 	<a href="/care/login">{% trans "Log in again" %}</a>
 </form>
+<script src="{{STATIC_URL}}js/jquery.min.js"></script>
 
 <script language="javascript" type="text/javascript">
      <!--

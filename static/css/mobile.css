@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html, body{
+    font-size: 14px;
+}
+
 /*GRID*/
 .container {
     margin: 0;
@@ -280,7 +284,7 @@ p.avaliable-in{
     height: 2em;
     font-size: 0.8em;
 }
-.navbar-center .column.third{
+.navbar-center .column.fourth{
     height: 100%;
     background: url('../img/ATO.png') center center no-repeat;
     background-size: contain;
@@ -293,10 +297,17 @@ p.avaliable-in{
     background-size: contain;
 }
 /*Text Divs*/
+
 .msgid-title{
     margin: 5% 5% 5% 5%;
     width: 90%;
 }
+
+.msgid-title.new{
+    margin:  10% 5% 10% 5%;
+    width: 90%;
+}
+
 .msgid-title div{
     text-align: center;
     padding: 0.5em 0;
@@ -348,6 +359,59 @@ p.avaliable-in{
     background-color: rgba(5,5,5,.45);
     padding-bottom: 0.8em;
 }
+
+.top-pic{
+      padding-top: 50PX;
+}
+
+.top-cover{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(5,5,5,.3);
+    top: 0;
+    left: 0;
+}
+
+.navbar-brand {
+  background-image: url('/static/img/ATO.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 123px;
+  font-family: EOX;
+  padding-left: 50px !important;
+  font-size: 1.75em !important;
+  margin-top: 86%;
+  color: lightgoldenrodyellow;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.btn-download.top{
+      letter-spacing: normal;
+      margin: 0;
+      margin-left: 3%;
+}
+
+.sub-top{
+    color: lightgoldenrodyellow;
+  text-align: center;
+  font-weight: 100;
+}
+
+.top-btn{
+    margin-top: 26%
+}
+
+.bot-gutter{
+    padding-bottom: 7% !important;
+}
+
+
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 240px) {

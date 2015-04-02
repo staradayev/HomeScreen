@@ -47,10 +47,10 @@
 			</div>
 			<div class="col-md-3 col-sm-4 col-xs-12">
 	    	    <div class=""> 
-	    	    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-gutter" ng-show="image.amount">
+	    	    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-gutter" ng-show="image.amount && parseFloat(image.amount) > 0">
                                 <div class="vertical-align earned-money pull-right">
                                     <img src="/static/img/pig_50.png" alt="earned_money" class="img-responsive">
-                                    <strong>${{image.amount}}</strong>
+                                    <strong>${{parseFloat(image.amount).toFixed(0)}}</strong>
                                 </div>
                             </div>
 	    	    	<div class="paper">
@@ -70,10 +70,11 @@
 		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align ">
 		                    	<div class="input-group normal-font">
 								  <span class="input-group-addon" id="basic-addon-like">{{image.likes}}</span>
-								    
-								    <button disabled="disabled" ng-show="is_auth == 'false'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align">
+								    <div id="registrToLike" data-container="body" data-toggle="popover" data-placement="top" data-content="{{trans_only_registered_can_like}}" data-trigger="focus hover click"> 
+								    <button disabled="disabled" ng-show="is_auth == 'false'" type="button" class="btn btn-default btn-lg btn-addon-right vertical-align" >
 									  <i class="fa fa-liked"></i>{{trans_like}}
 									</button>
+									</div>
 
 								    <button ng-show="is_auth == 'true' && image.liked == 'false'" type="submit" class="btn btn-default btn-lg btn-addon-right vertical-align" ng-click="like(image)">
 									  <i ng-class="{fa: true, 'fa-liked': true, 'fa-not-liked': image.liked == 'false'}"></i>{{trans_like}}
@@ -87,9 +88,6 @@
 								<br>
 								
 		                    </div>
-		                    <div ng-show="is_auth == 'false'" class="col-lg-12 col-md-12 col-sm-12 col-xs-12left-gutter vertical-align  bottom-gutter">
-		                    	<small ng-show="is_auth == 'false'">* {{trans_only_registered_can_like}}</small>
-		                    </div >
 		                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-gutter bottom-gutter left-gutter vertical-align">
 		                    	<div class="input-group normal-font">
 								  <span class="input-group-addon" id="basic-addon2">{{image.downloads}}</span>
@@ -229,4 +227,8 @@ $(function(){
    });
 
 });
+$(document).ready(function() {
+	$('#registrToLike').popover();
+});
+
 </script>

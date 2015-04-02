@@ -199,6 +199,8 @@ angular.module('atoControllers', [])
                                 }
                                 $scope.page = $scope.page + 1;
                                 $scope.blocked = false;
+                            }else{
+                                $scope.images = [];
                             }
                         });
                     }

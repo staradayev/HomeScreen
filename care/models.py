@@ -135,8 +135,13 @@ class Picture(MultilingualModel):
 
     def admin_thumbnail(self):
         return u'<img src="/media/%s" />' % (self.photo_thumb)
-    admin_thumbnail.short_description = 'Thumbnail'
+    admin_thumbnail.short_description = _(u'Thumbnail')
     admin_thumbnail.allow_tags = True
+
+    def admin_image(self):
+        return u'<img src="/media/%s" />' % (self.photo_medium)
+    admin_image.short_description = _(u'Image')
+    admin_image.allow_tags = True
 
     @classmethod
     def create(cls, picture, user_added):
@@ -314,6 +319,11 @@ class Like(models.Model):
         like = cls(user=ato_user, photo=picture)
         # do something with the book
         return like
+
+    def admin_thumbnail(self):
+        return Picture.objects.get(pk=self.photo.id).admin_thumbnail()
+    admin_thumbnail.short_description = 'Thumbnail'
+    admin_thumbnail.allow_tags = True
 
     photo = models.ForeignKey(Picture, unique=False)
     user = models.CharField('user uiid', max_length=50)
