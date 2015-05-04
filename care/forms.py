@@ -11,7 +11,7 @@ class UserInfoForm(forms.Form):
 		fname = value
 		if not fname:
 			raise forms.ValidationError(_(u"There are no first name presented!"))
-		elif len(fname) < 4:
+		elif len(fname) < 3:
 			raise forms.ValidationError(_(u"First name too short ( minimum 4 symbols )"))
 		elif len(fname) > 20:
 			raise forms.ValidationError(_(u"First name too long ( maximum 20 symbols )"))
@@ -20,7 +20,7 @@ class UserInfoForm(forms.Form):
 		lname = value
 		if not lname:
 			raise forms.ValidationError(_(u"There are no last name presented!"))
-		elif len(lname) < 4:
+		elif len(lname) < 3:
 			raise forms.ValidationError(_(u"Last name too short ( minimum 4 symbols )"))
 		elif len(lname) > 20:
 			raise forms.ValidationError(_(u"Last name too long ( maximum 20 symbols )"))

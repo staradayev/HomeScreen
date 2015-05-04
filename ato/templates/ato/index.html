@@ -188,28 +188,36 @@
     <div class="container heads">
     <div class="col-md-12 counter backshadow" >
         <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count downloads">{{ downloads }}</h1>
-                      <h6>{% trans "Total Downloads" %}</h6>
-                    </div>
+            <a href="#section4">
+                <h1 class="count downloads">{{ downloads }}</h1>
+                <h6>{% trans "Total Downloads" %}</h6>
+            </a>
+        </div>
         <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count"><span class="donated">{{ donated }}</span></h1>
-                      <h6>{% trans "Total rized" %}</h6>
-                    </div>
+            <a href="#section34">
+                <h1 class="count"><span class="donated">{{ donated }}</span></h1>
+                <h6>{% trans "Total rized" %}</h6>
+            </a>
+        </div>
         <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count pictures">{{ pictures }}</h1>
-                      <h6>{% trans "Pictires in app" %}</h6>
-                    </div>
+            <a href="/social">
+                <h1 class="count pictures">{{ pictures }}</h1>
+                <h6>{% trans "Pictires in app" %}</h6>
+            </a>
+        </div>
         <div class="col-md-3 col-sm-6 col-xs-12 text-center backshadow"> <!-- Start counter 1-->
-                      <h1 class="count photographers">{{ photographers }}</h1>
-                      <h6>{% trans "Photographers" %}</h6>
-                    </div>
+            <a href="/social/{{LANG}}/authors">
+                <h1 class="count photographers">{{ photographers }}</h1>
+                <h6>{% trans "Photographers" %}</h6>
+            </a>
+        </div>
     </div>
    </div>
   <div class="col-sm-6 col-sm-offset-3 text-center"><h2 style="padding:20px;background-color:rgba(5,5,5,.8)">{% trans "About title 1" %}</h2></div>
 </section>
   
    
-<div class="container" id="section2">
+<div class="container"  id="section34">
     <div class="col-sm-8 col-sm-offset-2 text-center">
       <h1>{% trans "About title 2" %}</h1>
       <hr>
@@ -234,6 +242,20 @@
               <div id="about{{forloop.counter}}" class="panel-collapse collapse" style="height: 0px;">
                 <div class="panel-body">
                   {{ org.description }}
+                  
+                  <p class="top-1em">{% trans "Contact person" %}: <b>{{org.organizer}}</b></p>
+                  {% if org.amount %}
+                  <p class="">{% trans "Money collected" %}: <b>{{org.amount|floatformat:"0"}}</b></p>
+                  {% endif %}
+                  <p>
+                    {% if org.links %}
+                      <ul class="space text-center share">
+                        {% for lnk in org.links %}
+                          <li><a href="{{lnk.link_url}}" target="_blank"><i class="fa fa-{{lnk.link_type}} fa-2x"></i></a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </p>
                 </div>
               </div>
             </div> <!-- End Advantage 1 -->
@@ -302,6 +324,7 @@
               
                 <li><a href="https://www.facebook.com/pics.ato.care" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li> <!-- Change # with your FB Account -->
                 <li><a href="https://plus.google.com/u/0/communities/100486064908229100027" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a></li> <!-- Change # with your Google Account -->    
+                <li><a href="http://www.instagramal.com/pics.care" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></li> <!-- Change # with your Twitter Account -->
                   
              </ul> <!-- End social media -->
 

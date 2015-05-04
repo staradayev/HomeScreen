@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pics.ATO.care</title>
+    <title>pics.Care</title>
 
     <!-- Bootstrap -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">pics.ATO.care</a>
+            <a class="navbar-brand" href="/">pics.Care</a>
         </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,7 +68,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Language <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% trans "Language" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       {% for lang in LANGUAGES %}
                         

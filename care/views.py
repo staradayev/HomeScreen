@@ -70,6 +70,7 @@ def InfoView(request):
     link_types = None
     user_links = None
     user_pic = None
+    pic_complete = {}
 
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -116,7 +117,7 @@ def InfoView(request):
             print(pic_u.user_picture)
             print(pic_u.user_thumbnail)
             if(pic_u.original_picture):
-                pic_complete = {}
+                
                 pic_complete['url'] =  settings.MEDIA_URL + pic_u.original_picture
                 print('found uncompleted picture')
             else:
@@ -124,7 +125,9 @@ def InfoView(request):
         except:
             pic_complete = None
             print('No uncompleted pictures')
-
+        finally:
+            pic_complete = None
+            print('No uncompleted pictures')
     try:
         user = User.objects.get(username=request.user.username)
         user_p = UserProfile.objects.get(user=user)
@@ -354,12 +357,16 @@ def AddLinkView(request):
             return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Url too long!")}), content_type="application/json")
         else:
             try:
-
+                up = UserProfile.objects.get(user=request.user)
                 l_type = LinkType.objects.get(id=link_type)
+                for l in up.links.all():
+                    if l.link_type == l_type:
+                        return HttpResponse(simplejson.dumps({'success': "False", 'message': _(u"Link type already exist!")}), content_type="application/json")
+
+                
                 lnk = Link.create(l_type)
                 lnk.link_url = link_url
                 lnk.save()
-                up = UserProfile.objects.get(user=request.user)
                 up.links.add(lnk)
                 response_data = {}
                 response_data['success'] = 'true'
@@ -976,9 +983,9 @@ def PayLoadView(request, picture_id, org_id):
             "currency" : "USD",
             "description" : "Donate for "+organization.name,
             "order_id" : order.id,
-            "result_url" : "http://dev.ato.care/care/donload/"+picture_id+"/"+org_id+"/"+str(order.id),
+            "result_url" : "http://pics.ato.care/care/donload/"+picture_id+"/"+org_id+"/"+str(order.id),
             "language" : lang,
-            "sandbox": 1,
+            #"sandbox": 1,
         })
 
         return HttpResponse(simplejson.dumps({'success': "true", 'message': "", 'form':html_f}), content_type="application/json")

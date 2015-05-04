@@ -27,7 +27,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['dev.ato.care', 'ato.care']
+ALLOWED_HOSTS = ['pics.care']
 
 
 # Application definition
@@ -86,13 +86,18 @@ CORS_ALLOW_METHODS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'atobase',
-        'USER': 'atouser',
-        'PASSWORD': 'care2014',
+        'NAME': 'ato',
+        'USER': 'ato',
+        'PASSWORD': 'atocarepass',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'care.userBackend.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
+)
 
 LOGIN_URL = '/care/login'
 
@@ -104,7 +109,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 #static dirs
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static_files'),
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -152,12 +157,12 @@ REGISTRATION_AUTO_LOGIN = True
 
 # for send activation
 AUTH_USER_EMAIL_UNIQUE = True
-EMAIL_HOST = 'localhost'
+EMAIL_HOST = 'smtp.postmarkapp.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = '0838a5fe-387b-4f07-a656-50ca5b792333'
+EMAIL_HOST_PASSWORD = '0838a5fe-387b-4f07-a656-50ca5b792333'
 EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'info@ato.care'
+DEFAULT_FROM_EMAIL = 'pics@ato.care'
 
 # API settings
 CATEGORIES_PER_PAGE = 20

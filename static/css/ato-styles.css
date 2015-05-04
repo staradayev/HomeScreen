@@ -535,3 +535,44 @@ padding-right: 0.4rem;
   padding-bottom: 5px !important;
 }
 
+.backshadow a{
+  text-decoration: none;
+  cursor: pointer;
+  color: gainsboro;
+}
+
+.counter .backshadow:active,
+.counter .backshadow:hover,
+.counter .backshadow:focus{
+  background-color: rgba(5,5,5,.5);
+  color: #FFF !important;
+}
+
+.counter .backshadow:active a,
+.counter .backshadow:hover a,
+.counter .backshadow:focus a{
+  text-decoration: none;
+  cursor: pointer;
+    color: #FFF;
+}
+
+.backshadow a:active,
+.backshadow a:hover,
+.backshadow a:focus{
+  text-decoration: none;
+  cursor: pointer;
+    color: #FFF;
+}
+
+.top-1em{
+  padding-top: 1em;
+}
+
+.top-1-5em{
+  padding-top: 1.5em;
+}
+
+.top-2em{
+  padding-top: 2em;
+}
+

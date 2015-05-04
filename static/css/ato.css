@@ -653,3 +653,31 @@ left: 45%;
 .author_name{
     margin-top: 1.3em;
 }
+
+@media (max-width: 767px) {
+    .polaroid-face {
+    padding: 5px;
+  }
+
+  .img-full{
+    padding: 2px;
+  }
+
+  #picture_content{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .earned-money {
+    padding-top: 0.3em;
+  }
+
+  .paper{
+    padding: 0;
+  }
+
+  .pop-photographer_ava {
+    width: 50px !important;
+    height: 50px;
+  }
+}

@@ -545,6 +545,7 @@ class MostRaisedView(BaseMixin):
             except:
                 return JsonResponse({'success': "false", 'message': 'Some error'})
 
+def formatted(f): "{:.3g}".format(f) #format(f, '.2f').rstrip('0').rstrip('.')
 
 class PhotographersView(BaseMixin):
     def get(self, request):
@@ -591,10 +592,15 @@ class PhotographersView(BaseMixin):
                             'amount': str(float(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
                         }
                         if donated['amount__sum']:
-                            photographer['donated'] = round((float(photographer['donated']) + float(donated['amount__sum'])), 2)
+                            print('D=%f' % photographer['donated'])
+                            print('S=%f' % donated['amount__sum'])
+                            photographer['donated'] = photographer['donated'] + donated['amount__sum']
+
                         photographer['pictures'].append(picture)
                     photographer['author_thumbnail'] = user_profile.get_thumb()
                     photographer['author_photo'] = user_profile.get_user_picture()
+                    print(photographer['donated'])
+                    photographer['donated'] = formatted(photographer['donated'])
                     if photographer['pictures']:
                         photographers.append(photographer)
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': photographers})

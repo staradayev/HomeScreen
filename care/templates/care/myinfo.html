@@ -342,8 +342,8 @@
     }
 
     $(document).on('click','#BtnSendLink',function(e){
-    	var l_url = $("#id_link_url").val()
-    	var l_type = $("#id_link_type").val()
+    	var l_url = $("#id_link_url").val();
+    	var l_type = $("#id_link_type").val();
 		  	$.ajax({
 		    	url : "/care/addlink/",
 		    	type : "POST",
@@ -358,11 +358,13 @@
 		      			$('#id_link_list').append(insertion);
 		      			$('#cat_warning').text('');
 		      			$('#cat_warning').hide();
-		      			$('#myModal3').modal('hide')
+                $("#id_link_url").val('');
+                $("#id_link_type").val('');
+		      			$('#myModal3').modal('hide');
 		        	//handle DOM insertion and other stuff
 		      		} else {
 		      			$('#cat_warning').show();
-		      			$('#cat_warning').text(results.message);
+		      			$('#cat_warning').text(' '+results.message);
 		      		}
 	    		}
 	  		});

@@ -12,7 +12,15 @@
 }
 
 .vertical-align {
-    display: flex;
+  display: -webkit-box;
+ display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+    display: flex; 
+    /* Align children to the horizontal center of this box */
+  box-align: center;              /* As specified */
+  -moz-box-align: center;         /* Mozilla */
+  -webkit-box-align: center;      /* WebKit */
     align-items: center;
 }
 

@@ -155,7 +155,7 @@
     <div class="row clearfix top-pic" id="section1">
         <img class="img img-responsive" src="/static/img/header-carousel/1m.jpg">
         <div class="top-cover">
-            <div class="center"><a class="navbar-brand" href="/">pics.ATO.care</a></div>
+            <div class="center"><a class="navbar-brand" href="/">pics.Care</a></div>
             <div class="center sub-top">{% trans "Help Ukraine" %}</div>
             <div class="center top-btn">
                 <a href="https://play.google.com/store/apps/details?id=com.atocare.wallpapers" target="_blank" class="btn btn-download top"><i class="fa fa-android android"></i>
@@ -183,20 +183,28 @@
             <div class="container heads">
                 <div class="column full counter backshadow">
                     <div class="column full text-center backshadow">
-                        <h1 class="count">{{ downloads }}</h1>
-                        <h6>{% trans "Total Downloads" %}</h6>
+                        <a href="#section4">
+                            <h1 class="count">{{ downloads }}</h1>
+                            <h6>{% trans "Total Downloads" %}</h6>
+                        </a>
                     </div>
                     <div class="column full text-center backshadow"> 
-                        <h1 class="count">${{ donated|floatformat:2 }}</h1>
-                        <h6>{% trans "Total rized" %}</h6>
+                        <a href="#section34">
+                            <h1 class="count">${{ donated|floatformat:2 }}</h1>
+                            <h6>{% trans "Total rized" %}</h6>
+                        </a>
                     </div>
                     <div class="column full text-center backshadow"> 
-                        <h1 class="count">{{ pictures }}</h1>
-                        <h6>{% trans "Pictires in app" %}</h6>
+                        <a href="/social">
+                            <h1 class="count">{{ pictures }}</h1>
+                            <h6>{% trans "Pictires in app" %}</h6>
+                        </a>
                     </div>
                     <div class="column full text-center backshadow"> 
-                        <h1 class="count">{{ photographers }}</h1>
-                        <h6>{% trans "Photographers" %}</h6>
+                        <a href="/social/{{LANG}}/authors">
+                            <h1 class="count">{{ photographers }}</h1>
+                            <h6>{% trans "Photographers" %}</h6>
+                        </a>
                     </div>
                 </div>
            </div>

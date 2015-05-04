@@ -29,7 +29,22 @@ def IndexUAView(request):
 		organization = {};
 		organization['name'] = org.name
 		organization['description'] = org.description
-		organizations.append(organization)
+		organization['organizer'] = org.author
+		amount = Download.objects.filter(organization=org.id).aggregate(Sum('amount'))
+		if amount['amount__sum']:
+			organization['amount'] = (int(amount['amount__sum']) * settings.DONATED_LEFT)
+		try:
+			links = []
+			for link in org.links.all():
+				lnk = {}
+				lnk['link_url'] = link.link_url
+				lnk['link_type'] = link.link_type.type_tag
+				links.append(lnk)
+			organization['links'] = links
+			organizations.append(organization)
+			print(organization['links'])
+		except Exception, e:
+			organizations.append(organization)
 
 	is_mobile = False;
 
@@ -113,7 +128,23 @@ def IndexENView(request):
 		organization = {};
 		organization['name'] = org.name
 		organization['description'] = org.description
-		organizations.append(organization)
+		organization['organizer'] = org.author
+		amount = Download.objects.filter(organization=org.id).aggregate(Sum('amount'))
+		if amount['amount__sum']:
+			organization['amount'] = (int(amount['amount__sum']) * settings.DONATED_LEFT)
+		try:
+			links = []
+			for link in org.links.all():
+				lnk = {}
+				lnk['link_url'] = link.link_url
+				lnk['link_type'] = link.link_type.type_tag
+				links.append(lnk)
+			organization['links'] = links
+			organizations.append(organization)
+			print(organization['links'])
+		except Exception, e:
+			organizations.append(organization)
+		
 
 	is_mobile = False;
 
