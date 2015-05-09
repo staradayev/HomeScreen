@@ -226,3 +226,8 @@ def SocialView(request):
 	template = loader.get_template('ato/social.html')
 	context = RequestContext(request, {'LANG': request.LANGUAGE_CODE})
 	return HttpResponse(template.render(context))
+
+def GoogleMerchView(request):
+	template = loader.get_template('ato/google8be9593cfc04aaac.html')
+	context = RequestContext(request)
+	return HttpResponse(template.render(context))

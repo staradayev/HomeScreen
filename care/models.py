@@ -118,9 +118,16 @@ class Picture(MultilingualModel):
 	def download_count(self):
 		return self.download_set.filter().count()
 
+	def amount_count(self):
+		aggregation = self.download_set.filter().aggregate(price=Sum('amount'))
+		return float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
+
 	def __str__(self):
 		try:
-			return self.translations.get(pk=self.id).name.encode('utf-8') or _(u'Unnamed')
+			if self.name:
+				return self.name.encode('utf-8')
+			else:
+				return _(u'Unnamed').encode('utf-8')
 		except PictureTranslation.DoesNotExist:
 			return 'None'
 

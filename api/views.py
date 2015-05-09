@@ -10,6 +10,8 @@ from django.core.paginator import Paginator
 from validate_email import validate_email
 from django.conf import settings
 from operator import itemgetter
+import urllib2
+import json
 
 
 class BaseMixin(View):
@@ -43,7 +45,7 @@ class BaseMixin(View):
                     except:
                         self.page_number = 1
             elif request.GET.get(param) and param == 'user_id':
-                if not validate_email(request.GET.get(param), verify=True):
+                if not validate_email(request.GET.get(param), verify=False):
                     return JsonResponse({'success': "false", 'message': "Please provide valid " + param})
 
 
@@ -102,8 +104,8 @@ class PopularListView(BaseMixin):
                 user = User.objects.get(pk=picture_item.author.id)
                 picture['author'] = "%s %s" % (user.first_name, user.last_name)
                 picture['author_id'] = user.id
-                donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
-                picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                aggregation = Download.objects.filter(picture=picture_item.id).aggregate(price=Sum('amount'))
+                picture['amount'] = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                 try:
                     user_profile = UserProfile.objects.get(user=user)
                     picture['author_thumbnail'] = user_profile.get_thumb()
@@ -143,8 +145,8 @@ class PictureByCategoryListView(BaseMixin):
                     user = User.objects.get(pk=picture_item.author.id)
                     picture['author'] = "%s %s" % (user.first_name, user.last_name)
                     picture['author_id'] = user.id
-                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
-                    picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    aggregation = Download.objects.filter(picture=picture_item.id).aggregate(price=Sum('amount'))
+                    picture['amount'] = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                     try:
                         user_profile = UserProfile.objects.get(user=user)
                         picture['author_thumbnail'] = user_profile.get_thumb()
@@ -168,7 +170,8 @@ class PictureView(BaseMixin):
                 picture_queryset = Picture.objects.filter(approve_status=True).get(pk=self.id)
                 user = User.objects.get(pk=picture_queryset.author.id)
                 user_profile = UserProfile.objects.get(user=user)
-                donated = Download.objects.filter(picture=picture_queryset.id).aggregate(Sum('amount'))
+                aggregation = Download.objects.filter(picture=picture_queryset.id).aggregate(price=Sum('amount'))
+                donated = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                 links = []
                 liked = 'false'
                 if request.GET.get('user_id') is not None and picture_queryset.like_set.filter(user=request.GET.get('user_id')).count() > 0:
@@ -211,7 +214,7 @@ class PictureView(BaseMixin):
                     'liked': liked,
                     'categories': categories,
                     'tags': tags,
-                    'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    'amount': donated,
                 }
                 return JsonResponse({'success': "true", 'message': '', 'entity': picture})
             except Exception, e:
@@ -224,24 +227,27 @@ class OrganizationsView(BaseMixin):
         if check_result:
             return check_result
         else:
-            try:
-                organizations = []
-                organizations_queryset = Organization.objects.all()
-                for organization_item in organizations_queryset:
-                    donated = Download.objects.filter(organization=organization_item.id).aggregate(Sum('amount'))
-                    donatedByUsr = Download.objects.filter(organization=organization_item.id, donator=request.GET.get('user_id')).aggregate(Sum('amount'))
-                    organization = {
-                        'id': organization_item.id,
-                        'name': organization_item.name,
-                        'author': organization_item.author,
-                        'description': organization_item.description,
-                        'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0,
-                        'user_amount': str(int(donatedByUsr['amount__sum']) * settings.DONATED_LEFT) if donatedByUsr['amount__sum'] else 0
-                    }
-                    organizations.append(organization)
-                return JsonResponse({'success': "true", 'message': '', 'entity': organizations})
-            except:
-                return JsonResponse({'success': "false", 'message': "Some error..."})
+            #try:
+            organizations = []
+            organizations_queryset = Organization.objects.all()
+            for organization_item in organizations_queryset:
+                aggregation = Download.objects.filter(organization=organization_item.id).aggregate(price=Sum('amount'))
+                donated = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
+            
+                aggregationUsr = Download.objects.filter(organization=organization_item.id, donator=request.GET.get('user_id')).aggregate(price=Sum('amount'))
+                donatedByUsr = float(aggregationUsr.get('price', 0)) * settings.DONATED_LEFT if aggregationUsr.get('price', 0) else 0
+                organization = {
+                    'id': organization_item.id,
+                    'name': organization_item.name,
+                    'author': organization_item.author,
+                    'description': organization_item.description,
+                    'amount': donated,
+                    'user_amount': donatedByUsr,
+                }
+                organizations.append(organization)
+            return JsonResponse({'success': "true", 'message': '', 'entity': organizations})
+            #except:
+            #    return JsonResponse({'success': "false", 'message': "Some error..."})
 
 
 class SearchView(BaseMixin):
@@ -274,7 +280,8 @@ class SearchView(BaseMixin):
                     pictures_paginated = paginator.page(page)
                     for picture_item in pictures_paginated:
                         user = User.objects.get(pk=picture_item.author.id)
-                        donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                        aggregation = Download.objects.filter(picture=picture_item.id).aggregate(price=Sum('amount'))
+                        donated = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                         picture = {
                             'id': picture_item.id,
                             'name': picture_item.name,
@@ -284,7 +291,7 @@ class SearchView(BaseMixin):
                             'author': u"{0} {1}".format(user.first_name, user.last_name),
                             'author_id': user.id,
                             'likes': picture_item.like_set.filter().count(),
-                            'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                            'amount': donated,
                         }
                         try:
                             user_profile = UserProfile.objects.get(user=user)
@@ -300,6 +307,11 @@ class SearchView(BaseMixin):
             except:
                 return JsonResponse({'success': "false", 'message': "Some error..."})
 
+def get_first(iterable, default=None):
+    if iterable:
+        for item in iterable:
+            return item
+    return default
 
 class DownloadAndroidView(BaseMixin):
     def get(self, request):
@@ -309,17 +321,31 @@ class DownloadAndroidView(BaseMixin):
         else:
             try:
                 picture = Picture.objects.filter(approve_status=True).get(pk=self.id)
+                
+                organization = Organization.objects.get(pk=self.org_id)
+                bid = settings.CURRENCIES_COURSE
                 try:
-                    organization = Organization.objects.get(pk=self.org_id)
-                    # -30% Play market
-                    up = Download.create(int(self.amount)*0.7, picture, organization, self.user_id, "api-android")
-                    up.save()
-                    for category in picture.category.all():
-                        up.category.add(Category.objects.get(pk=int(category.id)))
-                    up.save()
-                    return HttpResponse(open(picture.photo_origin.path, "rb").read(), content_type="image/jpg")
-                except:
-                    return JsonResponse({'success': "false", 'message': "Wrong organization in request..."})
+                    url = 'http://resources.finance.ua/ru/public/currency-cash.json'
+                    serialized_data = urllib2.urlopen(url, timeout = 1).read()
+                    data = json.loads(serialized_data)
+                    orgs = data.get(u'organizations')
+                    #Use PrivatBank -> LiqPay course
+                    for x in orgs:
+                        if x.get(u'id') == u'7oiylpmiow8iy1sma7w':
+                            curses = x.get(u'currencies')
+                            bid = curses.get(u'USD').get(u'ask')
+                except Exception, e:
+                    bid = settings.CURRENCIES_COURSE
+                    print("Can't get currencies course!")
+                    
+                print(bid)
+                # -30% Play market
+                up = Download.create('%.2f' % round(((float(self.amount)*0.7)/float(bid)), 2), picture, organization, self.user_id, request.GET.get('utid_id') if request.GET.get('utid_id') else "api-android")
+                up.save()
+                for category in picture.category.all():
+                    up.category.add(Category.objects.get(pk=int(category.id)))
+                up.save()
+                return HttpResponse(open(picture.photo_origin.path, "rb").read(), content_type="image/jpg")
             except:
                 return JsonResponse({'success': "false", 'message': "Wrong picture request..."})
 
@@ -331,19 +357,22 @@ class DownloadiOSView(BaseMixin):
         else:
             try:
                 picture = Picture.objects.filter(approve_status=True).get(pk=self.id)
-                try:
-                    organization = Organization.objects.get(pk=self.org_id)
-                    # -30% Aplle store
-                    up = Download.create(int(self.amount)*0.7, picture, organization, self.user_uid, "api-ios")
-                    up.save()
-                    for category in picture.category.all():
-                        up.category.add(Category.objects.get(pk=int(category.id)))
-                    up.save()
-                    return HttpResponse(open(picture.photo_origin.path, "rb").read(), content_type="image/jpg")
-                except:
-                    return JsonResponse({'success': "false", 'message': "Wrong organization in request..."})
+                organization = Organization.objects.get(pk=self.org_id)
+
+                # -30% Aplle store
+                if self.amount and self.amount > 0:
+                    #Pay
+                    up = Download.create(float(self.amount)*0.7, picture, organization, self.user_uid, request.GET.get('utid_id') if request.GET.get('utid_id') else "pay-ios")
+                else:
+                    #Free
+                    up = Download.create(0, picture, organization, self.user_uid, "api-ios")
+                up.save()
+                for category in picture.category.all():
+                    up.category.add(Category.objects.get(pk=int(category.id)))
+                up.save()
+                return HttpResponse(open(picture.photo_origin.path, "rb").read(), content_type="image/jpg")
             except:
-                return JsonResponse({'success': "false", 'message': "Wrong picture request..."})
+                return JsonResponse({'success': "false", 'message': "Wrong request..."})
 
 class LikeView(BaseMixin):
     def get(self, request):
@@ -384,13 +413,16 @@ class AuthorListView(BaseMixin):
                 pictures_paginated = paginator.page(self.page_number if self.page_number <= paginator.num_pages else paginator.num_pages)
                 
                 for p in picture_list:
-                    donated = Download.objects.filter(picture=p.id).aggregate(Sum('amount'))
-                    if donated['amount__sum']:
-                        help = round((float(help) + float(donated['amount__sum'])), 2)
+                    aggregation = Download.objects.filter(picture=p.id).aggregate(price=Sum('amount'))
+                    donated = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
+                    
+                    if donated:
+                        help = round((float(help) + float(donated)), 2)
                         
 
                 for picture_item in pictures_paginated:
-                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                    aggregation = Download.objects.filter(picture=picture_item.id).aggregate(price=Sum('amount'))
+                    donated = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                     picture = {
                         'id': picture_item.id,
                         'downloads': picture_item.download_set.all().count(),
@@ -400,7 +432,7 @@ class AuthorListView(BaseMixin):
                         'author': picture_author_name,
                         'author_id': picture_author.id,
                         'likes': picture_item.like_set.filter().count(),
-                        'amount': str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                        'amount': donated
                     }
                     try:
                         user_profile = UserProfile.objects.get(user=picture_author)
@@ -487,8 +519,8 @@ class NewestView(BaseMixin):
                     user = User.objects.get(pk=picture_item.author.id)
                     picture['author'] = "%s %s" % (user.first_name, user.last_name)
                     picture['author_id'] = user.id
-                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
-                    picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    aggregation = Download.objects.filter(picture=picture_item.id).aggregate(price=Sum('amount'))
+                    picture['amount'] = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                     try:
                         user_profile = UserProfile.objects.get(user=user)
                         picture['author_thumbnail'] = user_profile.get_thumb()
@@ -510,7 +542,7 @@ class MostRaisedView(BaseMixin):
         else:
             try:
                 pictures_list = []
-                pictures_list_queryset = Picture.objects.filter(approve_status=True).annotate(count=Count('download'))
+                pictures_list_queryset = Picture.objects.filter(approve_status=True).annotate(count=Count('download')).order_by('-download__amount')
                 paginator = Paginator(pictures_list_queryset, settings.PICTURES_PER_PAGE)
                 if self.page_number <= paginator.num_pages:
                     page = self.page_number
@@ -530,8 +562,8 @@ class MostRaisedView(BaseMixin):
                     user = User.objects.get(pk=picture_item.author.id)
                     picture['author'] = "%s %s" % (user.first_name, user.last_name)
                     picture['author_id'] = user.id
-                    donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
-                    picture['amount'] = str(int(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                    aggregation = Download.objects.filter(picture=picture_item.id).aggregate(price=Sum('amount'))
+                    picture['amount'] = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                     try:
                         user_profile = UserProfile.objects.get(user=user)
                         picture['author_thumbnail'] = user_profile.get_thumb()
@@ -579,7 +611,8 @@ class PhotographersView(BaseMixin):
                     photographer['donated'] = 0
                     picture_list = Picture.objects.filter(approve_status=True, author=photographer_item.user.id).annotate(count=Count('download')).order_by('-count')[:settings.PHOTOS_PER_PHOTOGRAPHER]
                     for picture_item in picture_list:
-                        donated = Download.objects.filter(picture=picture_item.id).aggregate(Sum('amount'))
+                        aggregation = Download.objects.filter(picture=picture_item.id).aggregate(price=Sum('amount'))
+                        donated = float(aggregation.get('price', 0)) * settings.DONATED_LEFT if aggregation.get('price', 0) else 0
                         picture = {
                             'id': picture_item.id,
                             'downloads': picture_item.download_set.all().count(),
@@ -589,18 +622,16 @@ class PhotographersView(BaseMixin):
                             'likes': picture_item.like_set.filter().count(),
                             'author': photographer_item.user.first_name + " " + photographer_item.user.last_name,
                             'author_id': photographer_item.user.id,
-                            'amount': str(float(donated['amount__sum']) * settings.DONATED_LEFT) if donated['amount__sum'] else 0
+                            'amount': donated
                         }
-                        if donated['amount__sum']:
-                            print('D=%f' % photographer['donated'])
-                            print('S=%f' % donated['amount__sum'])
-                            photographer['donated'] = photographer['donated'] + donated['amount__sum']
+                        if donated:
+                            photographer['donated'] = round((float(photographer['donated']) + float(donated)), 2)
 
                         photographer['pictures'].append(picture)
                     photographer['author_thumbnail'] = user_profile.get_thumb()
                     photographer['author_photo'] = user_profile.get_user_picture()
                     print(photographer['donated'])
-                    photographer['donated'] = formatted(photographer['donated'])
+                    photographer['donated'] = photographer['donated']
                     if photographer['pictures']:
                         photographers.append(photographer)
                 return JsonResponse({'success': "true", 'message': '', 'page': page, 'count': paginator.num_pages, 'entity': photographers})

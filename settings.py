@@ -142,6 +142,8 @@ USE_TZ = True
 
 DONATED_LEFT = 0.95
 
+CURRENCIES_COURSE = 22
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

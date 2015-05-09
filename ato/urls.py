@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^ppen/$', views.PPEView, name='ppEnglish'),
     url(r'^ppua/$', views.PPUView, name='ppUkrainian'),
     url(r'^social/', views.SocialView, name='social'),
+    url(r'^google8be9593cfc04aaac/', views.GoogleMerchView, name='GoogleMerch'),
+    url(r'^google8be9593cfc04aaac.html', views.GoogleMerchView, name='GoogleMerch'),
 )
