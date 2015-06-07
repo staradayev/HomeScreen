@@ -14,6 +14,7 @@ import urllib2
 import json
 
 
+
 class BaseMixin(View):
     http_method_names = ['get']
 
