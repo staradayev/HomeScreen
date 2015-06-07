@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 media/
 env/
 *.pyc
@@ -5,3 +6,7 @@ env/
 
 =======
 >>>>>>> bb58dd8ce09bd5faf3e77a8c042acaa2b0a5d778
+=======
+logs/*
+!.gitkeep
+>>>>>>> 03e205bbc2b113cdf6e199a1a3f595e863e8a466

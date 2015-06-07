@@ -1,0 +1,18 @@
+<div class="data">
+                    <div class="head">
+                        <span class="left">{{mes.day}}</span>
+                        <span class="right">{{mes.date}}</span>
+                    </div>
+                    <article class="list" ng-repeat="mesItem in mes.items" id="{{mesItem.MsgID}}">
+                        <div ng-class="{message: true, unread: mesItem.Unread == true}">
+                            <span class="ico chat"></span>
+                            <div class="text">
+                                <p class="msg-head">{{mesItem.HeaderText}} <span>{{mesItem.TimeSentText}}</span></p>
+                                <p class="msg-body"> {{mesItem.MsgText}}
+                            </p></div>
+                            <a class="button red delete hidden" href="">Delete</a>
+                            <span class="view"></span>
+                        </div>
+                    </article>                    
+                    <div class="border"></div>
+                </div>
