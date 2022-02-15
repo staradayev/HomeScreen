@@ -83,6 +83,8 @@ reverse-proxying the backend server(s) and a webserver(s).
 
 ### Running unit tests
 
+Test <sub><sup>combining the two tags</sup></sub> for smaller text
+
 We recommend using [jasmine](http://pivotal.github.com/jasmine/) and
 [Karma](http://karma-runner.github.io) for your unit tests/specs, but you are free
 to use whatever works for you.
